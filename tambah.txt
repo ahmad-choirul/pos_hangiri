@@ -1,0 +1,5 @@
+komisi group by id_spg / bulan
+query laporan penjualan
+crud pembayaran kredit
+komisi dapat dari data item
+utility stock 

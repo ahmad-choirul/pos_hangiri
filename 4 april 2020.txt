@@ -1,0 +1,17 @@
+perbaikan
+-transaksi nonppn
+-transaksi prekusor
+-transaksi oot
+-selesai belanja data keranjang terhapus
+-proses pindah data keranjang ke penjualan memakai model penjualan_model->submitpaymentv2
+
+penambahan
+-otomatis set jenis penjualan berdasarkan menu yg dipilih di dropdown penjualan
+-target ppn,nonppn,prekusor,oot sudah berkurang sesuai dengan jenis di penjualan
+-jika target ppn,nonppn,prekusir,oot sudah tercapai / sudah Rp. 0 panel berubah hijau
+-data keranjang yg belum selesai akan muncul kembali di tampilan transaksi
+-tambah kolom total bayar dan keterangan saat melakukan pembayaran
+-struk menampilkan total bayar dan kembalian jika ada
+
+database
+-tambah kolom jenis_penjualan di tabel penjualan (untuk membedakan data transaksi)
