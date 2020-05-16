@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html class="fixed sidebar-left-collapsed">
     <head>  
 		<meta charset="UTF-8"> 
-		<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favicon.png" type="image/ico">   
+		<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favi.png" type="image/ico">   
 		<title>Hangiri Resto</title>    
 		<meta name="author" content="Paber"> 
 		<!-- Mobile Metas -->
@@ -56,56 +56,56 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<div class="sidebar-widget m-none"> 
 												<div class="widget-content">
 													<ul class="mg-folders" style="background-color: #168ec7;">
-														<li>
-															<a href="<?php echo base_url()?>stok/keluar" class="menu-item" style="color: white"><i class="fa fa-folder"></i> Stok Keluar Retur Pembelian</a>
-															<div class="item-options">
-																<a href="<?php echo base_url()?>stok/keluar">
-																	<i class="fa fa-arrow-circle-o-left"></i>
-																</a> 
-															</div>
-														</li> 
-														<!-- <li>
-															<a href="<?php echo base_url()?>stok/adjustment" class="menu-item"><i class="fa fa-folder"></i> Stok Adjustment</a>
-															<div class="item-options">
-																<a href="<?php echo base_url()?>stok/adjustment">
-																	<i class="fa fa-arrow-circle-o-left"></i>
-																</a> 
-															</div>
-														</li> 
-														<li>
-															<a href="<?php echo base_url()?>stok/opname" class="menu-item"><i class="fa fa-folder"></i> Stok Opname</a>
-															<div class="item-options">
-																<a href="<?php echo base_url()?>stok/opname">
-																	<i class="fa fa-arrow-circle-o-left"></i>
-																</a> 
-															</div>
-														</li>  -->
-														<li>
-															<a href="<?php echo base_url()?>stok/barcode" class="menu-item" style="color: white"><i class="fa fa-folder"></i> Cetak Barcode</a>
-															<div class="item-options">
-																<a href="<?php echo base_url()?>stok/barcode">
-																	<i class="fa fa-arrow-circle-o-left"></i>
-																</a> 
-															</div>
-														</li>  
-														<li>
-															<a href="<?php echo base_url()?>stok/kartustok" class="menu-item" style="color: white"><i class="fa fa-folder"></i> Kartu Stok</a>
-															<div class="item-options">
-																<a href="<?php echo base_url()?>stok/kartustok">
-																	<i class="fa fa-arrow-circle-o-left"></i>
-																</a> 
-															</div>
+                                                        <li>
+                                                            <a href="<?php echo base_url()?>stok/keluar" class="menu-item" style="color: white"><i class="fa fa-folder"></i> Stok Keluar Retur Pembelian</a>
+                                                            <div class="item-options">
+                                                                <a href="<?php echo base_url()?>stok/keluar">
+                                                                    <i class="fa fa-arrow-circle-o-left"></i>
+                                                                </a> 
+                                                            </div>
+                                                        </li> 
+                                                        <!-- <li>
+                                                            <a href="<?php echo base_url()?>stok/adjustment" class="menu-item"><i class="fa fa-folder"></i> Stok Adjustment</a>
+                                                            <div class="item-options">
+                                                                <a href="<?php echo base_url()?>stok/adjustment">
+                                                                    <i class="fa fa-arrow-circle-o-left"></i>
+                                                                </a> 
+                                                            </div>
+                                                        </li> 
+                                                        <li>
+                                                            <a href="<?php echo base_url()?>stok/opname" class="menu-item"><i class="fa fa-folder"></i> Stok Opname</a>
+                                                            <div class="item-options">
+                                                                <a href="<?php echo base_url()?>stok/opname">
+                                                                    <i class="fa fa-arrow-circle-o-left"></i>
+                                                                </a> 
+                                                            </div>
+                                                        </li>  -->
+                                                        <li>
+                                                            <a href="<?php echo base_url()?>stok/barcode" class="menu-item" style="color: white"><i class="fa fa-folder"></i> Cetak Barcode</a>
+                                                            <div class="item-options">
+                                                                <a href="<?php echo base_url()?>stok/barcode">
+                                                                    <i class="fa fa-arrow-circle-o-left"></i>
+                                                                </a> 
+                                                            </div>
+                                                        </li>  
+                                                        <li>
+                                                            <a href="<?php echo base_url()?>stok/kartustok" class="menu-item" style="color: white"><i class="fa fa-folder"></i> Kartu Stok</a>
+                                                            <div class="item-options">
+                                                                <a href="<?php echo base_url()?>stok/kartustok">
+                                                                    <i class="fa fa-arrow-circle-o-left"></i>
+                                                                </a> 
+                                                            </div>
                                                         </li>  
                                                         
-														<li>
-															<a href="<?php echo base_url()?>stok/utility" class="menu-item" style="color: white"><i class="fa fa-folder"></i>Utility Stok</a>
-															<div class="item-options">
-																<a href="<?php echo base_url()?>stok/utility">
-																	<i class="fa fa-arrow-circle-o-left"></i>
-																</a> 
-															</div>
-														</li> 
-													</ul>
+                                                        <li>
+                                                            <a href="<?php echo base_url()?>stok/utility" class="menu-item" style="color: white"><i class="fa fa-folder"></i>Utility Stok</a>
+                                                            <div class="item-options">
+                                                                <a href="<?php echo base_url()?>stok/utility">
+                                                                    <i class="fa fa-arrow-circle-o-left"></i>
+                                                                </a> 
+                                                            </div>
+                                                        </li> 
+                                                    </ul>
 												</div>
 											</div> 
 										</div>

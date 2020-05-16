@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html class="fixed sidebar-left-collapsed">
     <head>  
 		<meta charset="UTF-8"> 
-		<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favicon.png" type="image/ico">   
+		<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favi.png" type="image/ico">   
 		<title>Hangiri Resto</title>    
 		<meta name="author" content="Paber"> 
 		<!-- Mobile Metas -->
@@ -53,42 +53,42 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											</a>
 										</div> 
 										<div class="inner-menu-content">  
-											<div class="sidebar-widget m-none" style=""> 
+											<div class="sidebar-widget m-none"> 
 												<div class="widget-content">
 													<ul class="mg-folders" style="background-color: #168ec7;">
-														<li>
-															<a href="<?php echo base_url()?>penjualan/diskon" class="menu-item" style="color: white;"><i class="fa fa-folder" ></i> Diskon Produk</a>
-															<div class="item-options">
-																<a href="<?php echo base_url()?>penjualan/diskon">
-																	<i class="fa fa-arrow-circle-o-left"></i>
-																</a> 
-															</div>
-														</li> 
-														<li>
-															<a href="<?php echo base_url()?>penjualan/jenispembayaran" class="menu-item" style="color: white;"><i class="fa fa-folder"></i> Jenis Pembayaran</a>
-															<div class="item-options">
-																<a href="<?php echo base_url()?>penjualan/jenispembayaran">
-																	<i class="fa fa-arrow-circle-o-left"></i>
-																</a> 
-															</div>
-														</li> 
-														<!-- <li>
-															<a href="<?php echo base_url()?>penjualan/kasir" class="menu-item"><i class="fa fa-folder"></i> Point Of Sales / Kasir</a>
-															<div class="item-options">
-																<a href="<?php echo base_url()?>penjualan/kasir">
-																	<i class="fa fa-arrow-circle-o-left"></i>
-																</a> 
-															</div>
-														</li>   -->
                                                         <li>
-															<a href="<?php echo base_url()?>penjualan/target" class="menu-item" style="color: white;"><i class="fa fa-folder"></i> Target Penjualan</a>
-															<div class="item-options">
-																<a href="<?php echo base_url()?>penjualan/target">
-																	<i class="fa fa-arrow-circle-o-left"></i>
-																</a> 
-															</div>
-														</li>  
-													</ul>
+                                                            <a href="<?php echo base_url()?>penjualan/diskon" class="menu-item" style="color: white;"><i class="fa fa-folder" ></i> Diskon Produk</a>
+                                                            <div class="item-options">
+                                                                <a href="<?php echo base_url()?>penjualan/diskon">
+                                                                    <i class="fa fa-arrow-circle-o-left"></i>
+                                                                </a> 
+                                                            </div>
+                                                        </li> 
+                                                        <li>
+                                                            <a href="<?php echo base_url()?>penjualan/jenispembayaran" class="menu-item" style="color: white;"><i class="fa fa-folder"></i> Jenis Pembayaran</a>
+                                                            <div class="item-options">
+                                                                <a href="<?php echo base_url()?>penjualan/jenispembayaran">
+                                                                    <i class="fa fa-arrow-circle-o-left"></i>
+                                                                </a> 
+                                                            </div>
+                                                        </li> 
+                                                        <!-- <li>
+                                                            <a href="<?php echo base_url()?>penjualan/kasir" class="menu-item"><i class="fa fa-folder"></i> Point Of Sales / Kasir</a>
+                                                            <div class="item-options">
+                                                                <a href="<?php echo base_url()?>penjualan/kasir">
+                                                                    <i class="fa fa-arrow-circle-o-left"></i>
+                                                                </a> 
+                                                            </div>
+                                                        </li>   -->
+                                                        <li>
+                                                            <a href="<?php echo base_url()?>penjualan/target" class="menu-item" style="color: white;"><i class="fa fa-folder"></i> Target Penjualan</a>
+                                                            <div class="item-options">
+                                                                <a href="<?php echo base_url()?>penjualan/target">
+                                                                    <i class="fa fa-arrow-circle-o-left"></i>
+                                                                </a> 
+                                                            </div>
+                                                        </li>  
+                                                    </ul>
 												</div>
 											</div> 
 										</div>

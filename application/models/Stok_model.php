@@ -532,6 +532,7 @@ class Stok_model extends CI_Model
         $this->db->select('*');
         $this->db->from('kartu_stok');
         $this->db->join('master_item', 'kartu_stok.kode_item = master_item.kode_item');
+        $this->db->order_by('tanggal', 'desc');
         $query = $this->db->get();
         return $query->result();
     }
@@ -659,6 +660,7 @@ class Stok_model extends CI_Model
             'jumlah' => bilanganbulat($post["jumlah"]),
         );
         $this->db->insert("master_utility", $array);
+        $insert_id = $this->db->insert_id();
         // add/minus stok item
         if ($aksi == '+') {
             $this->db->set('stok', 'stok + ' . (int) bilanganbulat($post["jumlah"]), FALSE)->where('kode_item', $post["kode_item"])->update('master_item');
@@ -666,7 +668,6 @@ class Stok_model extends CI_Model
             $this->db->set('stok', 'stok - ' . (int) bilanganbulat($post["jumlah"]), FALSE)->where('kode_item', $post["kode_item"])->update('master_item');
         }
         // tulis kartu stok
-        $insert_id = $this->db->insert_id();
         $list= array(
             'id_utility'=>$insert_id,
             'kode_item'=>$post["kode_item"],

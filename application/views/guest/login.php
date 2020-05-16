@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<head>    
 		<!-- Basic -->
 		<meta charset="UTF-8"> 
-		<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favicon.png" type="image/ico">   
+		<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favi.png" type="image/ico">   
 		<title>Hangiri Resto</title>  
 		<meta name="keywords" content="Aplikasi salon kecantikan" /> 
 		<meta name="author" content="Manigom"> 

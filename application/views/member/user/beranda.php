@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html class="fixed sidebar-left-collapsed">
     <head>  
 		<meta charset="UTF-8"> 
-		<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favicon.png" type="image/ico">   
+		<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favi.png" type="image/ico">   
 		<title>Hangiri Resto</title>    
 		<meta name="author" content="Paber"> 
 		<!-- Mobile Metas -->
@@ -56,23 +56,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<div class="sidebar-widget m-none"> 
 												<div class="widget-content">
 													<ul class="mg-folders" style="background-color: #168ec7;">
-														<li>
-															<a href="<?php echo base_url()?>user/kategori" class="menu-item" style="color: white;"><i class="fa fa-folder" ></i> User Kategori</a>
-															<div class="item-options">
-																<a href="<?php echo base_url()?>user/kategori">
-																	<i class="fa fa-arrow-circle-o-left"></i>
-																</a> 
-															</div>
-														</li> 
-														<li>
-															<a href="<?php echo base_url()?>user/user" class="menu-item" style="color: white;"><i class="fa fa-folder"></i> User Management</a>
-															<div class="item-options">
-																<a href="<?php echo base_url()?>user/user">
-																	<i class="fa fa-arrow-circle-o-left"></i>
-																</a> 
-															</div>
-														</li>  
-													</ul>
+                                                        <li>
+                                                            <a href="<?php echo base_url()?>user/kategori" class="menu-item" style="color: white;"><i class="fa fa-folder" ></i> User Kategori</a>
+                                                            <div class="item-options">
+                                                                <a href="<?php echo base_url()?>user/kategori">
+                                                                    <i class="fa fa-arrow-circle-o-left"></i>
+                                                                </a> 
+                                                            </div>
+                                                        </li> 
+                                                        <li>
+                                                            <a href="<?php echo base_url()?>user/user" class="menu-item" style="color: white;"><i class="fa fa-folder"></i> User Management</a>
+                                                            <div class="item-options">
+                                                                <a href="<?php echo base_url()?>user/user">
+                                                                    <i class="fa fa-arrow-circle-o-left"></i>
+                                                                </a> 
+                                                            </div>
+                                                        </li>  
+                                                    </ul>
 												</div>
 											</div> 
 										</div>

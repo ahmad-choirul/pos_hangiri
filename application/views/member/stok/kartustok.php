@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html class="fixed sidebar-left-collapsed">
 	<head>  
 		<meta charset="UTF-8"> 
-		<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favicon.png" type="image/ico">   
+		<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favi.png" type="image/ico">   
 		<title>Hangiri Resto</title>    
 		<meta name="author" content="Paber">  
         <!-- Mobile Metas -->
@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <th></th>
                                             <th>Nama Item</th>
                                             <th>Tanggal</th>
-                                            <th width="300">Keterangan</th>
+                                            <th>Keterangan</th>
                                             <th>Jumlah Masuk</th>
                                             <th>Jumlah Keluar</th>
                                             <th>Stok Sisa</th>

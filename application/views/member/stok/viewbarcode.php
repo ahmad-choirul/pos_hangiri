@@ -8,7 +8,7 @@ $harga = $this->input->post("harga");
 <html class="fixed sidebar-left-collapsed">
 	<head>  
 		<meta charset="UTF-8"> 
-		<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favicon.png" type="image/ico">   
+		<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favi.png" type="image/ico">   
 		<title>Hangiri Resto</title>    
 		<meta name="author" content="Paber">  
 		<link rel="stylesheet" href="<?php echo base_url()?>/assets/vendor/bootstrap/css/bootstrap.css" />

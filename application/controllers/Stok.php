@@ -513,7 +513,20 @@ public function datakartustok()
         ';
         $row[] = $this->security->xss_clean($r->nama_item); 
         $row[] = $this->security->xss_clean($r->tanggal); 
-        $row[] = $this->security->xss_clean($r->keterangan);  
+        $keterangan='';
+        if ($r->nomor_rec_penerimaan!=null) {
+            $keterangan = 'rec penerimaan';
+        }
+        if ($r->id_utility!=null) {
+            $keterangan = 'utility';
+        }
+        if ($r->id_stok_opname!=null) {
+            $keterangan = 'opname';
+        }
+        if ($r->id_penjualan!=null) {
+            $keterangan = 'penjualan';
+        }
+        $row[] = $this->security->xss_clean($keterangan);  
         $row[] = $this->security->xss_clean(bilanganbulat($r->jumlah_masuk));
         $row[] = $this->security->xss_clean(bilanganbulat($r->jumlah_keluar)); 
         $row[] = $this->security->xss_clean(bilanganbulat($r->stok_sisa)); 
@@ -630,29 +643,39 @@ public function stokutilitytambah(){
     if(isset($kode_item) === TRUE AND $nama_item !='')
     { 
         $cek = $this->db->select('*')->from('kartu_stok')->where('kode_item ="'.$kode_item.'"')->get();
-        if($cek->num_rows() > 0){              
+        $statcek=false;
+        if ($cek->num_rows() <= 0) {
+            $this->db->query("INSERT INTO `kartu_stok` (`id`, `nomor_rec_penerimaan`, `id_utility`, `id_stok_opname`, `id_stok_keluar`, `id_penjualan`, `kode_item`, `tanggal`, `jenis_transaksi`, `jumlah_masuk`, `jumlah_keluar`, `satuan_kecil`, `stok_sisa`, `tgl_expired`) VALUES (NULL, NULL, NULL, NULL, NULL, NULL, '$kode_item', 'current_timestamp()', 'stok utility', '0', '0', '1', '0', NULL);");
+            $statcek=true;
+        }
+        if($cek->num_rows() > 0||$statcek){              
             $masuk = $this->db->select('SUM(jumlah_masuk) as total')->from('kartu_stok')->where('kode_item ="'.$kode_item.'"')->get()->row();
             $keluar = $this->db->select('SUM(jumlah_keluar) as total')->from('kartu_stok')->where('kode_item ="'.$kode_item.'"')->get()->row();
             $total = $masuk->total - $keluar->total ;
-            $sisa = $total - $post["jumlah"];
+            $aksi = $post["aksi"];
+            if ($aksi == '+') {
+                $sisa = $total + $post["jumlah"];
+            }else{
+                $sisa = $total - $post["jumlah"];
+            }
             if($sisa < 0 )
-            { 
-                $errors['kode_item'] = "Data tidak sesuai dengan database stok";
-                $errors['tgl_expired'] = "Data tidak sesuai dengan database stok";
+            {
+                $errors['kode_item'] = "Stok sisa kurang dari 0 (nol)";
+                $errors['tgl_expired'] = "Data tidak sesuai dengan database stok 2";
                 $data['errors'] = $errors;
             }else{ 
                 if($simpan->simpandatastokutility()){
                     $data['success']= true;
                     $data['message']="Berhasil menyimpan data";   
                 }else{
-                    $errors['fail'] = "gagal melakukan update data";
+                    $data['success']= false;
+                    $errors['fail'] = "gagal menyimpan data";
                     $data['errors'] = $errors;
                 }
             }
-
         }else{  
-            $errors['kode_item'] = "Data tidak sesuai dengan database stok";
-            $errors['tgl_expired'] = "Data tidak sesuai dengan database stok";
+            $errors['kode_item'] = "Data tidak sesuai dengan database stok 3";
+            $errors['tgl_expired'] = "Data tidak sesuai dengan database stok 4";
             $data['errors'] = $errors;
         }  
     }
@@ -667,11 +690,11 @@ if ($this->db->trans_status() === FALSE)
 }
 else
 {
- $this->db->trans_rollback();
-
+    $this->db->trans_commit();
 }
-        // $data['token'] = $this->security->get_csrf_hash();
-        // echo json_encode($data); 
+$data['token'] = $this->security->get_csrf_hash();
+$this->session->set_userdata('cek', $data);
+echo json_encode($data); 
 }
 public function stokutilityhapus(){ 
     cekajax(); 
@@ -686,5 +709,11 @@ public function stokutilityhapus(){
     $data['token'] = $this->security->get_csrf_hash();
     echo json_encode($data); 
 }
+public function cek()
+{
+   echo "<pre>";
+   print_r ($this->session->userdata());
+   echo "</pre>";
 
+}
 }

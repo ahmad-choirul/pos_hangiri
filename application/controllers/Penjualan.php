@@ -50,11 +50,11 @@ class Penjualan extends CI_Controller {
             ); 
         }  
         $result = array( 
-           "draw" => $draw, 
-           "recordsTotal" => $totalrows, 
-           "recordsFiltered" => $totalrows, 
-           "data" => $data 
-       );  
+         "draw" => $draw, 
+         "recordsTotal" => $totalrows, 
+         "recordsFiltered" => $totalrows, 
+         "data" => $data 
+     );  
         echo json_encode($result);  
     }  
 
@@ -67,7 +67,7 @@ class Penjualan extends CI_Controller {
             $errors = $this->form_validation->error_array();
             $data['errors'] = $errors;
         }else{  
-         if($simpan->simpandatadiskon()){ 
+           if($simpan->simpandatadiskon()){ 
             $data['success']= true;
             $data['message']="Berhasil menyimpan data";  
         }else{
@@ -137,9 +137,9 @@ public function banktambah(){
     $validation = $this->form_validation; 
     $validation->set_rules($simpan->rulesbank());
     if ($this->form_validation->run() == FALSE){
-     $errors = $this->form_validation->error_array();
-     $data['errors'] = $errors;
- }else{    
+       $errors = $this->form_validation->error_array();
+       $data['errors'] = $errors;
+   }else{    
     if($simpan->simpandatabank()){
         $data['success']= true;
         $data['message']="Berhasil menyimpan data";  
@@ -171,9 +171,9 @@ public function bankedit(){
     $validation = $this->form_validation; 
     $validation->set_rules($simpan->rulesbank());
     if ($this->form_validation->run() == FALSE){
-     $errors = $this->form_validation->error_array();
-     $data['errors'] = $errors;
- }else{    
+       $errors = $this->form_validation->error_array();
+       $data['errors'] = $errors;
+   }else{    
     if($simpan->updatedatabank()){
         $data['success']= true;
         $data['message']="Berhasil menyimpan data";
@@ -231,7 +231,7 @@ public function ajaxPaginationDataKasir($kode)
     $totalRec = 0;
 
         //pagination configuration
-        // $data['kode'] = $kode;
+    $data['kode'] = $kode;
         // $where = 'kategori = OOT';
         // $where1 = 'kategori = Prekursor';
     if ($kode==1) {
@@ -458,13 +458,13 @@ function ajaxPaginationData(){
     if(!empty($sortBy)){
         $conditions['search']['sortBy'] = $sortBy;
     }
-    if ($jns_penjualan='1') {
-        $kategori='';
-    }elseif ($jns_penjualan='2') {
+    if ($jns_penjualan=='1') {
+        $kategori='PPN';
+    }elseif ($jns_penjualan=='2') {
         $kategori='Tanpa PPN';
-    }elseif ($jns_penjualan='3') {
+    }elseif ($jns_penjualan=='3') {
         $kategori='Prekusor';
-    }elseif ($jns_penjualan='4') {
+    }elseif ($jns_penjualan=='4') {
         $kategori='OOT';
     }
         //total rows count
@@ -487,6 +487,7 @@ function ajaxPaginationData(){
 
         //load the view
     $this->load->view('member/penjualan/ajax-pagination-data', $data, false);
+
 }
 
 public function datapembeli()
@@ -508,11 +509,11 @@ public function datapembeli()
         ); 
     }  
     $result = array( 
-       "draw" => $draw, 
-       "recordsTotal" => $query->num_rows(), 
-       "recordsFiltered" => $query->num_rows(), 
-       "data" => $data 
-   );  
+     "draw" => $draw, 
+     "recordsTotal" => $query->num_rows(), 
+     "recordsFiltered" => $query->num_rows(), 
+     "data" => $data 
+ );  
     echo json_encode($result);  
 }
 
@@ -540,11 +541,11 @@ public function datahold()
         ); 
     }  
     $result = array( 
-       "draw" => $draw, 
-       "recordsTotal" => $query->num_rows(), 
-       "recordsFiltered" => $query->num_rows(), 
-       "data" => $data 
-   );  
+     "draw" => $draw, 
+     "recordsTotal" => $query->num_rows(), 
+     "recordsFiltered" => $query->num_rows(), 
+     "data" => $data 
+ );  
     echo json_encode($result);  
 }
 
@@ -652,15 +653,83 @@ public function submitpayment(){
 }
 
 function struk()
+{   $keranjang = $this->db->get_where('keranjang', array('hold' => '0', 'token' => $this->security->get_csrf_hash(), 'id_admin' => $this->session->userdata('idadmin')), 1);
+
+$data['id_pembeli'] =  $keranjang->row()->id_pembeli;
+$date = $this->input->get('tmp');
+$data['tempo'] = date("yyyy-mm-dd",strtotime($date)) ;
+
+  //no
+$this->db->order_by('id', 'DESC'); 
+$this->db->limit(1);
+$idpnj = $this->db->get('penjualan')->row()->id;
+        //pembeli
+if ($data['id_pembeli']!='') {
+ $this->db->where('id',  $data['id_pembeli']);
+}
+$this->db->limit(1);
+$pembeli = $this->db->get('master_pembeli');
+        //apotek
+$this->db->order_by('id', 'DESC'); 
+$this->db->limit(1);
+$apotik = $this->db->get('profil_apotek');
+        //keranjang
+$id = $this->input->get('t');
+$this->db->select("*");
+$this->db->from("keranjang_detail a");
+$this->db->join('master_item b', 'a.kode_item = b.kode_item');  
+        // $this->db->join('keranjang c', 'a.id_keranjang = c.id'); 
+$this->db->where('a.id_keranjang', $id);
+        // $this->db->group_by('a.id');
+$this->db->order_by('a.id', 'DESC'); 
+$detail = $this->db->get();
+        // 
+$ids = $this->input->get('spg');
+$this->db->select("*");
+$this->db->from("master_spg a");
+$this->db->where('a.id', $ids);
+$spg = $this->db->get();
+        // 
+
+        // data
+$data['keranjang'] =  $detail->result_array();
+$data['penjualan'] =  $idpnj +1;
+$data['spg'] =  $spg->row()->nama_spg;
+$data['id_spg'] =  $spg->row()->id;
+$data['kode'] =  $this->input->get('tp');
+$data['apoteker'] =  $pembeli->result_array();
+$data['apotik'] =  $apotik->result_array();
+$data['jns_penjualan'] =  $this->input->get('jns_penjualan');
+$data['status'] =  "Cash";
+$data['kepada'] =  "Costumer Toko";
+$data['totalbayar'] =  $this->input->get('bayar');
+$status = $this->penjualan_model->submitpaymentv2($data);
+if ($status) {
+    $this->load->view('member/penjualan/struk', $data);     
+}else{
+    redirect('penjualan/kasir?t='.$data['jns_penjualan'],'refresh');
+}
+}
+public function transaksi_barang($id_keranjang)
+{
+    // $this->penjualan_model->hapuskeranjang($get['t']);//hapus data barang di transaksi
+}
+public function struk_kredit()
 {    
-        //no
+    $keranjang = $this->db->get_where('keranjang', array('hold' => '0', 'token' => $this->security->get_csrf_hash(), 'id_admin' => $this->session->userdata('idadmin')), 1);
+
+    $data['id_pembeli'] =  $keranjang->row()->id_pembeli;
+    $date = $this->input->get('tmp');
+    $data['tempo'] = date("yy-m-d",strtotime($date)) ;
+
+  //no
     $this->db->order_by('id', 'DESC'); 
     $this->db->limit(1);
     $idpnj = $this->db->get('penjualan')->row()->id;
-        //apotek
-    $this->db->order_by('id', 'DESC'); 
+        //pembeli
+    $this->db->where('id',  $data['id_pembeli']);
     $this->db->limit(1);
-    $apoteker = $this->db->get('master_pembeli');
+    $pembeli = $this->db->get('master_pembeli');
         //apotek
     $this->db->order_by('id', 'DESC'); 
     $this->db->limit(1);
@@ -689,10 +758,10 @@ function struk()
     $data['spg'] =  $spg->row()->nama_spg;
     $data['id_spg'] =  $spg->row()->id;
     $data['kode'] =  $this->input->get('tp');
-    $data['apoteker'] =  $apoteker->result_array();
+    $data['apoteker'] =  $pembeli->result_array();
     $data['apotik'] =  $apotik->result_array();
     $data['jns_penjualan'] =  $this->input->get('jns_penjualan');
-    $data['status'] =  "Cash";
+    $data['status'] =  "Kredit";
     $data['kepada'] =  "Costumer Toko";
     $data['totalbayar'] =  $this->input->get('bayar');
     $status = $this->penjualan_model->submitpaymentv2($data);
@@ -701,60 +770,6 @@ function struk()
     }else{
         redirect('penjualan/kasir?t='.$data['jns_penjualan'],'refresh');
     }
-}
-public function transaksi_barang($id_keranjang)
-{
-    // $this->penjualan_model->hapuskeranjang($get['t']);//hapus data barang di transaksi
-}
-public function struk_kredit()
-{    
-        //no
-        //no
-    $this->db->order_by('id', 'DESC'); 
-    $this->db->limit(1);
-    $idpnj = $this->db->get('penjualan')->row()->id;
-        //apotek
-    $this->db->order_by('id', 'DESC'); 
-    $this->db->limit(1);
-    $apoteker = $this->db->get('master_pembeli');
-        //apotek
-    $this->db->order_by('id', 'DESC'); 
-    $this->db->limit(1);
-    $apotik = $this->db->get('profil_apotek');
-        //keranjang
-    $id = $this->input->get('t');
-    $this->db->select("*");
-    $this->db->from("keranjang_detail a");
-    $this->db->join('master_item b', 'a.kode_item = b.kode_item');  
-        // $this->db->join('keranjang c', 'a.id_keranjang = c.id'); 
-    $this->db->where('a.id_keranjang', $id);
-        // $this->db->group_by('a.id');
-    $this->db->order_by('a.id', 'DESC'); 
-    $detail = $this->db->get();
-        // 
-    $ids = $this->input->get('spg');
-    $this->db->select("*");
-    $this->db->from("master_spg a");
-    $this->db->where('a.id', $ids);
-    $spg = $this->db->get();
-        // 
-
-        // data
-    $data['keranjang'] =  $detail->result_array();
-    $data['penjualan'] =  $idpnj +1;
-    $data['spg'] =  $spg->row()->nama_spg;
-    $data['kode'] =  $this->input->get('tp');
-    $data['apoteker'] =  $apoteker->result_array();
-    $data['apotik'] =  $apotik->result_array();
-    $data['status'] =  "Kredit";
-    $data['tempo'] =   $this->input->get('tmp');
-    $data['kepada'] =  "Costumer Toko";
-
-        // $this->penjualan_model->submitpayment();
-    $simpan = $this->penjualan_model;
-    $hapus = $simpan->hapuskeranjang($id);
-        // 
-    $this->load->view('member/penjualan/struk', $data);
 }
 
 }

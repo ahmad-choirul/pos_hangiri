@@ -160,11 +160,13 @@ class Dashboard extends CI_Controller {
 
 public function komisi(){
     cekajax();
-    $this->db->select("a.id_komisi, b.nama_spg, a.total");
-    $this->db->from("master_komisi a");
-    $this->db->join('master_spg b','a.id_spg = b.id', 'left');
-    $this->db->order_by('total', 'DESC');
-    $subitem= $this->db->get()->result();
+    // $this->db->select("b.nama_spg, sum(a.total) as total");
+    // $this->db->from("master_komisi a");
+    // $this->db->join('master_spg b','a.id_spg = b.id', 'left');
+    // MONTH(a.tgl_transaksi) = MONTH(NOW()) and YEAR(a.tgl_transaksi) = YEAR(NOW())
+    // $this->db->order_by('total', 'DESC');
+    $query = $this->db->query("SELECT `b`.`nama_spg`, sum(a.total) as total FROM `master_komisi` `a` LEFT JOIN `master_spg` `b` ON `a`.`id_spg` = `b`.`id` WHERE MONTH(a.tgl_transaksi) = MONTH(NOW()) AND YEAR(a.tgl_transaksi) = YEAR(NOW()) ORDER BY `total` DESC ");
+    $subitem= $query->result();
     $arraysub =[];
     foreach($subitem as $r) {
      $subArray['nama_spg']=$r->nama_spg;

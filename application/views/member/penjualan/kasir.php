@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html class="fixed sidebar-left-collapsed">
 <head>  
 	<meta charset="UTF-8"> 
-	<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favicon.png" type="image/ico">   
+	<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favi.png" type="image/ico">   
 	<title>Hangiri Resto</title>    
 	<meta name="author" content="Paber"> 
 	<!-- Mobile Metas -->
@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
 		$( function() {
-			$( "#datepicker" ).datepicker();
+		 $("#datepicker").datepicker({ dateFormat: "yyyy-mm-dd", changeMonth: true, changeYear: true });
 		});
 	</script>
 	<style type="text/css">
@@ -539,10 +539,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<div class="col-md-3"> 
 							<div class="row">
 								<div class="col-md-12"><br>
-									<button type="button" class="mb-xs mt-xs mr-xs btn btn-danger btn-lg btn-block" data-toggle="modal" data-target="#modalHapus" id="canceltransaksi">Cancel</button>
+									<button type="button" class="mb-xs mt-xs mr-xs btn btn-danger btn-lg btn-block" data-toggle="modal" data-dismiss="modal" data-target="#modalHapus" id="canceltransaksi">Cancel</button>
 								</div>
 								<div class="col-md-12"> 
-									<button type="button" class="mb-xs mt-xs mr-xs btn btn-warning btn-lg btn-block"  data-toggle="modal" data-target="#modalHold" id="holdtransaksi">Hold</button>
+									<button type="button" class="mb-xs mt-xs mr-xs btn btn-warning btn-lg btn-block"  data-toggle="modal" data-dismiss="modal" data-target="#modalHold" id="holdtransaksi">Hold</button>
 								</div>
 							</div>
 						</div> 
@@ -731,7 +731,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								</div> 
 								<div class="col-md-6"> 
 									<!-- <button type="button" class="mb-xs mt-xs mr-xs btn btn-success btn-lg btn-block" onclick="struk_k()" id="paymenttransaksikredit">Bayar <small>(Kredit)</small></button> -->
-									<button type="button" class="mb-xs mt-xs mr-xs btn btn-success btn-lg btn-block" id="paymenttransaksikredit" disabled="disabled">Bayar <small>(Kredit)</small></button>
+									<button type="button" class="mb-xs mt-xs mr-xs btn btn-success btn-lg btn-block" id="paymenttransaksikredit" >Bayar <small>(Kredit)</small></button>
 								</div>
 							</div>
 						</div>
@@ -1123,7 +1123,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         	var jns_penjualan = <?php echo $jns_penjualan; ?>;
         	$.ajax({
         		type: 'GET',
-        		url: '<?php echo base_url(); ?>penjualan/ajaxPaginationData/'+page_num,
+        		url: '<?php echo base_url(); ?>penjualan/ajaxPaginationData/',
         		data:'page='+page_num+'&keywords='+keywords+'&jns_penjualan='+jns_penjualan+'&sortBy='+sortBy,
         		beforeSend: function () {
         			$('.loading').show();
@@ -1340,15 +1340,59 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $(document).on('click','#modal-payment #paymenttransaksi',function(e) { // tombol paymenttransaksi sg ono ng modal payment
             	// e.preventDefault()
             	var totalbayar=$("#totalbayar").val().replace(/\./g, "");
+            	var totalbelanja = document.getElementById("TotalBelanjaInt").value; 
             	var jns_penjualan = <?php echo $jns_penjualan; ?>;
-            	$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&spg='+spg+'&idd='+idkd+'&bayar='+totalbayar+'&jns_penjualan='+jns_penjualan)
-            	.submit()
+
+            	if (totalbayar>=totalbelanja) {
+            		$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&spg='+spg+'&idd='+idkd+'&bayar='+totalbayar+'&jns_penjualan='+jns_penjualan)
+            		.submit()
+            	}else{
+            		window.setTimeout(function() {  
+            			new PNotify({
+            				title: 'Notifikasi',
+            				text: 	'Maaf, periksa inputan total bayar anda',
+            				type: 'warning',
+            				addclass: 'stack-bottomright',
+            				stack: stack_bottomright
+            			}); 
+            		}, 500); 
+
+            	}          	
             })
             $(document).on('click','#modal-payment #paymenttransaksikredit',function(e) { // tombol paymenttransaksikredit sg ono ng modal payment
             	// e.preventDefault()
-            	var tmp=$("#datepicker").val(); 
-            	$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk_kredit?t='+idk+'&spg='+spg+'&tmp='+tmp+'&idd='+idkd+'&bayar='+totalbayar+'&jns_penjualan='+jns_penjualan)
-            	.submit()
+            	var totalbayar=$("#totalbayar").val().replace(/\./g, "");
+            	var totalbelanja = document.getElementById("TotalBelanjaInt").value; 
+            	var tanggal_jatuh_tempo = document.getElementById("datepicker").value; 
+            	var jns_penjualan = <?php echo $jns_penjualan; ?>;
+
+            	if (totalbayar>=totalbelanja) {
+            		window.setTimeout(function() {  
+            			new PNotify({
+            				title: 'Notifikasi',
+            				text: 	'Maaf, total bayar lebih dari total belanja anda',
+            				type: 'warning',
+            				addclass: 'stack-bottomright',
+            				stack: stack_bottomright
+            			}); 
+            		}, 500); 
+            	}else{
+            		if (tanggal_jatuh_tempo!=null) {
+            			var tmp=$("#datepicker").val(); 
+            			$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk_kredit?t='+idk+'&spg='+spg+'&tmp='+tmp+'&idd='+idkd+'&bayar='+totalbayar+'&jns_penjualan='+jns_penjualan)
+            			.submit()
+            		}else{
+            			window.setTimeout(function() {  
+            				new PNotify({
+            					title: 'Notifikasi',
+            					text: 	'Maaf, periksa inputan tanggal jatuh tempo anda',
+            					type: 'warning',
+            					addclass: 'stack-bottomright',
+            					stack: stack_bottomright
+            				}); 
+            			}, 500); 
+            		}
+            	}
             })
 			// function struk(){
    //          	var url = '<?=base_url()?>penjualan/struk?t=' + idk;

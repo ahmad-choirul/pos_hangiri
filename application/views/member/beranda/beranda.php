@@ -398,7 +398,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         </section>
                         <section class="panel">
                             <header class="panel-heading">
-                                <h2 class="panel-title">Komisi/Spg</h2>
+                                <h2 class="panel-title">Komisi/Spg <?php echo date("m-Y"); ?></h2>
                             </header>
                             <div class="panel-body">
                                 <div class="table-responsive">

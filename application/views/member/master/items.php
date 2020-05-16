@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html class="fixed sidebar-left-collapsed">
 	<head>  
 		<meta charset="UTF-8"> 
-		<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favicon.png" type="image/ico">   
+		<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favi.png" type="image/ico">   
 		<title>Hangiri Resto</title>    
 		<meta name="author" content="Paber">   
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -31,13 +31,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<?php $this->load->view("komponen/sidebar.php") ?>
 				<section role="main" class="content-body">
 					<header class="page-header">  
-						<h2>Master Data Obat dan Alkes</h2>
+						<h2>Master Data Makanan dan Minuman</h2>
 					</header>  
 					<!-- start: page -->
                     <section class="panel">
                         <header class="panel-heading">    
                             <div class="row show-grid">
-                                <div class="col-md-6" align="left"><h2 class="panel-title">Data Obat </h2></div>
+                                <div class="col-md-6" align="left"><h2 class="panel-title">Data Makanan </h2></div>
                                 <?php  
                                 echo level_user('master','items',$this->session->userdata('kategori'),'add') > 0 ? '<div class="col-md-6" align="right"><a class="btn btn-success" href="#"  data-toggle="modal" data-target="#tambahData"><i class="fa fa-plus"></i> Tambah</a></div>':'';
                                 ?> 
@@ -74,7 +74,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <section class="panel panel-primary">
                     <?php echo form_open('master/itemstambah',' id="FormulirTambah" enctype="multipart/form-data"');?>  
                     <header class="panel-heading">
-                        <h2 class="panel-title">Tambah Obat / Alkes</h2>
+                        <h2 class="panel-title">Tambah Makanan / Minuman</h2>
                     </header>
                     <div class="panel-body">
                             <div class="form-group mt-lg kategori">
@@ -129,12 +129,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <label class="col-sm-3 control-label">Jenis<span class="required">*</span></label>
                                 <div class="col-sm-9">
                                     <div class="radio-custom radio-primary">
-                                        <input id="obats" name="jenis" type="radio" value="obat" required>
-                                        <label for="obats">obat</label>
+                                        <input id="Makanans" name="jenis" type="radio" value="Makanan" required>
+                                        <label for="Makanans">Makanan</label>
                                     </div> 
                                     <div class="radio-custom radio-primary">
-                                        <input id="alkess" name="jenis" type="radio" value="alkes" required>
-                                        <label for="alkess">alkes</label>
+                                        <input id="Minumans" name="jenis" type="radio" value="Minuman" required>
+                                        <label for="Minumans">Minuman</label>
                                     </div>  
                                 </div>
                             </div> 
@@ -201,7 +201,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="modal-content">
                 <section class="panel panel-primary">   
                     <header class="panel-heading">
-                        <h2 class="panel-title">Detail Obat / Alkes</h2>
+                        <h2 class="panel-title">Detail Makanan / Minuman</h2>
                     </header>
                     <div class="panel-body" id="showdetail"> 
                     </div>
@@ -224,7 +224,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <?php echo form_open('master/itemsedit',' id="FormulirEdit"  enctype="multipart/form-data"');?>  
                     <input type="hidden" name="idd" id="idd">
                     <header class="panel-heading">
-                        <h2 class="panel-title">Edit Data Obat/Alkes</h2>
+                        <h2 class="panel-title">Edit Data Makanan/Minuman</h2>
                     </header>
                     <div class="panel-body">
                             <div class="form-group mt-lg kategori">
@@ -279,12 +279,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <label class="col-sm-3 control-label">Jenis<span class="required">*</span></label>
                                 <div class="col-sm-9">
                                     <div class="radio-custom radio-primary">
-                                        <input id="obat" name="jenis" type="radio" value="obat" required>
-                                        <label for="obat">obat</label>
+                                        <input id="Makanan" name="jenis" type="radio" value="Makanan" required>
+                                        <label for="Makanan">Makanan</label>
                                     </div> 
                                     <div class="radio-custom radio-primary">
-                                        <input id="alkes" name="jenis" type="radio" value="alkes" required>
-                                        <label for="alkes">alkes</label>
+                                        <input id="Minuman" name="jenis" type="radio" value="Minuman" required>
+                                        <label for="Minuman">Minuman</label>
                                     </div>  
                                 </div>
                             </div> 
@@ -562,10 +562,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $("#kategori").select2("val", item.kategori);
                         $("#satuan").select2("val", item.satuan);
                         $("#merk").select2("val", item.merk);
-                        if(item.jenis == 'obat'){
-                            document.getElementById("obat").checked = true;
+                        if(item.jenis == 'Makanan'){
+                            document.getElementById("Makanan").checked = true;
                         }else{ 
-                            document.getElementById("alkes").checked = true;
+                            document.getElementById("Minuman").checked = true;
                         } 
                         }); 
                     }

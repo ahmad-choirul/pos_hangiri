@@ -139,289 +139,291 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             </div>
                         </div>
                     </footer>
-                    </form>
-                </section>
-            </div>
+                </form>
+            </section>
         </div>
     </div>
+</div>
 
-    <div class="modal fade" id="detailData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <section class="panel panel-primary">
-                    <header class="panel-heading">
-                        <h2 class="panel-title">Detail Stok utility</h2>
-                    </header>
-                    <div class="panel-body" id="showdetail">
-                    </div>
-                    <footer class="panel-footer">
-                        <div class="row">
-                            <div class="col-md-12 text-right">
-                                <button class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </footer>
-                </section>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="modalHapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <section class="panel  panel-danger">
+<div class="modal fade" id="detailData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <section class="panel panel-primary">
                 <header class="panel-heading">
-                    <h2 class="panel-title">Konfirmasi Hapus Data</h2>
+                    <h2 class="panel-title">Detail Stok utility</h2>
                 </header>
-                <div class="panel-body">
-                    <div class="modal-wrapper">
-                        <div class="modal-icon">
-                            <i class="fa fa-question-circle"></i>
-                        </div>
-                        <div class="modal-text">
-                            <h4>Yakin ingin menghapus data ini ?</h4>
-                        </div>
-                    </div>
+                <div class="panel-body" id="showdetail">
                 </div>
                 <footer class="panel-footer">
                     <div class="row">
                         <div class="col-md-12 text-right">
-                            <?php echo form_open('stok/stokutilityhapus', ' id="FormulirHapus"'); ?>
-                            <input type="hidden" name="idd" id="idddelete">
-                            <input type="hidden" name="kuantiti" id="kuantitiberubah">
-                            <input type="hidden" name="kode_item" id="kodeitemId">
-                            <button type="submit" class="btn btn-danger" id="submitformHapus">Delete</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </form>
+                            <button class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </footer>
+            </section>
         </div>
     </div>
-    </div>
+</div>
 
-    <div class="modal fade bd-example-modal-lg" id="modal-listitems" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <section class="panel">
-                    <header class="panel-heading">
-                        <h2 class="panel-title">Data Produk</h2>
-                    </header>
-                    <div class="panel-body">
-                        <table class="table table-bordered table-hover table-striped" id="itemsdata">
-                            <thead>
-                                <tr>
-                                    <th>Kode Item</th>
-                                    <th>Nama Item</th>
-                                    <th>Kategori</th>
-                                    <th>Satuan Kecil</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+<div class="modal fade" id="modalHapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <section class="panel  panel-danger">
+            <header class="panel-heading">
+                <h2 class="panel-title">Konfirmasi Hapus Data</h2>
+            </header>
+            <div class="panel-body">
+                <div class="modal-wrapper">
+                    <div class="modal-icon">
+                        <i class="fa fa-question-circle"></i>
                     </div>
-                    <footer class="panel-footer">
-                        <div class="row">
-                            <div class="col-md-12 text-right">
-                                <button class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </footer>
-                </section>
+                    <div class="modal-text">
+                        <h4>Yakin ingin menghapus data ini ?</h4>
+                    </div>
+                </div>
             </div>
+            <footer class="panel-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <?php echo form_open('stok/stokutilityhapus', ' id="FormulirHapus"'); ?>
+                        <input type="hidden" name="idd" id="idddelete">
+                        <input type="hidden" name="kuantiti" id="kuantitiberubah">
+                        <input type="hidden" name="kode_item" id="kodeitemId">
+                        <button type="submit" class="btn btn-danger" id="submitformHapus">Delete</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </form>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="modal-listitems" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <section class="panel">
+                <header class="panel-heading">
+                    <h2 class="panel-title">Data Produk</h2>
+                </header>
+                <div class="panel-body">
+                    <table class="table table-bordered table-hover table-striped" id="itemsdata">
+                        <thead>
+                            <tr>
+                                <th>Kode Item</th>
+                                <th>Nama Item</th>
+                                <th>Kategori</th>
+                                <th>Satuan Kecil</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <button class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </footer>
+            </section>
         </div>
     </div>
+</div>
 
-    <!-- Vendor -->
-    <script src="<?php echo base_url() ?>assets/vendor/jquery/jquery.min.js"></script>
-    <script src="<?php echo base_url() ?>assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-    <script src="<?php echo base_url() ?>assets/vendor/bootstrap/js/bootstrap.js"></script>
-    <script src="<?php echo base_url() ?>assets/vendor/nanoscroller/nanoscroller.js"></script>
-    <script src="<?php echo base_url() ?>assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script src="<?php echo base_url() ?>assets/vendor/magnific-popup/magnific-popup.js"></script>
-    <script src="<?php echo base_url() ?>assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
-    <script src="<?php echo base_url() ?>assets/vendor/select2/select2.js"></script>
-    <script src="<?php echo base_url() ?>assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
-    <script src="<?php echo base_url() ?>assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
-    <script src="<?php echo base_url() ?>assets/javascripts/theme.js"></script>
-    <script src="<?php echo base_url() ?>assets/vendor/pnotify/pnotify.custom.js"></script>
-    <script src="<?php echo base_url() ?>assets/javascripts/theme.init.js"></script>
-    <script type="text/javascript">
-        var currentDate = new Date();
-        $("#tgl").datepicker("setDate", currentDate);
+<!-- Vendor -->
+<script src="<?php echo base_url() ?>assets/vendor/jquery/jquery.min.js"></script>
+<script src="<?php echo base_url() ?>assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+<script src="<?php echo base_url() ?>assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="<?php echo base_url() ?>assets/vendor/nanoscroller/nanoscroller.js"></script>
+<script src="<?php echo base_url() ?>assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="<?php echo base_url() ?>assets/vendor/magnific-popup/magnific-popup.js"></script>
+<script src="<?php echo base_url() ?>assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+<script src="<?php echo base_url() ?>assets/vendor/select2/select2.js"></script>
+<script src="<?php echo base_url() ?>assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
+<script src="<?php echo base_url() ?>assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
+<script src="<?php echo base_url() ?>assets/javascripts/theme.js"></script>
+<script src="<?php echo base_url() ?>assets/vendor/pnotify/pnotify.custom.js"></script>
+<script src="<?php echo base_url() ?>assets/javascripts/theme.init.js"></script>
+<script type="text/javascript">
+    var currentDate = new Date();
+    $("#tgl").datepicker("setDate", currentDate);
 
-        var tableitems = $('#itemsdata').DataTable({
-            "serverSide": true,
-            "order": [],
-            "ajax": {
-                "url": "<?php echo base_url() ?>pembelian/pilihanitem",
-                "type": "GET"
-            },
-            "columnDefs": [{
-                "targets": [4],
-                "orderable": false,
-            }, ],
-        });
-        var tableitems = $('#stokdata').DataTable({
-            "serverSide": true,
-            "order": [],
-            "ajax": {
-                "url": "<?php echo base_url() ?>stok/stokutility",
-                "type": "GET"
-            },
-            "columnDefs": [{
-                "targets": [0],
-                "orderable": false,
-            }, ],
-        });
+    var tableitems = $('#itemsdata').DataTable({
+        "serverSide": true,
+        "order": [],
+        "ajax": {
+            "url": "<?php echo base_url() ?>pembelian/pilihanitem",
+            "type": "GET"
+        },
+        "columnDefs": [{
+            "targets": [4],
+            "orderable": false,
+        }, ],
+    });
+    var tableitems = $('#stokdata').DataTable({
+        "serverSide": true,
+        "order": [],
+        "ajax": {
+            "url": "<?php echo base_url() ?>stok/stokutility",
+            "type": "GET"
+        },
+        "columnDefs": [{
+            "targets": [0],
+            "orderable": false,
+        }, ],
+    });
 
-        function pilihitem(elem) {
-            var namaitem = $(elem).data("namaitem");
-            var satuan = $(elem).data("satuan");
-            var id = $(elem).data("id");
-            var stok = $(elem).data("stok");
-            $('.kode-item').val(id);
-            $('.nama_itemview').val(namaitem);
-            $('.satuan-kecil').val(satuan);
-            $('.stok_sebelum').val(stok);
-            $('#modal-listitems').modal('hide');
-        }
+    function pilihitem(elem) {
+        var namaitem = $(elem).data("namaitem");
+        var satuan = $(elem).data("satuan");
+        var id = $(elem).data("id");
+        var stok = $(elem).data("stok");
+        $('.kode-item').val(id);
+        $('.nama_itemview').val(namaitem);
+        $('.satuan-kecil').val(satuan);
+        $('.stok_sebelum').val(stok);
+        $('#modal-listitems').modal('hide');
+    }
 
-        document.getElementById("FormulirTambah").addEventListener("submit", function(e) {
-            blurForm();
-            $('.help-block').hide();
-            $('.form-group').removeClass('has-error');
-            document.getElementById("submitform").setAttribute('disabled', 'disabled');
-            $('#submitform').html('Loading ...');
-            var form = $('#FormulirTambah')[0];
-            var formData = new FormData(form);
-            var xhrAjax = $.ajax({
-                type: 'POST',
-                url: $(this).attr('action'),
-                data: formData,
-                processData: false,
-                contentType: false,
-                cache: false,
-                dataType: 'json'
-            }).done(function(data) {
-                if (!data.success) {
-                    $('input[name=<?php echo $this->security->get_csrf_token_name(); ?>]').val(data.token);
-                    document.getElementById("submitform").removeAttribute('disabled');
-                    $('#submitform').html('Submit');
-                    var objek = Object.keys(data.errors);
-                    for (var key in data.errors) {
-                        if (data.errors.hasOwnProperty(key)) {
-                            var msg = '<div class="help-block" for="' + key + '">' + data.errors[key] + '</span>';
-                            $('.' + key).addClass('has-error');
-                            $('input[name="' + key + '"]').after(msg);
-                            $('textarea[name="' + key + '"]').after(msg);
-                        }
-                        if (key == 'fail') {
-                            new PNotify({
-                                title: 'Notifikasi',
-                                text: data.errors[key],
-                                type: 'danger'
-                            });
-                        }
+    document.getElementById("FormulirTambah").addEventListener("submit", function(e) {
+        blurForm();
+        $('.help-block').hide();
+        $('.form-group').removeClass('has-error');
+        document.getElementById("submitform").setAttribute('disabled', 'disabled');
+        $('#submitform').html('Loading ...');
+        var form = $('#FormulirTambah')[0];
+        var formData = new FormData(form);
+        var xhrAjax = $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            dataType: 'json'
+        }).done(function(data) {
+            if (!data.success) {
+                $('input[name=<?php echo $this->security->get_csrf_token_name(); ?>]').val(data.token);
+                document.getElementById("submitform").removeAttribute('disabled');
+                $('#submitform').html('Submit');
+                var objek = Object.keys(data.errors);
+                for (var key in data.errors) {
+                    if (data.errors.hasOwnProperty(key)) {
+                        var msg = '<div class="help-block" for="' + key + '">' + data.errors[key] + '</span>';
+                        $('.' + key).addClass('has-error');
+                        $('input[name="' + key + '"]').after(msg);
+                        $('textarea[name="' + key + '"]').after(msg);
                     }
-                } else {
-                    $('input[name=<?php echo $this->security->get_csrf_token_name(); ?>]').val(data.token);
-                    PNotify.removeAll();
-                    tablestok.ajax.reload();
-                    tableitems.ajax.reload();
-                    document.getElementById("submitform").removeAttribute('disabled');
-                    document.getElementById("FormulirTambah").reset();
-                    $('#submitform').html('Submit');
-                    new PNotify({
-                        title: 'Notifikasi',
-                        text: data.message,
-                        type: 'success'
-                    });
-                    $('#tambahData').modal('hide');
+                    if (key == 'fail') {
+                        new PNotify({
+                            title: 'Notifikasi',
+                            text: data.errors[key],
+                            type: 'danger'
+                        });
+                    }
                 }
-            }).fail(function(data) {
+
+            } else {
+                $('input[name=<?php echo $this->security->get_csrf_token_name(); ?>]').val(data.token);
+                PNotify.removeAll();
+                tablestok.ajax.reload();
+                tableitems.ajax.reload();
+                document.getElementById("submitform").removeAttribute('disabled');
+                document.getElementById("FormulirTambah").reset();
+                $('#submitform').html('Submit');
                 new PNotify({
                     title: 'Notifikasi',
-                    text: "Request berhasil, browser akan direload",
+                    text: data.message,
                     type: 'success'
                 });
-                window.setTimeout(function() {
-                    location.reload();
-                }, 2000);
+                $('#tambahData').modal('hide');
+            }
+        }).fail(function(data) {
+            new PNotify({
+                title: 'Notifikasi',
+                text: data.message,
+                type: 'danger'
             });
-            e.preventDefault();
         });
+        window.setTimeout(function() {
+            location.reload();
+        }, 2000);
+        e.preventDefault();
+        
+    });
 
 
-        function hapus(elem) {
-            var dataId = $(elem).data("id");
-            var datakuantiti = $(elem).data("kuantiti");
-            var kodeitem = $(elem).data("kodeitem");
-            document.getElementById("idddelete").setAttribute('value', dataId);
-            document.getElementById("kodeitemId").setAttribute('value', kodeitem);
-            document.getElementById("kuantitiberubah").setAttribute('value', datakuantiti);
-            $('#modalHapus').modal();
-        }
-        document.getElementById("FormulirHapus").addEventListener("submit", function(e) {
-            blurForm();
-            $('.help-block').hide();
-            $('.form-group').removeClass('has-error');
-            document.getElementById("submitformHapus").setAttribute('disabled', 'disabled');
-            $('#submitformHapus').html('Loading ...');
-            var form = $('#FormulirHapus')[0];
-            var formData = new FormData(form);
-            var xhrAjax = $.ajax({
-                type: 'POST',
-                url: $(this).attr('action'),
-                data: formData,
-                processData: false,
-                contentType: false,
-                cache: false,
-                dataType: 'json'
-            }).done(function(data) {
-                if (!data.success) {
-                    $('input[name=<?php echo $this->security->get_csrf_token_name(); ?>]').val(data.token);
-                    document.getElementById("submitformHapus").removeAttribute('disabled');
-                    $('#submitformHapus').html('Delete');
-                    var objek = Object.keys(data.errors);
-                    for (var key in data.errors) {
-                        if (key == 'fail') {
-                            new PNotify({
-                                title: 'Notifikasi',
-                                text: data.errors[key],
-                                type: 'danger'
-                            });
-                        }
+    function hapus(elem) {
+        var dataId = $(elem).data("id");
+        var datakuantiti = $(elem).data("kuantiti");
+        var kodeitem = $(elem).data("kodeitem");
+        document.getElementById("idddelete").setAttribute('value', dataId);
+        document.getElementById("kodeitemId").setAttribute('value', kodeitem);
+        document.getElementById("kuantitiberubah").setAttribute('value', datakuantiti);
+        $('#modalHapus').modal();
+    }
+    document.getElementById("FormulirHapus").addEventListener("submit", function(e) {
+        blurForm();
+        $('.help-block').hide();
+        $('.form-group').removeClass('has-error');
+        document.getElementById("submitformHapus").setAttribute('disabled', 'disabled');
+        $('#submitformHapus').html('Loading ...');
+        var form = $('#FormulirHapus')[0];
+        var formData = new FormData(form);
+        var xhrAjax = $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            dataType: 'json'
+        }).done(function(data) {
+            if (!data.success) {
+                $('input[name=<?php echo $this->security->get_csrf_token_name(); ?>]').val(data.token);
+                document.getElementById("submitformHapus").removeAttribute('disabled');
+                $('#submitformHapus').html('Delete');
+                var objek = Object.keys(data.errors);
+                for (var key in data.errors) {
+                    if (key == 'fail') {
+                        new PNotify({
+                            title: 'Notifikasi',
+                            text: data.errors[key],
+                            type: 'danger'
+                        });
                     }
-                } else {
-                    $('input[name=<?php echo $this->security->get_csrf_token_name(); ?>]').val(data.token);
-                    PNotify.removeAll();
-                    tablestok.ajax.reload();
-                    tableitems.ajax.reload();
-                    document.getElementById("submitformHapus").removeAttribute('disabled');
-                    $('#modalHapus').modal('hide');
-                    document.getElementById("FormulirHapus").reset();
-                    $('#submitformHapus').html('Delete');
-                    new PNotify({
-                        title: 'Notifikasi',
-                        text: data.message,
-                        type: 'success'
-                    });
                 }
-            }).fail(function(data) {
+            } else {
+                $('input[name=<?php echo $this->security->get_csrf_token_name(); ?>]').val(data.token);
+                PNotify.removeAll();
+                tablestok.ajax.reload();
+                tableitems.ajax.reload();
+                document.getElementById("submitformHapus").removeAttribute('disabled');
+                $('#modalHapus').modal('hide');
+                document.getElementById("FormulirHapus").reset();
+                $('#submitformHapus').html('Delete');
                 new PNotify({
                     title: 'Notifikasi',
-                    text: "Request gagal, browser akan direload",
-                    type: 'danger'
+                    text: data.message,
+                    type: 'success'
                 });
+            }
+        }).fail(function(data) {
+            new PNotify({
+                title: 'Notifikasi',
+                text: "Request gagal, browser akan direload",
+                type: 'danger'
             });
-            window.setTimeout(function() {
-                    location.reload();
-                }, 2000);
-            e.preventDefault();
         });
-    </script>
+        window.setTimeout(function() {
+            location.reload();
+        }, 2000);
+        e.preventDefault();
+    });
+</script>
 </body>
 
 </html>

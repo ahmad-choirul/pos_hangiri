@@ -1,7 +1,7 @@
 <html class="fixed sidebar-left-collapsed">
 	<head>  
 		<meta charset="UTF-8"> 
-		<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favicon.png" type="image/ico">   
+		<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favi.png" type="image/ico">   
 		<title>Hangiri Resto</title>    
 		<meta name="author" content="Paber"> 
 		<!-- Mobile Metas -->
@@ -37,7 +37,7 @@
         <td style="text-align: right;"><h3> Faktur Penjualan</h3></td>
     </tr>
     <tr>
-        <?php foreach ($apoteker as $a): ?>
+        <?php foreach ($apotik as $a): ?>
             <td><small><?=$a['alamat']." | ".$a['telepon']?></small>
             <br><small><?="NPWP: ".$a['no_npwp']?></small></td>
             <td></td>
