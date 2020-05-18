@@ -14,124 +14,14 @@ class Master extends CI_Controller {
 	public function index()
 	{    
         level_user('master','index',$this->session->userdata('kategori'),'read') > 0 ? '': show_404();
-        $data['total_dokter'] = $this->db->count_all('master_dokter'); 
         $data['total_pembeli'] = $this->db->count_all('master_pembeli'); 
         $data['total_supplier'] = $this->db->count_all('master_supplier'); 
         $data['total_kategori'] = $this->db->count_all('master_kategori'); 
-        $data['total_satuan'] = $this->db->count_all('master_satuan'); 
-        $data['total_item'] = $this->db->where('jenis !=','racikan')->get('master_item')->num_rows(); 
-        $data['total_racikan'] = $this->db->where('jenis','racikan')->get('master_item')->num_rows(); 
-        $data['total_merk'] = $this->db->count_all('master_merk'); 
+        $data['total_item'] = $this->db->get('master_item')->num_rows(); 
         $this->load->view('member/master/beranda',$data);
     }  
 	  
-	public function dokter()
-	{   
-        level_user('master','dokter',$this->session->userdata('kategori'),'read') > 0 ? '': show_404();
-        $this->load->view('member/master/dokter');
-    }  
-    public function datadokter()
-	{   
-        cekajax(); 
-        $get = $this->input->get();
-        $list = $this->master_model->get_dokter_datatable();
-        $data = array(); 
-        foreach ($list as $r) { 
-            $row = array();  
-            $tombolhapus = level_user('master','dokter',$this->session->userdata('kategori'),'delete') > 0 ? '<li><a href="#" onclick="hapus(this)" data-id="'.$this->security->xss_clean($r->kode_dokter).'">Hapus</a></li>':'';
-            $tomboledit = level_user('master','dokter',$this->session->userdata('kategori'),'edit') > 0 ? '<li><a href="#" onclick="edit(this)" data-id="'.$this->security->xss_clean($r->kode_dokter).'">Edit</a></li>':'';
-            $row[] = ' 
-                    <div class="btn-group dropup">
-                        <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Action <span class="caret"></span></button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" onclick="detail(this)" data-id="'.$this->security->xss_clean($r->kode_dokter).'">Detail</a></li>   
-                            '.$tomboledit.'
-                            '.$tombolhapus.'
-                        </ul>
-                    </div>
-                    ';
-            $row[] = $this->security->xss_clean($r->kode_dokter);
-            $row[] = $this->security->xss_clean($r->nama_dokter);
-            $row[] = $this->security->xss_clean($r->jenis_kelamin);
-            $row[] = $this->security->xss_clean($r->handphone); 
-            $row[] = $this->security->xss_clean($r->telepon); 
-            $data[] = $row;
-        } 
-        $result = array(
-            "draw" => $get['draw'],
-            "recordsTotal" => $this->master_model->count_all_datatable_dokter(),
-            "recordsFiltered" => $this->master_model->count_filtered_datatable_dokter(),
-            "data" => $data,
-        ); 
-        echo json_encode($result);
-    }
-    public function doktertambah(){ 
-        cekajax(); 
-        $simpan = $this->master_model;
-		$validation = $this->form_validation; 
-        $validation->set_rules($simpan->rulesdokter());
-		if ($this->form_validation->run() == FALSE){
-			$errors = $this->form_validation->error_array();
-			$data['errors'] = $errors;
-        }else{    
-            if($simpan->simpandatadokter()){ 
-                $data['success']= true;
-                $data['message']="Berhasil menyimpan data";  
-            }else{
-                $errors['fail'] = "gagal melakukan update data";
-			    $data['errors'] = $errors;
-            }
-        }
-        $data['token'] = $this->security->get_csrf_hash();
-        echo json_encode($data); 
-    }
-    
-    public function dokterdetail(){  
-        cekajax(); 
-        $query = $this->db->get_where('master_dokter', array('kode_dokter' => $this->input->get("id")),1);
-        $result = array(  
-            "nama_dokter" => $this->security->xss_clean($query->row()->nama_dokter),
-            "jenis_kelamin" => $this->security->xss_clean($query->row()->jenis_kelamin),
-            "alamat" => $this->security->xss_clean($query->row()->alamat),
-            "telepon" => $this->security->xss_clean($query->row()->telepon),
-            "handphone" => $this->security->xss_clean($query->row()->handphone),
-            "kode_dokter" => $this->security->xss_clean($query->row()->kode_dokter), 
-        );    
-    	echo'['.json_encode($result).']';
-    }
-    public function dokteredit(){ 
-        cekajax(); 
-        $simpan = $this->master_model;
-		$validation = $this->form_validation; 
-        $validation->set_rules($simpan->rulesdokteredit());
-		if ($this->form_validation->run() == FALSE){
-			$errors = $this->form_validation->error_array();
-			$data['errors'] = $errors;
-        }else{    
-            if($simpan->updatedatadokter()){
-                $data['success']= true;
-                $data['message']="Berhasil menyimpan data";   
-            }else{
-                $errors['fail'] = "gagal melakukan update data";
-			    $data['errors'] = $errors;
-            }
-        }
-        $data['token'] = $this->security->get_csrf_hash();
-        echo json_encode($data); 
-    } 
-    public function dokterhapus(){ 
-        cekajax(); 
-        $hapus = $this->master_model;
-        if($hapus->hapusdatadokter()){ 
-            $data['success']= true;
-            $data['message']="Berhasil menghapus data"; 
-        }else{    
-            $errors="fail";
-			$data['errors'] = $errors;
-        }
-        $data['token'] = $this->security->get_csrf_hash();
-        echo json_encode($data); 
-    } 
+	
 	public function supplier()
 	{   
         level_user('master','supplier',$this->session->userdata('kategori'),'read') > 0 ? '': show_404();
@@ -157,10 +47,9 @@ class Master extends CI_Controller {
                     </div>
                     ';
             $row[] = $this->security->xss_clean($r->nama_supplier);
-            $row[] = $this->security->xss_clean($r->no_izin);
             $row[] = $this->security->xss_clean($r->telepon);
             $row[] = $this->security->xss_clean($r->alamat);
-            $row[] = $this->security->xss_clean($r->apoteker);  
+            $row[] = $this->security->xss_clean($r->keterangan);  
             $data[] = $row;
         } 
         $result = array(
@@ -198,24 +87,9 @@ class Master extends CI_Controller {
         $query = $this->db->get_where('master_supplier', array('id' => $idd),1);
         $result = array(  
             "nama_supplier" => $this->security->xss_clean($query->row()->nama_supplier),
-            "no_izin" => $this->security->xss_clean($query->row()->no_izin),
             "alamat" => $this->security->xss_clean($query->row()->alamat),
             "telepon" => $this->security->xss_clean($query->row()->telepon),
-            "no_npwp" => $this->security->xss_clean($query->row()->no_npwp),
-            "nama_npwp" => $this->security->xss_clean($query->row()->nama_npwp),
-            "alamat_npwp" => $this->security->xss_clean($query->row()->alamat_npwp),
-            "bank" => $this->security->xss_clean($query->row()->bank),
-            "rekening" => $this->security->xss_clean($query->row()->rekening),
-            "an" => $this->security->xss_clean($query->row()->an),
-            "no_apoteker" => $this->security->xss_clean($query->row()->no_apoteker),
-            "masa_apoteker" => $this->security->xss_clean($query->row()->masa_apoteker),
-            "apoteker" => $this->security->xss_clean($query->row()->apoteker),
-            "alamat_1" => $this->security->xss_clean($query->row()->alamat_1),
-            "alamat_2" => $this->security->xss_clean($query->row()->alamat_2),
-            "hp" => $this->security->xss_clean($query->row()->hp),
-            "no_sipa" => $this->security->xss_clean($query->row()->no_sipa),
-            "tgl_sipa" => $this->security->xss_clean($query->row()->tgl_sipa),
-            "nama_ttk" => $this->security->xss_clean($query->row()->nama_ttk),
+            "keterangan" => $this->security->xss_clean($query->row()->keterangan),
         );    
     	echo'['.json_encode($result).']';
     }
@@ -283,10 +157,7 @@ class Master extends CI_Controller {
                     ';
             $row[] = $this->security->xss_clean($r->nama_pembeli);
             $row[] = $this->security->xss_clean($r->alamat);
-            $row[] = $this->security->xss_clean($r->telepon);
-            $row[] = $this->security->xss_clean($r->apoteker);
-            $row[] = $this->security->xss_clean($r->no_sipa);
-            $row[] = $this->security->xss_clean($r->tgl_sipa);
+            $row[] = $this->security->xss_clean($r->hp);
             $data[] = $row;
         } 
         $result = array( 
@@ -326,8 +197,7 @@ class Master extends CI_Controller {
         cekajax(); 
        $idd = intval($this->input->get("id")); 
        $nama_dokter ="";
-       $query = $this->db->select("nama_pembeli,hp,alamat,telepon,no_npwp, alamat_npwp, nama_npwp, no_apoteker,tgl_masa,apoteker,
-       bank,rekening,an,alamat_ktp,alamat_tinggal,nama_ttk,no_sipa,tgl_sipa")->get_where('master_pembeli', array('id' => $idd),1);
+       $query = $this->db->select("nama_pembeli,hp,alamat")->get_where('master_pembeli', array('id' => $idd),1);
        if(!empty($query->row()->kode_dokter)){    
            $dokter = $this->db->select("nama_dokter")->get_where('master_dokter', array('kode_dokter' => $query->row()->kode_dokter),1);
            $nama_dokter = $dokter->row()->nama_dokter;
@@ -337,21 +207,7 @@ class Master extends CI_Controller {
             "nama_pembeli" => $this->security->xss_clean($query->row()->nama_pembeli),
             "alamat" => $this->security->xss_clean($query->row()->alamat),
             "hp" => $this->security->xss_clean($query->row()->hp),
-			"no_npwp" => $this->security->xss_clean($query->row()->no_npwp),
-			"nama_npwp" => $this->security->xss_clean($query->row()->nama_npwp),
-			"alamat_npwp" => $this->security->xss_clean($query->row()->alamat_npwp),
-            "bank" => $this->security->xss_clean($query->row()->bank),
-            "rekening" => $this->security->xss_clean($query->row()->rekening),
-            "an" => $this->security->xss_clean($query->row()->an),
-            "telepon" => $this->security->xss_clean($query->row()->telepon),
-            "no_apoteker" => $this->security->xss_clean($query->row()->no_apoteker), 
-            "tgl_masa" => $this->security->xss_clean($query->row()->tgl_masa), 
-            "apoteker" => $this->security->xss_clean($query->row()->apoteker),
-            "alamat_ktp" => $this->security->xss_clean($query->row()->alamat_ktp),
-            "alamat_tinggal" => $this->security->xss_clean($query->row()->alamat_tinggal),
-            "nama_ttk" => $this->security->xss_clean($query->row()->nama_ttk),
-            "no_sipa" => $this->security->xss_clean($query->row()->no_sipa),
-            "tgl_sipa" => $this->security->xss_clean($query->row()->tgl_sipa),
+			
         );    
     	echo'['.json_encode($result).']';
     }
@@ -737,11 +593,9 @@ class Master extends CI_Controller {
                     
             $row[] = $this->security->xss_clean($r->kode_item); 
             $row[] = $this->security->xss_clean($r->nama_item); 
-            $row[] = $this->security->xss_clean($r->jenis); 
-            $row[] = $this->security->xss_clean($r->kategori);   
+            $row[] = $this->security->xss_clean($r->nama_kategori);   
             $row[] = $this->security->xss_clean(rupiah($r->harga_jual)); 
             $row[] = $this->security->xss_clean(date('d M Y',strtotime($r->tgl_expired)));
-            $row[] = $this->security->xss_clean($r->lokasi); 
             $data[] = $row;
         } 
         $result = array(
@@ -776,28 +630,19 @@ class Master extends CI_Controller {
     public function itemdetail(){  
         cekajax(); 
         $idd = $this->input->get("id"); 
-        $query = $this->db->get_where('master_item', array('kode_item' => $idd),1);
+        $this->db->select('a.*,b.nama_kategori');
+        $this->db->join('master_kategori b', 'a.kategori = b.id');
+        $query = $this->db->get_where('master_item a', array('kode_item' => $idd),1);
         $result = array(  
             "kode_item" => $this->security->xss_clean($query->row()->kode_item),
-            "no_bet" => $this->security->xss_clean($query->row()->no_bet),
-            "jenis" => $this->security->xss_clean($query->row()->jenis),
+            "nama_kategori" => $this->security->xss_clean($query->row()->nama_kategori),
             "kategori" => $this->security->xss_clean($query->row()->kategori),
-            "satuan" => $this->security->xss_clean($query->row()->satuan),
-            "merk" => $this->security->xss_clean($query->row()->merk),
             "nama_item" => $this->security->xss_clean($query->row()->nama_item),
             "keterangan" => $this->security->xss_clean($query->row()->keterangan),
             "netto" => $this->security->xss_clean($query->row()->netto), 
-            "lokasi" => $this->security->xss_clean($query->row()->lokasi), 
-            "harga_jual1" => $this->security->xss_clean(rupiah($query->row()->harga_jual)),
-            "harga_jual2" => $this->security->xss_clean(rupiah($query->row()->harga_jual_distributor)),
-            "harga_jual3" => $this->security->xss_clean(rupiah($query->row()->harga_jual_3)),
-            "harga_jual4" => $this->security->xss_clean(rupiah($query->row()->harga_jual_4)),
-            "komisi" => $this->security->xss_clean($query->row()->komisi),
-            "stok_minimal" => $this->security->xss_clean($query->row()->stok_minimal),
-            "harga_jual1_edit" => $this->security->xss_clean($query->row()->harga_jual),
-            "harga_jual2_edit" => $this->security->xss_clean($query->row()->harga_jual_distributor),
-            "harga_jual3_edit" => $this->security->xss_clean($query->row()->harga_jual_3),
-            "harga_jual4_edit" => $this->security->xss_clean($query->row()->harga_jual_4),
+            "harga_jualedit" => $this->security->xss_clean($query->row()->harga_jual),
+            "harga_jual" => $this->security->xss_clean(rupiah($query->row()->harga_jual)),
+            "stok" => $this->security->xss_clean($query->row()->stok),
             "tanggal_expired" => $this->security->xss_clean(date('d M Y',strtotime($query->row()->tgl_expired))),
             "tanggal_expireds" => $this->security->xss_clean($query->row()->tgl_expired),
             "gambar" => $this->security->xss_clean($query->row()->gambar), 
@@ -1056,7 +901,7 @@ class Master extends CI_Controller {
                     </div>
                     ';
             $row[] = $this->security->xss_clean($r->nama_spg);
-            $row[] = $this->security->xss_clean($r->no_ijin);
+            $row[] = $this->security->xss_clean($r->kontak);
             $row[] = $this->security->xss_clean($r->nik);
             $row[] = $this->security->xss_clean($r->alamat);
             $row[] = $this->security->xss_clean($r->kontak);
@@ -1105,7 +950,7 @@ class Master extends CI_Controller {
             "alamat" => $this->security->xss_clean($query->row()->alamat),
             "kontak" => $this->security->xss_clean($query->row()->kontak),
 			"nik" => $this->security->xss_clean($query->row()->nik),
-			"no_ijin" => $this->security->xss_clean($query->row()->no_ijin),
+			"kotak" => $this->security->xss_clean($query->row()->kontak),
         );    
     	echo'['.json_encode($result).']';
     }

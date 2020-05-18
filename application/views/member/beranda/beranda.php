@@ -55,10 +55,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                                 <div class="widget-summary">
                                                                     <div class="widget-summary-col">
                                                                         <div class="summary">
-                                                                            <h4 class="title">Target Obat PPN</h4>
+                                                                            <h4 class="title">Target Penjualan harian</h4>
                                                                             <div class="info">
                                                                                 <strong class="amount" id="target1"></strong>
-                                                                                 <h5 id="total_jual_ppn"></h5>
+                                                                                 <h5 id="total_jual_1"></h5>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -72,10 +72,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                                 <div class="widget-summary">
                                                                     <div class="widget-summary-col">
                                                                         <div class="summary">
-                                                                            <h4 class="title">Target Obat Tanpa PPN</h4>
+                                                                            <h4 class="title">Target Penjualan mingguan</h4>
                                                                             <div class="info">
                                                                                 <strong class="amount" id="target2"></strong>
-                                                                                 <h5 id="total_jual_nonppn"></h5>
+                                                                                 <h5 id="total_jual_2"></h5>
 
                                                                             </div>
                                                                         </div>
@@ -90,28 +90,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                                 <div class="widget-summary">
                                                                     <div class="widget-summary-col">
                                                                         <div class="summary">
-                                                                            <h4 class="title">Target Obat Prekusor</h4>
+                                                                            <h4 class="title">Target Penjualan Bulanan</h4>
                                                                             <div class="info">
                                                                                 <strong class="amount" id="target3"></strong>
-                                                                                 <h5 id="total_jual_prekusor"></h5>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </section>
-                                                    </div>
-                                                    <div class="col-md-3 col-xl-12">
-                                                        <section class="panel">
-                                                            <div id="paneloot" class="panel-body bg-primary">
-                                                                <div class="widget-summary">
-                                                                    <div class="widget-summary-col">
-                                                                        <div class="summary">
-                                                                            <h4 class="title">Target Obat OOT</h4>
-                                                                            <div class="info">
-                                                                                <strong class="amount" id="target4"></strong>
-                                                                                 <h5 id="total_jual_oot"></h5>
+                                                                                 <h5 id="total_jual_3"></h5>
 
                                                                             </div>
                                                                         </div>
@@ -375,44 +357,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                             </div>
                                         </section>
                                     </div>
-                                    <div class="col-md-6 col-xl-12">
-                                        <section class="panel">
-                                            <div class="panel-body bg-primary">
-                                                <div class="widget-summary">
-                                                    <div class="widget-summary-col">
-                                                        <div class="summary">
-                                                            <h4 class="title">
-                                                                Jumlah Retur Pembelian
-                                                            </h4>
-                                                            <div class="info">
-                                                                <strong class="amount" id="total_retur"></strong>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </section>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <section class="panel">
-                            <header class="panel-heading">
-                                <h2 class="panel-title">Komisi/Spg <?php echo date("m-Y"); ?></h2>
-                            </header>
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped table-condensed mb-none" id="komisi">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Nama SPG</th>
-                                                <th>Total Komisi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
                         </section>
@@ -652,9 +596,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     $('#target2').html(item.target2);
                     $('#target3').html(item.target3);
                     $('#target4').html(item.target4);
-                    $('#total_jual_ppn').html(item.total_jual_ppn);
-                    $('#total_jual_nonppn').html(item.total_jual_nonppn);
-                    $('#total_jual_prekusor').html(item.total_jual_prekusor);
+                    $('#total_jual_1').html(item.total_jual_1);
+                    $('#total_jual_2').html(item.total_jual_2);
+                    $('#total_jual_3').html(item.total_jual_3);
                     $('#total_jual_oot').html(item.total_jual_oot);
                     $('#total_target').html(item.total_target);
                     if (item.stattarget1) {

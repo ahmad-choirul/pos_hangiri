@@ -48,10 +48,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <tr>
                                             <th></th>
                                             <th>Nama Supplier</th>
-                                            <th>No Izin Supplier</th>
                                             <th>Telepon</th>
                                             <th>Alamat</th> 
-                                            <th>Apoteker</th> 
+                                            <th>Keterangan</th> 
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -81,14 +80,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <input type="text" name="nama_supplier" class="form-control" required/>
                                 </div>
                             </div> 
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">Nomor Izin supplier<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="no_izin" class="form-control" required/>
-                                </div>
-                            </div> 
                             <div class="form-group alamat">
-                                <label class="col-sm-3 control-label">Alamat Apotek<span class="required">*</span></label>
+                                <label class="col-sm-3 control-label">Alamat Supplier<span class="required">*</span></label>
                                 <div class="col-sm-9">
                                     <textarea rows="2" class="form-control" name="alamat" required></textarea>
                                 </div>
@@ -100,99 +93,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <input type="text" name="telepon" class="form-control" />
                                 </div>
                             </div>  
+                            <div class="form-group mt-lg keterangan">
+                                <label class="col-sm-3 control-label">keterangan</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="keterangan" id="keterangan" class="form-control" />
+                                </div>
+                            </div> 
                             <!-- npwp -->
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">Nomor NPWP<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="no_npwp" class="form-control" required/>
-                                </div>
-                            </div> 
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">Nama NPWP<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="nama_npwp" class="form-control" required/>
-                                </div>
-                            </div> 
-                            <div class="form-group alamat">
-                                <label class="col-sm-3 control-label">Alamat NPWP<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <textarea rows="2" class="form-control" name="alamat_npwp" required></textarea>
-                                </div>
-                            </div>
-                            <!-- bank -->
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">Nama Bank<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="bank" class="form-control" required/>
-                                </div>
-                            </div> 
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">Nomor Rekening<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="rekening" class="form-control" required/>
-                                </div>
-                            </div> 
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">Rekening Atas Nama<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="an" class="form-control" required/>
-                                </div>
-                            </div> 
-                            <!-- apoteker -->
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">No. Ijin Apoteker<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="no_apoteker" class="form-control" required/>
-                                </div>
-                            </div> 
-                            <div class="form-group masa_apoteker">
-                                <label class="col-sm-3 control-label">Masa Berlaku<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="masa_apoteker" class="form-control tanggal_masa" data-plugin-datepicker required/>
-                                </div>
-                            </div> 
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">Nama Apoteker<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="apoteker" class="form-control" required/>
-                                </div>
-                            </div> 
-                            <div class="form-group alamat">
-                                <label class="col-sm-3 control-label">Alamat KTP Apoteker<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <textarea rows="2" class="form-control" name="alamat_1" required></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group alamat">
-                                <label class="col-sm-3 control-label">Alamat Tinggal Apoteker<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <textarea rows="2" class="form-control" name="alamat_2" required></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">Kontak Apoteker<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="hp" class="form-control" required/>
-                                </div>
-                            </div> 
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">No SIPA<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="no_sipa" class="form-control" required/>
-                                </div>
-                            </div> 
-                            <div class="form-group masa_apoteker">
-                                <label class="col-sm-3 control-label">Masa Berlaku SIPA<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="tanggal_sipa" class="form-control tanggal_sipa" data-plugin-datepicker required/>
-                                </div>
-                            </div> 
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">Nama TTK yang didelegasikan<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="nama_ttk" class="form-control" required/>
-                                </div>
-                            </div> 
+                            
                     </div>
                     <footer class="panel-footer">
                         <div class="row">
@@ -225,12 +133,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <input type="text" name="nama_supplier" id="nama_supplier" class="form-control" required/>
                                 </div>
                             </div> 
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">Nomor Izin supplier<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="no_izin" id="no_izin" class="form-control" required/>
-                                </div>
-                            </div> 
+                            
                             <div class="form-group alamat">
                                 <label class="col-sm-3 control-label">Alamat Apotek<span class="required">*</span></label>
                                 <div class="col-sm-9">
@@ -245,96 +148,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                             </div>  
                             <!-- npwp -->
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">Nomor NPWP<span class="required">*</span></label>
+                            
+                            <div class="form-group mt-lg keterangan">
+                                <label class="col-sm-3 control-label">keterangan</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="no_npwp" id="no_npwp" class="form-control" required/>
-                                </div>
-                            </div> 
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">Nama NPWP<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="nama_npwp" id="nama_npwp" class="form-control" required/>
-                                </div>
-                            </div> 
-                            <div class="form-group alamat">
-                                <label class="col-sm-3 control-label">Alamat NPWP<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <textarea rows="2" class="form-control" name="alamat_npwp" id="alamat_npwp" required></textarea>
-                                </div>
-                            </div>
-                            <!-- bank -->
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">Nama Bank<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="bank" id="bank" class="form-control" required/>
-                                </div>
-                            </div> 
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">Nomor Rekening<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="rekening" id="rekening" class="form-control" required/>
-                                </div>
-                            </div> 
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">Rekening Atas Nama<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="an" id="an" class="form-control" required/>
-                                </div>
-                            </div> 
-                            <!-- apoteker -->
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">No. Ijin Apoteker<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="no_apoteker" id="no_apoteker" class="form-control" required/>
-                                </div>
-                            </div> 
-                            <div class="form-group masa_apoteker">
-                                <label class="col-sm-3 control-label">Masa Berlaku<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="masa_apoteker" id="masa_apoteker" class="form-control tanggal_masa" data-plugin-datepicker required/>
-                                </div>
-                            </div> 
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">Nama Apoteker<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="apoteker" id="apoteker" class="form-control" required/>
-                                </div>
-                            </div> 
-                            <div class="form-group alamat">
-                                <label class="col-sm-3 control-label">Alamat KTP Apoteker<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <textarea rows="2" class="form-control" name="alamat_1" id="alamat_1" required></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group alamat">
-                                <label class="col-sm-3 control-label">Alamat Tinggal Apoteker<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <textarea rows="2" class="form-control" name="alamat_2" id="alamat_2" required></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">Kontak Apoteker<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="hp" id="hp" class="form-control" required/>
-                                </div>
-                            </div> 
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">No SIPA<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="no_sipa" id="no_sipa" class="form-control" required/>
-                                </div>
-                            </div> 
-                            <div class="form-group masa_apoteker">
-                                <label class="col-sm-3 control-label">Masa Berlaku SIPA<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="tanggal_sipa" id="tanggal_sipa" class="form-control tanggal_sipa" data-plugin-datepicker required/>
-                                </div>
-                            </div> 
-                            <div class="form-group mt-lg nama_supplier">
-                                <label class="col-sm-3 control-label">Nama TTK yang didelegasikan<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="nama_ttk" id="nama_ttk" class="form-control" required/>
+                                    <input type="text" name="keterangan" id="keterangan" class="form-control" />
                                 </div>
                             </div> 
                     </div>
@@ -497,24 +315,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     success: function(response) {  
                         $.each(response, function(i, item) { 
                         document.getElementById("nama_supplier").setAttribute('value', item.nama_supplier);
-                        document.getElementById("no_izin").setAttribute('value', item.no_izin);
                         document.getElementById("alamat").value = item.alamat;
-                        document.getElementById("hp").value = item.hp;
-						document.getElementById("no_npwp").value = item.no_npwp;
-						document.getElementById("nama_npwp").value = item.nama_npwp;
-						document.getElementById("alamat_npwp").value = item.alamat_npwp;
-                        document.getElementById("bank").value = item.bank;
-                        document.getElementById("rekening").value = item.rekening;
-                        document.getElementById("an").value = item.an;
-                        document.getElementById("no_apoteker").value = item.no_apoteker;
-                        document.getElementById("masa_apoteker").value = item.masa_apoteker;
-                        document.getElementById("apoteker").value = item.apoteker;
-                        document.getElementById("alamat_1").value = item.alamat_1;
-                        document.getElementById("alamat_2").value = item.alamat_2;
-                        document.getElementById("telepon").setAttribute('value', item.telepon);
-                        document.getElementById("no_sipa").value = item.no_sipa;
-                        document.getElementById("tanggal_sipa").value = item.tgl_sipa;
-                        document.getElementById("nama_ttk").value = item.nama_ttk;
+                        document.getElementById("telepon").value = item.telepon;
+                        document.getElementById("keterangan").value = item.keterangan;
                         }); 
                     }
                 });  

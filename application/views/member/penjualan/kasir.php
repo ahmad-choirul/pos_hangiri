@@ -212,7 +212,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 												<img src="<?php echo base_url()?>/images/<?php echo $key['gambar']; ?>" class="img-responsive fit-image" alt="Foto Produk"> 
 											</div>
 											<span class="mg-title nama_produk">
-												<?php if($key['jenis'] == 'racikan') echo"<b>[racikan]</b>"; ?> <?php echo $key['nama_item']; ?>
+												<?php echo $key['nama_item']; ?>
 											</span>
 											<div class="row">
 												<div class="col-md-12"> 
@@ -398,9 +398,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<thead>
 							<tr>
 								<th>Nama Apotek</th>
-								<th>No Izin</th>
-								<th>Nama Apoteker</th>
-								<th>Kontak Apotek</th> 
+								<th>No HP</th>
 								<th></th>
 							</tr>
 						</thead>

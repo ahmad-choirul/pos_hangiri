@@ -15,37 +15,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="header-right">    
     <ul class="notifications">
     <?php if( $this->session->userdata('kategori')==31||$this->session->userdata('kategori')==32){?>
-        <!-- <li>
-        <a href="<?php echo base_url()?>penjualan/kasir" type="button" class="mb-xs mt-xs mr-xs btn btn-primary"><i class="fa  fa-shopping-cart"></i> Transaksi</a>
-        </li>  -->
         <li>
-                <button tabindex="-1" data-toggle="dropdown" class="mb-xs mt-xs mr-xs btn btn-primary dropdown-toggle" type="button" aria-expanded="false">
-                    Pembeli <span class="caret" style="margin-left: 10px;"></span>
-                </button>
-                <ul role="menu" class="dropdown-menu pull-right">
-                    <li><a id="ppn" class="dropdown-item" href="<?php echo base_url()?>penjualan/kasir?t=1">Penjualan +PPN</a></li>
-                    <li><a id="noppn" class="dropdown-item" href="<?php echo base_url()?>penjualan/kasir?t=2">Penjualan Tanpa PPN</a></li>
-                    <li><a id="pre" class="dropdown-item" href="<?php echo base_url()?>penjualan/kasir?t=3">Penjualan Prekursor</a></li>
-                    <li><a id="oot" class="dropdown-item" href="<?php echo base_url()?>penjualan/kasir?t=4">Penjualan OOT</a></li>
-                </ul>
-            <!-- <div class="dropdown">
-                <button class="mb-xs mt-xs mr-xs btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa  fa-shopping-cart"></i> Transaksi
-                </button>
-                <div class="dropdown-menu" id="dropdown" aria-labelledby="dropdownMenuButton">
-                    <form action="<?= base_url() ?>" method="post">
-                        <button id="ppn" class="dropdown-item">Penjualan +PPN</button>
-                     <button id="noppn" class="dropdown-item">Penjualan Tanpa PPN</button>
-                      <button id="pre" class="dropdown-item">Penjualan Prekusor</button>
-                       <button id="oot" class="dropdown-item">Penjualan OOT</button>
-                    </form>
-                    <a id="ppn" class="dropdown-item" href="<?php echo base_url()?>penjualan/kasir?t=1">Penjualan +PPN</a>
-                    <a id="noppn" class="dropdown-item" href="<?php echo base_url()?>penjualan/kasir?t=2">Penjualan Tanpa PPN</a>
-                    <a id="pre" class="dropdown-item" href="<?php echo base_url()?>penjualan/kasir?t=3">Penjualan Prekursor</a>
-                    <a id="oot" class="dropdown-item" href="<?php echo base_url()?>penjualan/kasir?t=4">Penjualan OOT</a>
-
-                </div>
-            </div> -->
+                 <a class="mb-xs mt-xs mr-xs btn btn-primary " href="<?php echo base_url()?>penjualan/kasir"><i class="fa  fa-shopping-cart"></i> Penjualan</a>
+               
         </li>
     <?php
     }?>

@@ -206,24 +206,9 @@ class Master_model extends CI_Model{
         $post = $this->input->post();   
         $array = array(
             'nama_supplier' =>$post["nama_supplier"],
-            'no_izin'       =>$post["no_izin"], 
             'alamat'        =>$post["alamat"], 
             'telepon'       =>$post["telepon"], 
-            'no_npwp'       =>$post["no_npwp"], 
-            'nama_npwp'     =>$post["nama_npwp"], 
-            'alamat_npwp'   =>$post["alamat_npwp"], 
-            'bank'          =>$post["bank"], 
-            'rekening'      =>$post["rekening"], 
-            'an'            =>$post["an"], 
-            'no_apoteker'   =>$post["no_apoteker"], 
-            'masa_apoteker' =>$post["masa_apoteker"], 
-            'apoteker'      =>$post["apoteker"], 
-            'alamat_1'      =>$post["alamat_1"], 
-            'alamat_2'      =>$post["alamat_2"], 
-            'hp'            =>$post["hp"], 
-            'no_sipa'       =>$post["no_sipa"], 
-            'tgl_sipa'      =>$post["tgl_sipa"], 
-            'nama_ttk'      =>$post["nama_ttk"], 
+            'keterangan'      =>$post["keterangan"], 
         );
         return $this->db->insert("master_supplier", $array);   
     } 
@@ -231,24 +216,9 @@ class Master_model extends CI_Model{
     {
         $post = $this->input->post();
         $this->nama_supplier    = $post["nama_supplier"];
-        $this->no_izin          = $post["no_izin"];
         $this->alamat           = $post["alamat"];
         $this->telepon          = $post["telepon"];
-        $this->no_npwp          = $post["no_npwp"];
-        $this->nama_npwp        = $post["nama_npwp"];
-        $this->alamat_npwp      = $post["alamat_npwp"];
-        $this->bank             = $post["bank"];
-        $this->rekening         = $post["rekening"];
-        $this->an               = $post["an"];
-        $this->no_apoteker      = $post["no_apoteker"];
-        $this->masa_apoteker    = $post["masa_apoteker"];
-        $this->apoteker         = $post["apoteker"];
-        $this->alamat_1         = $post["alamat_1"];
-        $this->alamat_2         = $post["alamat_2"];
-        $this->hp               = $post["hp"];
-        $this->no_sipa          = $post["no_sipa"];
-        $this->tgl_sipa         = $post["tanggal_sipa"];
-        $this->nama_ttk         = $post["nama_ttk"];
+        $this->keterangan         = $post["keterangan"];
         return $this->db->update("master_supplier", $this, array('id' => $post['idd']));
     }
     public function hapusdatasupplier()
@@ -302,7 +272,6 @@ class Master_model extends CI_Model{
     {
         $get = $this->input->get();
         $this->_get_query_pembeli();
-        $this->db->where('jenis_pembeli','2');
         if($get['length'] != -1)
         $this->db->limit($get['length'], $get['start']);
         $query = $this->db->get();
@@ -336,32 +305,12 @@ class Master_model extends CI_Model{
     } 
     function simpandatapembeli(){   
         $post = $this->input->post();   
-        if($post['kode_dokter']==""){
-            $kode_dokter = NULL;     
-        }else{ 
-            $kode_dokter = $post["kode_dokter"];   
-        }
+       
         $array = array(
             'nama_pembeli'=>$post["nama_pembeli"],
             'alamat'=>$post["alamat"],  
             'hp'=>$post["hp"], 
-			'no_npwp'=>$post["no_npwp"], 
-			'nama_npwp'=>$post["nama_npwp"], 
-			'alamat_npwp'=>$post["alamat_npwp"], 
-            'bank'=>$post["bank"], 
-            'rekening'=>$post["rekening"], 
-            'an'=>$post["an"], 
-            'telepon'=>$post["telepon"], 
-            'no_apoteker'=>$post["no_apoteker"], 
-            'tgl_masa'=>$post["masa_apoteker"],  
-            'apoteker'=>$post["apoteker"], 
-            'alamat_ktp'=>$post["alamat1_apoteker"], 
-            'alamat_tinggal'=>$post["alamat2_apoteker"], 
-            'no_sipa'=>$post["no_sipa"],  
-            'nama_ttk'=>$post["nama_ttk"],  
-            'tgl_sipa'=>$post["tanggal_sipa"], 
-            'jenis_pembeli'=>'2', 
-            'kode_dokter'=>$kode_dokter, 
+			
         );
         $this->db->insert("master_pembeli", $array);  
         return $this->db->insert_id();
@@ -372,26 +321,7 @@ class Master_model extends CI_Model{
         $this->nama_pembeli = $post["nama_pembeli"];
         $this->alamat = $post["alamat"];
         $this->hp = $post["hp"];
-		$this->no_npwp = $post["no_npwp"];
-		$this->alamat_npwp = $post["alamat_npwp"];
-		$this->nama_npwp = $post["nama_npwp	"];
-        $this->bank = $post["bank"];
-        $this->rekening = $post["rekening"];
-        $this->an = $post["an"];
-        $this->telepon = $post["telepon"]; 
-        $this->no_apoteker = $post["no_apoteker"]; 
-        $this->tgl_masa = $post["masa_apoteker"];   
-        $this->apoteker = $post["apoteker"];   
-        $this->alamat_ktp = $post["alamat1_apoteker"];   
-        $this->alamat_tinggal = $post["alamat2_apoteker"];   
-        $this->no_sipa = $post["no_sipa"];   
-        $this->tgl_sipa = $post["tgl_sipa"];   
-        $this->nama_ttk = $post["nama_ttk"];   
-        if($post['kode_dokter']==""){
-            $this->kode_dokter = NULL;     
-        }else{ 
-            $this->kode_dokter = $post["kode_dokter"];   
-        }
+		
         return $this->db->update("master_pembeli", $this, array('id' => $post['idd']));
     } 
     public function hapusdatapembeli()
@@ -696,13 +626,15 @@ class Master_model extends CI_Model{
 	//CRUD merk end
 	
 	// datatable item start
-    var $column_search_item = array('kode_item','nama_item','jenis','kategori','harga_jual','lokasi'); 
-    var $column_order_item = array(null, 'kode_item','nama_item','jenis','kategori','harga_jual','lokasi');
+    var $column_search_item = array('kode_item','nama_item','jenis','nama_kategori','harga_jual','lokasi'); 
+    var $column_order_item = array(null, 'kode_item','nama_item','jenis','nama_kategori','harga_jual','lokasi');
     var $order_item = array('waktu_update' => 'DESC');
     private function _get_query_item()
     { 
         $get = $this->input->get();
-        $this->db->from('master_item'); 
+        $this->db->select('a.*,b.nama_kategori');
+        $this->db->from('master_item a'); 
+        $this->db->join('master_kategori b', 'a.kategori = b.id');
         $i = 0; 
         foreach ($this->column_search_item as $item)
         {
@@ -793,18 +725,12 @@ class Master_model extends CI_Model{
         $post = $this->input->post();   
         $array = array(
             'kode_item'=>$post["kode_item"], 
-            'no_bet'=>$post["no_bet"], 
-            'jenis'=>$post["jenis"], 
             'kategori'=>$post["kategori"],  
-            'satuan'=>$post["satuan"], 
-            'merk'=>$post["merk"], 
             'nama_item'=>$post["nama_item"], 
             'keterangan'=>$post["keterangan"], 
-            'lokasi'=>$post["lokasi"], 
+            'harga_jual'=>bilanganbulat($post["harga_jual"]),
             'netto'=>$post["netto"],  
             'tgl_expired'=>$post["tanggal_expired"],
-            'komisi'=>$post["komisi"],  
-            'stok_minimal'=>$post["stok_minimal"],  
             'gambar'=>$this->_uploadGambarProduk(),  
         );
         return $this->db->insert("master_item", $array);  
@@ -814,23 +740,12 @@ class Master_model extends CI_Model{
     {
         $post = $this->input->post();
         $this->kode_item = $post["kode_item"];
-        $this->no_bet = $post["no_bet"];
-        $this->jenis = $post["jenis"];
         $this->kategori = $post["kategori"];
-        $this->merk = $post["merk"];
-        $this->satuan = $post["satuan"]; 
         $this->nama_item = $post["nama_item"]; 
         $this->keterangan = $post["keterangan"];  
-        $this->lokasi = $post["lokasi"];  
         $this->netto = $post["netto"];  
         $this->tgl_expired = $post["tanggal_expired"];
-        $this->komisi = $post["komisi"];  
-        $this->stok_minimal = $post["stok_minimal"];  
-        $this->harga_jual = bilanganbulat($post["harga_jual1"]); 
-        $this->harga_jual_distributor = bilanganbulat($post["harga_jual2"]);  
-        $this->harga_jual_3 = bilanganbulat($post["harga_jual3"]); 
-        $this->harga_jual_4 = bilanganbulat($post["harga_jual4"]); 
-
+        $this->harga_jual = bilanganbulat($post["harga_jual"]); 
         if (!empty($_FILES["gambar"]["name"])) {
             $this->gambar = $this->_uploadGambarProduk();
         }   
@@ -1154,7 +1069,7 @@ class Master_model extends CI_Model{
     function simpandataspg(){   
         $post = $this->input->post();   
         $array = array(
-            'no_ijin'=>$post["no_ijin"],
+            'kontak'=>$post["kontak"],
             'alamat'=>$post["alamat"],  
             'nama_spg'=>$post["nama_spg"], 
 			'kontak'=>$post["kontak"], 
@@ -1168,7 +1083,6 @@ class Master_model extends CI_Model{
         $post = $this->input->post();
         $this->nama_spg = $post["nama_spg"];
         $this->alamat = $post["alamat"];
-        $this->no_ijin = $post["no_ijin"];
 		$this->kontak = $post["kontak"];
 		$this->nik = $post["nik"];
         return $this->db->update("master_spg", $this, array('id' => $post['idd']));

@@ -50,11 +50,11 @@ class Penjualan extends CI_Controller {
             ); 
         }  
         $result = array( 
-         "draw" => $draw, 
-         "recordsTotal" => $totalrows, 
-         "recordsFiltered" => $totalrows, 
-         "data" => $data 
-     );  
+           "draw" => $draw, 
+           "recordsTotal" => $totalrows, 
+           "recordsFiltered" => $totalrows, 
+           "data" => $data 
+       );  
         echo json_encode($result);  
     }  
 
@@ -67,7 +67,7 @@ class Penjualan extends CI_Controller {
             $errors = $this->form_validation->error_array();
             $data['errors'] = $errors;
         }else{  
-           if($simpan->simpandatadiskon()){ 
+         if($simpan->simpandatadiskon()){ 
             $data['success']= true;
             $data['message']="Berhasil menyimpan data";  
         }else{
@@ -137,9 +137,9 @@ public function banktambah(){
     $validation = $this->form_validation; 
     $validation->set_rules($simpan->rulesbank());
     if ($this->form_validation->run() == FALSE){
-       $errors = $this->form_validation->error_array();
-       $data['errors'] = $errors;
-   }else{    
+     $errors = $this->form_validation->error_array();
+     $data['errors'] = $errors;
+ }else{    
     if($simpan->simpandatabank()){
         $data['success']= true;
         $data['message']="Berhasil menyimpan data";  
@@ -171,9 +171,9 @@ public function bankedit(){
     $validation = $this->form_validation; 
     $validation->set_rules($simpan->rulesbank());
     if ($this->form_validation->run() == FALSE){
-       $errors = $this->form_validation->error_array();
-       $data['errors'] = $errors;
-   }else{    
+     $errors = $this->form_validation->error_array();
+     $data['errors'] = $errors;
+ }else{    
     if($simpan->updatedatabank()){
         $data['success']= true;
         $data['message']="Berhasil menyimpan data";
@@ -275,24 +275,12 @@ public function kasir()
     $data = array();
     $totalRec = 0;
 
-    $kode = $this->input->get('t');
-    $data['kode'] = $kode;
-    if ($kode==1) {
-        $kategori='PPN';
-    }elseif ($kode==2) {
-        $kategori='Tanpa PPN';
-    }elseif ($kode==3) {
-        $kategori='Prekusor';
-    }elseif ($kode==4) {
-        $kategori='OOT';
-    }
-    $data['dokter'] = $this->db->get('master_dokter')->result();
     $data['spg'] = $this->penjualan_model->get_spg();
 
-    $data['loop'] =$this->penjualan_model->getRows(array(),$kategori);
+    $data['loop'] =$this->penjualan_model->getRows(array());
     $totalRec = count($data['loop']);
     $config['target']      = '#postList';
-    $config['base_url']    = base_url().'posts/ajaxPaginationDataKasir?kode='.$kode;
+    $config['base_url']    = base_url().'posts/ajaxPaginationDataKasir';
         // $config['base_url']    = base_url().'posts/ajaxPaginationDataKasir?kode='.$kode;
     $config['total_rows']  = $totalRec;
     $config['per_page']    = $this->perPage;
@@ -309,21 +297,12 @@ public function tambahkeranjangbarcode(){
     $get = $this->input->get();   
     $query = $this->db->select('*')->from('master_item')->where('kode_item ="'.$get['barcode'].'"')->get();
     if($query->num_rows() > 0 ){
-        if($query->row()->jenis == 'racikan'){
-            $stok = $simpan->stokracikan($get['barcode']);
-            if($stok == '0'){
-                $data['response'] = "stok kosong";
-            }else{
-                $simpankeranjang = $simpan->cek_keranjang($get['barcode'],$get['pembeli'],'1');
-                $data['response'] = "tersedia";
-            }
-        }else{
-            if($query->row()->stok > 0){ 
-                $simpankeranjang = $simpan->cek_keranjang($get['barcode'],$get['pembeli'],'0');$data['response'] = "tersedia";
-            }else{ 
-                $data['response'] = "stok kosong";
-            }
-        }   
+
+        if($query->row()->stok > 0){ 
+            $simpankeranjang = $simpan->cek_keranjang($get['barcode'],$get['pembeli'],'0');$data['response'] = "tersedia";
+        }else{ 
+            $data['response'] = "stok kosong";
+        }
     } else{
         $data['response'] = '0';   
     } 
@@ -501,19 +480,17 @@ public function datapembeli()
     foreach($query->result() as $r) { 
         $data[] = array(   
             $this->security->xss_clean($r->nama_pembeli), 
-            $this->security->xss_clean($r->no_sipa), 
-            $this->security->xss_clean($r->apoteker), 
-            $this->security->xss_clean($r->telepon),
+            $this->security->xss_clean($r->hp),
             '    <a onclick="pilihpembeli(this)" data-namapembeli="'.$r->nama_pembeli.'" data-id="'.$r->id.'" class="mt-xs mr-xs btn btn-info" role="button"><i class="fa fa-check-square-o"></i></a>
             '
         ); 
     }  
     $result = array( 
-     "draw" => $draw, 
-     "recordsTotal" => $query->num_rows(), 
-     "recordsFiltered" => $query->num_rows(), 
-     "data" => $data 
- );  
+       "draw" => $draw, 
+       "recordsTotal" => $query->num_rows(), 
+       "recordsFiltered" => $query->num_rows(), 
+       "data" => $data 
+   );  
     echo json_encode($result);  
 }
 
@@ -541,11 +518,11 @@ public function datahold()
         ); 
     }  
     $result = array( 
-     "draw" => $draw, 
-     "recordsTotal" => $query->num_rows(), 
-     "recordsFiltered" => $query->num_rows(), 
-     "data" => $data 
- );  
+       "draw" => $draw, 
+       "recordsTotal" => $query->num_rows(), 
+       "recordsFiltered" => $query->num_rows(), 
+       "data" => $data 
+   );  
     echo json_encode($result);  
 }
 
@@ -665,7 +642,7 @@ $this->db->limit(1);
 $idpnj = $this->db->get('penjualan')->row()->id;
         //pembeli
 if ($data['id_pembeli']!='') {
- $this->db->where('id',  $data['id_pembeli']);
+   $this->db->where('id',  $data['id_pembeli']);
 }
 $this->db->limit(1);
 $pembeli = $this->db->get('master_pembeli');

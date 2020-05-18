@@ -30,13 +30,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<?php $this->load->view("komponen/sidebar.php") ?>
 				<section role="main" class="content-body">
 					<header class="page-header">  
-						<h2>Master Data SPG</h2>
+						<h2>Master Data Pegawai</h2>
 					</header>  
 					<!-- start: page -->
                     <section class="panel">
                         <header class="panel-heading">    
                             <div class="row show-grid">
-                                <div class="col-md-6" align="left"><h2 class="panel-title">Data SPG</h2></div>
+                                <div class="col-md-6" align="left"><h2 class="panel-title">Data Pegawai</h2></div>
                                 <?php  
                                 echo level_user('master','spg',$this->session->userdata('kategori'),'add') > 0 ? '<div class="col-md-6" align="right"><a class="btn btn-success" href="#"  data-toggle="modal" data-target="#tambahData"><i class="fa fa-plus"></i> Tambah</a></div>':'';
                                 ?> 
@@ -47,8 +47,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>Nama SPG</th>
-                                            <th>Nomor Ijin</th>
+                                            <th>Nama Pegawai</th>
+                                            <th>Nomor Kontak</th>
                                             <th>NIK</th>
                                             <th>Alamat</th> 
                                             <th>Kontak</th> 
@@ -75,19 +75,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </header>
                     <div class="panel-body">
 							<div class="form-group mt-lg ">
-                                <label class="col-sm-3 control-label">Nomor Ijin SPG<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="no_ijin" class="form-control" required/>
-                                </div>
-                            </div>
-							<div class="form-group mt-lg ">
                                 <label class="col-sm-3 control-label">NIK<span class="required">*</span></label>
                                 <div class="col-sm-9">
                                     <input type="text" name="nik" class="form-control" required/>
                                 </div>
                             </div>
                             <div class="form-group mt-lg nama_spg">
-                                <label class="col-sm-3 control-label">Nama SPG<span class="required">*</span></label>
+                                <label class="col-sm-3 control-label">Nama Pegawai<span class="required">*</span></label>
                                 <div class="col-sm-9">
                                     <input type="text" name="nama_spg" class="form-control" required/>
                                 </div>
@@ -126,7 +120,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="modal-content">
                 <section class="panel  panel-primary">   
                     <header class="panel-heading">
-                        <h2 class="panel-title">Detail SPG</h2>
+                        <h2 class="panel-title">Detail Pegawai</h2>
                     </header>
                     <div class="panel-body" id="showdetail"> 
                     </div>
@@ -149,15 +143,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <?php echo form_open('master/spgedit',' id="FormulirEdit"');?>  
                     <input type="hidden" name="idd" id="idd">
                     <header class="panel-heading">
-                        <h2 class="panel-title">Edit Data SPG</h2>
+                        <h2 class="panel-title">Edit Data Pegawai</h2>
                     </header>
                     <div class="panel-body">
-                            <div class="form-group mt-lg ">
-                                <label class="col-sm-3 control-label">Nomor Ijin SPG<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="no_ijin" id="no_ijin" class="form-control" required/>
-                                </div>
-                            </div>
 							<div class="form-group mt-lg ">
                                 <label class="col-sm-3 control-label">NIK<span class="required">*</span></label>
                                 <div class="col-sm-9">
@@ -165,7 +153,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                             </div>
                             <div class="form-group mt-lg nama_spg">
-                                <label class="col-sm-3 control-label">Nama SPG<span class="required">*</span></label>
+                                <label class="col-sm-3 control-label">Nama Pegawai<span class="required">*</span></label>
                                 <div class="col-sm-9">
                                     <input type="text" name="nama_spg" id="nama_spg" class="form-control" required/>
                                 </div>
@@ -337,7 +325,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         var datarow='';
                         $.each(response, function(i, item) {
                             datarow+='<table class="table table-bordered table-hover table-striped dataTable no-footer">';
-                            datarow+="<tr><td>Nomor Ijin SPG</td><td>: "+item.no_ijin+"</td></tr>";
 							datarow+="<tr><td>NIK</td><td>: "+item.nik+"</td></tr>";
                             datarow+="<tr><td>Nama SPG</td><td>: "+item.nama_spg+"</td></tr>";
                             datarow+="<tr><td>Alamat</td><td>: "+item.alamat+"</td></tr>";
@@ -363,7 +350,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         document.getElementById("nama_spg").setAttribute('value', item.nama_spg);
                         document.getElementById("alamat").value = item.alamat;
                         document.getElementById("kontak").value = item.kontak;
-						document.getElementById("no_ijin").value = item.no_ijin;
 						document.getElementById("nik").value = item.nik;
                         }); 
                     }

@@ -50,11 +50,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <th></th>
                                             <th>Kode Item (Barcode)</th>
                                             <th>Nama Item</th>
-                                            <th>Jenis</th>
                                             <th>Kategori</th>
-                                            <th>Harga Jual 1</th>
+                                            <th>Harga Jual</th>
                                             <th>Tanggal Kadaluarsa</th>
-                                            <th>Lokasi</th> 
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -82,7 +80,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="col-sm-9">
                                     <select data-plugin-selectTwo class="form-control" name="kategori" required>  
     									<?php foreach ($kategori as $kat): ?>
-                                        <option value="<?php echo $kat->id;?>"><?php echo $kat->id;?></option>
+                                        <option value="<?php echo $kat->id;?>"><?php echo $kat->nama_kategori;?></option>
                                         <?php endforeach; ?>
                                     </select> 
                                 </div>
@@ -93,80 +91,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <input type="text" name="kode_item" class="form-control" required/>
                                 </div>
                             </div>
-                            <div class="form-group mt-lg kode_item">
-                                <label class="col-sm-3 control-label">No Batch<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="no_bet" class="form-control" required/>
-                                </div>
-                            </div>
+
                             <div class="form-group mt-lg nama_item">
-                                <label class="col-sm-3 control-label">Nama Item<span class="required">*</span></label>
+                                <label class="col-sm-3 control-label">Nama Makanan<span class="required">*</span></label>
                                 <div class="col-sm-9">
                                     <input type="text" name="nama_item" class="form-control" required/>
                                 </div>
                             </div>
-                            <div class="form-group mt-lg satuan">
-                                <label class="col-sm-3 control-label">Pilih Satuan (Retail)<span class="required">*</span></label>
+
+                            <div class="form-group harga_jual">
+                                <label class="col-sm-3 control-label">Harga Jual<span class="required">*</span></label>
                                 <div class="col-sm-9">
-                                    <select data-plugin-selectTwo class="form-control" name="satuan" required>  
-    									<?php foreach ($satuan as $sat): ?>
-                                        <option value="<?php echo $sat->id;?>"><?php echo $sat->id;?></option>
-                                        <?php endforeach; ?>
-                                    </select> 
-                                </div>
-                            </div>
-                            <div class="form-group mt-lg satuan">
-                                <label class="col-sm-3 control-label">Pilih Merk<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <select data-plugin-selectTwo class="form-control" name="merk" required>  
-    									<?php foreach ($merk as $sat): ?>
-                                        <option value="<?php echo $sat->id;?>"><?php echo $sat->id;?></option>
-                                        <?php endforeach; ?>
-                                    </select> 
-                                </div>
-                            </div>
-                            <div class="form-group jenis">
-                                <label class="col-sm-3 control-label">Jenis<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <div class="radio-custom radio-primary">
-                                        <input id="Makanans" name="jenis" type="radio" value="Makanan" required>
-                                        <label for="Makanans">Makanan</label>
-                                    </div> 
-                                    <div class="radio-custom radio-primary">
-                                        <input id="Minumans" name="jenis" type="radio" value="Minuman" required>
-                                        <label for="Minumans">Minuman</label>
-                                    </div>  
+                                    <input type="text" name="harga_jual"   id="total_jual" class="form-control mask_price" required />
                                 </div>
                             </div> 
+                           
                             <div class="form-group mt-lg nama_item">
-                                <label class="col-sm-3 control-label">Netto<span class="required">*</span></label>
+                                <label class="col-sm-3 control-label">Netto<span >*</span></label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="netto" class="form-control" required/>
+                                    <input type="text" name="netto" class="form-control"/>
                                     <small>dalam satuan gram</small>
                                 </div>
                             </div>
-                            <div class="form-group telepon">
-                                <label class="col-sm-3 control-label">Lokasi</label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="lokasi" class="form-control" />
-                                </div>
-                            </div>
                             <div class="form-group ">
-                                <label class="col-sm-3 control-label">Tanggal Kadaluarsa<span class="required">*</span></label>
+                                <label class="col-sm-3 control-label">Tanggal Kadaluarsa<span>*</span></label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="tanggal_expired" class="form-control tanggal_expired" data-plugin-datepicker required/>
-                                </div>
-                            </div>
-                            <div class="form-group harga_jual">
-                                <label class="col-sm-3 control-label">Komisi SPG</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="komisi" class="form-control mask_price"  />
-                                </div>
-                            </div>
-                            <div class="form-group harga_jual">
-                                <label class="col-sm-3 control-label">Stok Minimal</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="stok_minimal" class="form-control"  />
+                                    <input type="text" name="tanggal_expired" class="form-control tanggal_expired" data-plugin-datepicker/>
                                 </div>
                             </div>
                             <div class="form-group gambar">
@@ -232,7 +182,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="col-sm-9">
                                     <select data-plugin-selectTwo class="form-control" name="kategori" id="kategori" required>  
     									<?php foreach ($kategori as $kat): ?>
-                                        <option value="<?php echo $kat->id;?>"><?php echo $kat->id;?></option>
+                                        <option value="<?php echo $kat->id;?>"><?php echo $kat->nama_kategori;?></option>
                                         <?php endforeach; ?>
                                     </select> 
                                 </div>
@@ -243,51 +193,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <input type="text" name="kode_item" id="kode_item" class="form-control" required/>
                                 </div>
                             </div>
-                            <div class="form-group mt-lg kode_item">
-                                <label class="col-sm-3 control-label">No Batch<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="no_bet" id="no_bet" class="form-control" required/>
-                                </div>
-                            </div>
+   
                             <div class="form-group mt-lg nama_item">
                                 <label class="col-sm-3 control-label">Nama Item<span class="required">*</span></label>
                                 <div class="col-sm-9">
                                     <input type="text" name="nama_item" id="nama_item" class="form-control" required/>
                                 </div>
                             </div>
-                            <div class="form-group mt-lg satuan">
-                                <label class="col-sm-3 control-label">Pilih Satuan (Retail)<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <select data-plugin-selectTwo class="form-control" name="satuan" id="satuan"  required>  
-    									<?php foreach ($satuan as $sat): ?>
-                                        <option value="<?php echo $sat->id;?>"><?php echo $sat->id;?></option>
-                                        <?php endforeach; ?>
-                                    </select> 
-                                </div>
-                            </div>
-                            <div class="form-group mt-lg satuan">
-                                <label class="col-sm-3 control-label">Pilih Merk<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <select data-plugin-selectTwo class="form-control" name="merk" id="merk"  required>  
-    									<?php foreach ($merk as $sat): ?>
-                                        <option value="<?php echo $sat->id;?>"><?php echo $sat->id;?></option>
-                                        <?php endforeach; ?>
-                                    </select> 
-                                </div>
-                            </div>
-                            <div class="form-group jenis">
-                                <label class="col-sm-3 control-label">Jenis<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <div class="radio-custom radio-primary">
-                                        <input id="Makanan" name="jenis" type="radio" value="Makanan" required>
-                                        <label for="Makanan">Makanan</label>
-                                    </div> 
-                                    <div class="radio-custom radio-primary">
-                                        <input id="Minuman" name="jenis" type="radio" value="Minuman" required>
-                                        <label for="Minuman">Minuman</label>
-                                    </div>  
-                                </div>
-                            </div> 
+                  
+                            
                             <div class="form-group mt-lg nama_item">
                                 <label class="col-sm-3 control-label">Netto<span class="required">*</span></label>
                                 <div class="col-sm-9">
@@ -295,52 +209,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <small>dalam satuan gram</small>
                                 </div>
                             </div>
-                            <div class="form-group telepon">
-                                <label class="col-sm-3 control-label">Lokasi</label>
-                                <div class="col-sm-9">
-                                    <input type="text"  id="lokasi" name="lokasi" class="form-control" />
-                                </div>
-                            </div>
                             <div class="form-group harga_jual">
-                                <label class="col-sm-3 control-label">Harga Jual 1<span class="required">*</span></label>
+                                <label class="col-sm-3 control-label">Harga Jual<span class="required">*</span></label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="harga_jual1"   id="harga_jual1" class="form-control mask_price" required />
-                                </div>
-                            </div> 
-                            <div class="form-group harga_jual">
-                                <label class="col-sm-3 control-label">Harga Jual 2<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="harga_jual2"   id="harga_jual2" class="form-control mask_price" required />
-                                </div>
-                            </div> 
-                            <div class="form-group harga_jual">
-                                <label class="col-sm-3 control-label">Harga Jual 3<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="harga_jual3"   id="harga_jual3" class="form-control mask_price" required />
-                                </div>
-                            </div> 
-                            <div class="form-group harga_jual">
-                                <label class="col-sm-3 control-label">Harga Jual 4<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="harga_jual4"   id="harga_jual4" class="form-control mask_price" required />
+                                    <input type="text" name="harga_jual"   id="harga_jual" class="form-control mask_price" required />
                                 </div>
                             </div> 
                             <div class="form-group ">
                                 <label class="col-sm-3 control-label">Tanggal Kadaluarsa<span class="required">*</span></label>
                                 <div class="col-sm-9">
                                     <input type="text" name="tanggal_expired" id="tanggal_expired" class="form-control tanggal_expired" data-plugin-datepicker required/>
-                                </div>
-                            </div>
-                            <div class="form-group harga_jual">
-                                <label class="col-sm-3 control-label">Komisi SPG</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="komisi" id="komisi" class="form-control mask_price"  />
-                                </div>
-                            </div>
-                            <div class="form-group harga_jual">
-                                <label class="col-sm-3 control-label">Stok Minimal</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="stok_minimal" id="stok_minimal" class="form-control"  />
                                 </div>
                             </div>
                             <div class="form-group gambar">
@@ -492,7 +370,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         text: "Request gagal, browser akan direload",
                         type: 'danger'
                     }); 
-                    window.setTimeout(function() {  location.reload();}, 2000);
+                    // window.setTimeout(function() {  location.reload();}, 2000);
                 }); 
                 e.preventDefault(); 
             }); 
@@ -510,21 +388,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $.each(response, function(i, item) {
                             datarow+='<table class="table table-bordered table-hover table-striped dataTable no-footer">';
                             datarow+="<tr><td>Kode Item (Barcode)</td><td>: "+item.kode_item+"</td></tr>";
-                            datarow+="<tr><td>Nomor Batch</td><td>: "+item.no_bet+"</td></tr>";
-                            datarow+="<tr><td>Jenis</td><td>: "+item.jenis+"</td></tr>";
-                            datarow+="<tr><td>Kategori</td><td>: "+item.kategori+"</td></tr>";
+                            datarow+="<tr><td>Kategori</td><td>: "+item.nama_kategori+"</td></tr>";
                             datarow+="<tr><td>Nama Item</td><td>: "+item.nama_item+"</td></tr>";
-                            datarow+="<tr><td>Harga Jual 1</td><td>: "+item.harga_jual1+"</td></tr>";
-                            datarow+="<tr><td>Harga Jual 2</td><td>: "+item.harga_jual2+"</td></tr>";
-                            datarow+="<tr><td>Harga Jual 3</td><td>: "+item.harga_jual3+"</td></tr>";
-                            datarow+="<tr><td>Harga Jual 4</td><td>: "+item.harga_jual4+"</td></tr>";
-                            datarow+="<tr><td>Satuan (Retail)</td><td>: "+item.satuan+"</td></tr>";
-                            datarow+="<tr><td>Merk</td><td>: "+item.merk+"</td></tr>";
+                            datarow+="<tr><td>Harga Jual</td><td>: "+item.harga_jual+"</td></tr>";
                             datarow+="<tr><td>Netto</td><td>: "+item.netto+"</td></tr>";
-                            datarow+="<tr><td>Lokasi</td><td>: "+item.lokasi+"</td></tr>";
+                            datarow+="<tr><td>Stok</td><td>: "+item.stok+"</td></tr>";
                             datarow+="<tr><td>Tanggal Kadaluarsa</td><td>: "+item.tanggal_expired+"</td></tr>";
-                            datarow+="<tr><td>Komisi SPG</td><td>: "+item.komisi+"</td></tr>";
-                            datarow+="<tr><td>Stok Minimal</td><td>: "+item.stok_minimal+"</td></tr>";
                             datarow+="<tr><td>Gambar</td><td> <img src='<?php echo base_url()?>images/"+item.gambar+"' width='200' ></td></tr>";
                             datarow+="<tr><td>Keterangan</td><td>: "+item.keterangan+"</td></tr>";
                             datarow+="</table>";
@@ -545,28 +414,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     dataType 	: 'json',
                     success: function(response) {  
                         $.each(response, function(i, item) { 
-                        document.getElementById("kode_item").setAttribute('value', item.kode_item); 
-                        document.getElementById("no_bet").setAttribute('value', item.no_bet); 
+                        document.getElementById("kode_item").setAttribute('value', item.kode_item);
+                        document.getElementById("kategori").setAttribute('value', item.kategori);
                         document.getElementById("nama_item").setAttribute('value', item.nama_item);
-                        document.getElementById("lokasi").setAttribute('value', item.lokasi); 
                         document.getElementById("netto").setAttribute('value', item.netto); 
                         document.getElementById("keterangan").value = item.keterangan;
-                        document.getElementById("harga_jual1").value = item.harga_jual1_edit;
-                        document.getElementById("harga_jual2").value = item.harga_jual2_edit;
-                        document.getElementById("harga_jual3").value = item.harga_jual3_edit;
-                        document.getElementById("harga_jual4").value = item.harga_jual4_edit;
+                        document.getElementById("total_jual").value = item.harga_jualedit;
                         document.getElementById("tanggal_expired").value = item.tanggal_expireds;
-                        document.getElementById("komisi").value = item.komisi;
-                        document.getElementById("stok_minimal").value = item.stok_minimal;
                         document.getElementById("gambar").src = '<?php echo base_url()?>images/'+item.gambar; 
                         $("#kategori").select2("val", item.kategori);
-                        $("#satuan").select2("val", item.satuan);
-                        $("#merk").select2("val", item.merk);
-                        if(item.jenis == 'Makanan'){
-                            document.getElementById("Makanan").checked = true;
-                        }else{ 
-                            document.getElementById("Minuman").checked = true;
-                        } 
                         }); 
                     }
                 });  
@@ -688,7 +544,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         text: "Request gagal, browser akan direload",
                         type: 'danger'
                     }); 
-                    window.setTimeout(function() {  location.reload();}, 2000);
+                    // window.setTimeout(function() {  location.reload();}, 2000);
                 }); 
                 e.preventDefault(); 
             }); 

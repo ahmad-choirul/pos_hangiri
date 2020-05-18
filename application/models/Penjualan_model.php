@@ -353,14 +353,11 @@ class Penjualan_model extends CI_Model
         $query = $this->db->get_where('keranjang_detail', array('id_keranjang' => $idkeranjang, 'kode_item' => $kodeproduk), 1);
         if ($query->num_rows() < 1) {
             $diskon =  $this->diskon_produk($kodeproduk, 1);
-            $upah_peracik = $produk->row()->upah_peracik;
             $harga = $produk->row()->harga_jual;
             $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
             $array = array(
                 'id_keranjang' => $idkeranjang,
                 'kode_item' => $kodeproduk,
-                'racikan' => $racikan,
-                'upah_peracik' => $upah_peracik,
                 'harga' => $harga,
                 'diskon' => $diskon,
                 'kuantiti' => $kuantiti,
@@ -372,12 +369,8 @@ class Penjualan_model extends CI_Model
         } else {
             $kuantiti = $query->row()->kuantiti + $kuantiti;
             $diskon =  $this->diskon_produk($kodeproduk, $kuantiti);
-            $upah_peraciktotal = $produk->row()->upah_peracik * $kuantiti;
-            $upah_peracik = $produk->row()->upah_peracik;
             $harga = $produk->row()->harga_jual;
             $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
-            $this->racikan = $racikan;
-            $this->upah_peracik = $upah_peraciktotal;
             $this->harga = $harga;
             $this->diskon = $diskon;
             $this->kuantiti = $kuantiti;
@@ -394,11 +387,8 @@ class Penjualan_model extends CI_Model
         $produk = $this->db->get_where('master_item', array('kode_item' => $query->row()->kode_item), 1);
         $kuantiti = $query->row()->kuantiti + 1;
         $diskon =  $this->diskon_produk($query->row()->kode_item, $kuantiti);
-        $upah_peraciktotal = $produk->row()->upah_peracik * $kuantiti;
-        $upah_peracik = $produk->row()->upah_peracik;
         $harga = $produk->row()->harga_jual;
         $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
-        $this->upah_peracik = $upah_peraciktotal;
         $this->harga = $harga;
         $this->diskon = $diskon;
         $this->kuantiti = $kuantiti;
@@ -416,11 +406,8 @@ class Penjualan_model extends CI_Model
             $produk = $this->db->get_where('master_item', array('kode_item' => $query->row()->kode_item), 1);
             $kuantiti = $query->row()->kuantiti - 1;
             $diskon =  $this->diskon_produk($query->row()->kode_item, $kuantiti);
-            $upah_peraciktotal = $produk->row()->upah_peracik * $kuantiti;
-            $upah_peracik = $produk->row()->upah_peracik;
             $harga = $produk->row()->harga_jual;
             $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
-            $this->upah_peracik = $upah_peraciktotal;
             $this->harga = $harga;
             $this->diskon = $diskon;
             $this->kuantiti = $kuantiti;
@@ -454,8 +441,6 @@ class Penjualan_model extends CI_Model
                 'tanggal_jam' => date('Y-m-d h:i:s'),
                 'id_admin' => $this->session->userdata('idadmin'),
                 'id_pembeli' => $pembeli,
-                'total_upah_peracik' => '0',
-                'total_harga_item' => '0',
                 'total' => '0',
                 'hold' => '0',
             );
@@ -474,7 +459,7 @@ class Penjualan_model extends CI_Model
     }
     public function detail_keranjang($idd)
     {
-        $this->db->select("a.nama_item, a.satuan, b.kode_item, a.jenis, b.id, b.kuantiti, b.diskon, b.harga, b.upah_peracik ,b.total, b.id_keranjang");
+        $this->db->select("a.nama_item, a.satuan, b.kode_item, b.id, b.kuantiti, b.diskon, b.harga, b.total, b.id_keranjang");
         $this->db->from("master_item a");
         $this->db->join('keranjang_detail b', 'b.kode_item = a.kode_item');
         $this->db->where('b.id_keranjang', $idd);
@@ -517,27 +502,17 @@ class Penjualan_model extends CI_Model
         return [
             [
                 'field' => 'target1',
-                'label' => 'Target PPN',
+                'label' => 'Target Harian',
                 'rules' => 'required',
             ],
             [
                 'field' => 'target2',
-                'label' => 'Target Tanpa PPN',
+                'label' => 'Target Mingguan',
                 'rules' => 'required',
             ],
             [
                 'field' => 'target3',
-                'label' => 'Target Prekusor',
-                'rules' => 'required',
-            ],
-            [
-                'field' => 'target4',
-                'label' => 'Target OOT',
-                'rules' => 'required',
-            ],
-            [
-                'field' => 'target5',
-                'label' => 'Komisi',
+                'label' => 'Target Bulanan',
                 'rules' => 'required',
             ],
         ];
@@ -548,8 +523,6 @@ class Penjualan_model extends CI_Model
         $this->target_1 = bilanganbulat($post["target1"]);
         $this->target_2 = bilanganbulat($post["target2"]);
         $this->target_3 = bilanganbulat($post["target3"]);
-        $this->target_4 = bilanganbulat($post["target4"]);
-        $this->target_5 = bilanganbulat($post["target5"]);
 
         return $this->db->update("master_target", $this, array('id' => '1'));
     }
@@ -579,8 +552,6 @@ class Penjualan_model extends CI_Model
             'id' => $kode_penjualan,
             'id_pembeli' => $keranjang->row()->id_pembeli,
             'id_admin' => $this->session->userdata('idadmin'),
-            'total_upah_peracik' => $keranjang->row()->total_upah_peracik,
-            'total_harga_item' => $keranjang->row()->total_harga_item,
             'total' => $keranjang->row()->total,
             'tanggal' => date('Y-m-d'),
             'jenis_penjualan' => $data['jns_penjualan'],
@@ -646,8 +617,6 @@ class Penjualan_model extends CI_Model
         $keranjangdetail_input = array(
             'id_penjualan' => $kode_penjualan,
             'kode_item' => $r['kode_item'],
-            'racikan' => $r['jenis'] == 'racikan' ? '1' : '0',
-            'upah_peracik' => $r['upah_peracik'],
             'harga' => $r['harga'],
             'diskon' => $r['diskon'],
             'kuantiti' => $r['kuantiti'],

@@ -62,20 +62,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<div class="sidebar-widget m-none"> 
 												<div class="widget-content">
 													<ul class="mg-folders" style="background-color: #168ec7;">
+                                                   
                                                     <?php if( $this->session->userdata('kategori')==31){?>
 														<li>
-															<a href="<?php echo base_url()?>master/dokter" class="menu-item" style="color: white"><i class="fa fa-folder"></i> Master Dokter</a>
-															<div class="item-options">
-																<a href="<?php echo base_url()?>master/dokter">
-																	<i class="fa fa-arrow-circle-o-left"></i>
-																</a> 
-															</div>
-														</li> 
-                                                    <?php
-                                                    }?>
-                                                    <?php if( $this->session->userdata('kategori')==31){?>
-														<li>
-															<a href="<?php echo base_url()?>master/pembeli" class="menu-item" style="color: white"><i class="fa fa-folder"></i> Master Apotek</a>
+															<a href="<?php echo base_url()?>master/pembeli" class="menu-item" style="color: white"><i class="fa fa-folder"></i> Master Pembeli</a>
 															<div class="item-options">
 																<a href="<?php echo base_url()?>master/pembeli">
 																	<i class="fa fa-arrow-circle-o-left"></i>
@@ -106,31 +96,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 														</li> 
                                                     <?php
                                                     }?>
-                                                    <?php if( $this->session->userdata('kategori')==31){?>
-														<li>
-															<a href="<?php echo base_url()?>master/satuan" class="menu-item" style="color: white"><i class="fa fa-folder"></i> Master  Satuan Item</a>
-															<div class="item-options">
-																<a href="<?php echo base_url()?>master/satuan">
-																	<i class="fa fa-arrow-circle-o-left"></i>
-																</a> 
-															</div>
-														</li> 
-                                                    <?php
-                                                    }?>
-                                                    <?php if( $this->session->userdata('kategori')==31){?>
-														<li>
-															<a href="<?php echo base_url()?>master/merk" class="menu-item" style="color: white"><i class="fa fa-folder"></i> Master Merk</a>
-															<div class="item-options">
-																<a href="<?php echo base_url()?>master/merk">
-																	<i class="fa fa-arrow-circle-o-left"></i>
-																</a> 
-															</div>
-														</li> 
-                                                    <?php
-                                                    }?>
+                                                    
                                                     <?php if( $this->session->userdata('kategori')==31 || $this->session->userdata('kategori')==33){?>
 														<li>
-															<a href="<?php echo base_url()?>master/items" class="menu-item" style="color: white"><i class="fa fa-folder"></i> Master Obat dan Alkes</a>
+															<a href="<?php echo base_url()?>master/items" class="menu-item" style="color: white"><i class="fa fa-folder"></i> Master Item</a>
 															<div class="item-options">
 																<a href="<?php echo base_url()?>master/items">
 																	<i class="fa fa-arrow-circle-o-left"></i>
@@ -139,20 +108,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 														</li> 
                                                     <?php
                                                     }?>
+                                                   
                                                     <?php if( $this->session->userdata('kategori')==31){?>
 														<li>
-															<a href="<?php echo base_url()?>master/racikan" class="menu-item" style="color: white"><i class="fa fa-folder"></i> Master Racikan</a>
-															<div class="item-options">
-																<a href="<?php echo base_url()?>master/racikan">
-																	<i class="fa fa-arrow-circle-o-left"></i>
-																</a> 
-															</div>
-														</li> 
-                                                    <?php 
-                                                    }?>
-                                                    <?php if( $this->session->userdata('kategori')==31){?>
-														<li>
-															<a href="<?php echo base_url()?>master/spg" class="menu-item" style="color: white"><i class="fa fa-folder"></i> Master SPG</a>
+															<a href="<?php echo base_url()?>master/spg" class="menu-item" style="color: white"><i class="fa fa-folder"></i> Master Pegawai</a>
 															<div class="item-options">
 																<a href="<?php echo base_url()?>master/spg">
 																	<i class="fa fa-arrow-circle-o-left"></i>
@@ -184,27 +143,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="row" style="margin-top:-30px;"> 
                                     <div class="col-md-6 col-lg-12 col-xl-6">
                                         <div class="row">
-                                            <div class="col-md-12 col-lg-6 col-xl-6">
-                                                <section class="panel panel-featured-left panel-featured-primary">
-                                                    <div class="panel-body">
-                                                        <div class="widget-summary">
-                                                            <div class="widget-summary-col widget-summary-col-icon">
-                                                                <div class="summary-icon bg-primary">
-                                                                    <i class="fa fa-user-md"></i>
-                                                                </div>
-                                                            </div>
-                                                            <div class="widget-summary-col">
-                                                                <div class="summary">
-                                                                    <h4 class="title">Jumlah Dokter</h4>
-                                                                    <div class="info">
-                                                                    <strong class="amount"><?php echo $total_dokter;?> orang</strong>
-                                                                    </div>
-                                                                </div> 
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </section>
-                                            </div>
                                             <div class="col-md-12 col-lg-6 col-xl-6">
                                                 <section class="panel panel-featured-left panel-featured-secondary">
                                                     <div class="panel-body">
@@ -269,48 +207,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 </section>
                                             </div>
                                             
-                                            <div class="col-md-12 col-lg-6 col-xl-6">
-                                                <section class="panel panel-featured-left panel-featured-secondary">
-                                                    <div class="panel-body">
-                                                        <div class="widget-summary">
-                                                            <div class="widget-summary-col widget-summary-col-icon">
-                                                                <div class="summary-icon bg-secondary">
-                                                                    <i class="fa fa-list-ol"></i>
-                                                                </div>
-                                                            </div>
-                                                            <div class="widget-summary-col">
-                                                                <div class="summary">
-                                                                    <h4 class="title">Jumlah Satuan Produk</h4>
-                                                                    <div class="info">
-                                                                        <strong class="amount"><?php echo $total_satuan;?> Satuan</strong>
-                                                                    </div>
-                                                                </div> 
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </section>
-                                            </div>
-                                            <div class="col-md-12 col-lg-6 col-xl-6">
-                                                <section class="panel panel-featured-left panel-featured-tertiary">
-                                                    <div class="panel-body">
-                                                        <div class="widget-summary">
-                                                            <div class="widget-summary-col widget-summary-col-icon">
-                                                                <div class="summary-icon bg-tertiary">
-                                                                    <i class="fa fa-list-ol"></i>
-                                                                </div>
-                                                            </div>
-                                                            <div class="widget-summary-col">
-                                                                <div class="summary">
-                                                                    <h4 class="title">Jumlah Merk</h4>
-                                                                    <div class="info">
-                                                                        <strong class="amount"><?php echo $total_merk;?> Merk</strong>
-                                                                    </div>
-                                                                </div> 
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </section>
-                                            </div>
+                                            
                                             <div class="col-md-12 col-lg-6 col-xl-6">
                                                 <section class="panel panel-featured-left panel-featured-primary">
                                                     <div class="panel-body">
@@ -322,7 +219,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             </div>
                                                             <div class="widget-summary-col">
                                                                 <div class="summary">
-                                                                    <h4 class="title">Jumlah Obat dan Alkes</h4>
+                                                                    <h4 class="title">Jumlah Item</h4>
                                                                     <div class="info">
                                                                     <strong class="amount"><?php echo $total_item;?> Produk</strong>
                                                                     </div>
@@ -333,28 +230,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 </section>
                                             </div>
                                             
-                                            <div class="col-md-12 col-lg-6 col-xl-6">
-                                                <section class="panel panel-featured-left panel-featured-tertiary">
-                                                    <div class="panel-body">
-                                                        <div class="widget-summary">
-                                                            <div class="widget-summary-col widget-summary-col-icon">
-                                                                <div class="summary-icon bg-tertiary">
-                                                                    <i class="fa fa-barcode"></i>
-                                                                </div>
-                                                            </div>
-                                                            <div class="widget-summary-col">
-                                                                <div class="summary">
-                                                                    <h4 class="title">Jumlah Racikan</h4>
-                                                                    <div class="info">
-                                                                        <strong class="amount"><?php echo $total_racikan;?> Racikan</strong>
-                                                                    </div>
-                                                                </div> 
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </section>
-                                            </div>
-
                                         </div>
                                     </div>
                                 </div> 
