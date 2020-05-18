@@ -490,13 +490,13 @@ class Stok_model extends CI_Model
 
 
     // datatable data kartu stok start
-    var $column_search_datakartustok = array('kode_item', 'nama_item', 'jenis', 'kategori', 'stok', 'lokasi');
-    var $column_order_datakartustok = array(null, 'kode_item', 'nama_item', 'jenis', 'kategori', 'stok', 'lokasi');
+    var $column_search_datakartustok = array('kode_item', 'nama_item', 'kategori', 'stok', 'lokasi');
+    var $column_order_datakartustok = array(null, 'kode_item', 'nama_item', 'kategori', 'stok', 'lokasi');
     var $order_datakartustok = array('waktu_update' => 'DESC');
     private function _get_query_datakartustok()
     {
         $get = $this->input->get();
-        $this->db->where('jenis !=', 'racikan')->from('master_item');
+        $this->db->from('master_item');
         $i = 0;
         foreach ($this->column_search_datakartustok as $item) {
             if ($get['search']['value']) {
@@ -546,7 +546,7 @@ class Stok_model extends CI_Model
 
     public function count_all_datatable_datakartustok()
     {
-        $this->db->where('jenis !=', 'racikan')->from('master_item');
+        $this->db->from('master_item');
         return $this->db->count_all_results();
     }
     //datatable data item end

@@ -8,7 +8,7 @@ class Pembelian_model extends CI_Model{
      private function _get_query_pilihanitem()
      { 
          $get = $this->input->get();
-         $this->db->where('jenis != "racikan"')->from('master_item');
+         $this->db->from('master_item');
          $i = 0; 
          foreach ($this->column_search_pilihanitem as $item)
          {
@@ -59,7 +59,7 @@ class Pembelian_model extends CI_Model{
   
      public function count_all_datatable_pilihanitem()
      {
-         $this->db->where('jenis != "racikan"')->from('master_item');
+         $this->db->from('master_item');
          return $this->db->count_all_results();
      } 
      //datatable pilihan item end
