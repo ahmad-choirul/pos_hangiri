@@ -605,7 +605,7 @@ public function stokutility()
         ';
         $row[] = $this->security->xss_clean(tgl_indo($r->waktu)); 
         $row[] = $this->security->xss_clean($r->nomor_ref);  
-        $row[] = $this->security->xss_clean($r->kode_item."/".$r->no_bet);  
+        $row[] = $this->security->xss_clean($r->kode_item);  
         $row[] = $this->security->xss_clean($r->aksi.$r->jumlah);
         $row[] = $this->security->xss_clean($r->ket_utility);  
         if ($r->aksi=='+') {
@@ -613,7 +613,6 @@ public function stokutility()
         } else {
             $row[] =$this->security->xss_clean($r->stok_sebelum  - $r->jumlah);     
         }
-        $row[] = $this->security->xss_clean($r->satuan);  
         $data[] = $row; 
     } 
     $result = array(
@@ -645,7 +644,7 @@ public function stokutilitytambah(){
         $cek = $this->db->select('*')->from('kartu_stok')->where('kode_item ="'.$kode_item.'"')->get();
         $statcek=false;
         if ($cek->num_rows() <= 0) {
-            $this->db->query("INSERT INTO `kartu_stok` (`id`, `nomor_rec_penerimaan`, `id_utility`, `id_stok_opname`, `id_stok_keluar`, `id_penjualan`, `kode_item`, `tanggal`, `jenis_transaksi`, `jumlah_masuk`, `jumlah_keluar`, `satuan_kecil`, `stok_sisa`, `tgl_expired`) VALUES (NULL, NULL, NULL, NULL, NULL, NULL, '$kode_item', 'current_timestamp()', 'stok utility', '0', '0', '1', '0', NULL);");
+            $this->db->query("INSERT INTO `kartu_stok` (`id`, `nomor_rec_penerimaan`, `id_utility`, `id_stok_opname`, `id_stok_keluar`, `id_penjualan`, `kode_item`, `tanggal`, `jenis_transaksi`, `jumlah_masuk`, `jumlah_keluar`, `stok_sisa`, `tgl_expired`) VALUES (NULL, NULL, NULL, NULL, NULL, NULL, '$kode_item', 'current_timestamp()', 'stok utility', '0', '0', '0', NULL);");
             $statcek=true;
         }
         if($cek->num_rows() > 0||$statcek){              

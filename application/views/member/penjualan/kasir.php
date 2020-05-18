@@ -52,7 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		} 
 	</style>
 </head>
-<?php $jns_penjualan=$this->input->get('t'); ?>
 <body class="bgbody">
 	<section class="body">
 		<!-- start: header -->
@@ -870,22 +869,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		$('#GrandTotalDibayar').html(formatNumber(nominal)); 
 		$('#Kembalian').html(formatNumber(kembalian)); 
 	}
-		// document.getElementById("totalharusdibayar").addEventListener("click", function (e) { 
-		// 	var totalbelanja = document.getElementById("TotalBelanjaInt").value; 
-  //       	var nilai_1 = document.getElementById("totaldibayar1").value; 
-		// 	nilai_1 = nilai_1.replace(/\./g,'');
-  //       	var nilai_2 = document.getElementById("totaldibayar2").value; 
-		// 	nilai_2 = nilai_2.replace(/\./g,'');
-		// 	var nilaibayar = Number(nilai_1) + Number(nilai_2) ;
-		// 	var nominal =document.getElementById("Valtotalharusdibayar").value; 
-		// 	nominal = Number(nominal) + Number(nilaibayar); 
-		// 	paymentsubmit(totalbelanja,nominal);
-		// 	var kembalian = (nominal - totalbelanja) < 1 ? '0' : (nominal - totalbelanja) ;
-		// 	nominal = formatNumber(nominal);
-		// 	$('#totaldibayar1').val(nominal); 
-		// 	$('#GrandTotalDibayar').html(formatNumber(nominal)); 
-		// 	$('#Kembalian').html(formatNumber(kembalian)); 
-		// });
 		$('#totalharusdibayar').on("click", function (e) { 
 			var totalbelanja = document.getElementById("TotalBelanjaInt").value; 
 			var nilai_1 = document.getElementById("totaldibayar1").value; 
@@ -1056,24 +1039,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         // });
         function pilihpembeli(elem){  
         	var namapembeli = $(elem).data("namapembeli"); 
-        	var idpembeli = $(elem).data("id");   
-            // var tgl_masa = new Date($(elem).data("tgl_masa"));
-            // var now = new Date();
-            // var now1 = now.getMonth();
-            //var month = tgl_masa.getMonth() + 6;
-
-            //alert(month "");
-            // if (month > now1) {
-            // 	alert("tanggal masa masih kurang 6 bulan");
-            // } 
+        	var idpembeli = $(elem).data("id");
             $('#customer').val(namapembeli);      
             $('#customer_dipilih').val(idpembeli);    
             $('#modal-pembeli').modal('hide');  
             update_pembeli();
-        }
-        function pilihpembeli1(elem){  
-        	var tgl_masa = new Date($(elem).data("tgl_masa"));
-        	alert("Maaf Masa Berlaku Ijin Apotek Masih Kurang Dari 6 ");
         }
 
         var tablepembeli = $('#pembelidata').DataTable({ 
@@ -1083,31 +1053,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         	}, 
         });
 
-        // var data_pembeli = $('#pembelidata').DataTable({
-        // 	ajax: {
-        // 		url: "<?php echo base_url()?>penjualan/datapembeli",
-        // 		type: "GET"
-        // 	},
-        // 	processing: true,
-        // 	columns: [
-        // 		{
-        // 			data: 'nama_pembeli'
-        // 		},
-        // 		{
-        // 			data: 'no_sipa'
-        // 		},
-        // 		{
-        // 			data: 'apoteker'
-        // 		},
-        // 		{
-        // 			data: 'telepon'
-        // 		},
-        // 		{
-        // 			data: 'aksi'
-        // 		}
-        // 	]
-        // });
-
+      
         var tablehold = $('#listhold').DataTable({ 
         	"ajax": { 
         		url : "<?php echo base_url()?>penjualan/datahold", 
@@ -1118,11 +1064,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         	page_num = page_num?page_num:0;
         	var keywords = $('#keywords').val();
         	var sortBy = $('#sortBy').val();
-        	var jns_penjualan = <?php echo $jns_penjualan; ?>;
         	$.ajax({
         		type: 'GET',
         		url: '<?php echo base_url(); ?>penjualan/ajaxPaginationData/',
-        		data:'page='+page_num+'&keywords='+keywords+'&jns_penjualan='+jns_penjualan+'&sortBy='+sortBy,
+        		data:'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy,
         		beforeSend: function () {
         			$('.loading').show();
         		},
@@ -1131,22 +1076,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         		}
         	});
         }
-		// function searchFilter(page_num) {
-		// 	page_num = page_num?page_num:0;
-		// 	var keywords = $('#keywords').val();
-		// 	var sortBy = $('#sortBy').val();
-		// 	$.ajax({
-		// 		type: 'GET',
-		// 		url: '<?php echo base_url(); ?>penjualan/ajaxPaginationDataKasir/?kode='.$kode,
-		// 		data:'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy,
-		// 		beforeSend: function () {
-		// 			$('.loading').show();
-		// 		},
-		// 		success: function (html) { 
-		// 			$('#postList').html(html);
-		// 		}
-		// 	});
-		// }
 		document.getElementById("FormulirTambah").addEventListener("submit", function (e) {  
 			blurForm();       
 			$('.help-block').hide();
@@ -1339,10 +1268,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             	// e.preventDefault()
             	var totalbayar=$("#totalbayar").val().replace(/\./g, "");
             	var totalbelanja = document.getElementById("TotalBelanjaInt").value; 
-            	var jns_penjualan = <?php echo $jns_penjualan; ?>;
-
             	if (totalbayar>=totalbelanja) {
-            		$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&spg='+spg+'&idd='+idkd+'&bayar='+totalbayar+'&jns_penjualan='+jns_penjualan)
+            		$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&spg='+spg+'&idd='+idkd+'&bayar='+totalbayar)
             		.submit()
             	}else{
             		window.setTimeout(function() {  
@@ -1362,7 +1289,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             	var totalbayar=$("#totalbayar").val().replace(/\./g, "");
             	var totalbelanja = document.getElementById("TotalBelanjaInt").value; 
             	var tanggal_jatuh_tempo = document.getElementById("datepicker").value; 
-            	var jns_penjualan = <?php echo $jns_penjualan; ?>;
 
             	if (totalbayar>=totalbelanja) {
             		window.setTimeout(function() {  
@@ -1377,7 +1303,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             	}else{
             		if (tanggal_jatuh_tempo!=null) {
             			var tmp=$("#datepicker").val(); 
-            			$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk_kredit?t='+idk+'&spg='+spg+'&tmp='+tmp+'&idd='+idkd+'&bayar='+totalbayar+'&jns_penjualan='+jns_penjualan)
+            			$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk_kredit?t='+idk+'&spg='+spg+'&tmp='+tmp+'&idd='+idkd+'&bayar='+totalbayar)
             			.submit()
             		}else{
             			window.setTimeout(function() {  

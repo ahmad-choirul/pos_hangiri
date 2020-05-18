@@ -676,7 +676,6 @@ class Stok_model extends CI_Model
             'jumlah_masuk'=>bilanganbulat($masuk),
             'jumlah_keluar'=>bilanganbulat($keluar),
             'tgl_expired'=>date('Y-m-d'),
-            'satuan_kecil'=>$post['satuan_kecil'],
             'stok_sisa'=>$sisa,
         );
         $this->db->insert("kartu_stok", $list);

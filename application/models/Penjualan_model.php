@@ -336,12 +336,10 @@ class Penjualan_model extends CI_Model
     }
     private function updatekeranjang($idkeranjang)
     {
-        $total_upah_peracik = $this->db->select('SUM(upah_peracik) as total')->from('keranjang_detail')->where('id_keranjang ="' . $idkeranjang . '"')->get()->row();
         $total_harga_item = $this->db->select('SUM((harga*kuantiti) -(diskon*kuantiti)) as total')->from('keranjang_detail')->where('id_keranjang ="' . $idkeranjang . '"')->get()->row();
         $total_semua = $this->db->select('SUM(total) as total')->from('keranjang_detail')->where('id_keranjang ="' . $idkeranjang . '"')->get()->row();
-        $total = $total_semua->total +  $total_upah_peracik->total;
+        $total = $total_semua->total;
         $array = array(
-            'total_upah_peracik' => $total_upah_peracik->total,
             'total_harga_item' => $total_harga_item->total,
             'total' => $total,
         );
@@ -459,7 +457,7 @@ class Penjualan_model extends CI_Model
     }
     public function detail_keranjang($idd)
     {
-        $this->db->select("a.nama_item, a.satuan, b.kode_item, b.id, b.kuantiti, b.diskon, b.harga, b.total, b.id_keranjang");
+        $this->db->select("a.nama_item,b.kode_item, b.id, b.kuantiti, b.diskon, b.harga, b.total, b.id_keranjang");
         $this->db->from("master_item a");
         $this->db->join('keranjang_detail b', 'b.kode_item = a.kode_item');
         $this->db->where('b.id_keranjang', $idd);

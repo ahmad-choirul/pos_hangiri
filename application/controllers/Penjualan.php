@@ -331,8 +331,6 @@ public function update_pembeli(){
             'tanggal_jam'=>date('Y-m-d h:i:s'), 
             'id_admin'=>$this->session->userdata('idadmin'),  
             'id_pembeli'=>$pembeli, 
-            'total_upah_peracik'=> '0', 
-            'total_harga_item'=>'0',  
             'total'=>'0', 
             'hold'=>'0', 
         );
@@ -537,11 +535,7 @@ public function keranjangdetail(){
         if($detailkeranjang->num_rows() > 0){      
             foreach($detailkeranjang->result_array() as $r) {   
                 $kuantiti = $kuantiti + $r['kuantiti'];
-                if($r['upah_peracik'] > 0){
-                    $nama_item = "<b>[racikan] </b>".$r['nama_item'];
-                }else{ 
                     $nama_item = $r['nama_item'];
-                }   
                 $subArray['nama_item']=$this->security->xss_clean($nama_item); 
                 $subArray['id']=$this->security->xss_clean($r['id']); 
                 $subArray['harga']=$this->security->xss_clean(rupiah($r['harga'])); 
@@ -553,8 +547,6 @@ public function keranjangdetail(){
             }    
         } 
         $result = array(  
-            "total_upah_peracik_int" => $this->security->xss_clean($query->row()->total_upah_peracik),
-            "total_upah_peracik" => $this->security->xss_clean(rupiah($query->row()->total_upah_peracik)),
             "total_harga_item" => $this->security->xss_clean(rupiah($query->row()->total_harga_item)),
             "total" => $this->security->xss_clean(rupiah($query->row()->total)), 
             "totalInt" => $this->security->xss_clean($query->row()->total), 

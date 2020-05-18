@@ -58,7 +58,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <th>Perubahan Stok</th>
                                     <th>Keterangan</th>
                                     <th>Stok Akhir</th>
-                                    <th>Satuan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -213,7 +212,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <th>Kode Item</th>
                                 <th>Nama Item</th>
                                 <th>Kategori</th>
-                                <th>Satuan Kecil</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -259,7 +257,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             "type": "GET"
         },
         "columnDefs": [{
-            "targets": [4],
+            "targets": [0],
             "orderable": false,
         }, ],
     });
@@ -348,10 +346,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 type: 'danger'
             });
         });
-        window.setTimeout(function() {
-            location.reload();
-        }, 2000);
-        e.preventDefault();
+        // window.setTimeout(function() {
+        //     location.reload();
+        // }, 2000);
+        // e.preventDefault();
         
     });
 
@@ -418,10 +416,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 type: 'danger'
             });
         });
-        window.setTimeout(function() {
-            location.reload();
-        }, 2000);
-        e.preventDefault();
+        // window.setTimeout(function() {
+        //     location.reload();
+        // }, 2000);
+        // e.preventDefault();
     });
 </script>
 </body>
