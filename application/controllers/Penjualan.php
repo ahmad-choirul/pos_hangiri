@@ -656,15 +656,14 @@ $data['id_spg'] =  $spg->row()->id;
 $data['kode'] =  $this->input->get('tp');
 $data['apoteker'] =  $pembeli->result_array();
 $data['apotik'] =  $apotik->result_array();
-$data['jns_penjualan'] =  $this->input->get('jns_penjualan');
 $data['status'] =  "Cash";
 $data['kepada'] =  "Costumer Toko";
 $data['totalbayar'] =  $this->input->get('bayar');
-$status = $this->penjualan_model->submitpaymentv2($data);
-if ($status) {
-    $this->load->view('member/penjualan/struk', $data);     
+// $status = $this->penjualan_model->submitpaymentv2($data);
+if (true) {
+    $this->load->view('member/penjualan/struk58mm', $data);     
 }else{
-    redirect('penjualan/kasir?t='.$data['jns_penjualan'],'refresh');
+    redirect('penjualan/kasir','refresh');
 }
 }
 public function transaksi_barang($id_keranjang)
@@ -723,7 +722,7 @@ public function struk_kredit()
     $data['totalbayar'] =  $this->input->get('bayar');
     $status = $this->penjualan_model->submitpaymentv2($data);
     if ($status) {
-        $this->load->view('member/penjualan/struk', $data);     
+        $this->load->view('member/penjualan/struk58mm', $data);     
     }else{
         redirect('penjualan/kasir?t='.$data['jns_penjualan'],'refresh');
     }
