@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 5.0.1
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2020 at 06:23 AM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Generation Time: May 19, 2020 at 06:11 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -94,7 +96,11 @@ INSERT INTO `cash_in_out` (`id`, `kode_rekening`, `tanggal`, `masuk`, `keluar`, 
 (89, '10001', '2020-05-05', '1009000', '0', NULL, NULL, '050520000043', ''),
 (93, '10001', '2020-05-05', '3027000', '0', NULL, NULL, '050520000044', ''),
 (94, '10001', '2020-05-05', '1009000', '0', NULL, NULL, '050520000045', ''),
-(95, '10001', '2020-05-05', '41500', '0', NULL, NULL, '050520000046', '');
+(95, '10001', '2020-05-05', '41500', '0', NULL, NULL, '050520000046', ''),
+(96, '10001', '2020-05-19', '280000', '0', NULL, NULL, '190520000047', ''),
+(97, '10001', '2020-05-19', '40000', '0', NULL, NULL, '190520000048', ''),
+(98, '10001', '2020-05-19', '40000', '0', NULL, NULL, '190520000049', ''),
+(99, '10001', '2020-05-19', '40000', '0', NULL, NULL, '190520000050', '');
 
 -- --------------------------------------------------------
 
@@ -108,7 +114,7 @@ CREATE TABLE `hutang_dibayar_history` (
   `id_hutang` int(11) NOT NULL,
   `tanggal` date NOT NULL,
   `nominal` decimal(10,0) NOT NULL,
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -128,7 +134,7 @@ CREATE TABLE `hutang_history` (
   `tanggal_lunas` date NOT NULL,
   `tanggal_jatuh_tempo` date NOT NULL,
   `sudah_lunas` enum('0','1') NOT NULL DEFAULT '0',
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `keterangan` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -178,7 +184,12 @@ CREATE TABLE `kartu_stok` (
 --
 
 INSERT INTO `kartu_stok` (`id`, `nomor_rec_penerimaan`, `id_utility`, `id_stok_opname`, `id_stok_keluar`, `id_penjualan`, `kode_item`, `tanggal`, `jenis_transaksi`, `jumlah_masuk`, `jumlah_keluar`, `satuan_kecil`, `stok_sisa`, `tgl_expired`) VALUES
-(193, 'PE1205200018', NULL, NULL, NULL, NULL, '01', '2020-05-02', 'pembelian ke supplier', 10, 0, '1', '', '2020-05-12');
+(193, 'PE1205200018', NULL, NULL, NULL, NULL, '01', '2020-05-02', 'pembelian ke supplier', 10, 0, '1', '', '2020-05-12'),
+(196, NULL, NULL, NULL, NULL, '190520000047', '00002', '2020-05-19', 'penjualan', 0, 2, 'Kapsul', '', NULL),
+(197, NULL, NULL, NULL, NULL, '190520000047', '01', '2020-05-19', 'penjualan', 0, 2, 'Kapsul', '', '2020-05-12'),
+(198, NULL, NULL, NULL, NULL, '190520000048', '01', '2020-05-19', 'penjualan', 0, 1, 'Kapsul', '', NULL),
+(199, NULL, NULL, NULL, NULL, '190520000049', '01', '2020-05-19', 'penjualan', 0, 1, 'Kapsul', '', NULL),
+(200, NULL, NULL, NULL, NULL, '190520000050', '01', '2020-05-19', 'penjualan', 0, 1, 'Kapsul', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -364,55 +375,56 @@ CREATE TABLE `keranjang` (
   `tanggal_jam` datetime NOT NULL,
   `id_admin` int(11) NOT NULL,
   `id_pembeli` int(11) DEFAULT NULL,
+  `total_upah_peracik` decimal(10,0) NOT NULL,
   `total_harga_item` decimal(10,0) NOT NULL,
   `total` decimal(10,0) NOT NULL,
   `hold` enum('0','1') NOT NULL DEFAULT '0',
   `keterangan_hold` varchar(200) NOT NULL,
   `waktu_hold` varchar(50) NOT NULL,
-  `status` int(1) NOT NULL DEFAULT '0'
+  `status` int(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `keranjang`
 --
 
-INSERT INTO `keranjang` (`id`, `token`, `tanggal_jam`, `id_admin`, `id_pembeli`, `total_harga_item`, `total`, `hold`, `keterangan_hold`, `waktu_hold`, `status`) VALUES
-(69, 'a5a857b77a4e28dc0df2c5192c6c90be', '2019-06-30 01:42:32', 1, NULL, '44000', '44000', '0', '', '', 1),
-(71, 'dccbbb8941d22dac340a245b4b7052fd', '2019-06-30 03:38:33', 1, NULL, '84000', '84000', '1', 'ok', '1561883934', 1),
-(72, 'dccbbb8941d22dac340a245b4b7052fd', '2019-07-01 01:33:14', 1, NULL, '27000', '27000', '0', '', '', 1),
-(74, '4ac14df063b1729185d4e0e2a6e4379e', '2019-07-01 01:08:36', 1, NULL, '182000', '187000', '0', '', '', 1),
-(75, '982c1b7178f668d87e8cf3e21a072cb8', '2019-07-02 05:31:44', 1, NULL, '10500', '10500', '0', '', '', 1),
-(76, '904fd9e8537785f5c73d403ffef24ee6', '2019-07-03 02:03:35', 1, 14, '21000', '21000', '0', 'ddd', '1562094224', 1),
-(78, 'b1f95b98bf3941e3b3c07338a2cd6402', '2019-07-03 03:31:28', 1, NULL, '0', '0', '0', '', '', 1),
-(79, '8f24b84bb00133ed237217cb89ae9805', '2019-07-03 10:03:52', 1, NULL, '0', '0', '0', '', '', 1),
-(83, '4e4b5bc22437966870148131f801a2a3', '2019-10-23 11:08:31', 1, NULL, '15000', '15000', '0', 'ok', '1571846927', 1),
-(88, 'cbda80635d6da07fcf23f608f30415ec', '2019-10-24 08:32:52', 2, NULL, '21000', '21000', '0', '', '', 1),
-(89, '9f11b01f6074db2a7bb266cc1d6b1655', '2019-10-24 09:58:24', 1, 14, '0', '0', '0', '', '', 1),
-(97, '7d24614628f834e6e49257d641c52e87', '2019-11-13 07:02:58', 1, NULL, '48000', '48000', '0', '', '', 1),
-(100, 'cf89bff1076b9c05c0351e1df063a6da', '2019-11-19 10:19:13', 1, NULL, '11000', '11000', '0', '', '', 1),
-(102, '492336a6f659dd9b452acab699c342ad', '2019-11-20 05:13:07', 1, 17, '0', '0', '0', '', '', 1),
-(103, '8d07ef2013867393fcb30b5b592ecac1', '2020-02-08 07:15:32', 1, NULL, '64000', '64000', '0', '', '', 1),
-(104, 'dd3ec00217ada344c6d0ea36514b31fc', '2020-02-09 10:16:42', 1, NULL, '544000', '544000', '0', '', '', 1),
-(106, 'b76610a60568f84746cd67e25833baf1', '2020-02-10 02:28:51', 1, NULL, '90000', '90000', '0', '', '', 1),
-(107, '5341f9f2db926212509d8e52ade12d97', '2020-02-11 09:06:25', 1, NULL, '1502000', '1502000', '0', '', '', 1),
-(108, '8c4e9995db223749a90ee6888f132a85', '2020-02-11 09:28:10', 1, NULL, '466500', '466500', '0', '', '', 1),
-(109, '9069dbcca8c778e0c3a7a806d69e3dbe', '2020-02-11 05:06:01', 1, NULL, '15000', '15000', '0', '', '', 1),
-(110, '5881b331699742cca577a420a044d334', '2020-02-24 09:55:32', 1, NULL, '460000', '460000', '0', '', '', 1),
-(111, 'e0f61879810127757db1ddc58b201404', '2020-03-05 11:47:34', 1, NULL, '636000', '636000', '0', '', '', 1),
-(112, '9ccbe7eead66c02a7bbf9f60dbbcb723', '2020-03-05 06:09:38', 1, NULL, '168000', '168000', '0', '', '', 1),
-(113, 'b443989cbcd82c33bd32f43a95331d2e', '2020-03-08 04:28:23', 1, NULL, '1612000', '1612000', '0', '', '', 1),
-(114, 'eacae93cf712447112b042d2e3219fa2', '2020-03-09 10:13:56', 1, NULL, '232000', '232000', '0', '', '', 1),
-(115, 'd2387a3a823e8a58a9ace4d9920dc03f', '2020-03-14 02:27:40', 1, NULL, '544000', '544000', '0', '', '', 1),
-(116, 'b83b8ce82760e8460ae38ec038aebff4', '2020-03-14 03:04:53', 1, NULL, '460000', '460000', '0', '', '', 1),
-(117, '4dfe29195a14c7e337388d3fe23c011e', '2020-03-18 06:55:23', 1, NULL, '64000', '64000', '0', '', '', 1),
-(118, '71b1bb2bda4c815903bdb848d9b127be', '2020-04-01 10:36:27', 1, NULL, '6000', '6000', '0', '', '', 1),
-(126, '4523330518cafde46e676368641d090f', '2020-04-30 03:32:35', 1, NULL, '4717500', '4717500', '0', '', '', 1),
-(132, '34b417f00060362cd1dd2a7fff5d3b67', '2020-05-04 10:47:28', 1, NULL, '504000', '504000', '0', '', '', 0),
-(136, '36c92b0609aaaa33cadc834e4d6383cd', '2020-05-05 01:19:06', 1, NULL, '64000', '64000', '0', '', '', 0),
-(138, 'c54c67eb176fba6f09f9cdf79b329b10', '2020-05-10 01:02:46', 1, 17, '460000', '460000', '0', '', '', 0),
-(139, 'a977e567680bc49fe2cd4113fa4340fa', '2020-05-12 10:18:48', 1, NULL, '76000', '76000', '1', 'asdas', '1589253610', 0),
-(140, '548b6ed9d3483c939fa29a6a0dc459ab', '2020-05-16 02:35:51', 1, NULL, '200000', '200000', '0', '', '', 0),
-(141, '4a104a4f724012a363d4c4e044b5a56f', '2020-05-18 08:59:27', 1, NULL, '0', '0', '0', '', '', 0);
+INSERT INTO `keranjang` (`id`, `token`, `tanggal_jam`, `id_admin`, `id_pembeli`, `total_upah_peracik`, `total_harga_item`, `total`, `hold`, `keterangan_hold`, `waktu_hold`, `status`) VALUES
+(69, 'a5a857b77a4e28dc0df2c5192c6c90be', '2019-06-30 01:42:32', 1, NULL, '0', '44000', '44000', '0', '', '', 1),
+(71, 'dccbbb8941d22dac340a245b4b7052fd', '2019-06-30 03:38:33', 1, NULL, '0', '84000', '84000', '1', 'ok', '1561883934', 1),
+(72, 'dccbbb8941d22dac340a245b4b7052fd', '2019-07-01 01:33:14', 1, NULL, '0', '27000', '27000', '0', '', '', 1),
+(74, '4ac14df063b1729185d4e0e2a6e4379e', '2019-07-01 01:08:36', 1, NULL, '5000', '182000', '187000', '0', '', '', 1),
+(75, '982c1b7178f668d87e8cf3e21a072cb8', '2019-07-02 05:31:44', 1, NULL, '0', '10500', '10500', '0', '', '', 1),
+(76, '904fd9e8537785f5c73d403ffef24ee6', '2019-07-03 02:03:35', 1, 14, '0', '21000', '21000', '0', 'ddd', '1562094224', 1),
+(78, 'b1f95b98bf3941e3b3c07338a2cd6402', '2019-07-03 03:31:28', 1, NULL, '0', '0', '0', '0', '', '', 1),
+(79, '8f24b84bb00133ed237217cb89ae9805', '2019-07-03 10:03:52', 1, NULL, '0', '0', '0', '0', '', '', 1),
+(83, '4e4b5bc22437966870148131f801a2a3', '2019-10-23 11:08:31', 1, NULL, '0', '15000', '15000', '0', 'ok', '1571846927', 1),
+(88, 'cbda80635d6da07fcf23f608f30415ec', '2019-10-24 08:32:52', 2, NULL, '0', '21000', '21000', '0', '', '', 1),
+(89, '9f11b01f6074db2a7bb266cc1d6b1655', '2019-10-24 09:58:24', 1, 14, '0', '0', '0', '0', '', '', 1),
+(97, '7d24614628f834e6e49257d641c52e87', '2019-11-13 07:02:58', 1, NULL, '0', '48000', '48000', '0', '', '', 1),
+(100, 'cf89bff1076b9c05c0351e1df063a6da', '2019-11-19 10:19:13', 1, NULL, '0', '11000', '11000', '0', '', '', 1),
+(102, '492336a6f659dd9b452acab699c342ad', '2019-11-20 05:13:07', 1, 17, '0', '0', '0', '0', '', '', 1),
+(103, '8d07ef2013867393fcb30b5b592ecac1', '2020-02-08 07:15:32', 1, NULL, '0', '64000', '64000', '0', '', '', 1),
+(104, 'dd3ec00217ada344c6d0ea36514b31fc', '2020-02-09 10:16:42', 1, NULL, '0', '544000', '544000', '0', '', '', 1),
+(106, 'b76610a60568f84746cd67e25833baf1', '2020-02-10 02:28:51', 1, NULL, '0', '90000', '90000', '0', '', '', 1),
+(107, '5341f9f2db926212509d8e52ade12d97', '2020-02-11 09:06:25', 1, NULL, '0', '1502000', '1502000', '0', '', '', 1),
+(108, '8c4e9995db223749a90ee6888f132a85', '2020-02-11 09:28:10', 1, NULL, '0', '466500', '466500', '0', '', '', 1),
+(109, '9069dbcca8c778e0c3a7a806d69e3dbe', '2020-02-11 05:06:01', 1, NULL, '0', '15000', '15000', '0', '', '', 1),
+(110, '5881b331699742cca577a420a044d334', '2020-02-24 09:55:32', 1, NULL, '0', '460000', '460000', '0', '', '', 1),
+(111, 'e0f61879810127757db1ddc58b201404', '2020-03-05 11:47:34', 1, NULL, '0', '636000', '636000', '0', '', '', 1),
+(112, '9ccbe7eead66c02a7bbf9f60dbbcb723', '2020-03-05 06:09:38', 1, NULL, '0', '168000', '168000', '0', '', '', 1),
+(113, 'b443989cbcd82c33bd32f43a95331d2e', '2020-03-08 04:28:23', 1, NULL, '0', '1612000', '1612000', '0', '', '', 1),
+(114, 'eacae93cf712447112b042d2e3219fa2', '2020-03-09 10:13:56', 1, NULL, '0', '232000', '232000', '0', '', '', 1),
+(115, 'd2387a3a823e8a58a9ace4d9920dc03f', '2020-03-14 02:27:40', 1, NULL, '0', '544000', '544000', '0', '', '', 1),
+(116, 'b83b8ce82760e8460ae38ec038aebff4', '2020-03-14 03:04:53', 1, NULL, '0', '460000', '460000', '0', '', '', 1),
+(117, '4dfe29195a14c7e337388d3fe23c011e', '2020-03-18 06:55:23', 1, NULL, '0', '64000', '64000', '0', '', '', 1),
+(118, '71b1bb2bda4c815903bdb848d9b127be', '2020-04-01 10:36:27', 1, NULL, '0', '6000', '6000', '0', '', '', 1),
+(126, '4523330518cafde46e676368641d090f', '2020-04-30 03:32:35', 1, NULL, '0', '4717500', '4717500', '0', '', '', 1),
+(132, '34b417f00060362cd1dd2a7fff5d3b67', '2020-05-04 10:47:28', 1, NULL, '0', '504000', '504000', '0', '', '', 0),
+(136, '36c92b0609aaaa33cadc834e4d6383cd', '2020-05-05 01:19:06', 1, NULL, '0', '64000', '64000', '0', '', '', 0),
+(138, 'c54c67eb176fba6f09f9cdf79b329b10', '2020-05-10 01:02:46', 1, 17, '0', '460000', '460000', '0', '', '', 0),
+(139, 'a977e567680bc49fe2cd4113fa4340fa', '2020-05-12 10:18:48', 1, NULL, '0', '76000', '76000', '1', 'asdas', '1589253610', 0),
+(140, '548b6ed9d3483c939fa29a6a0dc459ab', '2020-05-16 02:35:51', 1, NULL, '0', '200000', '200000', '0', '', '', 0),
+(145, '23f165d4b6be6a724d9bcaaee7fd2afe', '2020-05-19 10:25:39', 1, NULL, '0', '40000', '40000', '0', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -424,6 +436,8 @@ CREATE TABLE `keranjang_detail` (
   `id` int(11) NOT NULL,
   `id_keranjang` int(11) NOT NULL,
   `kode_item` varchar(100) NOT NULL,
+  `racikan` enum('0','1') NOT NULL DEFAULT '0',
+  `upah_peracik` decimal(10,0) NOT NULL,
   `harga` decimal(10,0) NOT NULL,
   `diskon` decimal(10,0) NOT NULL,
   `kuantiti` float NOT NULL,
@@ -434,8 +448,9 @@ CREATE TABLE `keranjang_detail` (
 -- Dumping data for table `keranjang_detail`
 --
 
-INSERT INTO `keranjang_detail` (`id`, `id_keranjang`, `kode_item`, `harga`, `diskon`, `kuantiti`, `total`) VALUES
-(215, 140, '00002', '100000', '0', 2, '200000');
+INSERT INTO `keranjang_detail` (`id`, `id_keranjang`, `kode_item`, `racikan`, `upah_peracik`, `harga`, `diskon`, `kuantiti`, `total`) VALUES
+(215, 140, '00002', '0', '0', '100000', '0', 2, '200000'),
+(221, 145, '01', '0', '0', '40000', '0', 1, '40000');
 
 -- --------------------------------------------------------
 
@@ -470,7 +485,7 @@ CREATE TABLE `master_admin` (
   `handphone` varchar(30) NOT NULL,
   `email` varchar(100) NOT NULL,
   `aktif` enum('0','1') NOT NULL DEFAULT '1',
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -492,7 +507,7 @@ CREATE TABLE `master_bank` (
   `singkatan` varchar(30) NOT NULL,
   `nama_bank` varchar(100) NOT NULL,
   `jenis` enum('credit card','debet') NOT NULL DEFAULT 'debet',
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -521,7 +536,7 @@ CREATE TABLE `master_diskon_kelipatan` (
   `min_kuantiti` int(2) NOT NULL,
   `diskon` decimal(10,0) NOT NULL,
   `tanggal_berakhir` date NOT NULL,
-  `waktu_update_diskon` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `waktu_update_diskon` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -537,7 +552,7 @@ CREATE TABLE `master_dokter` (
   `telepon` varchar(30) NOT NULL,
   `handphone` varchar(30) NOT NULL,
   `jenis_kelamin` enum('laki-laki','perempuan') NOT NULL DEFAULT 'laki-laki',
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -558,14 +573,26 @@ INSERT INTO `master_dokter` (`kode_dokter`, `nama_dokter`, `alamat`, `telepon`, 
 
 CREATE TABLE `master_item` (
   `kode_item` varchar(100) NOT NULL,
-  `kategori` int(11) NOT NULL,
+  `jenis` enum('obat','alkes','racikan') NOT NULL DEFAULT 'obat',
+  `kategori` varchar(100) NOT NULL,
+  `satuan` varchar(100) NOT NULL,
+  `merk` varchar(100) DEFAULT NULL,
   `nama_item` varchar(200) NOT NULL,
   `keterangan` varchar(500) NOT NULL,
+  `lokasi` varchar(100) NOT NULL,
   `gambar` varchar(200) NOT NULL DEFAULT 'default.jpg',
-  `harga_jual` decimal(10,0) NOT NULL DEFAULT '0',
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `no_bet` varchar(30) NOT NULL,
+  `harga_jual` decimal(10,0) NOT NULL,
+  `harga_jual_distributor` decimal(10,0) NOT NULL,
+  `harga_jual_3` varchar(50) NOT NULL,
+  `harga_jual_4` varchar(50) NOT NULL,
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `upah_peracik` decimal(10,0) NOT NULL,
+  `aturan_pakai` varchar(100) NOT NULL,
+  `komisi` varchar(30) DEFAULT NULL,
   `netto` varchar(20) NOT NULL,
   `stok` int(11) NOT NULL,
+  `stok_minimal` int(11) DEFAULT NULL,
   `tgl_expired` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -573,18 +600,16 @@ CREATE TABLE `master_item` (
 -- Dumping data for table `master_item`
 --
 
-INSERT INTO `master_item` (`kode_item`, `kategori`, `nama_item`, `keterangan`, `gambar`, `harga_jual`, `waktu_update`, `netto`, `stok`, `tgl_expired`) VALUES
-('0', 1, 'Lychee Tea', '0', '0.jpg', '0', '2020-05-18 01:36:02', '0', 0, '2020-05-16'),
-('00002', 1, 'Jeruk Ice / Hot', 'Buah', '00002.jpg', '100000', '2020-05-18 01:36:02', '0', 1, '2020-03-30'),
-('01', 1, 'Cappucino', 'contoh', '01.jpg', '40000', '2020-05-18 01:36:02', '0', 11, '2020-03-29'),
-('0123', 1, 'Chocolate', 'coklat', '0123.jpg', '5000', '2020-05-18 01:36:02', '0', 0, '2019-11-03'),
-('04', 1, 'Island Freeze', '0', '04.jpg', '0', '2020-05-18 01:36:02', '0', 0, '2020-05-01'),
-('05', 1, 'Lemon Squash', 'buah', '05.jpg', '0', '2020-05-18 01:36:02', '0', 0, '2020-05-02'),
-('06', 1, 'Lemon Tea', '0', '06.jpg', '0', '2020-05-18 01:36:02', '0', 0, '2020-05-03'),
-('08', 1, 'Melon freeze', '', '08.jpg', '0', '2020-05-18 01:36:02', '0', 0, '2020-05-16'),
-('09', 1, 'Nabe Ramen', '', '09.jpg', '10000', '2020-05-18 01:36:02', '0', 0, '2020-05-16'),
-('092', 1, 'ale ale', 'a', '092.jpg', '10000', '2020-05-18 01:36:02', '1', 0, '2020-05-31'),
-('123', 2, 'aqua', 'aa', '123.jpg', '10000', '2020-05-18 01:46:08', '11', 0, '2020-05-31');
+INSERT INTO `master_item` (`kode_item`, `jenis`, `kategori`, `satuan`, `merk`, `nama_item`, `keterangan`, `lokasi`, `gambar`, `no_bet`, `harga_jual`, `harga_jual_distributor`, `harga_jual_3`, `harga_jual_4`, `waktu_update`, `upah_peracik`, `aturan_pakai`, `komisi`, `netto`, `stok`, `stok_minimal`, `tgl_expired`) VALUES
+('0', '', 'PPN', 'Box', 'Acne', 'Lychee Tea', '0', '0', '0.jpg', '0', '0', '0', '', '', '2020-05-16 07:56:43', '0', '', '', '0', 0, 0, '2020-05-16'),
+('00002', '', 'PPN', 'Kapsul', 'Ambeven', 'Jeruk Ice / Hot', 'Buah', 'Rak b', '00002.jpg', '1234567', '100000', '101000', '102000', '103000', '2020-05-19 01:54:12', '0', 'diminum', '', '0', -1, 0, '2020-03-30'),
+('01', '', 'PPN', 'Kapsul', 'Acne', 'Cappucino', 'contoh', 'Rak a', '01.jpg', '1', '40000', '5000', '45000', '50000', '2020-05-19 03:24:44', '0', 'diminum', '', '0', 6, 0, '2020-03-29'),
+('0123', '', 'PPN', 'Kapsul', 'Acne', 'Chocolate', 'coklat', '0', '0123.jpg', '40', '5000', '0', '20000', '40000', '2020-05-16 07:45:35', '1000', '3X SEHARI', '', '0', 0, 0, '2019-11-03'),
+('04', '', 'PPN', 'Botol', 'Acne', 'Island Freeze', '0', '0', '04.jpg', '0', '0', '0', '', '', '2020-05-16 07:50:32', '0', '', '', '0', 0, 0, '2020-05-01'),
+('05', '', 'PPN', 'Botol', 'Acne', 'Lemon Squash', 'buah', '0', '05.jpg', '0', '0', '0', '', '', '2020-05-16 07:53:14', '0', '', '', '0', 0, 0, '2020-05-02'),
+('06', '', 'PPN', 'Botol', 'Acne', 'Lemon Tea', '0', '0', '06.jpg', '0', '0', '0', '', '', '2020-05-16 07:55:05', '0', '', '', '0', 0, 0, '2020-05-03'),
+('08', '', 'PPN', 'Botol', 'Acne', 'Melon freeze', '', '0', '08.jpg', '0', '0', '0', '', '', '2020-05-16 07:58:39', '0', '', '', '0', 0, 0, '2020-05-16'),
+('09', '', 'PPN', 'Botol', 'Ambeven', 'Nabe Ramen', '', '0', '09.jpg', '0', '0', '0', '', '', '2020-05-16 07:59:24', '0', '', '', '0', 0, 0, '2020-05-16');
 
 -- --------------------------------------------------------
 
@@ -593,18 +618,18 @@ INSERT INTO `master_item` (`kode_item`, `kategori`, `nama_item`, `keterangan`, `
 --
 
 CREATE TABLE `master_kategori` (
-  `id` int(11) NOT NULL,
-  `nama_kategori` varchar(30) NOT NULL,
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `id` varchar(100) NOT NULL,
+  `lokasi_kategori` varchar(30) NOT NULL,
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `master_kategori`
 --
 
-INSERT INTO `master_kategori` (`id`, `nama_kategori`, `waktu_update`) VALUES
-(1, 'Makanan', '2020-05-18 01:42:12'),
-(2, 'Minuman', '2020-05-18 01:42:18');
+INSERT INTO `master_kategori` (`id`, `lokasi_kategori`, `waktu_update`) VALUES
+('PPN', '', '2020-04-22 14:34:55'),
+('Tanpa PPN', '', '2020-04-22 14:35:02');
 
 -- --------------------------------------------------------
 
@@ -618,7 +643,7 @@ CREATE TABLE `master_komisi` (
   `tgl_transaksi` date NOT NULL,
   `id_spg` int(11) NOT NULL,
   `total` varchar(50) NOT NULL,
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -637,7 +662,7 @@ INSERT INTO `master_komisi` (`id_komisi`, `id_penjualan`, `tgl_transaksi`, `id_s
 
 CREATE TABLE `master_merk` (
   `id` varchar(100) NOT NULL,
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -663,7 +688,7 @@ CREATE TABLE `master_operasional` (
   `keterangan` text NOT NULL,
   `jumlah` varchar(60) NOT NULL,
   `editor` varchar(50) NOT NULL,
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -684,7 +709,7 @@ CREATE TABLE `master_pembeli` (
   `nama_pembeli` varchar(200) NOT NULL,
   `alamat` varchar(200) NOT NULL,
   `hp` varchar(20) NOT NULL,
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -692,18 +717,17 @@ CREATE TABLE `master_pembeli` (
 --
 
 INSERT INTO `master_pembeli` (`id`, `nama_pembeli`, `alamat`, `hp`, `waktu_update`) VALUES
-(1, 'Diana', 'jakarta', '087234394939', '2020-05-17 15:33:47'),
-(2, 'Anisa', 'bekasi utara', '-', '2020-05-17 15:33:47'),
-(9, 'Rian', '-', '-', '2020-05-17 15:33:47'),
-(14, 'Andika', '-', '087234394939', '2020-05-17 15:33:47'),
-(15, 'Jonas', '-', ' 	019000003', '2020-05-17 15:33:47'),
-(16, 'Ratna', '-', '0909090', '2020-05-17 15:33:47'),
-(17, 'ANI', 'JEMBER', '-', '2020-05-17 15:33:47'),
-(18, 'Senyum Gelas', 'Jember Kota', '0888888881213', '2020-05-17 15:33:47'),
-(20, 'Strakasia ', 'Nevada', '08881231', '2020-05-17 15:33:47'),
-(22, 'Apotek baru', 'babarabu', '08111111111', '2020-05-17 15:33:47'),
-(23, 'APOTEK SEMESTA COKROAMINOTO', 'JALAN HOS COKROAMINOTO NO 8 JEMBER', '0331 412548', '2020-05-17 15:33:47'),
-(24, 'pembeli', 'jember', '0803129836', '2020-05-17 15:34:24');
+(1, 'Diana', 'jakarta', '', '2019-06-11 14:39:17'),
+(2, 'Anisa', 'bekasi utara', '', '2019-06-11 14:53:42'),
+(9, 'Rian', '-', '', '2019-06-13 19:14:44'),
+(14, 'Andika', '-', '', '2019-06-13 19:47:07'),
+(15, 'Jonas', '-', '', '2019-06-16 15:03:18'),
+(16, 'Ratna', '-', '12312412', '2020-05-19 02:15:22'),
+(17, 'ANI', 'JEMBER', '', '2019-11-14 09:41:50'),
+(18, 'Senyum Gelas', 'Jember Kota', '', '2020-03-05 05:26:14'),
+(20, 'Strakasia ', 'Nevada', '', '2020-03-28 10:39:33'),
+(22, 'Apotek baru', 'babarabu', '', '2020-03-05 05:26:09'),
+(23, 'APOTEK SEMESTA COKROAMINOTO', 'JALAN HOS COKROAMINOTO NO 8 JEMBER', '', '2020-03-08 09:37:42');
 
 -- --------------------------------------------------------
 
@@ -717,7 +741,7 @@ CREATE TABLE `master_racikan` (
   `kode_obat` varchar(100) NOT NULL,
   `jumlah_obat_dibuat` float NOT NULL,
   `jumlah_obat_dipakai` float NOT NULL,
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -730,7 +754,7 @@ CREATE TABLE `master_satuan` (
   `id` varchar(100) NOT NULL,
   `isi_persatuan` int(11) NOT NULL,
   `satuan_besar` varchar(20) DEFAULT NULL,
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -762,7 +786,7 @@ CREATE TABLE `master_spg` (
   `alamat` text NOT NULL,
   `nik` varchar(50) NOT NULL,
   `kontak` varchar(20) NOT NULL,
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -770,8 +794,7 @@ CREATE TABLE `master_spg` (
 --
 
 INSERT INTO `master_spg` (`id`, `no_ijin`, `nama_spg`, `alamat`, `nik`, `kontak`, `waktu_update`) VALUES
-(1, '91230010', 'pegawai 1', 'Jember', '35203123100', '08123121', '2020-03-19 12:06:16'),
-(2, '', 'pegawai 2', 'aaaa', '2342', '123', '2020-05-18 01:51:55');
+(1, '91230010', 'Supratno', 'Jember', '35203123100', '08123121', '2020-03-19 12:06:16');
 
 -- --------------------------------------------------------
 
@@ -782,21 +805,36 @@ INSERT INTO `master_spg` (`id`, `no_ijin`, `nama_spg`, `alamat`, `nik`, `kontak`
 CREATE TABLE `master_supplier` (
   `id` int(11) NOT NULL,
   `nama_supplier` varchar(200) NOT NULL,
+  `no_izin` varchar(50) NOT NULL,
   `alamat` text NOT NULL,
   `telepon` varchar(15) NOT NULL,
-  `keterangan` text,
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `no_npwp` varchar(30) NOT NULL,
+  `nama_npwp` varchar(30) NOT NULL,
+  `alamat_npwp` text NOT NULL,
+  `bank` varchar(10) NOT NULL,
+  `rekening` varchar(20) NOT NULL,
+  `an` varchar(30) NOT NULL,
+  `no_apoteker` varchar(20) NOT NULL,
+  `masa_apoteker` date NOT NULL,
+  `apoteker` varchar(30) NOT NULL,
+  `alamat_1` text NOT NULL,
+  `alamat_2` text NOT NULL,
+  `hp` varchar(15) NOT NULL,
+  `no_sipa` varchar(20) NOT NULL,
+  `tgl_sipa` date NOT NULL,
+  `nama_ttk` varchar(30) NOT NULL,
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `master_supplier`
 --
 
-INSERT INTO `master_supplier` (`id`, `nama_supplier`, `alamat`, `telepon`, `keterangan`, `waktu_update`) VALUES
-(2, 'PT Air Mancur', 'jember', '1231', '', '2020-05-17 15:50:46'),
-(3, 'PT Maju Sejahtera Senantiasa', '', '', '', '2020-03-05 04:29:37'),
-(4, 'PT Pelangi Jaya Bersinar', '', '', '', '2020-03-05 04:29:30'),
-(5, 'PT. Besar', 'disini', '08881231', 'karjo', '2020-02-22 12:23:32');
+INSERT INTO `master_supplier` (`id`, `nama_supplier`, `no_izin`, `alamat`, `telepon`, `no_npwp`, `nama_npwp`, `alamat_npwp`, `bank`, `rekening`, `an`, `no_apoteker`, `masa_apoteker`, `apoteker`, `alamat_1`, `alamat_2`, `hp`, `no_sipa`, `tgl_sipa`, `nama_ttk`, `waktu_update`) VALUES
+(2, 'PT Air Mancur', '232111', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '', '', '0000-00-00', '', '2020-03-05 04:29:41'),
+(3, 'PT Maju Sejahtera Senantiasa', '8881231991', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '', '', '0000-00-00', '', '2020-03-05 04:29:37'),
+(4, 'PT Pelangi Jaya Bersinar', '00123010', '', '', '', '', '', '', '', '', '', '0000-00-00', '', '', '', '', '', '0000-00-00', '', '2020-03-05 04:29:30'),
+(5, 'PT. Besar', '102319231231', 'disini', '08881231', '12223191', 'SUKAR', 'disana', 'BCA', '012319', 'Sukir', '012319991', '2020-03-01', 'Sukri ', 'ohohooh', 'hihihihih', '0123911', '0213109', '2020-03-07', 'karjo', '2020-02-22 12:23:32');
 
 -- --------------------------------------------------------
 
@@ -811,7 +849,7 @@ CREATE TABLE `master_target` (
   `target_3` varchar(100) NOT NULL,
   `target_4` varchar(100) NOT NULL,
   `target_5` varchar(100) NOT NULL,
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -819,7 +857,7 @@ CREATE TABLE `master_target` (
 --
 
 INSERT INTO `master_target` (`id`, `target_1`, `target_2`, `target_3`, `target_4`, `target_5`, `waktu_update`) VALUES
-(1, '500000', '3500000', '14000000', '1', '1', '2020-04-30 09:32:35');
+(1, '100000', '10000', '330000', '102311', '2000', '2020-04-30 09:32:35');
 
 -- --------------------------------------------------------
 
@@ -835,7 +873,7 @@ CREATE TABLE `master_utility` (
   `stok_sebelum` int(11) NOT NULL,
   `aksi` varchar(20) NOT NULL,
   `jumlah` int(11) NOT NULL,
-  `waktu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `waktu` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -925,8 +963,8 @@ INSERT INTO `modul` (`id`, `label`, `controller`, `nama_function`, `aksi_edit`, 
 
 CREATE TABLE `notes` (
   `id` int(11) NOT NULL,
-  `isi` text,
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `isi` text DEFAULT NULL,
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -952,7 +990,7 @@ CREATE TABLE `pembelian_langsung` (
   `supplier` int(11) NOT NULL,
   `total` decimal(20,0) NOT NULL,
   `keterangan` varchar(500) NOT NULL,
-  `waktu_update_pembelian` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `waktu_update_pembelian` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1006,7 +1044,7 @@ CREATE TABLE `penerimaan_barang` (
   `tanggal_penerimaan` date NOT NULL,
   `penerima` varchar(200) NOT NULL,
   `keterangan` varchar(500) NOT NULL,
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1114,61 +1152,64 @@ CREATE TABLE `penjualan` (
   `tanggal_jam` datetime NOT NULL,
   `retur` enum('0','1') NOT NULL DEFAULT '0',
   `tanggal_retur` datetime NOT NULL,
-  `admin_retur` int(11) DEFAULT NULL,
-  `jenis_penjualan` tinyint(4) NOT NULL
+  `admin_retur` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `penjualan`
 --
 
-INSERT INTO `penjualan` (`id`, `id_pembeli`, `id_admin`, `id_spg`, `total_upah_peracik`, `total_harga_item`, `total`, `tanggal`, `tanggal_jam`, `retur`, `tanggal_retur`, `admin_retur`, `jenis_penjualan`) VALUES
-('030520000039', 22, 1, 0, '0', '529000', '529000', '2020-05-03', '2020-05-03 17:50:29', '0', '0000-00-00 00:00:00', NULL, 1),
-('030520000040', NULL, 1, 0, '0', '530000', '530000', '2020-05-03', '2020-05-03 17:51:12', '0', '0000-00-00 00:00:00', NULL, 1),
-('030520000041', NULL, 1, 0, '0', '68000', '68000', '2020-05-03', '2020-05-03 17:52:20', '0', '0000-00-00 00:00:00', NULL, 1),
-('040520000042', NULL, 1, 0, '0', '530500', '530500', '2020-05-04', '2020-05-04 20:31:01', '0', '0000-00-00 00:00:00', NULL, 1),
-('041219000029', NULL, 1, 1, '0', '649500', '649500', '2019-12-04', '2019-12-04 06:04:42', '0', '0000-00-00 00:00:00', NULL, 1),
-('041219000030', 18, 1, 1, '0', '474000', '474000', '2019-12-04', '2019-12-04 07:01:39', '0', '0000-00-00 00:00:00', NULL, 1),
-('050520000043', NULL, 1, 0, '0', '1009000', '1009000', '2020-05-05', '2020-05-05 12:32:52', '0', '0000-00-00 00:00:00', NULL, 2),
-('050520000044', NULL, 1, 0, '0', '3027000', '3027000', '2020-05-05', '2020-05-05 13:13:06', '0', '0000-00-00 00:00:00', NULL, 2),
-('050520000045', NULL, 1, 0, '0', '1009000', '1009000', '2020-05-05', '2020-05-05 13:14:43', '0', '0000-00-00 00:00:00', NULL, 2),
-('050520000046', NULL, 1, 0, '0', '41500', '41500', '2020-05-05', '2020-05-05 16:11:05', '0', '0000-00-00 00:00:00', NULL, 1),
-('050719000006', NULL, 1, 1, '0', '21000', '21000', '2019-07-05', '2019-07-05 11:15:08', '0', '0000-00-00 00:00:00', NULL, 1),
-('050719000007', NULL, 1, 1, '0', '220000', '220000', '2019-07-05', '2019-07-05 11:19:49', '0', '0000-00-00 00:00:00', NULL, 1),
-('061119000021', NULL, 1, 1, '0', '70000', '70000', '2019-11-06', '2019-11-06 18:29:11', '0', '0000-00-00 00:00:00', NULL, 1),
-('061119000022', NULL, 1, 1, '0', '148000', '148000', '2019-11-06', '2019-11-06 18:32:23', '0', '0000-00-00 00:00:00', NULL, 1),
-('121119000023', NULL, 1, 1, '0', '23000', '23000', '2019-11-12', '2019-11-12 07:09:04', '0', '0000-00-00 00:00:00', NULL, 1),
-('121119000024', NULL, 1, 1, '0', '231000', '231000', '2019-11-12', '2019-11-12 07:10:24', '0', '0000-00-00 00:00:00', NULL, 1),
-('161119000025', NULL, 1, 1, '0', '660000', '660000', '2019-11-16', '2019-11-16 03:18:13', '0', '0000-00-00 00:00:00', NULL, 1),
-('191119000026', NULL, 1, 1, '0', '23000', '23000', '2019-11-19', '2019-11-19 22:18:52', '0', '0000-00-00 00:00:00', NULL, 1),
-('201119000027', NULL, 1, 1, '0', '99000', '99000', '2019-11-20', '2019-11-20 05:12:19', '0', '0000-00-00 00:00:00', NULL, 1),
-('201119000028', NULL, 1, 1, '0', '466000', '466000', '2019-11-20', '2019-11-20 07:51:10', '0', '0000-00-00 00:00:00', NULL, 1),
-('231019000008', NULL, 1, 1, '0', '93000', '93000', '2019-10-23', '2019-10-23 22:53:10', '0', '0000-00-00 00:00:00', NULL, 1),
-('231019000009', NULL, 1, 1, '0', '93000', '93000', '2019-10-23', '2019-10-23 22:53:39', '0', '0000-00-00 00:00:00', NULL, 1),
-('231019000010', NULL, 1, 2, '0', '93000', '93000', '2019-10-23', '2019-10-23 22:53:55', '0', '0000-00-00 00:00:00', NULL, 1),
-('231019000011', NULL, 1, 2, '0', '114000', '114000', '2019-10-23', '2019-10-23 22:55:20', '0', '0000-00-00 00:00:00', NULL, 1),
-('231019000012', NULL, 1, 2, '0', '114000', '114000', '2019-10-23', '2019-10-23 22:56:07', '0', '0000-00-00 00:00:00', NULL, 1),
-('231019000013', NULL, 1, 2, '0', '114000', '114000', '2019-10-23', '2019-10-23 23:06:48', '0', '0000-00-00 00:00:00', NULL, 1),
-('241019000014', NULL, 1, 2, '0', '81000', '81000', '2019-10-24', '2019-10-24 08:10:29', '0', '0000-00-00 00:00:00', NULL, 1),
-('241019000015', NULL, 1, 2, '0', '510000', '510000', '2019-10-24', '2019-10-24 08:12:57', '0', '0000-00-00 00:00:00', NULL, 1),
-('241019000016', NULL, 1, 2, '0', '20000', '20000', '2019-10-24', '2019-10-24 08:15:40', '0', '0000-00-00 00:00:00', NULL, 1),
-('241019000017', 9, 1, 2, '0', '170000', '170000', '2019-10-24', '2019-10-24 09:45:56', '0', '0000-00-00 00:00:00', NULL, 1),
-('241019000018', NULL, 1, 2, '0', '12000', '12000', '2019-10-24', '2019-10-24 10:36:26', '0', '0000-00-00 00:00:00', NULL, 1),
-('241019000019', NULL, 1, 2, '0', '11000', '11000', '2019-10-24', '2019-10-24 10:40:07', '0', '0000-00-00 00:00:00', NULL, 1),
-('241019000020', NULL, 1, 2, '0', '150000', '150000', '2019-10-24', '2019-10-24 10:49:15', '0', '0000-00-00 00:00:00', NULL, 1),
-('271219000031', NULL, 1, 1, '0', '105000', '105000', '2019-12-27', '2019-12-27 16:20:22', '0', '0000-00-00 00:00:00', NULL, 1),
-('300420000032', NULL, 1, 0, '0', '559000', '559000', '2020-04-30', '2020-04-30 15:19:13', '0', '0000-00-00 00:00:00', NULL, 1),
-('300420000033', NULL, 1, 0, '0', '84000', '84000', '2020-04-30', '2020-04-30 15:24:14', '0', '0000-00-00 00:00:00', NULL, 1),
-('300420000034', NULL, 1, 0, '0', '460000', '460000', '2020-04-30', '2020-04-30 15:24:28', '0', '0000-00-00 00:00:00', NULL, 1),
-('300420000035', NULL, 1, 0, '0', '524000', '524000', '2020-04-30', '2020-04-30 15:27:32', '0', '0000-00-00 00:00:00', NULL, 1),
-('300420000036', NULL, 1, 0, '0', '64000', '64000', '2020-04-30', '2020-04-30 15:29:23', '0', '0000-00-00 00:00:00', NULL, 1),
-('300420000037', NULL, 1, 0, '0', '460000', '460000', '2020-04-30', '2020-04-30 15:29:39', '0', '0000-00-00 00:00:00', NULL, 1),
-('300420000038', NULL, 1, 0, '0', '64000', '64000', '2020-04-30', '2020-04-30 15:30:43', '0', '0000-00-00 00:00:00', NULL, 1),
-('300619000001', NULL, 1, 1, '5000', '11000', '16000', '2019-06-30', '2019-06-30 00:15:46', '0', '0000-00-00 00:00:00', NULL, 1),
-('300619000002', 9, 1, 1, '5000', '11000', '16000', '2019-06-30', '2019-06-30 00:16:05', '0', '0000-00-00 00:00:00', NULL, 1),
-('300619000003', NULL, 1, 1, '0', '18000', '18000', '2019-06-30', '2019-06-30 01:42:20', '0', '0000-00-00 00:00:00', NULL, 1),
-('300619000004', NULL, 1, 1, '0', '21000', '21000', '2019-06-30', '2019-06-30 12:09:18', '0', '0000-00-00 00:00:00', NULL, 1),
-('300619000005', NULL, 1, 1, '0', '116000', '116000', '2019-06-30', '2019-06-30 15:40:56', '0', '0000-00-00 00:00:00', NULL, 1);
+INSERT INTO `penjualan` (`id`, `id_pembeli`, `id_admin`, `id_spg`, `total_upah_peracik`, `total_harga_item`, `total`, `tanggal`, `tanggal_jam`, `retur`, `tanggal_retur`, `admin_retur`) VALUES
+('030520000039', 22, 1, 0, '0', '529000', '529000', '2020-05-03', '2020-05-03 17:50:29', '0', '0000-00-00 00:00:00', NULL),
+('030520000040', NULL, 1, 0, '0', '530000', '530000', '2020-05-03', '2020-05-03 17:51:12', '0', '0000-00-00 00:00:00', NULL),
+('030520000041', NULL, 1, 0, '0', '68000', '68000', '2020-05-03', '2020-05-03 17:52:20', '0', '0000-00-00 00:00:00', NULL),
+('040520000042', NULL, 1, 0, '0', '530500', '530500', '2020-05-04', '2020-05-04 20:31:01', '0', '0000-00-00 00:00:00', NULL),
+('041219000029', NULL, 1, 1, '0', '649500', '649500', '2019-12-04', '2019-12-04 06:04:42', '0', '0000-00-00 00:00:00', NULL),
+('041219000030', 18, 1, 1, '0', '474000', '474000', '2019-12-04', '2019-12-04 07:01:39', '0', '0000-00-00 00:00:00', NULL),
+('050520000043', NULL, 1, 0, '0', '1009000', '1009000', '2020-05-05', '2020-05-05 12:32:52', '0', '0000-00-00 00:00:00', NULL),
+('050520000044', NULL, 1, 0, '0', '3027000', '3027000', '2020-05-05', '2020-05-05 13:13:06', '0', '0000-00-00 00:00:00', NULL),
+('050520000045', NULL, 1, 0, '0', '1009000', '1009000', '2020-05-05', '2020-05-05 13:14:43', '0', '0000-00-00 00:00:00', NULL),
+('050520000046', NULL, 1, 0, '0', '41500', '41500', '2020-05-05', '2020-05-05 16:11:05', '0', '0000-00-00 00:00:00', NULL),
+('050719000006', NULL, 1, 1, '0', '21000', '21000', '2019-07-05', '2019-07-05 11:15:08', '0', '0000-00-00 00:00:00', NULL),
+('050719000007', NULL, 1, 1, '0', '220000', '220000', '2019-07-05', '2019-07-05 11:19:49', '0', '0000-00-00 00:00:00', NULL),
+('061119000021', NULL, 1, 1, '0', '70000', '70000', '2019-11-06', '2019-11-06 18:29:11', '0', '0000-00-00 00:00:00', NULL),
+('061119000022', NULL, 1, 1, '0', '148000', '148000', '2019-11-06', '2019-11-06 18:32:23', '0', '0000-00-00 00:00:00', NULL),
+('121119000023', NULL, 1, 1, '0', '23000', '23000', '2019-11-12', '2019-11-12 07:09:04', '0', '0000-00-00 00:00:00', NULL),
+('121119000024', NULL, 1, 1, '0', '231000', '231000', '2019-11-12', '2019-11-12 07:10:24', '0', '0000-00-00 00:00:00', NULL),
+('161119000025', NULL, 1, 1, '0', '660000', '660000', '2019-11-16', '2019-11-16 03:18:13', '0', '0000-00-00 00:00:00', NULL),
+('190520000047', NULL, 1, 0, '0', '0', '280000', '2020-05-19', '2020-05-19 08:54:12', '0', '0000-00-00 00:00:00', NULL),
+('190520000048', NULL, 1, 0, '0', '0', '40000', '2020-05-19', '2020-05-19 08:58:37', '0', '0000-00-00 00:00:00', NULL),
+('190520000049', NULL, 1, 0, '0', '0', '40000', '2020-05-19', '2020-05-19 09:54:16', '0', '0000-00-00 00:00:00', NULL),
+('190520000050', NULL, 1, 0, '0', '0', '40000', '2020-05-19', '2020-05-19 10:24:44', '0', '0000-00-00 00:00:00', NULL),
+('191119000026', NULL, 1, 1, '0', '23000', '23000', '2019-11-19', '2019-11-19 22:18:52', '0', '0000-00-00 00:00:00', NULL),
+('201119000027', NULL, 1, 1, '0', '99000', '99000', '2019-11-20', '2019-11-20 05:12:19', '0', '0000-00-00 00:00:00', NULL),
+('201119000028', NULL, 1, 1, '0', '466000', '466000', '2019-11-20', '2019-11-20 07:51:10', '0', '0000-00-00 00:00:00', NULL),
+('231019000008', NULL, 1, 1, '0', '93000', '93000', '2019-10-23', '2019-10-23 22:53:10', '0', '0000-00-00 00:00:00', NULL),
+('231019000009', NULL, 1, 1, '0', '93000', '93000', '2019-10-23', '2019-10-23 22:53:39', '0', '0000-00-00 00:00:00', NULL),
+('231019000010', NULL, 1, 2, '0', '93000', '93000', '2019-10-23', '2019-10-23 22:53:55', '0', '0000-00-00 00:00:00', NULL),
+('231019000011', NULL, 1, 2, '0', '114000', '114000', '2019-10-23', '2019-10-23 22:55:20', '0', '0000-00-00 00:00:00', NULL),
+('231019000012', NULL, 1, 2, '0', '114000', '114000', '2019-10-23', '2019-10-23 22:56:07', '0', '0000-00-00 00:00:00', NULL),
+('231019000013', NULL, 1, 2, '0', '114000', '114000', '2019-10-23', '2019-10-23 23:06:48', '0', '0000-00-00 00:00:00', NULL),
+('241019000014', NULL, 1, 2, '0', '81000', '81000', '2019-10-24', '2019-10-24 08:10:29', '0', '0000-00-00 00:00:00', NULL),
+('241019000015', NULL, 1, 2, '0', '510000', '510000', '2019-10-24', '2019-10-24 08:12:57', '0', '0000-00-00 00:00:00', NULL),
+('241019000016', NULL, 1, 2, '0', '20000', '20000', '2019-10-24', '2019-10-24 08:15:40', '0', '0000-00-00 00:00:00', NULL),
+('241019000017', 9, 1, 2, '0', '170000', '170000', '2019-10-24', '2019-10-24 09:45:56', '0', '0000-00-00 00:00:00', NULL),
+('241019000018', NULL, 1, 2, '0', '12000', '12000', '2019-10-24', '2019-10-24 10:36:26', '0', '0000-00-00 00:00:00', NULL),
+('241019000019', NULL, 1, 2, '0', '11000', '11000', '2019-10-24', '2019-10-24 10:40:07', '0', '0000-00-00 00:00:00', NULL),
+('241019000020', NULL, 1, 2, '0', '150000', '150000', '2019-10-24', '2019-10-24 10:49:15', '0', '0000-00-00 00:00:00', NULL),
+('271219000031', NULL, 1, 1, '0', '105000', '105000', '2019-12-27', '2019-12-27 16:20:22', '0', '0000-00-00 00:00:00', NULL),
+('300420000032', NULL, 1, 0, '0', '559000', '559000', '2020-04-30', '2020-04-30 15:19:13', '0', '0000-00-00 00:00:00', NULL),
+('300420000033', NULL, 1, 0, '0', '84000', '84000', '2020-04-30', '2020-04-30 15:24:14', '0', '0000-00-00 00:00:00', NULL),
+('300420000034', NULL, 1, 0, '0', '460000', '460000', '2020-04-30', '2020-04-30 15:24:28', '0', '0000-00-00 00:00:00', NULL),
+('300420000035', NULL, 1, 0, '0', '524000', '524000', '2020-04-30', '2020-04-30 15:27:32', '0', '0000-00-00 00:00:00', NULL),
+('300420000036', NULL, 1, 0, '0', '64000', '64000', '2020-04-30', '2020-04-30 15:29:23', '0', '0000-00-00 00:00:00', NULL),
+('300420000037', NULL, 1, 0, '0', '460000', '460000', '2020-04-30', '2020-04-30 15:29:39', '0', '0000-00-00 00:00:00', NULL),
+('300420000038', NULL, 1, 0, '0', '64000', '64000', '2020-04-30', '2020-04-30 15:30:43', '0', '0000-00-00 00:00:00', NULL),
+('300619000001', NULL, 1, 1, '5000', '11000', '16000', '2019-06-30', '2019-06-30 00:15:46', '0', '0000-00-00 00:00:00', NULL),
+('300619000002', 9, 1, 1, '5000', '11000', '16000', '2019-06-30', '2019-06-30 00:16:05', '0', '0000-00-00 00:00:00', NULL),
+('300619000003', NULL, 1, 1, '0', '18000', '18000', '2019-06-30', '2019-06-30 01:42:20', '0', '0000-00-00 00:00:00', NULL),
+('300619000004', NULL, 1, 1, '0', '21000', '21000', '2019-06-30', '2019-06-30 12:09:18', '0', '0000-00-00 00:00:00', NULL),
+('300619000005', NULL, 1, 1, '0', '116000', '116000', '2019-06-30', '2019-06-30 15:40:56', '0', '0000-00-00 00:00:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -1188,6 +1229,17 @@ CREATE TABLE `penjualan_detail` (
   `total` decimal(10,0) NOT NULL,
   `stok_sisa` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `penjualan_detail`
+--
+
+INSERT INTO `penjualan_detail` (`id`, `id_penjualan`, `kode_item`, `racikan`, `upah_peracik`, `harga`, `diskon`, `kuantiti`, `total`, `stok_sisa`) VALUES
+(155, '190520000047', '00002', '0', '0', '100000', '0', 2, '200000', -1),
+(156, '190520000047', '01', '0', '0', '40000', '0', 2, '80000', 9),
+(157, '190520000048', '01', '0', '0', '40000', '0', 1, '40000', 8),
+(158, '190520000049', '01', '0', '0', '40000', '0', 1, '40000', 7),
+(159, '190520000050', '01', '0', '0', '40000', '0', 1, '40000', 6);
 
 -- --------------------------------------------------------
 
@@ -1256,7 +1308,11 @@ INSERT INTO `penjualan_pembayaran` (`id`, `id_penjualan`, `nominal`, `cara_bayar
 (67, '300420000038', '0', 'cash', '', '', '', '', '', '', '', ''),
 (68, '030520000039', '0', 'cash', '', '', '', '', '', '', '', ''),
 (69, '030520000040', '0', 'cash', '', '', '', '', '', '', '', ''),
-(70, '030520000041', '0', 'cash', '', '', '', '', '', '', '', '');
+(70, '030520000041', '0', 'cash', '', '', '', '', '', '', '', ''),
+(71, '190520000047', '300000', '', '', '', '', '', '', '', '', ''),
+(72, '190520000048', '50000', '', '', '', '', '', '', '', '', ''),
+(73, '190520000049', '50000', '', '', '', '', '', '', '', '', ''),
+(74, '190520000050', '50000', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -1270,7 +1326,7 @@ CREATE TABLE `piutang_dibayar_history` (
   `id_piutang` int(11) NOT NULL,
   `tanggal` date NOT NULL,
   `nominal` decimal(10,0) NOT NULL,
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1290,9 +1346,19 @@ CREATE TABLE `piutang_history` (
   `nominal_dibayar` decimal(10,0) NOT NULL,
   `sudah_lunas` enum('0','1') NOT NULL DEFAULT '0',
   `tanggal_lunas` date NOT NULL,
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `keterangan` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `piutang_history`
+--
+
+INSERT INTO `piutang_history` (`id`, `id_penjualan`, `id_pembeli`, `judul`, `tanggal`, `tanggal_jatuh_tempo`, `nominal`, `nominal_dibayar`, `sudah_lunas`, `tanggal_lunas`, `waktu_update`, `keterangan`) VALUES
+(1, '190520000047', NULL, 'kredit pembelian', '0000-00-00', '0000-00-00', '280000', '300000', '0', '0000-00-00', '2020-05-19 01:54:12', ''),
+(2, '190520000048', NULL, 'kredit pembelian', '0000-00-00', '0000-00-00', '40000', '50000', '0', '0000-00-00', '2020-05-19 01:58:37', ''),
+(3, '190520000049', NULL, 'kredit pembelian', '0000-00-00', '0000-00-00', '40000', '50000', '0', '0000-00-00', '2020-05-19 02:54:16', ''),
+(4, '190520000050', NULL, 'kredit pembelian', '0000-00-00', '0000-00-00', '40000', '50000', '0', '0000-00-00', '2020-05-19 03:24:44', '');
 
 -- --------------------------------------------------------
 
@@ -1345,7 +1411,7 @@ CREATE TABLE `purchase_order` (
   `supplier` int(11) NOT NULL,
   `total` decimal(20,0) NOT NULL,
   `keterangan` varchar(500) NOT NULL,
-  `waktu_update_po` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `waktu_update_po` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1406,7 +1472,7 @@ CREATE TABLE `rekening_kode` (
   `kode_rekening` varchar(30) NOT NULL,
   `kategori` enum('pemasukan','pengeluaran') NOT NULL DEFAULT 'pemasukan',
   `nama_rekening` varchar(200) NOT NULL,
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `editable` enum('0','1') NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1462,7 +1528,7 @@ CREATE TABLE `retur_pembelian` (
   `nomor_rec_penerimaan` varchar(100) NOT NULL,
   `tanggal_retur` date NOT NULL,
   `keterangan` varchar(500) NOT NULL,
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1489,7 +1555,7 @@ CREATE TABLE `stok_adjustment` (
   `tgl_expired` date NOT NULL,
   `satuan_kecil` varchar(100) NOT NULL,
   `keterangan` varchar(500) NOT NULL,
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1509,7 +1575,7 @@ CREATE TABLE `stok_keluar` (
   `tgl_expired` date NOT NULL,
   `satuan_kecil` varchar(100) NOT NULL,
   `keterangan` varchar(500) NOT NULL,
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -1529,7 +1595,7 @@ CREATE TABLE `stok_opname` (
   `tgl_expired` date NOT NULL,
   `satuan_kecil` varchar(100) NOT NULL,
   `keterangan` varchar(500) NOT NULL,
-  `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `waktu_update` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `verifikasi` enum('0','1') NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1869,167 +1935,194 @@ ALTER TABLE `stok_opname`
 -- AUTO_INCREMENT for table `cash_in_out`
 --
 ALTER TABLE `cash_in_out`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+
 --
 -- AUTO_INCREMENT for table `hutang_dibayar_history`
 --
 ALTER TABLE `hutang_dibayar_history`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `hutang_history`
 --
 ALTER TABLE `hutang_history`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
 --
 -- AUTO_INCREMENT for table `kartu_stok`
 --
 ALTER TABLE `kartu_stok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=196;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
+
 --
 -- AUTO_INCREMENT for table `kategori_user`
 --
 ALTER TABLE `kategori_user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
 --
 -- AUTO_INCREMENT for table `kategori_user_modul`
 --
 ALTER TABLE `kategori_user_modul`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12094;
+
 --
 -- AUTO_INCREMENT for table `keranjang`
 --
 ALTER TABLE `keranjang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
+
 --
 -- AUTO_INCREMENT for table `keranjang_detail`
 --
 ALTER TABLE `keranjang_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=222;
+
 --
 -- AUTO_INCREMENT for table `komisi_detail`
 --
 ALTER TABLE `komisi_detail`
   MODIFY `idd` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `master_admin`
 --
 ALTER TABLE `master_admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `master_diskon_kelipatan`
 --
 ALTER TABLE `master_diskon_kelipatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `master_kategori`
---
-ALTER TABLE `master_kategori`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
 --
 -- AUTO_INCREMENT for table `master_komisi`
 --
 ALTER TABLE `master_komisi`
   MODIFY `id_komisi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `master_operasional`
 --
 ALTER TABLE `master_operasional`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `master_pembeli`
 --
 ALTER TABLE `master_pembeli`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
 --
 -- AUTO_INCREMENT for table `master_racikan`
 --
 ALTER TABLE `master_racikan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `master_spg`
 --
 ALTER TABLE `master_spg`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `master_supplier`
 --
 ALTER TABLE `master_supplier`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `master_target`
 --
 ALTER TABLE `master_target`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `master_utility`
 --
 ALTER TABLE `master_utility`
-  MODIFY `id_utility` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id_utility` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
 --
 -- AUTO_INCREMENT for table `modul`
 --
 ALTER TABLE `modul`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+
 --
 -- AUTO_INCREMENT for table `notes`
 --
 ALTER TABLE `notes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `pembelian_langsung_detail`
 --
 ALTER TABLE `pembelian_langsung_detail`
-  MODIFY `idd` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
 --
 -- AUTO_INCREMENT for table `penerimaan_barang_detail`
 --
 ALTER TABLE `penerimaan_barang_detail`
   MODIFY `idd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
 --
 -- AUTO_INCREMENT for table `penjualan_detail`
 --
 ALTER TABLE `penjualan_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
+
 --
 -- AUTO_INCREMENT for table `penjualan_pembayaran`
 --
 ALTER TABLE `penjualan_pembayaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+
 --
 -- AUTO_INCREMENT for table `piutang_dibayar_history`
 --
 ALTER TABLE `piutang_dibayar_history`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `piutang_history`
 --
 ALTER TABLE `piutang_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `purchase_order_detail`
 --
 ALTER TABLE `purchase_order_detail`
-  MODIFY `idd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `idd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+
 --
 -- AUTO_INCREMENT for table `retur_detail`
 --
 ALTER TABLE `retur_detail`
   MODIFY `idd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `stok_adjustment`
 --
 ALTER TABLE `stok_adjustment`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `stok_keluar`
 --
 ALTER TABLE `stok_keluar`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `stok_opname`
 --
 ALTER TABLE `stok_opname`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- Constraints for dumped tables
 --
@@ -2204,6 +2297,7 @@ ALTER TABLE `stok_keluar`
 --
 ALTER TABLE `stok_opname`
   ADD CONSTRAINT `stok_opname_ibfk_1` FOREIGN KEY (`kode_item`) REFERENCES `master_item` (`kode_item`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
