@@ -179,7 +179,7 @@
 					<table style="font-size:9px;text-align: right;float: right;" border="0" width="100%" >
 						<tr>
 							<td>Jumlah</td>
-							<td><?php echo setrupiah($end); ?></td>
+							<td><?php echo setrupiah($ttl1); ?></td>
 						</tr>
 						<tr>
 							<td>PPN (10%)</td>
@@ -187,7 +187,7 @@
 						</tr>
 						<tr>
 							<td>Total</td>
-							<td><?php echo setrupiah($ppn+$end); ?></td>
+							<td><?php echo setrupiah($end); ?></td>
 						</tr>
 						<tr>
 							<td>Bayar</td>
@@ -195,7 +195,7 @@
 						</tr>
 						<tr>
 							<td>Kembali</td>
-							<td><?php echo setrupiah($totalbayar-($end+$ppn)); ?></td>
+							<td><?php echo setrupiah($totalbayar-($end)); ?></td>
 						</tr>
 
 					</table>
