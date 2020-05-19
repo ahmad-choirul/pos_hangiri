@@ -230,8 +230,8 @@ class Master_model extends CI_Model{
         // CRUD supplier end
          
     // datatable pembeli start
-    var $column_search_pembeli = array('nama_pembeli','jenis_kelamin','handphone','email'); 
-    var $column_order_pembeli = array(null, 'nama_pembeli','jenis_kelamin','handphone','email');
+    var $column_search_pembeli = array('nama_pembeli','hp','alamat'); 
+    var $column_order_pembeli = array(null, 'nama_pembeli','hp','alamat');
     var $order_pembeli = array('waktu_update' => 'DESC');
     private function _get_query_pembeli()
     { 

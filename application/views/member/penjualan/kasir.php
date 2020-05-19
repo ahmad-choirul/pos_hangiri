@@ -562,7 +562,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<input type="text" autocomplete="off" name="tanggal_jatuh_tempo" id="datepicker" class="form-control datepicker">
 										</div>
 									</div> 
-									<input name="kode" type="hidden" value="<?= $kode ?>">
+									
 								</div>
 								<div class="row" id="noncash1" style="display:none;">
 									<div class="col-md-12">

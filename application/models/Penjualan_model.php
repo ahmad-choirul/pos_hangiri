@@ -552,7 +552,7 @@ class Penjualan_model extends CI_Model
             'id_admin' => $this->session->userdata('idadmin'),
             'total' => $keranjang->row()->total,
             'tanggal' => date('Y-m-d'),
-            'jenis_penjualan' => $data['jns_penjualan'],
+            // 'jenis_penjualan' => $data['jns_penjualan'],
             'tanggal_jam' => date('Y-m-d H:i:s'),
             'retur' => '0'
         );
@@ -630,7 +630,7 @@ class Penjualan_model extends CI_Model
                 'jenis_transaksi' => 'penjualan',
                 'jumlah_keluar' => $r['kuantiti'],
                 'satuan_kecil' => $r['satuan'],
-                'tgl_expired' => $stok->row()->tgl_expired,
+                // 'tgl_expired' => $stok->row()->tgl_expired,
             );
             if ($nilai_komisi!=null) {
                 $totalkomisi+=($nilai_komisi*$r['kuantiti']);

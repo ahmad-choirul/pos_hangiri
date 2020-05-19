@@ -230,19 +230,7 @@ public function ajaxPaginationDataKasir($kode)
         // $totalRec = count($this->penjualan_model->getRows()); 
     $totalRec = 0;
 
-        //pagination configuration
-    $data['kode'] = $kode;
-        // $where = 'kategori = OOT';
-        // $where1 = 'kategori = Prekursor';
-    if ($kode==1) {
-        $kategori='PPN';
-    }elseif ($kode==2) {
-        $kategori='Tanpa PPN';
-    }elseif ($kode==3) {
-        $kategori='Prekusor';
-    }elseif ($kode==4) {
-        $kategori='OOT';
-    }
+
         // $kategori = 'Prekursor';
         // $kategori1 = 'Prekursor';
     $conditions['start'] = $offset;
