@@ -1,4 +1,4 @@
-<?php
+f<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!doctype html>
 <html class="fixed sidebar-left-collapsed">
@@ -1268,7 +1268,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             	// e.preventDefault()
             	var totalbayar=$("#totalbayar").val().replace(/\./g, "");
             	var totalbelanja = document.getElementById("TotalBelanjaInt").value; 
-            	if (totalbayar>=totalbelanja) {
+            	if (totalbayar<=totalbelanja) {
             		$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&spg='+spg+'&idd='+idkd+'&bayar='+totalbayar)
             		.submit()
             	}else{

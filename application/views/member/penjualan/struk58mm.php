@@ -163,19 +163,49 @@
 					<?php endforeach ?>
 				</table>
 			</table>
-
+<!-- 
 			<table style="font-size:8px;" border="0" width="90%">
 				<tr>
 					<td></td>
 					<td style="text-align: left;"></td>
 					<td></td>
-					<td></td>
-					<td style="text-align: left; width: 40%; font-size: 10px;">Jumlah <br>PPN (10%) <br> Bayar  <br>
+					<td></td> -->
+					<table style="font-size:9px;text-align: right;float: right;" border="0" width="90%" >
+						<tr>
+							<td>Jumlah</td>
+							<td><?php echo setrupiah($end); ?></td>
+						</tr>
+						<tr>
+							<td>PPN (10%)</td>
+							<td><?php echo setrupiah($ppn); ?></td>
+						</tr>
+						<tr>
+							<td>Total</td>
+							<td><?php echo setrupiah($ppn+$end); ?></td>
+						</tr>
+						<tr>
+							<td>Bayar</td>
+							<td><?php echo setrupiah($totalbayar); ?></td>
+						</tr>
+						<tr>
+							<td>Kembali</td>
+							<td><?php echo setrupiah($totalbayar-($end+$ppn)); ?></td>
+						</tr>
+
+					</table>
+				<!-- 	<td style="text-align: left; width: 60%; font-size: 10px;">
+						Jumlah <br>
+						PPN (10%) <br> 
+						Bayar  <br>
 					Kembali</td>
 
-						<td style="text-align: right; width: 35%;"><?php echo setrupiah($end); ?><br><?php echo setrupiah($ppn); ?><br><?php echo setrupiah($totalbayar); ?> <br><?php echo setrupiah($totalbayar-$ttl1); ?></td>
-					</tr>
-				</table>
+					<td style="text-align: right; width: 35%;">
+						<?php echo setrupiah($end); ?> <br> 
+						<?php echo setrupiah($ppn); ?><br>
+						<?php echo setrupiah($totalbayar); ?> <br>
+						<?php echo setrupiah($totalbayar-($end+$ppn)); ?></td> -->
+			<!-- 		</tr>
+				</table> -->
 
 			</div>
 		</div>
