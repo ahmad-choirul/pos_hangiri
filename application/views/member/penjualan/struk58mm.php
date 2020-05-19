@@ -31,6 +31,12 @@
 			display: table;
 			width: 100%;
 		}
+		.date{
+			font-size: 10px;
+		}
+		.user{
+			font-size: 10px;
+		}
 		.content .head-desc > div {
 			display: table-cell;
 		}
@@ -41,7 +47,7 @@
 			text-align: center;
 			margin-top: 5px;
 			margin-bottom: 5px;
-			font-size: 8px;
+			font-size: 10px;
 			line-height: 8px;
 		}
 		.content .separate {
