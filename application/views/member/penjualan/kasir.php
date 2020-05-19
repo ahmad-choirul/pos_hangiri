@@ -726,10 +726,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<!-- <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" onclick="struk()" id="paymenttransaksi">Bayar <small>(Tunai)</small></button> -->
 									<button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" id="paymenttransaksi">Bayar <small>(Tunai)</small></button>
 								</div> 
-								<div class="col-md-6"> 
-									<!-- <button type="button" class="mb-xs mt-xs mr-xs btn btn-success btn-lg btn-block" onclick="struk_k()" id="paymenttransaksikredit">Bayar <small>(Kredit)</small></button> -->
+						<!-- 		<div class="col-md-6"> 
+									<button type="button" class="mb-xs mt-xs mr-xs btn btn-success btn-lg btn-block" onclick="struk_k()" id="paymenttransaksikredit">Bayar <small>(Kredit)</small></button>
 									<button type="button" class="mb-xs mt-xs mr-xs btn btn-success btn-lg btn-block" id="paymenttransaksikredit" >Bayar <small>(Kredit)</small></button>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>
