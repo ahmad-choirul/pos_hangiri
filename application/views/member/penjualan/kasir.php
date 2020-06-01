@@ -123,7 +123,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<div class="input-group mb-md">
 								<input type="text" class="form-control" value="Walk in Customer" readonly="" id="customer">
 								<input type="hidden" name="customer" id="customer_dipilih">
-								<div class="input-group-btn">
+							<!-- 	<div class="input-group-btn">
 									<button tabindex="-1" class="btn btn-primary" type="button">Pembeli</button>
 									<button tabindex="-1" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" type="button" aria-expanded="false">
 										<span class="caret"></span>
@@ -132,7 +132,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										<li><a href="#" data-toggle="modal" data-target="#tambahData">Customer Baru</a></li>
 										<li><a href="#" data-toggle="modal" data-target="#modal-pembeli">Data Customer</a></li>
 									</ul>
-								</div>
+								</div> -->
 							</div>
 							<div class="input-group mb-md">
 								<span class="input-group-addon btn-primary"><i class="fa fa-barcode"></i></span>
@@ -251,7 +251,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</div>
 </section>
 
-<div class="modal fade" id="tambahData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="tambahData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<section class="panel panel-primary">
@@ -383,7 +383,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</section>
 	</div>
 </div>
-</div>
+</div> -->
 
 <div class="modal fade" id="modal-pembeli"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
