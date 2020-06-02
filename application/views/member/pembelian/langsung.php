@@ -414,8 +414,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <tr>
                                     <th>Kode Item</th>
                                     <th>Nama Item</th> 
-                                    <th>Kategori</th> 
-                                    <th>Satuan Kecil</th>  
                                     <th></th>
                                 </tr>
                             </thead>
@@ -496,7 +494,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }, 
                 "columnDefs": [
                     { 
-                        "targets": [ 3 ], 
+                        "targets": [ 2 ], 
                         "orderable": false, 
                     },
                 ],  

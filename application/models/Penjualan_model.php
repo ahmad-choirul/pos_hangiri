@@ -107,7 +107,7 @@ class Penjualan_model extends CI_Model
         $this->db->select('*');
         $this->db->from('master_item');
         // if (isset($kategori)) {
-        //     $this->db->where('kategori', $kategori);
+            $this->db->where('jenis_item', 'jual');
         // }
         //filter data by searched keywords
         if (!empty($params['search']['keywords'])) {

@@ -5,7 +5,7 @@
                 <img src="<?php echo base_url()?>/images/<?php echo $post['gambar']; ?>" class="img-responsive fit-image" alt="Foto Produk"> 
         </div>
         <span class="mg-title nama_produk">
-        <?php if($post['jenis'] == 'racikan') echo"<b>[racikan]</b>"; ?> <?php echo $post['nama_item']; ?>
+        <?php echo $post['nama_item']; ?>
         </span>
         <div class="row">
             <div class="col-md-12"> 

@@ -131,8 +131,7 @@ class Master extends CI_Controller {
 	public function pembeli()
 	{     
         level_user('master','pembeli',$this->session->userdata('kategori'),'read') > 0 ? '': show_404();
-        $data['dokter'] = $this->db->get('master_dokter')->result();
-        $this->load->view('member/master/pembeli',$data); 
+        $this->load->view('member/master/pembeli'); 
     }  
     
     public function datapembeli()
@@ -265,8 +264,7 @@ class Master extends CI_Controller {
                         </ul>
                     </div>
                     ';
-            $row[] = $this->security->xss_clean($r->id); 
-            $row[] = $this->security->xss_clean($r->lokasi_kategori); 
+            $row[] = $this->security->xss_clean($r->nama_kategori); 
             $data[] = $row;
         } 
         $result = array(
@@ -302,19 +300,15 @@ class Master extends CI_Controller {
         cekajax(); 
         $query = $this->db->get_where('master_kategori', array('id' => $this->input->get("id")),1);
         $result = array(  
-            "namakategori" => $this->security->xss_clean($query->row()->id), 
-            "lokasi" => $this->security->xss_clean($query->row()->lokasi_kategori), 
+            "id" => $this->security->xss_clean($query->row()->id), 
+            "nama_kategori" => $this->security->xss_clean($query->row()->nama_kategori), 
         );    
     	echo'['.json_encode($result).']';
     } 
     public function kategoriedit(){ 
         cekajax(); 
         $simpan = $this->master_model;
-        $post = $this->input->post();
-        if($post["id"] != $post["idd"]){  
-            $data['success']= true;
-            $data['message']="Data tidak berubah";  
-        }else{          
+        $post = $this->input->post();    
             $validation = $this->form_validation; 
             $validation->set_rules($simpan->ruleskategori());
             if ($this->form_validation->run() == FALSE){
@@ -329,7 +323,7 @@ class Master extends CI_Controller {
                     $data['errors'] = $errors;
                 }  
             }
-        }
+        
         $data['token'] = $this->security->get_csrf_hash();
         echo json_encode($data); 
     }
@@ -405,170 +399,21 @@ class Master extends CI_Controller {
         echo json_encode($data); 
     } 
     
-    public function satuandetail(){  
-        cekajax(); 
-        $query = $this->db->get_where('master_satuan', array('id' => $this->input->get("id")),1);
-        $result = array(  
-            "namasatuan" => $this->security->xss_clean($query->row()->id),
-            "isi_persatuan" => $this->security->xss_clean($query->row()->isi_persatuan),
-            "satuan_besar" => $this->security->xss_clean($query->row()->satuan_besar), 
-        );    
-    	echo'['.json_encode($result).']';
-    } 
-    public function satuanedit(){ 
-        cekajax(); 
-        $simpan = $this->master_model;
-        $post = $this->input->post();
-        if($post["satuan_besar"] == $post["idd"]){  
-            $data['success']= true;
-            $data['message']="Data satuan besar tidak boleh sama";  
-        }else{          
-            $validation = $this->form_validation; 
-            $validation->set_rules('isi_persatuan','Jumlah','required');
-            if ($this->form_validation->run() == FALSE){
-                $errors = $this->form_validation->error_array();
-                $data['errors'] = $errors;
-            }else{     
-				if($simpan->updatedatasatuan()){
-					$data['success']= true;
-					$data['message']="Berhasil menyimpan data";   
-				}else{
-					$errors['fail'] = "gagal melakukan update data";
-					$data['errors'] = $errors;
-				}						
-            }
-        }
-        $data['token'] = $this->security->get_csrf_hash();
-        echo json_encode($data); 
-    }
-    
-    public function satuanhapus(){ 
-        cekajax(); 
-        $hapus = $this->master_model;
-        if($hapus->hapusdatasatuan()){ 
-            $data['success']= true;
-            $data['message']="Berhasil menghapus data"; 
-        }else{    
-            $errors['fail'] = "gagal menghapus data";
-			$data['errors'] = $errors;
-        }
-        $data['token'] = $this->security->get_csrf_hash();
-        echo json_encode($data); 
-    }  
-    
-    public function merk()
-	{   
-        level_user('master','merk',$this->session->userdata('kategori'),'read') > 0 ? '': show_404();
-        $this->load->view('member/master/merk');
-    }
-    public function datamerk()
-	{   
-        cekajax(); 
-        $get = $this->input->get();
-        $list = $this->master_model->get_merk_datatable();
-        $data = array(); 
-        foreach ($list as $r) { 
-            $row = array(); 
-            $tombolhapus = level_user('master','satuan',$this->session->userdata('kategori'),'delete') > 0 ? '<li><a href="#" onclick="hapus(this)" data-id="'.$this->security->xss_clean($r->id).'">Hapus</a></li>':'';
-            $tomboledit = level_user('master','satuan',$this->session->userdata('kategori'),'edit') > 0 ? '<li><a href="#" onclick="edit(this)" data-id="'.$this->security->xss_clean($r->id).'">Edit</a></li>':'';
-            $row[] = ' 
-                    <div class="btn-group dropup">
-                        <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Action <span class="caret"></span></button>
-                        <ul class="dropdown-menu" role="menu"> 
-                        '.$tomboledit.'
-                        '.$tombolhapus.'
-                        </ul>
-                    </div>
-                    ';
-            $row[] = $this->security->xss_clean($r->id); 
-            $data[] = $row;
-        } 
-        $result = array(
-            "draw" => $get['draw'],
-            "recordsTotal" => $this->master_model->count_all_datatable_merk(),
-            "recordsFiltered" => $this->master_model->count_filtered_datatable_merk(),
-            "data" => $data,
-        ); 
-        echo json_encode($result);  
-    }
-
-    public function merktambah(){ 
-        cekajax(); 
-        $simpan = $this->master_model;
-		$validation = $this->form_validation; 
-        $validation->set_rules($simpan->rulesmerk());
-		if ($this->form_validation->run() == FALSE){
-			$errors = $this->form_validation->error_array();
-			$data['errors'] = $errors;
-        }else{      			
-			if($simpan->simpandatamerk()){
-				$data['success']= true;
-				$data['message']="Berhasil menyimpan data";   
-			}else{
-				$errors['fail'] = "gagal melakukan update data";
-				$data['errors'] = $errors;
-			}  
-        }
-        $data['token'] = $this->security->get_csrf_hash();
-        echo json_encode($data); 
-    }
-
-    public function merkdetail(){  
-        cekajax(); 
-        $query = $this->db->get_where('master_merk', array('id' => $this->input->get("id")),1);
-        $result = array(  
-            "namamerk" => $this->security->xss_clean($query->row()->id), 
-        );    
-    	echo'['.json_encode($result).']';
-    } 
-
-    public function merkedit(){ 
-        cekajax(); 
-        $simpan = $this->master_model;
-        $post = $this->input->post();
-        if($post["id"] == $post["idd"]){  
-            $data['success']= true;
-            $data['message']="Data tidak berubah";  
-        }else{          
-            $validation = $this->form_validation; 
-            $validation->set_rules($simpan->rulesmerk());
-            if ($this->form_validation->run() == FALSE){
-                $errors = $this->form_validation->error_array();
-                $data['errors'] = $errors;
-            }else{      
-                if($simpan->updatedatamerk()){
-                    $data['success']= true;
-                    $data['message']="Berhasil menyimpan data";   
-                }else{
-                    $errors['fail'] = "gagal melakukan update data";
-                    $data['errors'] = $errors;
-                }  
-            }
-        }
-        $data['token'] = $this->security->get_csrf_hash();
-        echo json_encode($data); 
-    }
-    public function merkhapus(){ 
-        cekajax(); 
-        $hapus = $this->master_model;
-        if($hapus->hapusdatamerk()){ 
-            $data['success']= true;
-            $data['message']="Berhasil menghapus data"; 
-        }else{    
-            $errors['fail'] = "gagal menghapus data";
-			$data['errors'] = $errors;
-        }
-        $data['token'] = $this->security->get_csrf_hash();
-        echo json_encode($data); 
-    }
+   
 	
 	public function items()
 	{  
         level_user('master','items',$this->session->userdata('kategori'),'read') > 0 ? '': show_404();
         $data['kategori'] = $this->db->get('master_kategori')->result(); 
-        $data['satuan'] = $this->db->get('master_satuan')->result(); 
-        $data['merk'] = $this->db->get('master_merk')->result(); 
         $this->load->view('member/master/items',$data);
+    }  
+
+
+    public function items_bahanbaku()
+    {  
+        level_user('master','items',$this->session->userdata('kategori'),'read') > 0 ? '': show_404();
+        $data['kategori'] = $this->db->get('master_kategori')->result(); 
+        $this->load->view('member/master/items_bahanbaku',$data);
     }  
     public function dataitems()
 	{   
@@ -593,8 +438,9 @@ class Master extends CI_Controller {
                     
             $row[] = $this->security->xss_clean($r->kode_item); 
             $row[] = $this->security->xss_clean($r->nama_item); 
-            $row[] = $this->security->xss_clean($r->nama_kategori);   
-            $row[] = $this->security->xss_clean(rupiah($r->harga_jual)); 
+            $row[] = $this->security->xss_clean($r->nama_kategori);    
+            $row[] = $this->security->xss_clean(rupiah($r->harga_beli)); 
+            $row[] = $this->security->xss_clean(rupiah($r->harga_jual));
             $row[] = $this->security->xss_clean(date('d M Y',strtotime($r->tgl_expired)));
             $data[] = $row;
         } 
@@ -642,6 +488,8 @@ class Master extends CI_Controller {
             "netto" => $this->security->xss_clean($query->row()->netto), 
             "harga_jualedit" => $this->security->xss_clean($query->row()->harga_jual),
             "harga_jual" => $this->security->xss_clean(rupiah($query->row()->harga_jual)),
+            "harga_beliedit" => $this->security->xss_clean($query->row()->harga_beli),
+            "harga_beli" => $this->security->xss_clean(rupiah($query->row()->harga_beli)),
             "stok" => $this->security->xss_clean($query->row()->stok),
             "tanggal_expired" => $this->security->xss_clean(date('d M Y',strtotime($query->row()->tgl_expired))),
             "tanggal_expireds" => $this->security->xss_clean($query->row()->tgl_expired),

@@ -236,8 +236,7 @@ class Pembelian_model extends CI_Model{
     function getallpembelian(){   
         $tombolhapus = level_user('pembelian','langsung',$this->session->userdata('kategori'),'delete') > 0 ? '<li><a href="#" onclick="hapus(this)" data-id="$2">Hapus</a></li>':'';
         $tomboledit = level_user('pembelian','langsung',$this->session->userdata('kategori'),'edit') > 0 ? '<li><a href="#" onclick="edit(this)" data-id="$2">Edit</a></li>':'';
-        $this->datatables->select('nomor_faktur,tgl_pembelian,pembayaran,
-		termin,id,nama_supplier');
+        $this->datatables->select('nomor_faktur,tgl_pembelian,pembayaran,termin,id,nama_supplier');
         $this->datatables->from('pembelian_langsung');
         $this->datatables->join('master_supplier', 'supplier=id');
         $this->datatables->add_column('tombol', 

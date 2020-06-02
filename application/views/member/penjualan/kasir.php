@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
 		$( function() {
-		 $("#datepicker").datepicker({ dateFormat: "yyyy-mm-dd", changeMonth: true, changeYear: true });
+			$("#datepicker").datepicker({ dateFormat: "yyyy-mm-dd", changeMonth: true, changeYear: true });
 		});
 	</script>
 	<style type="text/css">
@@ -564,52 +564,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									</div> 
 									
 								</div>
-								<div class="row" id="noncash1" style="display:none;">
-									<div class="col-md-12">
-										<div class="form-group">
-											<label class="control-label"></label>
-											<input type="text" placeholder="Swipe" name="swipe[]" class="form-control" />
-										</div>
-									</div>  
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="control-label"></label>
-											<input type="text" placeholder="Card No" name="card_no[]" class="form-control" />
-										</div>
-									</div> 
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="control-label"></label>
-											<input type="text" placeholder="Holder name" name="holder_name[]" class="form-control" />
-										</div>
-									</div> 
-									<div class="col-md-3">
-										<div class="form-group">
-											<label class="control-label"></label>
-											<input type="text" placeholder="Month" name="month[]" class="form-control" />
-										</div>
-									</div> 
-									<div class="col-md-3">
-										<div class="form-group">
-											<label class="control-label"></label>
-											<input type="text" placeholder="Year" name="year[]" class="form-control" />
-										</div>
-									</div> 
-									<div class="col-md-3">
-										<div class="form-group">
-											<label class="control-label"></label>
-											<input type="text" placeholder="Security code" name="security_code[]" class="form-control" />
-										</div>
-									</div> 
-									<div class="col-md-3">
-										<div class="form-group">  
-											<label class="control-label"></label>
-											<select class="form-control" name="bank[]" id="bank1"> 
-												<option value=""></option>   
-											</select> 
-										</div>
-									</div> 
-								</div> 
+								
 								<div class="row my-4">
 									<div class="col-md-12">
 										
@@ -633,6 +588,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<input type="text" name="totalbayar" id="totalbayar" value="0" class="form-control mask_price" />
 										</div>
 									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">Jenis Penjualan</label>
+											<select class="form-control cara_bayar" name="jenis_penjualan" id="jenis_penjualan" onchange="ubahtotalharga()">
+												<option value="ppn">PPN</option>
+												<option value="nonppn">NonPPN</option>
+											</select> 
+										</div>
+									</div>
 									<!-- <div class="col-md-6">
 										<div class="form-group"> 
 											<label class="control-label">Cara Bayar</label>
@@ -644,52 +608,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										</div>
 									</div>  -->
 								</div>
-								<div class="row" id="noncash2" style="display:none;">
-									<div class="col-md-12">
-										<div class="form-group">
-											<label class="control-label"></label>
-											<input type="text" placeholder="Swipe" name="swipe[]" class="form-control" />
-										</div>
-									</div>  
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="control-label"></label>
-											<input type="text" placeholder="Card No" name="card_no[]" class="form-control" />
-										</div>
-									</div> 
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="control-label"></label>
-											<input type="text" placeholder="Holder name" name="holder_name[]" class="form-control" />
-										</div>
-									</div> 
-									<div class="col-md-3">
-										<div class="form-group">
-											<label class="control-label"></label>
-											<input type="text" placeholder="Month" name="month[]" class="form-control" />
-										</div>
-									</div> 
-									<div class="col-md-3">
-										<div class="form-group">
-											<label class="control-label"></label>
-											<input type="text" placeholder="Year" name="year[]" class="form-control" />
-										</div>
-									</div> 
-									<div class="col-md-3">
-										<div class="form-group">
-											<label class="control-label"></label>
-											<input type="text" placeholder="Security code" name="security_code[]" class="form-control" />
-										</div>
-									</div> 
-									<div class="col-md-3">
-										<div class="form-group">  
-											<label class="control-label"></label>
-											<select class="form-control" name="bank[]" id="bank2">  
-												<option value=""></option> 
-											</select> 
-										</div>
-									</div> 
-								</div> 
+								
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
@@ -707,37 +626,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<div class="col-md-12">
 							<table class="table table-hover mb-none">
 								<tr>
-									<th><h4>Total Belanja</h4></th>
 									<th>
-										<h4 class="text-dark" id="TotalBelanja"></h4>
-										<input type="hidden" id="TotalBelanjaInt">
-									</th>
-									<th><h4>Total Item</h4></th>
-									<th><h4 class="text-dark" id="TotalKuantiti"></h4></th>
-								</tr>
-							</table>
-						</div>
-					</div>
-					<hr>
-					<div class="row">
-						<div class="col-md-12 text-right"> 
-							<div class="row">
-								<div class="col-md-6"> 
-									<!-- <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" onclick="struk()" id="paymenttransaksi">Bayar <small>(Tunai)</small></button> -->
-									<button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" id="paymenttransaksi">Bayar <small>(Tunai)</small></button>
-								</div> 
-						<!-- 		<div class="col-md-6"> 
-									<button type="button" class="mb-xs mt-xs mr-xs btn btn-success btn-lg btn-block" onclick="struk_k()" id="paymenttransaksikredit">Bayar <small>(Kredit)</small></button>
-									<button type="button" class="mb-xs mt-xs mr-xs btn btn-success btn-lg btn-block" id="paymenttransaksikredit" >Bayar <small>(Kredit)</small></button>
-								</div> -->
+										<h4>Total Belanja + PPN </h4></th>
+										<th>
+											<h4 class="text-dark" id="TotalBelanja"></h4>
+											<input type="hidden" id="TotalBelanjaInt">
+										</th>
+										<th><h4>Total Item</h4></th>
+										<th><h4 class="text-dark" id="TotalKuantiti"></h4></th>
+									</tr>
+								</table>
 							</div>
 						</div>
-					</div>
-				</footer> 
-			</section>
-		</form>
+						<hr>
+						<div class="row">
+							<div class="col-md-12 text-right"> 
+								<div class="row">
+									<div class="col-md-6"> 	
+										<button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" id="paymenttransaksi">Bayar <small>(Tunai)</small></button>
+									</div> 
+
+								</div>
+							</div>
+						</div>
+					</footer> 
+				</section>
+			</form>
+		</div>
 	</div>
-</div>
 </div>
 
 
@@ -793,48 +709,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		$('#Kembalian').html(formatNumber(kembalian)); 
 		paymentsubmit(totalbelanja,nilaibayar);
 	}); 
-	$('#cara_bayar1').change(function(){ 
-		var carabayar = $(this).val();   
-		if(carabayar !== 'cash'){
-			document.getElementById("noncash1").style.display = "block";  
-			$.ajax({
-				type: 'GET',
-				url: '<?php echo base_url()?>penjualan/bankjenis',
-				data: 'jenis=' + carabayar,
-				dataType 	: 'json',
-				success: function(response) {  
-					var datarow ='';  
-					$.each(response.datasub, function(i, itemsub) { 
-						datarow+="<option value='"+itemsub.singkatan+"'>"+itemsub.singkatan+"</option>"; 
-					});   
-					$('#bank1').html(datarow);
-				}
-			});  
-		}else{
-			document.getElementById("noncash1").style.display = "none";  
-		}
-	});
-	$('#cara_bayar2').change(function(){ 
-		var carabayar = $(this).val();   
-		if(carabayar !== 'cash'){
-			document.getElementById("noncash2").style.display = "block";  
-			$.ajax({
-				type: 'GET',
-				url: '<?php echo base_url()?>penjualan/bankjenis',
-				data: 'jenis=' + carabayar,
-				dataType 	: 'json',
-				success: function(response) {  
-					var datarow ='';  
-					$.each(response.datasub, function(i, itemsub) { 
-						datarow+="<option value='"+itemsub.singkatan+"'>"+itemsub.singkatan+"</option>"; 
-					});   
-					$('#bank2').html(datarow);
-				}
-			});  
-		}else{
-			document.getElementById("noncash2").style.display = "none";  
-		}
-	});
+	
 	$('#btntambah1').click(function(){  
 		document.getElementById("tambah1").style.display = "none";  
 		// document.getElementById("formbayar2").style.display = "block";  
@@ -869,33 +744,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		$('#GrandTotalDibayar').html(formatNumber(nominal)); 
 		$('#Kembalian').html(formatNumber(kembalian)); 
 	}
-		$('#totalharusdibayar').on("click", function (e) { 
-			var totalbelanja = document.getElementById("TotalBelanjaInt").value; 
-			var nilai_1 = document.getElementById("totaldibayar1").value; 
-			nilai_1 = nilai_1.replace(/\./g,'');
-			var nilai_2 = document.getElementById("totaldibayar2").value; 
-			nilai_2 = nilai_2.replace(/\./g,'');
-			var nilaibayar = Number(nilai_1) + Number(nilai_2) ;
-			var nominal =document.getElementById("Valtotalharusdibayar").value; 
-			nominal = Number(nominal) + Number(nilaibayar); 
-			paymentsubmit(totalbelanja,nominal);
-			var kembalian = (nominal - totalbelanja) < 1 ? '0' : (nominal - totalbelanja) ;
-			nominal = formatNumber(nominal);
-			$('#totaldibayar1').val(nominal); 
-			$('#GrandTotalDibayar').html(formatNumber(nominal)); 
-			$('#Kembalian').html(formatNumber(kembalian)); 
-		});
-		function formatNumber(num) {
-			return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
-		}
-		function clearcash(){  
-			var totalbelanja = document.getElementById("TotalBelanjaInt").value;  
-			var kembalian = 0 ;
-			$('#totaldibayar1').val('0'); 
-			$('#totaldibayar2').val('0'); 
-			$('#GrandTotalDibayar').html(formatNumber(0)); 
-			$('#Kembalian').html(formatNumber(kembalian)); 
-			document.getElementById("tambah1").style.display = "block";  
+	$('#totalharusdibayar').on("click", function (e) { 
+		var totalbelanja = document.getElementById("TotalBelanjaInt").value; 
+		var nilai_1 = document.getElementById("totaldibayar1").value; 
+		nilai_1 = nilai_1.replace(/\./g,'');
+		var nilai_2 = document.getElementById("totaldibayar2").value; 
+		nilai_2 = nilai_2.replace(/\./g,'');
+		var nilaibayar = Number(nilai_1) + Number(nilai_2) ;
+		var nominal =document.getElementById("Valtotalharusdibayar").value; 
+		nominal = Number(nominal) + Number(nilaibayar); 
+		paymentsubmit(totalbelanja,nominal);
+		var kembalian = (nominal - totalbelanja) < 1 ? '0' : (nominal - totalbelanja) ;
+		nominal = formatNumber(nominal);
+		$('#totaldibayar1').val(nominal); 
+		$('#GrandTotalDibayar').html(formatNumber(nominal)); 
+		$('#Kembalian').html(formatNumber(kembalian)); 
+	});
+	function formatNumber(num) {
+		return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+	}
+	function clearcash(){  
+		var totalbelanja = document.getElementById("TotalBelanjaInt").value;  
+		var kembalian = 0 ;
+		$('#totaldibayar1').val('0'); 
+		$('#totaldibayar2').val('0'); 
+		$('#GrandTotalDibayar').html(formatNumber(0)); 
+		$('#Kembalian').html(formatNumber(kembalian)); 
+		document.getElementById("tambah1").style.display = "block";  
 			// document.getElementById("formbayar2").style.display = "none";  
 			paymentsubmit(totalbelanja,0);
 		}
@@ -1040,10 +915,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         function pilihpembeli(elem){  
         	var namapembeli = $(elem).data("namapembeli"); 
         	var idpembeli = $(elem).data("id");
-            $('#customer').val(namapembeli);      
-            $('#customer_dipilih').val(idpembeli);    
-            $('#modal-pembeli').modal('hide');  
-            update_pembeli();
+        	$('#customer').val(namapembeli);      
+        	$('#customer_dipilih').val(idpembeli);    
+        	$('#modal-pembeli').modal('hide');  
+        	update_pembeli();
         }
 
         var tablepembeli = $('#pembelidata').DataTable({ 
@@ -1053,7 +928,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         	}, 
         });
 
-      
+
         var tablehold = $('#listhold').DataTable({ 
         	"ajax": { 
         		url : "<?php echo base_url()?>penjualan/datahold", 
@@ -1076,87 +951,85 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         		}
         	});
         }
-		document.getElementById("FormulirTambah").addEventListener("submit", function (e) {  
-			blurForm();       
-			$('.help-block').hide();
-			$('.form-group').removeClass('has-error');
-			document.getElementById("submitform").setAttribute('disabled','disabled');
-			$('#submitform').html('Loading ...');
-			var form = $('#FormulirTambah')[0];
-			var formData = new FormData(form);
-			var xhrAjax = $.ajax({
-				type 		: 'POST',
-				url 		: $(this).attr('action'),
-				data 		: formData, 
-				processData: false,
-				contentType: false,
-				cache: false, 
-				dataType 	: 'json'
-			}).done(function(data) { 
-				if ( ! data.success) {	 
-					$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
-					document.getElementById("submitform").removeAttribute('disabled');  
-					$('#submitform').html('Submit');    
-					var objek = Object.keys(data.errors);  
-					for (var key in data.errors) {
-						if (data.errors.hasOwnProperty(key)) { 
-							var msg = '<div class="help-block" for="'+key+'">'+data.errors[key]+'</span>';
-							$('.'+key).addClass('has-error');
-							$('input[name="' + key + '"]').after(msg);  
-							$('textarea[name="' + key + '"]').after(msg);  
-						}
-						if (key == 'fail') {   
-							new PNotify({
-								title: 'Notifikasi',
-								text: data.errors[key],
-								type: 'danger'
-							}); 
-						}
-					}
-				} else { 
-					$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
-					PNotify.removeAll(); 
-					tablepembeli.ajax.reload();   
-					document.getElementById("submitform").removeAttribute('disabled'); 
-					$('#tambahData').modal('hide'); 
-					document.getElementById("FormulirTambah").reset();  
-					$('#submitform').html('Submit');   
-					new PNotify({
-						title: 'Notifikasi',
-						text: data.message,
-						type: 'success'
-					});    
-					$('#customer').val(data.pembeli);      
-					$('#customer_dipilih').val(data.id_pembeli);  
-					update_pembeli();
-					$('#tambahData').modal('hide');  
-				}
-			}).fail(function(data) {   
-				new PNotify({
-					title: 'Notifikasi',
-					text: "Request gagal, browser akan direload",
-					type: 'danger'
-				}); 
-				window.setTimeout(function() {  location.reload();}, 2000);
-			}); 
-			e.preventDefault(); 
-		}); 
+        document.getElementById("FormulirTambah").addEventListener("submit", function (e) {  
+        	blurForm();       
+        	$('.help-block').hide();
+        	$('.form-group').removeClass('has-error');
+        	document.getElementById("submitform").setAttribute('disabled','disabled');
+        	$('#submitform').html('Loading ...');
+        	var form = $('#FormulirTambah')[0];
+        	var formData = new FormData(form);
+        	var xhrAjax = $.ajax({
+        		type 		: 'POST',
+        		url 		: $(this).attr('action'),
+        		data 		: formData, 
+        		processData: false,
+        		contentType: false,
+        		cache: false, 
+        		dataType 	: 'json'
+        	}).done(function(data) { 
+        		if ( ! data.success) {	 
+        			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
+        			document.getElementById("submitform").removeAttribute('disabled');  
+        			$('#submitform').html('Submit');    
+        			var objek = Object.keys(data.errors);  
+        			for (var key in data.errors) {
+        				if (data.errors.hasOwnProperty(key)) { 
+        					var msg = '<div class="help-block" for="'+key+'">'+data.errors[key]+'</span>';
+        					$('.'+key).addClass('has-error');
+        					$('input[name="' + key + '"]').after(msg);  
+        					$('textarea[name="' + key + '"]').after(msg);  
+        				}
+        				if (key == 'fail') {   
+        					new PNotify({
+        						title: 'Notifikasi',
+        						text: data.errors[key],
+        						type: 'danger'
+        					}); 
+        				}
+        			}
+        		} else { 
+        			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
+        			PNotify.removeAll(); 
+        			tablepembeli.ajax.reload();   
+        			document.getElementById("submitform").removeAttribute('disabled'); 
+        			$('#tambahData').modal('hide'); 
+        			document.getElementById("FormulirTambah").reset();  
+        			$('#submitform').html('Submit');   
+        			new PNotify({
+        				title: 'Notifikasi',
+        				text: data.message,
+        				type: 'success'
+        			});    
+        			$('#customer').val(data.pembeli);      
+        			$('#customer_dipilih').val(data.id_pembeli);  
+        			update_pembeli();
+        			$('#tambahData').modal('hide');  
+        		}
+        	}).fail(function(data) {   
+        		new PNotify({
+        			title: 'Notifikasi',
+        			text: "Request gagal, browser akan direload",
+        			type: 'danger'
+        		}); 
+        		window.setTimeout(function() {  location.reload();}, 2000);
+        	}); 
+        	e.preventDefault(); 
+        }); 
 
 
-		var idk;
-		var spg;
-		var idkd;
-		spg = $("#nama_spg").val(); 
+        var idk;
+        var spg;
+        var idkd;
+        spg = $("#nama_spg").val(); 
 
-		function keranjang(){   
-			$('#cara_bayar1').val('cash'); 
-			$('#cara_bayar2').val('cash'); 
-			$('#totaldibayar1').val('0'); 
-			$('#totaldibayar2').val('0'); 
-			$('#GrandTotalDibayar').html('0'); 
-			document.getElementById("noncash1").style.display = "none";  
-			document.getElementById("noncash2").style.display = "none";  
-			document.getElementById("tambah1").style.display = "block";  
+        function keranjang(){   
+        	$('#cara_bayar1').val('cash'); 
+        	$('#cara_bayar2').val('cash'); 
+        	$('#totaldibayar1').val('0'); 
+        	$('#totaldibayar2').val('0'); 
+        	$('#GrandTotalDibayar').html('0'); 
+        	var jenis_penjualan = $('#jenis_penjualan').find(":selected").text();
 			// document.getElementById("formbayar2").style.display = "";  
 			$('#Kembalian').html('0'); 
 			$.ajax({
@@ -1169,12 +1042,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						var viewtotal='<table class="table table-striped">';
 						var totalharusdibayar,totalharusdibayarInt,TotalKuantiti,TotalBelanja;
 						$.each(response.datarows, function(i, item) { 
-							if(item.total_upah_peracik_int > 0){ 
-								viewtotal+='<tr>';
-								viewtotal+='<th style="text-align: left;">Total Upah Peracik</th>';
-								viewtotal+='<th style="text-align: right;">'+item.total_upah_peracik+'</th>';
-								viewtotal+='</tr>';	
-							}
+							
 							viewtotal+='<tr>';
 							viewtotal+='<th style="text-align: left;">Sub Total</th>';
 							viewtotal+='<th style="text-align: right;">'+item.total_harga_item+'</th>';
@@ -1191,11 +1059,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						viewtotal+='</table>';
 						$('#TotalBiaya').html(viewtotal);
 						$('#TotalBelanja').html(TotalBelanja);
-						$('#TotalBelanjaInt').val(totalharusdibayarInt);
-						$('#post_totalbelanja').val(totalharusdibayarInt);
-						$('#totalharusdibayar').html(totalharusdibayar);
-						$('#TotalKuantiti').html(TotalKuantiti);
-						$('#Valtotalharusdibayar').val(totalharusdibayarInt); 
+						if (true) {
+							$('#TotalBelanjaInt').val(totalharusdibayarInt+(0.1*totalharusdibayarInt));
+							$('#post_totalbelanja').val(totalharusdibayarInt+(0.1*totalharusdibayarInt));
+							$('#totalharusdibayar').html(totalharusdibayar+(0.1*totalharusdibayar));
+							$('#TotalKuantiti').html(TotalKuantiti);
+							$('#Valtotalharusdibayar').val(totalharusdibayarInt+(0.1*totalharusdibayarInt)); 
+						}else{
+							$('#TotalBelanjaInt').val(totalharusdibayarInt);
+							$('#post_totalbelanja').val(totalharusdibayarInt);
+							$('#totalharusdibayar').html(totalharusdibayar);
+							$('#TotalKuantiti').html(TotalKuantiti);
+							$('#Valtotalharusdibayar').val(totalharusdibayarInt); 
+						}
 
 					} else{ 
 						var viewtotal ='<table class="table table-striped">'; 
@@ -1469,6 +1345,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
    	e.preventDefault(); 
    }); 
 
+</script>
+
+<script type="text/javascript">
+	function ubahtotalharga() {
+		keranjang();
+	}
 </script>
 </body>
 </html>

@@ -407,7 +407,6 @@ function ajaxPaginationData(){
     $conditions = array();
         //calc offset number
     $page = $this->input->get('page');
-    $jns_penjualan = $this->input->get('jns_penjualan');
     if(!$page){
         $offset = 0;
     }else{
@@ -423,17 +422,8 @@ function ajaxPaginationData(){
     if(!empty($sortBy)){
         $conditions['search']['sortBy'] = $sortBy;
     }
-    if ($jns_penjualan=='1') {
-        $kategori='PPN';
-    }elseif ($jns_penjualan=='2') {
-        $kategori='Tanpa PPN';
-    }elseif ($jns_penjualan=='3') {
-        $kategori='Prekusor';
-    }elseif ($jns_penjualan=='4') {
-        $kategori='OOT';
-    }
         //total rows count
-    $totalRec = count($this->penjualan_model->getRows($conditions,$kategori)); 
+    $totalRec = count($this->penjualan_model->getRows($conditions)); 
 
         //pagination configuration
     $config['target']      = '#postList';
@@ -448,7 +438,7 @@ function ajaxPaginationData(){
     $conditions['limit'] = $this->perPage;
 
         //get posts data
-    $data['posts'] = $this->penjualan_model->getRows($conditions,$kategori);
+    $data['posts'] = $this->penjualan_model->getRows($conditions    );
 
         //load the view
     $this->load->view('member/penjualan/ajax-pagination-data', $data, false);

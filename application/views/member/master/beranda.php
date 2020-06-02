@@ -106,6 +106,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 																</a> 
 															</div>
 														</li> 
+                                                        <li>
+                                                            <a href="<?php echo base_url()?>master/items_bahanbaku" class="menu-item" style="color: white"><i class="fa fa-folder"></i> Master Bahan Baku</a>
+                                                            <div class="item-options">
+                                                                <a href="<?php echo base_url()?>master/items_bahanbaku">
+                                                                    <i class="fa fa-arrow-circle-o-left"></i>
+                                                                </a> 
+                                                            </div>
+                                                        </li> 
                                                     <?php
                                                     }?>
                                                    

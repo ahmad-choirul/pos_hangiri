@@ -96,7 +96,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="form-group mt-lg keterangan">
                                 <label class="col-sm-3 control-label">keterangan</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="keterangan" id="keterangan" class="form-control" />
+                                    <input type="text" name="keterangan" class="form-control" />
                                 </div>
                             </div> 
                             <!-- npwp -->

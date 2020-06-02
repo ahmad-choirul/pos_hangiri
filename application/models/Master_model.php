@@ -334,8 +334,8 @@ class Master_model extends CI_Model{
     
 
     // datatable kategori start
-    var $column_search_kategori = array('id'); 
-    var $column_order_kategori = array(null, 'id');
+    var $column_search_kategori = array('nama_kategori'); 
+    var $column_order_kategori = array(null, 'nama_kategori');
     var $order_kategori = array('waktu_update' => 'DESC');
     private function _get_query_kategori()
     { 
@@ -401,7 +401,7 @@ class Master_model extends CI_Model{
     {
         return [
             [
-            'field' => 'id',
+            'field' => 'nama_kategori',
             'label' => 'Nama kategori',
             'rules' => 'required',
             ] 
@@ -410,16 +410,14 @@ class Master_model extends CI_Model{
     function simpandatakategori(){   
         $post = $this->input->post();   
         $array = array(
-            'id'=>$post["id"], 
-            'lokasi_kategori'=>$post["lokasi"], 
+            'nama_kategori'=>$post["nama_kategori"], 
         );
         return $this->db->insert("master_kategori", $array);   
     } 
     public function updatedatakategori()
     {
         $post = $this->input->post();
-        $this->id = $post["id"]; 
-        $this->lokasi_kategori = $post["lokasi"]; 
+        $this->nama_kategori = $post["nama_kategori"]; 
         return $this->db->update("master_kategori", $this, array('id' => $post['idd']));
     } 
     public function hapusdatakategori()
@@ -430,204 +428,11 @@ class Master_model extends CI_Model{
     }
     //CRUD kategori end
  
-    // datatable satuan start
-    var $column_search_satuan = array('id'); 
-    var $column_order_satuan = array(null, 'id');
-    var $order_satuan = array('waktu_update' => 'DESC');
-    private function _get_query_satuan()
-    { 
-        $get = $this->input->get();
-        $this->db->from('master_satuan'); 
-        $i = 0; 
-        foreach ($this->column_search_satuan as $item)
-        {
-            if($get['search']['value'])
-            { 
-                if($i===0) 
-                {
-                    $this->db->group_start(); 
-                    $this->db->like($item, $get['search']['value']);
-                }
-                else
-                {
-                    $this->db->or_like($item, $get['search']['value']);
-                }
- 
-                if(count($this->column_search_satuan) - 1 == $i) 
-                    $this->db->group_end(); 
-            }
-            $i++;
-        } 
-        if(isset($get['order'])) 
-        {
-            $this->db->order_by($this->column_order_satuan[$get['order']['0']['column']], $get['order']['0']['dir']);
-        } 
-        else if(isset($this->order_satuan))
-        {
-            $order = $this->order_satuan;
-            $this->db->order_by(key($order), $order[key($order)]);
-        }
-    }
- 
-    function get_satuan_datatable() 
-    {
-        $get = $this->input->get();
-        $this->_get_query_satuan();
-        if($get['length'] != -1)
-        $this->db->limit($get['length'], $get['start']);
-        $query = $this->db->get();
-        return $query->result();
-    }
- 
-    function count_filtered_datatable_satuan()
-    {
-        $this->_get_query_satuan();
-        $query = $this->db->get();
-        return $query->num_rows();
-    }
- 
-    public function count_all_datatable_satuan()
-    {
-        $this->db->from('master_satuan');
-        return $this->db->count_all_results();
-    } 
-    //datatable satuan end
-	
-	//CRUD satuan start
-    public function rulessatuan()
-    {
-        return [
-            [
-            'field' => 'id',
-            'label' => 'Nama satuan',
-            'rules' => 'is_unique[master_satuan.id]|required',
-            ] 
-        ];
-    } 
-    function simpandatasatuan(){   
-        $post = $this->input->post();   
-        $array = array(
-            'id'=>$post["id"],
-            'isi_persatuan'=>$post["isi_persatuan"],
-            'satuan_besar'=>$post["satuan_besar"], 
-        );
-        return $this->db->insert("master_satuan", $array); 
-    } 
-    public function updatedatasatuan()
-    {
-        $post = $this->input->post();
-        $this->id = $post["id"]; 
-        $this->isi_persatuan = $post["isi_persatuan"]; 
-        $this->satuan_besar = $post["satuan_besar"]; 
-        return $this->db->update("master_satuan", $this, array('id' => $post['idd']));
-    } 
-    public function hapusdatasatuan()
-    {
-        $post = $this->input->post(); 
-        $this->db->where('id', $post['idd']);
-        return $this->db->delete('master_satuan');  
-    }
-    //CRUD satuan end
-	
-    // datatable merk start
-    var $column_search_merk = array('id'); 
-    var $column_order_merk = array(null, 'id');
-    var $order_merk = array('waktu_update' => 'DESC');
-    private function _get_query_merk()
-    { 
-        $get = $this->input->get();
-        $this->db->from('master_merk'); 
-        $i = 0; 
-        foreach ($this->column_search_merk as $item)
-        {
-            if($get['search']['value'])
-            { 
-                if($i===0) 
-                {
-                    $this->db->group_start(); 
-                    $this->db->like($item, $get['search']['value']);
-                }
-                else
-                {
-                    $this->db->or_like($item, $get['search']['value']);
-                }
- 
-                if(count($this->column_search_merk) - 1 == $i) 
-                    $this->db->group_end(); 
-            }
-            $i++;
-        } 
-        if(isset($get['order'])) 
-        {
-            $this->db->order_by($this->column_order_merk[$get['order']['0']['column']], $get['order']['0']['dir']);
-        } 
-        else if(isset($this->order_merk))
-        {
-            $order = $this->order_merk;
-            $this->db->order_by(key($order), $order[key($order)]);
-        }
-    }
- 
-    function get_merk_datatable()
-    {
-        $get = $this->input->get();
-        $this->_get_query_merk();
-        if($get['length'] != -1)
-        $this->db->limit($get['length'], $get['start']);
-        $query = $this->db->get();
-        return $query->result();
-    }
- 
-    function count_filtered_datatable_merk()
-    {
-        $this->_get_query_merk();
-        $query = $this->db->get();
-        return $query->num_rows();
-    }
- 
-    public function count_all_datatable_merk()
-    {
-        $this->db->from('master_merk');
-        return $this->db->count_all_results();
-    } 
-    //datatable merk end
-
-	//CRUD merk start
-    public function rulesmerk()
-    {
-        return [
-            [
-            'field' => 'id',
-            'label' => 'Nama Merk',
-            'rules' => 'is_unique[master_merk.id]|required',
-            ] 
-        ];
-    }  
-    function simpandatamerk(){   
-        $post = $this->input->post();   
-        $array = array(
-            'id'=>$post["id"], 
-        );
-        return $this->db->insert("master_merk", $array);   
-    } 
-    
-    public function hapusdatamerk()
-    {
-        $post = $this->input->post(); 
-        $this->db->where('id', $post['idd']);
-        return $this->db->delete('master_merk');  
-    }
-    public function updatedatamerk()
-    {
-        $post = $this->input->post();
-        $this->id = $post["id"]; 
-        return $this->db->update("master_merk", $this, array('id' => $post['idd']));
-    } 
-	//CRUD merk end
+   
 	
 	// datatable item start
-    var $column_search_item = array('kode_item','nama_item','jenis','nama_kategori','harga_jual','lokasi'); 
-    var $column_order_item = array(null, 'kode_item','nama_item','jenis','nama_kategori','harga_jual','lokasi');
+    var $column_search_item = array('kode_item','nama_item','harga_beli','nama_kategori','harga_jual','lokasi'); 
+    var $column_order_item = array(null, 'kode_item','nama_item','harga_beli','nama_kategori','harga_jual','lokasi');
     var $order_item = array('waktu_update' => 'DESC');
     private function _get_query_item()
     { 
@@ -635,6 +440,7 @@ class Master_model extends CI_Model{
         $this->db->select('a.*,b.nama_kategori');
         $this->db->from('master_item a'); 
         $this->db->join('master_kategori b', 'a.kategori = b.id');
+        $this->db->where('a.jenis_item', $get['jenis']);
         $i = 0; 
         foreach ($this->column_search_item as $item)
         {
@@ -729,8 +535,11 @@ class Master_model extends CI_Model{
             'nama_item'=>$post["nama_item"], 
             'keterangan'=>$post["keterangan"], 
             'harga_jual'=>bilanganbulat($post["harga_jual"]),
+            'harga_beli'=>bilanganbulat($post["harga_beli"]),
             'netto'=>$post["netto"],  
+            'stok'=>$post["stok"],  
             'tgl_expired'=>$post["tanggal_expired"],
+            'jenis_item'=>$post["jenis_item"],
             'gambar'=>$this->_uploadGambarProduk(),  
         );
         return $this->db->insert("master_item", $array);  
@@ -744,8 +553,10 @@ class Master_model extends CI_Model{
         $this->nama_item = $post["nama_item"]; 
         $this->keterangan = $post["keterangan"];  
         $this->netto = $post["netto"];  
+        $this->stok = $post["stok"];  
         $this->tgl_expired = $post["tanggal_expired"];
         $this->harga_jual = bilanganbulat($post["harga_jual"]); 
+        $this->harga_beli = bilanganbulat($post["harga_beli"]); 
         if (!empty($_FILES["gambar"]["name"])) {
             $this->gambar = $this->_uploadGambarProduk();
         }   
