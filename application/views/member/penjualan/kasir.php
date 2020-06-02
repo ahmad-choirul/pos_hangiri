@@ -1,4 +1,4 @@
-f<?php
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!doctype html>
 <html class="fixed sidebar-left-collapsed">
@@ -22,15 +22,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<script src="<?php echo base_url()?>assets/vendor/modernizr/modernizr.js"></script>  
 
 	<!-- datepicer -->
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<link rel="stylesheet" href="//resources/demos/style.css">
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="<?php echo base_url()?>assets/javascripts/jquery-ui.css">
+	<script src="<?php echo base_url()?>assets/javascripts/jquery-1.12.4.js"></script> 
+	<script src="<?php echo base_url()?>assets/javascripts/jquery-ui.js"></script>
 	<script>
 		$( function() {
 			$("#datepicker").datepicker({ dateFormat: "yyyy-mm-dd", changeMonth: true, changeYear: true });
 		});
 	</script>
+
 	<style type="text/css">
 		.nama_produk{
 			overflow: hidden;
@@ -52,6 +52,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		} 
 	</style>
 </head>
+<?php 
+if ($this->input->get('statppn')=='nonppn') {
+	$statppn='nonppn';
+}else{
+	$statppn='ppn';
+}
+ ?>
+}
 <body class="bgbody">
 	<section class="body">
 		<!-- start: header -->
@@ -121,8 +129,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<section class="panel-featured-left panel-featured-primary">
 						<div class="panel-body">   
 							<div class="input-group mb-md">
-								<input type="text" class="form-control" value="Walk in Customer" readonly="" id="customer">
+								<!-- <input type="text" class="form-control" value="Walk in Customer" readonly="" id="customer"> -->
 								<input type="hidden" name="customer" id="customer_dipilih">
+								<form>
+									<div class="form-group">
+									<label class="control-label">Jenis Penjualan</label>
+									<select class="form-control cara_bayar" name="statppn" id="statppn" onchange='this.form.submit()'>
+										<option value="ppn">PPN</option>
+										<option <?php if ($statppn == 'nonppn' ) echo 'selected' ; ?> value="nonppn">NonPPN</option>
+									</select> 
+								</div>
+								</form>
 							<!-- 	<div class="input-group-btn">
 									<button tabindex="-1" class="btn btn-primary" type="button">Pembeli</button>
 									<button tabindex="-1" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" type="button" aria-expanded="false">
@@ -134,10 +151,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									</ul>
 								</div> -->
 							</div>
-							<div class="input-group mb-md">
+							<!-- <div class="input-group mb-md">
 								<span class="input-group-addon btn-primary"><i class="fa fa-barcode"></i></span>
 								<input type="text" class="form-control"  onkeyup="barcode(this)" id="barcode" placeholder="Barcode Scan">
-							</div>  
+							</div>   -->
 						</div>
 					</section>
 					<br/>
@@ -588,15 +605,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 											<input type="text" name="totalbayar" id="totalbayar" value="0" class="form-control mask_price" />
 										</div>
 									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="control-label">Jenis Penjualan</label>
-											<select class="form-control cara_bayar" name="jenis_penjualan" id="jenis_penjualan" onchange="ubahtotalharga()">
-												<option value="ppn">PPN</option>
-												<option value="nonppn">NonPPN</option>
-											</select> 
-										</div>
-									</div>
+									
 									<!-- <div class="col-md-6">
 										<div class="form-group"> 
 											<label class="control-label">Cara Bayar</label>
@@ -951,71 +960,71 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         		}
         	});
         }
-        document.getElementById("FormulirTambah").addEventListener("submit", function (e) {  
-        	blurForm();       
-        	$('.help-block').hide();
-        	$('.form-group').removeClass('has-error');
-        	document.getElementById("submitform").setAttribute('disabled','disabled');
-        	$('#submitform').html('Loading ...');
-        	var form = $('#FormulirTambah')[0];
-        	var formData = new FormData(form);
-        	var xhrAjax = $.ajax({
-        		type 		: 'POST',
-        		url 		: $(this).attr('action'),
-        		data 		: formData, 
-        		processData: false,
-        		contentType: false,
-        		cache: false, 
-        		dataType 	: 'json'
-        	}).done(function(data) { 
-        		if ( ! data.success) {	 
-        			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
-        			document.getElementById("submitform").removeAttribute('disabled');  
-        			$('#submitform').html('Submit');    
-        			var objek = Object.keys(data.errors);  
-        			for (var key in data.errors) {
-        				if (data.errors.hasOwnProperty(key)) { 
-        					var msg = '<div class="help-block" for="'+key+'">'+data.errors[key]+'</span>';
-        					$('.'+key).addClass('has-error');
-        					$('input[name="' + key + '"]').after(msg);  
-        					$('textarea[name="' + key + '"]').after(msg);  
-        				}
-        				if (key == 'fail') {   
-        					new PNotify({
-        						title: 'Notifikasi',
-        						text: data.errors[key],
-        						type: 'danger'
-        					}); 
-        				}
-        			}
-        		} else { 
-        			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
-        			PNotify.removeAll(); 
-        			tablepembeli.ajax.reload();   
-        			document.getElementById("submitform").removeAttribute('disabled'); 
-        			$('#tambahData').modal('hide'); 
-        			document.getElementById("FormulirTambah").reset();  
-        			$('#submitform').html('Submit');   
-        			new PNotify({
-        				title: 'Notifikasi',
-        				text: data.message,
-        				type: 'success'
-        			});    
-        			$('#customer').val(data.pembeli);      
-        			$('#customer_dipilih').val(data.id_pembeli);  
-        			update_pembeli();
-        			$('#tambahData').modal('hide');  
-        		}
-        	}).fail(function(data) {   
-        		new PNotify({
-        			title: 'Notifikasi',
-        			text: "Request gagal, browser akan direload",
-        			type: 'danger'
-        		}); 
-        		window.setTimeout(function() {  location.reload();}, 2000);
-        	}); 
-        	e.preventDefault(); 
-        }); 
+        // document.getElementById("FormulirTambah").addEventListener("submit", function (e) {  
+        // 	blurForm();       
+        // 	$('.help-block').hide();
+        // 	$('.form-group').removeClass('has-error');
+        // 	document.getElementById("submitform").setAttribute('disabled','disabled');
+        // 	$('#submitform').html('Loading ...');
+        // 	var form = $('#FormulirTambah')[0];
+        // 	var formData = new FormData(form);
+        // 	var xhrAjax = $.ajax({
+        // 		type 		: 'POST',
+        // 		url 		: $(this).attr('action'),
+        // 		data 		: formData, 
+        // 		processData: false,
+        // 		contentType: false,
+        // 		cache: false, 
+        // 		dataType 	: 'json'
+        // 	}).done(function(data) { 
+        // 		if ( ! data.success) {	 
+        // 			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
+        // 			document.getElementById("submitform").removeAttribute('disabled');  
+        // 			$('#submitform').html('Submit');    
+        // 			var objek = Object.keys(data.errors);  
+        // 			for (var key in data.errors) {
+        // 				if (data.errors.hasOwnProperty(key)) { 
+        // 					var msg = '<div class="help-block" for="'+key+'">'+data.errors[key]+'</span>';
+        // 					$('.'+key).addClass('has-error');
+        // 					$('input[name="' + key + '"]').after(msg);  
+        // 					$('textarea[name="' + key + '"]').after(msg);  
+        // 				}
+        // 				if (key == 'fail') {   
+        // 					new PNotify({
+        // 						title: 'Notifikasi',
+        // 						text: data.errors[key],
+        // 						type: 'danger'
+        // 					}); 
+        // 				}
+        // 			}
+        // 		} else { 
+        // 			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
+        // 			PNotify.removeAll(); 
+        // 			tablepembeli.ajax.reload();   
+        // 			document.getElementById("submitform").removeAttribute('disabled'); 
+        // 			$('#tambahData').modal('hide'); 
+        // 			document.getElementById("FormulirTambah").reset();  
+        // 			$('#submitform').html('Submit');   
+        // 			new PNotify({
+        // 				title: 'Notifikasi',
+        // 				text: data.message,
+        // 				type: 'success'
+        // 			});    
+        // 			$('#customer').val(data.pembeli);      
+        // 			$('#customer_dipilih').val(data.id_pembeli);  
+        // 			update_pembeli();
+        // 			$('#tambahData').modal('hide');  
+        // 		}
+        // 	}).fail(function(data) {   
+        // 		new PNotify({
+        // 			title: 'Notifikasi',
+        // 			text: "Request gagal, browser akan direload",
+        // 			type: 'danger'
+        // 		}); 
+        // 		window.setTimeout(function() {  location.reload();}, 2000);
+        // 	}); 
+        // 	e.preventDefault(); 
+        // }); 
 
 
         var idk;
@@ -1034,7 +1043,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$('#Kembalian').html('0'); 
 			$.ajax({
 				type: 'GET',
-				url: '<?php echo base_url()?>penjualan/keranjangdetail', 
+				url: '<?php echo base_url()?>penjualan/keranjangdetail/<?php echo $statppn ?>', 
 				dataType 	: 'json',
 				success: function(response) { 
 
@@ -1059,20 +1068,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						viewtotal+='</table>';
 						$('#TotalBiaya').html(viewtotal);
 						$('#TotalBelanja').html(TotalBelanja);
-						if (true) {
-							$('#TotalBelanjaInt').val(totalharusdibayarInt+(0.1*totalharusdibayarInt));
-							$('#post_totalbelanja').val(totalharusdibayarInt+(0.1*totalharusdibayarInt));
-							$('#totalharusdibayar').html(totalharusdibayar+(0.1*totalharusdibayar));
-							$('#TotalKuantiti').html(TotalKuantiti);
-							$('#Valtotalharusdibayar').val(totalharusdibayarInt+(0.1*totalharusdibayarInt)); 
-						}else{
-							$('#TotalBelanjaInt').val(totalharusdibayarInt);
-							$('#post_totalbelanja').val(totalharusdibayarInt);
-							$('#totalharusdibayar').html(totalharusdibayar);
-							$('#TotalKuantiti').html(TotalKuantiti);
-							$('#Valtotalharusdibayar').val(totalharusdibayarInt); 
-						}
-
+						
+						$('#TotalBelanjaInt').val(totalharusdibayarInt);
+						$('#post_totalbelanja').val(totalharusdibayarInt);
+						$('#totalharusdibayar').html(totalharusdibayar);
+						$('#TotalKuantiti').html(TotalKuantiti);
+						$('#Valtotalharusdibayar').val(totalharusdibayarInt); 
 					} else{ 
 						var viewtotal ='<table class="table table-striped">'; 
 						viewtotal+='<tr><th style="text-align: left;">Sub Total</th>';
@@ -1347,10 +1348,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 </script>
 
-<script type="text/javascript">
-	function ubahtotalharga() {
-		keranjang();
-	}
-</script>
 </body>
 </html>

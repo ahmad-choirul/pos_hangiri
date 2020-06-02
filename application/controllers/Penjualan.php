@@ -50,11 +50,11 @@ class Penjualan extends CI_Controller {
             ); 
         }  
         $result = array( 
-           "draw" => $draw, 
-           "recordsTotal" => $totalrows, 
-           "recordsFiltered" => $totalrows, 
-           "data" => $data 
-       );  
+         "draw" => $draw, 
+         "recordsTotal" => $totalrows, 
+         "recordsFiltered" => $totalrows, 
+         "data" => $data 
+     );  
         echo json_encode($result);  
     }  
 
@@ -67,7 +67,7 @@ class Penjualan extends CI_Controller {
             $errors = $this->form_validation->error_array();
             $data['errors'] = $errors;
         }else{  
-         if($simpan->simpandatadiskon()){ 
+           if($simpan->simpandatadiskon()){ 
             $data['success']= true;
             $data['message']="Berhasil menyimpan data";  
         }else{
@@ -137,9 +137,9 @@ public function banktambah(){
     $validation = $this->form_validation; 
     $validation->set_rules($simpan->rulesbank());
     if ($this->form_validation->run() == FALSE){
-     $errors = $this->form_validation->error_array();
-     $data['errors'] = $errors;
- }else{    
+       $errors = $this->form_validation->error_array();
+       $data['errors'] = $errors;
+   }else{    
     if($simpan->simpandatabank()){
         $data['success']= true;
         $data['message']="Berhasil menyimpan data";  
@@ -171,9 +171,9 @@ public function bankedit(){
     $validation = $this->form_validation; 
     $validation->set_rules($simpan->rulesbank());
     if ($this->form_validation->run() == FALSE){
-     $errors = $this->form_validation->error_array();
-     $data['errors'] = $errors;
- }else{    
+       $errors = $this->form_validation->error_array();
+       $data['errors'] = $errors;
+   }else{    
     if($simpan->updatedatabank()){
         $data['success']= true;
         $data['message']="Berhasil menyimpan data";
@@ -462,11 +462,11 @@ public function datapembeli()
         ); 
     }  
     $result = array( 
-       "draw" => $draw, 
-       "recordsTotal" => $query->num_rows(), 
-       "recordsFiltered" => $query->num_rows(), 
-       "data" => $data 
-   );  
+     "draw" => $draw, 
+     "recordsTotal" => $query->num_rows(), 
+     "recordsFiltered" => $query->num_rows(), 
+     "data" => $data 
+ );  
     echo json_encode($result);  
 }
 
@@ -494,16 +494,16 @@ public function datahold()
         ); 
     }  
     $result = array( 
-       "draw" => $draw, 
-       "recordsTotal" => $query->num_rows(), 
-       "recordsFiltered" => $query->num_rows(), 
-       "data" => $data 
-   );  
+     "draw" => $draw, 
+     "recordsTotal" => $query->num_rows(), 
+     "recordsFiltered" => $query->num_rows(), 
+     "data" => $data 
+ );  
     echo json_encode($result);  
 }
 
-public function keranjangdetail(){  
-    cekajax();      
+public function keranjangdetail($statppn=''){  
+    cekajax();
     $result =  array();   
     $arraysub=   array();  
     $query = $this->penjualan_model->get_keranjang();   
@@ -513,7 +513,7 @@ public function keranjangdetail(){
         if($detailkeranjang->num_rows() > 0){      
             foreach($detailkeranjang->result_array() as $r) {   
                 $kuantiti = $kuantiti + $r['kuantiti'];
-                    $nama_item = $r['nama_item'];
+                $nama_item = $r['nama_item'];
                 $subArray['nama_item']=$this->security->xss_clean($nama_item); 
                 $subArray['id']=$this->security->xss_clean($r['id']); 
                 $subArray['harga']=$this->security->xss_clean(rupiah($r['harga'])); 
@@ -524,10 +524,15 @@ public function keranjangdetail(){
                 $arraysub[] =  $subArray ;  
             }    
         } 
+        if ($statppn=='ppn') {
+            $totalbayar = $query->row()->total+(0.1*$query->row()->total);
+        }else{
+            $totalbayar=$query->row()->total;
+        }
         $result = array(  
             "total_harga_item" => $this->security->xss_clean(rupiah($query->row()->total_harga_item)),
-            "total" => $this->security->xss_clean(rupiah($query->row()->total)), 
-            "totalInt" => $this->security->xss_clean($query->row()->total), 
+            "total" => $this->security->xss_clean(rupiah($totalbayar)), 
+            "totalInt" => $this->security->xss_clean($totalbayar), 
             "totalKuantiti" => $this->security->xss_clean($kuantiti), 
         );
     } 
@@ -612,7 +617,7 @@ $this->db->limit(1);
 $idpnj = $this->db->get('penjualan')->row()->id;
         //pembeli
 if ($data['id_pembeli']!='') {
-   $this->db->where('id',  $data['id_pembeli']);
+ $this->db->where('id',  $data['id_pembeli']);
 }
 $this->db->limit(1);
 $pembeli = $this->db->get('master_pembeli');
