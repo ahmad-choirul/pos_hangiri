@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2020 at 02:59 AM
+-- Generation Time: Jun 03, 2020 at 02:50 AM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -73,6 +73,13 @@ CREATE TABLE `hutang_history` (
   `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `keterangan` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `hutang_history`
+--
+
+INSERT INTO `hutang_history` (`id`, `judul`, `tanggal`, `nominal`, `nominal_dibayar`, `nomor_faktur`, `id_supplier`, `tanggal_lunas`, `tanggal_jatuh_tempo`, `sudah_lunas`, `waktu_update`, `keterangan`) VALUES
+(3, 'a', '2020-06-01', '100000', '0', NULL, 1, '0000-00-00', '2020-06-30', '0', '2020-06-02 23:24:43', 'a');
 
 -- --------------------------------------------------------
 
@@ -293,7 +300,8 @@ CREATE TABLE `keranjang` (
 --
 
 INSERT INTO `keranjang` (`id`, `token`, `tanggal_jam`, `id_admin`, `id_pembeli`, `total_harga_item`, `total`, `hold`, `keterangan_hold`, `waktu_hold`, `status`) VALUES
-(1, '3435aef6972d296c9c8ceea89330383e', '2020-06-02 07:02:20', 1, NULL, '45000', '45000', '0', '', '', 0);
+(1, '3435aef6972d296c9c8ceea89330383e', '2020-06-02 07:02:20', 1, NULL, '45000', '45000', '0', '', '', 0),
+(2, '3a349ac094f9b59139c2deebeb70eaca', '2020-06-03 05:16:00', 1, NULL, '60000', '60000', '0', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -316,7 +324,8 @@ CREATE TABLE `keranjang_detail` (
 --
 
 INSERT INTO `keranjang_detail` (`id`, `id_keranjang`, `kode_item`, `harga`, `diskon`, `kuantiti`, `total`) VALUES
-(1, 1, '123', '15000', '0', 3, '45000');
+(1, 1, '123', '15000', '0', 3, '45000'),
+(3, 2, '123', '15000', '0', 4, '60000');
 
 -- --------------------------------------------------------
 
@@ -1201,17 +1210,17 @@ ALTER TABLE `stok_opname`
 -- AUTO_INCREMENT for table `cash_in_out`
 --
 ALTER TABLE `cash_in_out`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `hutang_dibayar_history`
 --
 ALTER TABLE `hutang_dibayar_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `hutang_history`
 --
 ALTER TABLE `hutang_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `kartu_stok`
 --
@@ -1231,12 +1240,12 @@ ALTER TABLE `kategori_user_modul`
 -- AUTO_INCREMENT for table `keranjang`
 --
 ALTER TABLE `keranjang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `keranjang_detail`
 --
 ALTER TABLE `keranjang_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `komisi_detail`
 --
@@ -1256,7 +1265,7 @@ ALTER TABLE `master_diskon_kelipatan`
 -- AUTO_INCREMENT for table `master_kategori`
 --
 ALTER TABLE `master_kategori`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `master_komisi`
 --
@@ -1355,7 +1364,6 @@ ALTER TABLE `stok_opname`
 -- Constraints for table `cash_in_out`
 --
 ALTER TABLE `cash_in_out`
-  ADD CONSTRAINT `cash_in_out_ibfk_1` FOREIGN KEY (`kode_rekening`) REFERENCES `rekening_kode` (`kode_rekening`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `cash_in_out_ibfk_2` FOREIGN KEY (`id_hutang_dibayar`) REFERENCES `hutang_dibayar_history` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `cash_in_out_ibfk_3` FOREIGN KEY (`id_piutang_dibayar`) REFERENCES `piutang_dibayar_history` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `cash_in_out_ibfk_4` FOREIGN KEY (`id_penjualan`) REFERENCES `penjualan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;

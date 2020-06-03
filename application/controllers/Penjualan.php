@@ -50,11 +50,11 @@ class Penjualan extends CI_Controller {
             ); 
         }  
         $result = array( 
-         "draw" => $draw, 
-         "recordsTotal" => $totalrows, 
-         "recordsFiltered" => $totalrows, 
-         "data" => $data 
-     );  
+           "draw" => $draw, 
+           "recordsTotal" => $totalrows, 
+           "recordsFiltered" => $totalrows, 
+           "data" => $data 
+       );  
         echo json_encode($result);  
     }  
 
@@ -67,7 +67,7 @@ class Penjualan extends CI_Controller {
             $errors = $this->form_validation->error_array();
             $data['errors'] = $errors;
         }else{  
-           if($simpan->simpandatadiskon()){ 
+         if($simpan->simpandatadiskon()){ 
             $data['success']= true;
             $data['message']="Berhasil menyimpan data";  
         }else{
@@ -137,9 +137,9 @@ public function banktambah(){
     $validation = $this->form_validation; 
     $validation->set_rules($simpan->rulesbank());
     if ($this->form_validation->run() == FALSE){
-       $errors = $this->form_validation->error_array();
-       $data['errors'] = $errors;
-   }else{    
+     $errors = $this->form_validation->error_array();
+     $data['errors'] = $errors;
+ }else{    
     if($simpan->simpandatabank()){
         $data['success']= true;
         $data['message']="Berhasil menyimpan data";  
@@ -171,9 +171,9 @@ public function bankedit(){
     $validation = $this->form_validation; 
     $validation->set_rules($simpan->rulesbank());
     if ($this->form_validation->run() == FALSE){
-       $errors = $this->form_validation->error_array();
-       $data['errors'] = $errors;
-   }else{    
+     $errors = $this->form_validation->error_array();
+     $data['errors'] = $errors;
+ }else{    
     if($simpan->updatedatabank()){
         $data['success']= true;
         $data['message']="Berhasil menyimpan data";
@@ -462,11 +462,11 @@ public function datapembeli()
         ); 
     }  
     $result = array( 
-     "draw" => $draw, 
-     "recordsTotal" => $query->num_rows(), 
-     "recordsFiltered" => $query->num_rows(), 
-     "data" => $data 
- );  
+       "draw" => $draw, 
+       "recordsTotal" => $query->num_rows(), 
+       "recordsFiltered" => $query->num_rows(), 
+       "data" => $data 
+   );  
     echo json_encode($result);  
 }
 
@@ -494,11 +494,11 @@ public function datahold()
         ); 
     }  
     $result = array( 
-     "draw" => $draw, 
-     "recordsTotal" => $query->num_rows(), 
-     "recordsFiltered" => $query->num_rows(), 
-     "data" => $data 
- );  
+       "draw" => $draw, 
+       "recordsTotal" => $query->num_rows(), 
+       "recordsFiltered" => $query->num_rows(), 
+       "data" => $data 
+   );  
     echo json_encode($result);  
 }
 
@@ -614,17 +614,21 @@ $data['tempo'] = date("yyyy-mm-dd",strtotime($date)) ;
   //no
 $this->db->order_by('id', 'DESC'); 
 $this->db->limit(1);
-$idpnj = $this->db->get('penjualan')->row()->id;
+if (isset($this->db->get('penjualan')->row()->id)) {
+    $idpnj = $this->db->get('penjualan')->row()->id;
+}else{
+    $idpnj = 0;    
+}
         //pembeli
 if ($data['id_pembeli']!='') {
- $this->db->where('id',  $data['id_pembeli']);
+   $this->db->where('id',  $data['id_pembeli']);
 }
 $this->db->limit(1);
 $pembeli = $this->db->get('master_pembeli');
         //apotek
 $this->db->order_by('id', 'DESC'); 
 $this->db->limit(1);
-$apotik = $this->db->get('profil_apotek');
+$toko = $this->db->get('profil_apotek');
         //keranjang
 $id = $this->input->get('t');
 $this->db->select("*");
@@ -650,11 +654,12 @@ $data['spg'] =  $spg->row()->nama_spg;
 $data['id_spg'] =  $spg->row()->id;
 $data['kode'] =  $this->input->get('tp');
 $data['apoteker'] =  $pembeli->result_array();
-$data['apotik'] =  $apotik->result_array();
+$data['toko'] =  $toko->result_array();
 $data['status'] =  "Cash";
 $data['kepada'] =  "Costumer Toko";
+$data['pelanggan'] =  $this->input->get('pelanggan');
 $data['totalbayar'] =  $this->input->get('bayar');
-// $status = $this->penjualan_model->submitpaymentv2($data);
+$status = $this->penjualan_model->submitpaymentv2($data);
 if (true) {
     $this->load->view('member/penjualan/struk58mm', $data);     
 }else{
@@ -684,7 +689,7 @@ public function struk_kredit()
         //apotek
     $this->db->order_by('id', 'DESC'); 
     $this->db->limit(1);
-    $apotik = $this->db->get('profil_apotek');
+    $toko = $this->db->get('profil_apotek');
         //keranjang
     $id = $this->input->get('t');
     $this->db->select("*");
@@ -710,7 +715,7 @@ public function struk_kredit()
     $data['id_spg'] =  $spg->row()->id;
     $data['kode'] =  $this->input->get('tp');
     $data['apoteker'] =  $pembeli->result_array();
-    $data['apotik'] =  $apotik->result_array();
+    $data['toko'] =  $toko->result_array();
     $data['jns_penjualan'] =  $this->input->get('jns_penjualan');
     $data['status'] =  "Kredit";
     $data['kepada'] =  "Costumer Toko";

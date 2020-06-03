@@ -131,6 +131,9 @@
 				<?= $spg; ?>
 
 			</div>
+			<div class="user">
+				<?= $pelanggan; ?>
+			</div>
 		</div>
 
 		<div class="nota">

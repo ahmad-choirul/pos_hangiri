@@ -580,6 +580,7 @@ if ($this->input->get('statppn')=='nonppn') {
 										</div>
 									</div> 
 									
+									
 								</div>
 								
 								<div class="row my-4">
@@ -605,7 +606,12 @@ if ($this->input->get('statppn')=='nonppn') {
 											<input type="text" name="totalbayar" id="totalbayar" value="0" class="form-control mask_price" />
 										</div>
 									</div>
-									
+									<div class="col-md-6">
+										<div class="form-group"> 
+											<label class="control-label">Nama Pelanggan</label>
+											<input type="text" autocomplete="off" name="nama_pelanggan" id="nama_pelanggan" class="form-control	">
+										</div>
+									</div> 
 									<!-- <div class="col-md-6">
 										<div class="form-group"> 
 											<label class="control-label">Cara Bayar</label>
@@ -1145,8 +1151,9 @@ if ($this->input->get('statppn')=='nonppn') {
             	// e.preventDefault()
             	var totalbayar=$("#totalbayar").val().replace(/\./g, "");
             	var totalbelanja = document.getElementById("TotalBelanjaInt").value; 
+            	var pelanggan = document.getElementById("nama_pelanggan").value; 
             	if (totalbayar<=totalbelanja) {
-            		$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&spg='+spg+'&idd='+idkd+'&bayar='+totalbayar)
+            		$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&spg='+spg+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar)
             		.submit()
             	}else{
             		window.setTimeout(function() {  
