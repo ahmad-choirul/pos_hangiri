@@ -18,7 +18,6 @@ class Penjualan extends CI_Controller {
         $data['total_po'] = $this->db->count_all('purchase_order'); 
         $data['total_pembelian'] = $this->db->count_all('pembelian_langsung'); 
         $data['total_penerimaan'] = $this->db->count_all('penerimaan_barang'); 
-        $data['total_retur'] = $this->db->count_all('retur_pembelian');  
         $this->load->view('member/penjualan/beranda',$data);
     }   
     public function diskon()
