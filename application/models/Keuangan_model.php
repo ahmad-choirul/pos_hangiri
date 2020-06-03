@@ -50,7 +50,11 @@ class Keuangan_model extends CI_Model{
         $query = $this->db->get();
         return $query->result();
     }
- 
+  function gethutangarray()
+    { 
+        $this->db->from('hutang_history'); 
+      return $this->db->get()->result_array();
+    }
     function count_filtered_datatable_datarekening()
     {
         $this->_get_query_datarekening();

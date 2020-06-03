@@ -39,7 +39,22 @@ class Master_model extends CI_Model{
             $this->db->order_by(key($order), $order[key($order)]);
         }
     }
- 
+ public function getoperasionalarray()
+{
+    
+    $this->db->from('master_operasional');
+    $firstdate = $this->input->get('firstdate');
+    $lastdate = $this->input->get('lastdate');
+    if($firstdate!='' AND $lastdate!=''){
+        $this->db->where('tgl_operasional BETWEEN "'.$firstdate. '" and "'. $lastdate.'"');
+    }
+    $hasil = $this->db->get();
+    if ($hasil->num_rows()>0) {
+        return $hasil->result_array();
+    }else{
+        return null;
+    }
+}
     function get_dokter_datatable()
     {
         $get = $this->input->get();

@@ -134,7 +134,21 @@ class Laporan extends CI_Controller {
         $writer->save('php://output');
         exit;  
     }
-    
+       public function laba_rugi()
+    {     
+        level_user('laporan','penjualan',$this->session->userdata('kategori'),'read') > 0 ? '': show_404();
+        $this->load->model('Master_model');
+
+        $firstdate = $this->input->get('firstdate');
+        $lastdate = $this->input->get('lastdate'); 
+        $conditions['search']['firstdate'] = $firstdate;
+        $conditions['search']['lastdate'] = $lastdate;
+        $this->load->model('Keuangan_model');
+        $data['data_hutang'] = $this->Keuangan_model->gethutangarray();
+        $data['data_penjualan'] = $this->laporan_model->getrowspenjualan($conditions);
+        $data['data_operasional'] = $this->Master_model->getoperasionalarray($conditions);
+        $this->load->view('member/laporan/laba_rugi',$data);
+    }   
 	public function pembelian()
 	{    
         level_user('laporan','pembelian',$this->session->userdata('kategori'),'read') > 0 ? '': show_404();
