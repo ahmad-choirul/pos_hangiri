@@ -601,11 +601,9 @@ class Penjualan_model extends CI_Model
 
     $items = [];
     $detailkeranjang = $data['keranjang'];
-    $totalkomisi=0;
     foreach ($detailkeranjang as $r) {
         $stok = $this->db->order_by('tgl_expired', 'ASC')->get_where('kartu_stok', array('kode_item' => $r['kode_item']), 1);
         $stoks = $this->db->get_where('master_item', array('kode_item' => $r['kode_item']), 1)->row()->stok;
-        $nilai_komisi = $this->db->get_where('master_item', array('kode_item' => $r['kode_item']), 1)->row()->komisi;
         $nama_produk = $this->db->get_where('master_item', array('kode_item' => $r['kode_item']), 1)->row()->nama_item;
         $harga = rupiah($r['total']);
         $items[] = [
@@ -622,7 +620,6 @@ class Penjualan_model extends CI_Model
             'stok_sisa' => $stoks - $r['kuantiti'],
         );
         $this->db->insert("penjualan_detail", $keranjangdetail_input);
-        if ($r['jenis'] != 'racikan') {
             $stok_input = array(
                 'id_penjualan' => $kode_penjualan,
                 'kode_item' => $r['kode_item'],
@@ -631,38 +628,11 @@ class Penjualan_model extends CI_Model
                 'jumlah_keluar' => $r['kuantiti'],
                 // 'tgl_expired' => $stok->row()->tgl_expired,
             );
-            if ($nilai_komisi!=null) {
-                $totalkomisi+=($nilai_komisi*$r['kuantiti']);
-            }
             $this->db->insert("kartu_stok", $stok_input);
             $this->db->set('stok', 'stok - ' . (int) $r['kuantiti'], FALSE)->where('kode_item', $r['kode_item'])->update('master_item');
-        } else {
-            $racikan = $this->db->get_where('master_racikan', array('kode_racikan' => $r['kode_item']));
-            foreach ($racikan->result_array() as $racik) {
-                $stok = $this->db->order_by('tgl_expired', 'ASC')->get_where('kartu_stok', array('kode_item' => $racik['kode_obat']), 1);
-                $jumlah = $r['kuantiti'] * $racik['jumlah_obat_dipakai'];
-                $stok_input = array(
-                    'id_penjualan' => $kode_penjualan,
-                    'kode_item' => $racik['kode_obat'],
-                    'tanggal' => date('Y-m-d'),
-                    'jenis_transaksi' => 'penjualan',
-                    'jumlah_keluar' => $jumlah,
-                    'tgl_expired' => $stok->row()->tgl_expired,
-                );
-
-                $this->db->insert("kartu_stok", $stok_input);
-                $this->db->set('stok', 'stok - ' . (int) $jumlah, FALSE)->where('kode_item', $racik['kode_obat'])->update('master_item');
-            }
-        }
+        
     }
-    if ($totalkomisi>0) {
-        $komisi = array('id_penjualan' =>  $data['penjualan'],
-            'tgl_transaksi' => date('Y-m-d'),
-            'id_spg' =>  $data['id_spg'],
-            'total' =>  $totalkomisi);
-        $this->db->insert("master_komisi", $komisi);
-
-    }
+  
     $profil = $this->db->get_where('profil_apotek', array('id' => '1'));
     $date = tgl_indo(date('Y-m-d')) . " " . date('H:i:s');
     $this->db->where('id', $keranjang->row()->id)->delete('keranjang');

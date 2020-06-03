@@ -1152,7 +1152,7 @@ if ($this->input->get('statppn')=='nonppn') {
             	var totalbayar=$("#totalbayar").val().replace(/\./g, "");
             	var totalbelanja = document.getElementById("TotalBelanjaInt").value; 
             	var pelanggan = document.getElementById("nama_pelanggan").value; 
-            	if (totalbayar<=totalbelanja) {
+            	if (Number(totalbayar)>=Number(totalbelanja)) {
             		$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&spg='+spg+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar)
             		.submit()
             	}else{
@@ -1174,7 +1174,7 @@ if ($this->input->get('statppn')=='nonppn') {
             	var totalbelanja = document.getElementById("TotalBelanjaInt").value; 
             	var tanggal_jatuh_tempo = document.getElementById("datepicker").value; 
 
-            	if (totalbayar>=totalbelanja) {
+            	if (Number(totalbayar)>=Number(totalbelanja)) {
             		window.setTimeout(function() {  
             			new PNotify({
             				title: 'Notifikasi',
