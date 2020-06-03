@@ -16,7 +16,6 @@ class Pembelian extends CI_Controller {
         $data['total_po'] = $this->db->count_all('purchase_order'); 
         $data['total_pembelian'] = $this->db->count_all('pembelian_langsung'); 
         $data['total_penerimaan'] = $this->db->count_all('penerimaan_barang'); 
-        $data['total_retur'] = $this->db->count_all('retur_pembelian');  
         $this->load->view('member/pembelian/beranda',$data);
     }   
 
@@ -699,17 +698,17 @@ class Pembelian extends CI_Controller {
         echo'['.json_encode($result).']';
     }
 
-    function retur_data(){  
-        cekajax();
-        $retur_hari = $this->db->select('*')->from('retur_pembelian')->where('tanggal_retur ="'. date('Y-m-d').'"')->get()->num_rows();
-        $retur_minggu = $this->db->select('*')->from('retur_pembelian')->where('tanggal_retur BETWEEN "'. date('Y-m-d', strtotime('monday this week')). '" and "'. date('Y-m-d', strtotime('sunday this week')).'"')->get()->num_rows();
-        $retur_bulan = $this->db->select('*')->from('retur_pembelian')->where('tanggal_retur BETWEEN "'. date('Y-m-01'). '" and "'. date('Y-m-t').'"')->get()->num_rows();
+    // function retur_data(){  
+    //     cekajax();
+    //     $retur_hari = $this->db->select('*')->from('retur_pembelian')->where('tanggal_retur ="'. date('Y-m-d').'"')->get()->num_rows();
+    //     $retur_minggu = $this->db->select('*')->from('retur_pembelian')->where('tanggal_retur BETWEEN "'. date('Y-m-d', strtotime('monday this week')). '" and "'. date('Y-m-d', strtotime('sunday this week')).'"')->get()->num_rows();
+    //     $retur_bulan = $this->db->select('*')->from('retur_pembelian')->where('tanggal_retur BETWEEN "'. date('Y-m-01'). '" and "'. date('Y-m-t').'"')->get()->num_rows();
         
-        $result = array(   
-            "retur_bulan" => $this->security->xss_clean($retur_bulan),
-            "retur_hari" => $this->security->xss_clean($retur_hari),
-            "retur_minggu" => $this->security->xss_clean($retur_minggu),
-        );    
-        echo'['.json_encode($result).']';
-    }
+    //     $result = array(   
+    //         "retur_bulan" => $this->security->xss_clean($retur_bulan),
+    //         "retur_hari" => $this->security->xss_clean($retur_hari),
+    //         "retur_minggu" => $this->security->xss_clean($retur_minggu),
+    //     );    
+    //     echo'['.json_encode($result).']';
+    // }
 }

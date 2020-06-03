@@ -62,7 +62,7 @@ class Dashboard extends CI_Controller {
         $total_po = $this->db->count_all('purchase_order');
         $total_pembelian = $this->db->count_all('pembelian_langsung');  
         $total_penerimaan = $this->db->count_all('penerimaan_barang'); 
-        $total_retur = $this->db->count_all('retur_pembelian');  
+        // $total_retur = $this->db->count_all('retur_pembelian');  
         $total_jual_1 = $total_penjualan_hari_ini->total;//total jualn harian
         $total_jual_2 =$total_penjualan_minggu_ini->total;//total jual mingguan
         $total_jual_3 = $total_penjualan_bulan_ini->total;//total jual bulanana
@@ -74,30 +74,30 @@ class Dashboard extends CI_Controller {
         $stattarget1=false;
         $stattarget2=false;
         $stattarget3=false;
-        $trgt= $this->db->get_where('master_target', array('id' => '1'));
-        $target1=$trgt->row()->target_1-$total_jual_1;
-        if ($target1<0) {
-            $target1=0;
-            $stattarget1=true;
-        }
-        $target2=$trgt->row()->target_2-$total_jual_2;
-        if ($target2<0) {
-            $target2=0;
-            $stattarget2=true;
-        }
-        $target3=$trgt->row()->target_3-$total_jual_3;  
-        if ($target3<0) {
-            $target3=0;
-            $stattarget3=true;
-        }
+        // $trgt= $this->db->get_where('master_target', array('id' => '1'));
+        // $target1=$trgt->row()->target_1-$total_jual_1;
+        // if ($target1<0) {
+        //     $target1=0;
+        //     $stattarget1=true;
+        // }
+        // $target2=$trgt->row()->target_2-$total_jual_2;
+        // if ($target2<0) {
+        //     $target2=0;
+        //     $stattarget2=true;
+        // }
+        // $target3=$trgt->row()->target_3-$total_jual_3;  
+        // if ($target3<0) {
+        //     $target3=0;
+        //     $stattarget3=true;
+        // }
        
-        $total_target=$target1+$target2+$target3;
+        // $total_target=$target1+$target2+$target3;
 
         $result = array(   
             "total_po" => $this->security->xss_clean($total_po." Transaksi"),
             "total_pembelian" => $this->security->xss_clean($total_pembelian." Transaksi"),
             "total_penerimaan" => $this->security->xss_clean($total_penerimaan." Transaksi"),
-            "total_retur" => $this->security->xss_clean($total_retur." Transaksi"),
+            // "total_retur" => $this->security->xss_clean($total_retur." Transaksi"),  
             "akan_jatuh_tempo" => $this->security->xss_clean($akan_jatuh_tempo." Transaksi"),
             "sudah_jatuh_tempo" => $this->security->xss_clean($sudah_jatuh_tempo." Transaksi"),
             "total_hutang_belum_bayar" => $this->security->xss_clean(rupiah($total_hutang_belum_bayar->total)),
@@ -106,16 +106,16 @@ class Dashboard extends CI_Controller {
             "total_penjualan_hari_ini" => $this->security->xss_clean(rupiah($total_penjualan_minggu_ini->total)),
             "total_penjualan_bulan_ini" => $this->security->xss_clean(rupiah($total_penjualan_bulan_ini->total)),
             "dibayar_minggu" => $this->security->xss_clean(rupiah($dibayar_minggu->total)),
-            "target1" => $this->security->xss_clean(rupiah($target1)),
-            "target2" => $this->security->xss_clean(rupiah($target2)),
-            "target3" => $this->security->xss_clean(rupiah($target3)),
-            "stattarget1" => $this->security->xss_clean($stattarget1),
-            "stattarget2" => $this->security->xss_clean($stattarget2),
-            "stattarget3" => $this->security->xss_clean($stattarget3),
-            "total_jual_1" => $this->security->xss_clean(rupiah($total_jual_1)),
-            "total_jual_2" => $this->security->xss_clean(rupiah($total_jual_2)),
-            "total_jual_3" => $this->security->xss_clean(rupiah($total_jual_3)),
-            "total_target" => $this->security->xss_clean(rupiah($total_target)),
+            // "target1" => $this->security->xss_clean(rupiah($target1)),
+            // "target2" => $this->security->xss_clean(rupiah($target2)),
+            // "target3" => $this->security->xss_clean(rupiah($target3)),
+            // "stattarget1" => $this->security->xss_clean($stattarget1),
+            // "stattarget2" => $this->security->xss_clean($stattarget2),
+            // "stattarget3" => $this->security->xss_clean($stattarget3),
+            // "total_jual_1" => $this->security->xss_clean(rupiah($total_jual_1)),
+            // "total_jual_2" => $this->security->xss_clean(rupiah($total_jual_2)),
+            // "total_jual_3" => $this->security->xss_clean(rupiah($total_jual_3)),
+            // "total_target" => $this->security->xss_clean(rupiah($total_target)),
         );    
         echo'['.json_encode($result).']';
     }

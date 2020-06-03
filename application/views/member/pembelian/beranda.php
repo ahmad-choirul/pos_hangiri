@@ -88,14 +88,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                                 </a> 
                                                             </div>
                                                         </li> 
-                                                        <li>
+                                                       <!--  <li>
                                                             <a href="<?php echo base_url()?>pembelian/retur" class="menu-item" style="color: white"><i class="fa fa-folder"></i> Retur Pembelian</a>
                                                             <div class="item-options">
                                                                 <a href="<?php echo base_url()?>pembelian/retur">
                                                                     <i class="fa fa-arrow-circle-o-left"></i>
                                                                 </a> 
                                                             </div>
-                                                        </li>  
+                                                        </li>   -->
                                                     </ul>
 												</div>
 											</div>
@@ -171,7 +171,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     </div>
                                                 </section>
                                             </div>
-                                            <div class="col-md-12 col-lg-6 col-xl-6">
+                                           <!--  <div class="col-md-12 col-lg-6 col-xl-6">
                                                 <section class="panel panel-featured-left panel-featured-quartenary">
                                                     <div class="panel-body">
                                                         <div class="widget-summary">
@@ -191,7 +191,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                         </div>
                                                     </div>
                                                 </section>
-                                            </div>
+                                            </div> -->
                                              
                                         </div>
                                     </div>
