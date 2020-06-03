@@ -471,7 +471,6 @@ class Laporan extends CI_Controller {
         ->setCellValue('E1', 'Transaksi')
         ->setCellValue('F1', 'Masuk')
         ->setCellValue('G1', 'Keluar')
-        ->setCellValue('H1', 'Satuan')
         ;
  
         $i=2; 
@@ -485,8 +484,7 @@ class Laporan extends CI_Controller {
         ->setCellValue('D'.$i, $expired)
         ->setCellValue('E'.$i, $post['jenis_transaksi'])
         ->setCellValue('F'.$i, $post['jumlah_masuk']) 
-        ->setCellValue('G'.$i, $post['jumlah_keluar']) 
-        ->setCellValue('H'.$i, $post['satuan_kecil']);
+        ->setCellValue('G'.$i, $post['jumlah_keluar']) ;
         $i++;
         }
 

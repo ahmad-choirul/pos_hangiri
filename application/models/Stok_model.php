@@ -3,8 +3,8 @@ class Stok_model extends CI_Model
 {
 
     // datatable stok keluar start
-    var $column_search_stokkeluar = array('tanggal', 'nomor_ref', 'nomor_retur_pembelian', 'kode_item', 'nama_item', 'kuantiti', 'satuan_kecil');
-    var $column_order_stokkeluar = array(null, 'tanggal', 'nomor_ref', 'nomor_retur_pembelian', 'kode_item', 'nama_item', 'kuantiti', 'satuan_kecil');
+    var $column_search_stokkeluar = array('tanggal', 'nomor_ref', 'nomor_retur_pembelian', 'kode_item', 'nama_item', 'kuantiti');
+    var $column_order_stokkeluar = array(null, 'tanggal', 'nomor_ref', 'nomor_retur_pembelian', 'kode_item', 'nama_item', 'kuantiti');
     var $order_stokkeluar = array('waktu_update' => 'DESC');
     private function _get_query_stokkeluar()
     {
@@ -95,7 +95,6 @@ class Stok_model extends CI_Model
             'kode_item' => $post["kode_item"],
             'nama_item' => $post["nama_item"],
             'tgl_expired' => $post["tgl_expired"],
-            'satuan_kecil' => $post['satuan_kecil'],
             'keterangan' => $post['keterangan'],
         );
         $this->db->insert("stok_keluar", $array);
@@ -108,7 +107,6 @@ class Stok_model extends CI_Model
             'jumlah_masuk' => 0,
             'tgl_expired' => $post["tgl_expired"],
             'jumlah_keluar' => $post["kuantiti"],
-            'satuan_kecil' => $post['satuan_kecil']
         );
         $this->db->insert("kartu_stok", $list_kartustok);
         $this->db->set('stok', 'stok - ' . (int) $post["kuantiti"], FALSE)->where('kode_item', $post["kode_item"])->update('master_item');
@@ -125,8 +123,8 @@ class Stok_model extends CI_Model
 
 
     // datatable stok adjustment start
-    var $column_search_stokadjustment = array('tanggal', 'nomor_ref', 'kode_item', 'nama_item', 'tgl_expired', 'kuantiti_berubah', 'satuan_kecil');
-    var $column_order_stokadjustment = array(null, 'tanggal', 'nomor_ref', 'kode_item', 'nama_item', 'tgl_expired', 'kuantiti_berubah', 'satuan_kecil');
+    var $column_search_stokadjustment = array('tanggal', 'nomor_ref', 'kode_item', 'nama_item', 'tgl_expired', 'kuantiti_berubah');
+    var $column_order_stokadjustment = array(null, 'tanggal', 'nomor_ref', 'kode_item', 'nama_item', 'tgl_expired', 'kuantiti_berubah');
     var $order_stokadjustment = array('waktu_update' => 'DESC');
     private function _get_query_stokadjustment()
     {
@@ -220,7 +218,6 @@ class Stok_model extends CI_Model
             'kode_item' => $post["kode_item"],
             'nama_item' => $post["nama_item"],
             'tgl_expired' => $post["tgl_expired"],
-            'satuan_kecil' => $post['satuan_kecil'],
             'keterangan' => $post['keterangan'],
         );
         $this->db->insert("stok_adjustment", $array);
@@ -233,7 +230,6 @@ class Stok_model extends CI_Model
             'jumlah_masuk' => 0,
             'jumlah_keluar' => $post["kuantiti_berubah"],
             'tgl_expired' => $post["tgl_expired"],
-            'satuan_kecil' => $post['satuan_kecil']
         );
         $this->db->insert("kartu_stok", $list_kartustok);
         $this->db->set('stok', 'stok - ' . (int) $post["kuantiti_berubah"], FALSE)->where('kode_item', $post["kode_item"])->update('master_item');
@@ -248,8 +244,8 @@ class Stok_model extends CI_Model
     // CRUD stok adjustment end
 
     // datatable stok opname start
-    var $column_search_stokopname = array('tanggal', 'nomor_ref', 'kode_item', 'nama_item', 'tgl_expired', 'kuantiti_berubah', 'satuan_kecil');
-    var $column_order_stokopname = array(null, 'tanggal', 'nomor_ref', 'kode_item', 'nama_item', 'tgl_expired', 'kuantiti_berubah', 'satuan_kecil');
+    var $column_search_stokopname = array('tanggal', 'nomor_ref', 'kode_item', 'nama_item', 'tgl_expired', 'kuantiti_berubah');
+    var $column_order_stokopname = array(null, 'tanggal', 'nomor_ref', 'kode_item', 'nama_item', 'tgl_expired', 'kuantiti_berubah');
     var $order_stokopname = array('waktu_update' => 'DESC');
     private function _get_query_stokopname()
     {
@@ -303,8 +299,8 @@ class Stok_model extends CI_Model
     //datatable stok opname end
 
     // datatable stok opname verifikasi start
-    var $column_search_stokdataverfikasi = array('tanggal', 'nomor_ref', 'kode_item', 'nama_item', 'tgl_expired', 'kuantiti_berubah', 'satuan_kecil');
-    var $column_order_stokdataverfikasi = array(null, 'tanggal', 'nomor_ref', 'kode_item', 'nama_item', 'tgl_expired', 'kuantiti_berubah', 'satuan_kecil');
+    var $column_search_stokdataverfikasi = array('tanggal', 'nomor_ref', 'kode_item', 'nama_item', 'tgl_expired', 'kuantiti_berubah');
+    var $column_order_stokdataverfikasi = array(null, 'tanggal', 'nomor_ref', 'kode_item', 'nama_item', 'tgl_expired', 'kuantiti_berubah');
     var $order_stokdataverfikasi = array('waktu_update' => 'DESC');
     private function _get_query_stokdataverfikasi()
     {
@@ -398,7 +394,6 @@ class Stok_model extends CI_Model
             'kode_item' => $post["kode_item"],
             'nama_item' => $post["nama_item"],
             'tgl_expired' => $post["tgl_expired"],
-            'satuan_kecil' => $post['satuan_kecil'],
             'keterangan' => $post['keterangan'],
             'verifikasi' => '0',
         );

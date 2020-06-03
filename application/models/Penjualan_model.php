@@ -629,7 +629,6 @@ class Penjualan_model extends CI_Model
                 'tanggal' => date('Y-m-d'),
                 'jenis_transaksi' => 'penjualan',
                 'jumlah_keluar' => $r['kuantiti'],
-                'satuan_kecil' => $r['satuan'],
                 // 'tgl_expired' => $stok->row()->tgl_expired,
             );
             if ($nilai_komisi!=null) {
@@ -648,7 +647,6 @@ class Penjualan_model extends CI_Model
                     'tanggal' => date('Y-m-d'),
                     'jenis_transaksi' => 'penjualan',
                     'jumlah_keluar' => $jumlah,
-                    'satuan_kecil' => $r['satuan'],
                     'tgl_expired' => $stok->row()->tgl_expired,
                 );
 

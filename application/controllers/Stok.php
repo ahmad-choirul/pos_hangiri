@@ -50,7 +50,6 @@ class Stok extends CI_Controller {
             $row[] = $this->security->xss_clean($r->kode_item);
             $row[] = $this->security->xss_clean($r->nama_item);
             $row[] = $this->security->xss_clean($r->kuantiti);
-            $row[] = $this->security->xss_clean($r->satuan_kecil);
             $data[] = $row; 
         } 
         $result = array(
@@ -111,7 +110,6 @@ public function stokkeluardetail(){
         "kode_item" => $this->security->xss_clean($query->row()->kode_item),
         "nama_item" => $this->security->xss_clean($query->row()->nama_item),
         "tgl_expired" => $this->security->xss_clean(tgl_indo($query->row()->tgl_expired)), 
-        "satuan_kecil" => $this->security->xss_clean($query->row()->satuan_kecil),
         "keterangan" => $this->security->xss_clean($query->row()->keterangan),
     );    
     echo'['.json_encode($result).']';
@@ -161,7 +159,6 @@ public function stokadjustment()
         $row[] = $this->security->xss_clean($r->nama_item);
         $row[] = $this->security->xss_clean(tgl_indo($r->tgl_expired));
         $row[] = $this->security->xss_clean($r->kuantiti_berubah);
-        $row[] = $this->security->xss_clean($r->satuan_kecil);
         $data[] = $row;  
     } 
     $result = array(
@@ -183,8 +180,7 @@ public function stokadjustmentdetail(){
         "kuantiti_berubah" => $this->security->xss_clean(bilanganbulat($query->row()->kuantiti_berubah)),
         "kode_item" => $this->security->xss_clean($query->row()->kode_item),
         "nama_item" => $this->security->xss_clean($query->row()->nama_item),
-        "tgl_expired" => $this->security->xss_clean(tgl_indo($query->row()->tgl_expired)), 
-        "satuan_kecil" => $this->security->xss_clean($query->row()->satuan_kecil),
+        "tgl_expired" => $this->security->xss_clean(tgl_indo($query->row()->tgl_expired)),
         "keterangan" => $this->security->xss_clean($query->row()->keterangan),
     );    
     echo'['.json_encode($result).']';
@@ -284,7 +280,6 @@ public function stokopname()
         $row[] = $this->security->xss_clean($r->nama_item);
         $row[] = $this->security->xss_clean(tgl_indo($r->tgl_expired));
         $row[] = $this->security->xss_clean($r->kuantiti_berubah);
-        $row[] = $this->security->xss_clean($r->satuan_kecil);
         $data[] = $row;  
     } 
     $result = array(
@@ -307,7 +302,6 @@ public function stokopnamedetail(){
         "kode_item" => $this->security->xss_clean($query->row()->kode_item),
         "nama_item" => $this->security->xss_clean($query->row()->nama_item),
         "tgl_expired" => $this->security->xss_clean(tgl_indo($query->row()->tgl_expired)), 
-        "satuan_kecil" => $this->security->xss_clean($query->row()->satuan_kecil),
         "keterangan" => $this->security->xss_clean($query->row()->keterangan),
     );    
     echo'['.json_encode($result).']';
@@ -368,7 +362,6 @@ public function stokdataverfikasi()
         <input type="hidden" name="kuantiti[]" value="'.$this->security->xss_clean($r->kuantiti_berubah).'">
         <input type="hidden" name="tgl_expired[]" value="'.$this->security->xss_clean($r->tgl_expired).'">
         <input type="hidden" name="tanggal[]" value="'.$this->security->xss_clean($r->tanggal).'">
-        <input type="hidden" name="satuan[]" value="'.$this->security->xss_clean($r->satuan_kecil).'">
 
         ';
         $row[] = $this->security->xss_clean(tgl_indo($r->tanggal));
@@ -377,7 +370,6 @@ public function stokdataverfikasi()
         $row[] = $this->security->xss_clean($r->nama_item);
         $row[] = $this->security->xss_clean(tgl_indo($r->tgl_expired));
         $row[] = $this->security->xss_clean($r->kuantiti_berubah);
-        $row[] = $this->security->xss_clean($r->satuan_kecil);
         $data[] = $row;  
     } 
     $result = array(
@@ -421,7 +413,6 @@ public function verfikasistokopname(){
                     'jumlah_masuk'=>$kuantiti[$i],     
                     'tgl_expired'=>$tgl_expired[$i],     
                     'jumlah_keluar'=>0,   
-                    'satuan_kecil'=>$satuan[$i]
                 ); 
                 $this->db->insert("kartu_stok", $list_kartustok); 
                 $this->db->set('stok', 'stok + ' . (int) $kuantiti[$i], FALSE)->where('kode_item', $kode_item[$i])->update('master_item');  

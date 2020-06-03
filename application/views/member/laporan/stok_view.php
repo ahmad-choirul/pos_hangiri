@@ -8,7 +8,6 @@
             <th>Transaksi</th> 
             <th>Masuk</th>  
             <th>Keluar</th>  
-            <th>Satuan</th>  
         </tr>
     </thead>
     <tbody> 
@@ -21,7 +20,6 @@
     <td><?php echo $post['jenis_transaksi']; ?></td> 
     <td><?php echo $post['jumlah_masuk']; ?></td> 
     <td><?php echo $post['jumlah_keluar']; ?></td> 
-    <td><?php echo $post['satuan_kecil']; ?></td> 
 </tr> 
 <?php endforeach;?>  
 </tbody>

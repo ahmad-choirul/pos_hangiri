@@ -299,12 +299,9 @@ class Pembelian_model extends CI_Model{
         );  
         $this->db->insert("pembelian_langsung", $array);   
         $kode_item = $this->input->post("kode_item");    
-        $sku = $this->input->post("sku");   
-        $no_bet = $this->input->post("no_bet");    
         $nama_item = $this->input->post("nama_item");    
         $tgl_expired = $this->input->post("tgl_expired");    
-        $harga = bilanganbulat($this->input->post("harga"));    
-        $satuan_kecil = $this->input->post("satuan_kecil");
+        $harga = bilanganbulat($this->input->post("harga")); 
         $kuantiti = bilanganbulat($this->input->post("kuantiti"));    
         $diskon = $this->input->post("diskon");    
         // 
@@ -319,12 +316,9 @@ class Pembelian_model extends CI_Model{
             $listitem = array(
                 'nomor_faktur'=>$nomor_faktur,  
                 'kode_item'=>$kode_item[$i],  
-                'sku'=>$sku[$i],  
-                'no_bet'=>$no_bet[$i],  
                 'nama_item'=>$nama_item[$i],  
                 'tgl_expired'=>$tgl_expired[$i],  
                 'harga'=>$harga[$i],  
-                'satuan_kecil'=>$satuan_kecil[$i],  
                 'kuantiti'=>$kuantiti[$i],  
                 'total_harga'=>$total_harga[$i],  
                 'diskon'=>$diskon[$i],  
@@ -337,10 +331,8 @@ class Pembelian_model extends CI_Model{
             if($tgl_expired[$i] != $dt->row->tgl_expired ){
                 $listharga = array(
                     'kode_item'=>$dt->row->kode_item.'-01',  
-                    'no_bet'=>$no_bet[$i],  
                     'nama_item'=>$nama_item[$i],  
                     'tgl_expired'=>$tgl_expired[$i],  
-                    'satuan'=>$satuan_kecil[$i],  
                     'harga_jual'=>$harga1[$i],  
                     'harga_jual_distributor'=>$harga2[$i],  
                     'harga_jual_3'=>$harga3[$i],  
@@ -416,12 +408,9 @@ class Pembelian_model extends CI_Model{
         $this->db->where('nomor_faktur', $post['idd'])->delete('pembelian_langsung_detail');
         //    
         $kode_item = $this->input->post("kode_item");    
-        $sku = $this->input->post("sku");   
-        $no_bet = $this->input->post("no_bet");    
         $nama_item = $this->input->post("nama_item");    
         $tgl_expired = $this->input->post("tgl_expired");    
         $harga = bilanganbulat($this->input->post("harga"));    
-        $satuan_kecil = $this->input->post("satuan_kecil");
         $kuantiti = bilanganbulat($this->input->post("kuantiti"));    
         $diskon = $this->input->post("diskon");    
         // 
@@ -436,12 +425,9 @@ class Pembelian_model extends CI_Model{
             $listitem = array(
                 'nomor_faktur'=>$post["nomor_faktur"],  
                 'kode_item'=>$kode_item[$i],  
-                'sku'=>$sku[$i],  
-                'no_bet'=>$no_bet[$i],  
                 'nama_item'=>$nama_item[$i],  
                 'tgl_expired'=>$tgl_expired[$i],  
                 'harga'=>$harga[$i],  
-                'satuan_kecil'=>$satuan_kecil[$i],  
                 'kuantiti'=>$kuantiti[$i],  
                 'total_harga'=>$total_harga[$i],  
                 'diskon'=>$diskon[$i],  
@@ -578,22 +564,16 @@ class Pembelian_model extends CI_Model{
         );  
         $this->db->insert("penerimaan_barang", $array);   
         $kode_item = $this->input->post("kode_item");    
-        $sku = $this->input->post("sku");    
-        $no_bet = $this->input->post("no_bet");    
         $nama_item = $this->input->post("nama_item");    
-        $tgl_expired = $this->input->post("tgl_expired");       
-        $satuan_kecil = $this->input->post("satuan_besar"); 
+        $tgl_expired = $this->input->post("tgl_expired"); 
         $kuantiti = bilanganbulat($this->input->post("kuantiti")); 
         $oldkuantiti = bilanganbulat($this->input->post("old_kuantiti"));   
         for($i = 0; $i < count($kode_item); $i++){         
             $listitem = array(
                 'nomor_rec'=>$nomor_rec,  
                 'kode_item'=>$kode_item[$i],  
-                'sku'=>$sku[$i],
-                'no_bet'=>$no_bet[$i],  
                 'nama_item'=>$nama_item[$i],  
                 'tgl_expired'=>$tgl_expired[$i],   
-                'satuan_kecil'=>$satuan_kecil[$i],   
                 'kuantiti'=>$kuantiti[$i],   
             ); 
             $this->db->insert("penerimaan_barang_detail", $listitem);  
@@ -609,7 +589,6 @@ class Pembelian_model extends CI_Model{
                 'jenis_transaksi'=>"pembelian ke supplier",   
                 'jumlah_masuk'=>$kuantiti[$i],     
                 'jumlah_keluar'=>0,   
-                'satuan_kecil'=>$satuan_kecil[$i]
             ); 
             $this->db->insert("kartu_stok", $list_kartustok);  
             $this->db->set('stok', 'stok + ' . (int) $kuantiti[$i], FALSE)->where('kode_item', $kode_item[$i])->update('master_item');  
@@ -759,10 +738,8 @@ class Pembelian_model extends CI_Model{
         );  
         $this->db->insert("retur_pembelian", $array);   
         $kode_item = $this->input->post("kode_item");    
-        $sku = $this->input->post("sku");    
         $nama_item = $this->input->post("nama_item");    
-        $tgl_expired = $this->input->post("tgl_expired");       
-        $satuan_kecil = $this->input->post("satuan_kecil"); 
+        $tgl_expired = $this->input->post("tgl_expired");  
         $kuantiti = bilanganbulat($this->input->post("kuantiti"));   
         for($i = 0; $i < count($kode_item); $i++){         
             $listitem = array(
@@ -770,8 +747,7 @@ class Pembelian_model extends CI_Model{
                 'kode_item'=>$kode_item[$i],  
                 'sku'=>$sku[$i],  
                 'nama_item'=>$nama_item[$i],  
-                'tgl_expired'=>$tgl_expired[$i],   
-                'satuan_kecil'=>$satuan_kecil[$i],   
+                'tgl_expired'=>$tgl_expired[$i],    
                 'kuantiti'=>$kuantiti[$i],   
             );   
             $this->db->insert("retur_detail", $listitem);  

@@ -73,7 +73,7 @@ class Laporan_model extends CI_Model{
      
     function getrowsstok($params = array()){ 
         $this->db->select("a.kode_item, a.tanggal, a.jumlah_masuk, a.jenis_transaksi,
-         a.jumlah_keluar, a.satuan_kecil, a.tgl_expired, b.nama_item");
+         a.jumlah_keluar, a.tgl_expired, b.nama_item");
         $this->db->from("kartu_stok a");
         $this->db->join('master_item b', 'b.kode_item = a.kode_item');    
         if(!empty($params['search']['firstdate']) AND !empty($params['search']['lastdate'])){

@@ -270,8 +270,6 @@ class Pembelian extends CI_Controller {
         $detailpo = $this->db->get_where('pembelian_langsung_detail a', array('nomor_faktur' => $idd)); 
         foreach($detailpo->result() as $r) {   
             $kuantiti = $r->kuantiti;
-            $subArray['kode_item']=$this->security->xss_clean($r->sku);
-            $subArray['no_bet']=$this->security->xss_clean($r->no_bet);
 			$subArray['nama_item']=$this->security->xss_clean($r->nama_item);
 			$subArray['tgl_expired']=$this->security->xss_clean(tgl_indo($r->tgl_expired)); 
 			$subArray['tgl_expired_ymd']=$this->security->xss_clean($r->tgl_expired); 
@@ -280,11 +278,9 @@ class Pembelian extends CI_Controller {
             $subArray['harga2']=$this->security->xss_clean(rupiah($r->harga_jual_distributor));
             $subArray['harga3']=$this->security->xss_clean(rupiah($r->harga_jual_3));
             $subArray['harga4']=$this->security->xss_clean(rupiah($r->harga_jual_4));
-			$subArray['satuan_kecil']=$this->security->xss_clean($r->satuan_kecil);   
 			$subArray['kuantiti']=$this->security->xss_clean($kuantiti);    
 			$subArray['total_harga']=$this->security->xss_clean(rupiah($r->total_harga));  
 			$subArray['diskon']=$this->security->xss_clean($r->diskon);    
-			$subArray['sku']=$this->security->xss_clean($r->sku);    
             $subArray['harga1_int']=$this->security->xss_clean(bilanganbulat($r->harga_jual));  
             $subArray['harga2_int']=$this->security->xss_clean(bilanganbulat($r->harga_jual_distributor));  
             $subArray['harga3_int']=$this->security->xss_clean(bilanganbulat($r->harga_jual_3));  
@@ -468,7 +464,6 @@ class Pembelian extends CI_Controller {
 			$subArray['nama_item']=$this->security->xss_clean($r->nama_item);
 			$subArray['tgl_expired']=$this->security->xss_clean(tgl_indo($r->tgl_expired));   
 			$subArray['tgl_expired_ymd']=$this->security->xss_clean($r->tgl_expired);   
-			$subArray['satuan_kecil']=$this->security->xss_clean($r->satuan_kecil);      
 			$subArray['kuantiti']=$this->security->xss_clean($r->kuantiti);      
 			$subArray['sku']=$this->security->xss_clean($r->sku);     
             $arraysub[] =  $subArray ; 
@@ -599,7 +594,6 @@ class Pembelian extends CI_Controller {
 			$subArray['nama_item']=$this->security->xss_clean($r->nama_item);
 			$subArray['tgl_expired']=$this->security->xss_clean(tgl_indo($r->tgl_expired)); 
 			$subArray['tgl_expired_ymd']=$this->security->xss_clean($r->tgl_expired);   
-			$subArray['satuan_kecil']=$this->security->xss_clean($r->satuan_kecil);      
 			$subArray['kuantiti']=$this->security->xss_clean($r->kuantiti);      
 			$subArray['sku']=$this->security->xss_clean($r->sku);     
             $arraysub[] =  $subArray ; 
