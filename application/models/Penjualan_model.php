@@ -116,8 +116,6 @@ class Penjualan_model extends CI_Model
         //sort data by ascending or desceding order
         if (!empty($params['search']['sortBy'])) {
             $this->db->order_by('nama_item', $params['search']['sortBy']);
-        } else {
-            $this->db->order_by('tgl_expired', 'desc');
         }
         //set start and limit
         if (array_key_exists("start", $params) && array_key_exists("limit", $params)) {
@@ -352,11 +350,13 @@ class Penjualan_model extends CI_Model
         if ($query->num_rows() < 1) {
             $diskon =  $this->diskon_produk($kodeproduk, 1);
             $harga = $produk->row()->harga_jual;
+            $harga_beli = $produk->row()->harga_beli;
             $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
             $array = array(
                 'id_keranjang' => $idkeranjang,
                 'kode_item' => $kodeproduk,
                 'harga' => $harga,
+                'harga_beli' => $harga_beli,
                 'diskon' => $diskon,
                 'kuantiti' => $kuantiti,
                 'total' => $total,
@@ -368,8 +368,10 @@ class Penjualan_model extends CI_Model
             $kuantiti = $query->row()->kuantiti + $kuantiti;
             $diskon =  $this->diskon_produk($kodeproduk, $kuantiti);
             $harga = $produk->row()->harga_jual;
+            $harga_beli = $produk->row()->harga_beli;
             $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
             $this->harga = $harga;
+            $this->harga_beli = $harga_beli;
             $this->diskon = $diskon;
             $this->kuantiti = $kuantiti;
             $this->total = $total;
@@ -386,8 +388,10 @@ class Penjualan_model extends CI_Model
         $kuantiti = $query->row()->kuantiti + 1;
         $diskon =  $this->diskon_produk($query->row()->kode_item, $kuantiti);
         $harga = $produk->row()->harga_jual;
+        $harga_beli = $produk->row()->harga_beli;
         $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
         $this->harga = $harga;
+        $this->harga_beli = $harga_beli;
         $this->diskon = $diskon;
         $this->kuantiti = $kuantiti;
         $this->total = $total;
@@ -405,8 +409,10 @@ class Penjualan_model extends CI_Model
             $kuantiti = $query->row()->kuantiti - 1;
             $diskon =  $this->diskon_produk($query->row()->kode_item, $kuantiti);
             $harga = $produk->row()->harga_jual;
+            $harga_beli = $produk->row()->harga_beli;
             $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
             $this->harga = $harga;
+            $this->harga_beli = $harga_beli;
             $this->diskon = $diskon;
             $this->kuantiti = $kuantiti;
             $this->total = $total;
@@ -602,7 +608,6 @@ class Penjualan_model extends CI_Model
     $items = [];
     $detailkeranjang = $data['keranjang'];
     foreach ($detailkeranjang as $r) {
-        $stok = $this->db->order_by('tgl_expired', 'ASC')->get_where('kartu_stok', array('kode_item' => $r['kode_item']), 1);
         $stoks = $this->db->get_where('master_item', array('kode_item' => $r['kode_item']), 1)->row()->stok;
         $nama_produk = $this->db->get_where('master_item', array('kode_item' => $r['kode_item']), 1)->row()->nama_item;
         $harga = rupiah($r['total']);
@@ -614,6 +619,7 @@ class Penjualan_model extends CI_Model
             'id_penjualan' => $kode_penjualan,
             'kode_item' => $r['kode_item'],
             'harga' => $r['harga'],
+            'harga_beli' => $r['harga_beli'],
             'diskon' => $r['diskon'],
             'kuantiti' => $r['kuantiti'],
             'total' => $r['total'],

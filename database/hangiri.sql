@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2020 at 04:43 AM
+-- Generation Time: Jun 03, 2020 at 06:43 AM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -37,6 +37,16 @@ CREATE TABLE `cash_in_out` (
   `id_penjualan` varchar(50) DEFAULT NULL,
   `keterangan` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cash_in_out`
+--
+
+INSERT INTO `cash_in_out` (`id`, `kode_rekening`, `tanggal`, `masuk`, `keluar`, `id_hutang_dibayar`, `id_piutang_dibayar`, `id_penjualan`, `keterangan`) VALUES
+(1, '10001', '2020-06-03', '15000', '0', NULL, NULL, '030620000001', ''),
+(2, '10001', '2020-06-03', '15000', '0', NULL, NULL, '030620000002', ''),
+(3, '10001', '2020-06-03', '15000', '0', NULL, NULL, '030620000003', ''),
+(5, '10001', '2020-06-03', '15000', '0', NULL, NULL, '030620000004', '');
 
 -- --------------------------------------------------------
 
@@ -99,9 +109,18 @@ CREATE TABLE `kartu_stok` (
   `jenis_transaksi` enum('pembelian ke supplier','retur penjualan','stok opname','stok utility','retur pembelian','penjualan','retur penjualan') NOT NULL DEFAULT 'retur pembelian',
   `jumlah_masuk` int(5) NOT NULL,
   `jumlah_keluar` int(5) NOT NULL,
-  `stok_sisa` varchar(100) NOT NULL,
-  `tgl_expired` date DEFAULT NULL
+  `stok_sisa` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kartu_stok`
+--
+
+INSERT INTO `kartu_stok` (`id`, `nomor_rec_penerimaan`, `id_utility`, `id_stok_opname`, `id_stok_keluar`, `id_penjualan`, `kode_item`, `tanggal`, `jenis_transaksi`, `jumlah_masuk`, `jumlah_keluar`, `stok_sisa`) VALUES
+(1, NULL, NULL, NULL, NULL, '030620000001', '123', '2020-06-03', 'penjualan', 0, 1, ''),
+(2, NULL, NULL, NULL, NULL, '030620000002', '123', '2020-06-03', 'penjualan', 0, 1, ''),
+(3, NULL, NULL, NULL, NULL, '030620000003', '123', '2020-06-03', 'penjualan', 0, 1, ''),
+(4, NULL, NULL, NULL, NULL, '030620000004', '123', '2020-06-03', 'penjualan', 0, 1, '');
 
 -- --------------------------------------------------------
 
@@ -313,6 +332,7 @@ CREATE TABLE `keranjang_detail` (
   `id` int(11) NOT NULL,
   `id_keranjang` int(11) NOT NULL,
   `kode_item` varchar(100) NOT NULL,
+  `harga_beli` varchar(100) NOT NULL,
   `harga` decimal(10,0) NOT NULL,
   `diskon` decimal(10,0) NOT NULL,
   `kuantiti` float NOT NULL,
@@ -323,9 +343,9 @@ CREATE TABLE `keranjang_detail` (
 -- Dumping data for table `keranjang_detail`
 --
 
-INSERT INTO `keranjang_detail` (`id`, `id_keranjang`, `kode_item`, `harga`, `diskon`, `kuantiti`, `total`) VALUES
-(1, 1, '123', '15000', '0', 3, '45000'),
-(3, 2, '123', '15000', '0', 4, '60000');
+INSERT INTO `keranjang_detail` (`id`, `id_keranjang`, `kode_item`, `harga_beli`, `harga`, `diskon`, `kuantiti`, `total`) VALUES
+(1, 1, '123', '10000', '15000', '0', 3, '45000'),
+(3, 2, '123', '10000', '15000', '0', 4, '60000');
 
 -- --------------------------------------------------------
 
@@ -414,7 +434,7 @@ CREATE TABLE `master_item` (
 
 INSERT INTO `master_item` (`kode_item`, `kategori`, `nama_item`, `keterangan`, `gambar`, `harga_jual`, `harga_beli`, `waktu_update`, `netto`, `stok`, `tgl_expired`, `jenis_item`) VALUES
 ('1123', 1, 'beras', '1', '11.png', '12000', '12000', '2020-06-01 23:59:14', '1', 100, '2020-06-30', 'bahan'),
-('123', 0, 'aqua', 'a', '123.png', '15000', '10000', '2020-06-01 23:58:26', '100', 10, '2020-06-01', 'jual');
+('123', 0, 'aqua', 'a', '123.png', '15000', '10000', '2020-06-03 04:42:30', '100', 6, '2020-06-01', 'jual');
 
 -- --------------------------------------------------------
 
@@ -723,7 +743,6 @@ CREATE TABLE `penjualan` (
   `id_pembeli` int(11) DEFAULT NULL,
   `id_admin` int(11) NOT NULL,
   `id_spg` int(11) NOT NULL,
-  `total_upah_peracik` decimal(10,0) NOT NULL,
   `total_harga_item` decimal(10,0) NOT NULL,
   `total` decimal(10,0) NOT NULL,
   `tanggal` date NOT NULL,
@@ -733,6 +752,16 @@ CREATE TABLE `penjualan` (
   `admin_retur` int(11) DEFAULT NULL,
   `jenis_penjualan` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `penjualan`
+--
+
+INSERT INTO `penjualan` (`id`, `id_pembeli`, `id_admin`, `id_spg`, `total_harga_item`, `total`, `tanggal`, `tanggal_jam`, `retur`, `tanggal_retur`, `admin_retur`, `jenis_penjualan`) VALUES
+('030620000001', NULL, 1, 1, '0', '15000', '2020-06-03', '2020-06-03 11:12:40', '0', '0000-00-00 00:00:00', NULL, 0),
+('030620000002', NULL, 1, 1, '0', '15000', '2020-06-03', '2020-06-03 11:13:01', '0', '0000-00-00 00:00:00', NULL, 0),
+('030620000003', NULL, 1, 1, '0', '15000', '2020-06-03', '2020-06-03 11:15:10', '0', '0000-00-00 00:00:00', NULL, 0),
+('030620000004', NULL, 1, 0, '0', '15000', '2020-06-03', '2020-06-03 11:42:30', '0', '0000-00-00 00:00:00', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -744,14 +773,23 @@ CREATE TABLE `penjualan_detail` (
   `id` int(11) NOT NULL,
   `id_penjualan` varchar(50) NOT NULL,
   `kode_item` varchar(100) NOT NULL,
-  `racikan` enum('0','1') NOT NULL DEFAULT '0',
-  `upah_peracik` decimal(10,0) NOT NULL,
+  `harga_beli` varchar(100) NOT NULL,
   `harga` decimal(10,0) NOT NULL,
   `diskon` decimal(10,0) NOT NULL,
   `kuantiti` float NOT NULL,
   `total` decimal(10,0) NOT NULL,
   `stok_sisa` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `penjualan_detail`
+--
+
+INSERT INTO `penjualan_detail` (`id`, `id_penjualan`, `kode_item`, `harga_beli`, `harga`, `diskon`, `kuantiti`, `total`, `stok_sisa`) VALUES
+(1, '030620000001', '123', '10000', '15000', '0', 1, '15000', 9),
+(2, '030620000002', '123', '10000', '15000', '0', 1, '15000', 8),
+(3, '030620000003', '123', '10000', '15000', '0', 1, '15000', 7),
+(4, '030620000004', '123', '10000', '15000', '0', 1, '15000', 6);
 
 -- --------------------------------------------------------
 
@@ -773,6 +811,16 @@ CREATE TABLE `penjualan_pembayaran` (
   `security_code` varchar(100) NOT NULL,
   `catatan` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `penjualan_pembayaran`
+--
+
+INSERT INTO `penjualan_pembayaran` (`id`, `id_penjualan`, `nominal`, `cara_bayar`, `swipe`, `card_no`, `holder_name`, `bank`, `month`, `year`, `security_code`, `catatan`) VALUES
+(1, '030620000001', '20000', '', '', '', '', '', '', '', '', ''),
+(2, '030620000002', '20000', '', '', '', '', '', '', '', '', ''),
+(3, '030620000003', '20000', '', '', '', '', '', '', '', '', ''),
+(5, '030620000004', '20000', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -809,6 +857,16 @@ CREATE TABLE `piutang_history` (
   `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `keterangan` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `piutang_history`
+--
+
+INSERT INTO `piutang_history` (`id`, `id_penjualan`, `id_pembeli`, `judul`, `tanggal`, `tanggal_jatuh_tempo`, `nominal`, `nominal_dibayar`, `sudah_lunas`, `tanggal_lunas`, `waktu_update`, `keterangan`) VALUES
+(1, '030620000001', NULL, 'kredit pembelian', '0000-00-00', '0000-00-00', '15000', '20000', '0', '0000-00-00', '2020-06-03 04:12:40', ''),
+(2, '030620000002', NULL, 'kredit pembelian', '0000-00-00', '0000-00-00', '15000', '20000', '0', '0000-00-00', '2020-06-03 04:13:01', ''),
+(3, '030620000003', NULL, 'kredit pembelian', '0000-00-00', '0000-00-00', '15000', '20000', '0', '0000-00-00', '2020-06-03 04:15:10', ''),
+(5, '030620000004', NULL, 'kredit pembelian', '0000-00-00', '0000-00-00', '15000', '20000', '0', '0000-00-00', '2020-06-03 04:42:30', '');
 
 -- --------------------------------------------------------
 
@@ -1217,7 +1275,7 @@ ALTER TABLE `stok_opname`
 -- AUTO_INCREMENT for table `cash_in_out`
 --
 ALTER TABLE `cash_in_out`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `hutang_dibayar_history`
 --
@@ -1232,7 +1290,7 @@ ALTER TABLE `hutang_history`
 -- AUTO_INCREMENT for table `kartu_stok`
 --
 ALTER TABLE `kartu_stok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `kategori_user`
 --
@@ -1247,12 +1305,12 @@ ALTER TABLE `kategori_user_modul`
 -- AUTO_INCREMENT for table `keranjang`
 --
 ALTER TABLE `keranjang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `keranjang_detail`
 --
 ALTER TABLE `keranjang_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `komisi_detail`
 --
@@ -1327,12 +1385,12 @@ ALTER TABLE `penerimaan_barang_detail`
 -- AUTO_INCREMENT for table `penjualan_detail`
 --
 ALTER TABLE `penjualan_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `penjualan_pembayaran`
 --
 ALTER TABLE `penjualan_pembayaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `piutang_dibayar_history`
 --
@@ -1342,7 +1400,7 @@ ALTER TABLE `piutang_dibayar_history`
 -- AUTO_INCREMENT for table `piutang_history`
 --
 ALTER TABLE `piutang_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `purchase_order_detail`
 --
@@ -1507,8 +1565,7 @@ ALTER TABLE `stok_adjustment`
 -- Constraints for table `stok_keluar`
 --
 ALTER TABLE `stok_keluar`
-  ADD CONSTRAINT `stok_keluar_ibfk_1` FOREIGN KEY (`kode_item`) REFERENCES `master_item` (`kode_item`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `stok_keluar_ibfk_2` FOREIGN KEY (`nomor_retur_pembelian`) REFERENCES `retur_pembelian` (`nomor_retur`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `stok_keluar_ibfk_1` FOREIGN KEY (`kode_item`) REFERENCES `master_item` (`kode_item`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `stok_opname`

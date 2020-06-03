@@ -51,9 +51,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                                 <div class="col-sm-2">
                                     <div class="form-group">
-                                        <label class="control-label">Nama Obat</label>
+                                        <label class="control-label">Nama Item</label>
                                         <select  data-plugin-selectTwo class="form-control"  id="obat" name="obat">  
-                                            <option value="">Semua Obat</option>
+                                            <option value="">Semua Item</option>
                                             <?php foreach ($obat as $supp): ?>
                                             <option value="<?php echo $supp->kode_item;?>"><?php echo $supp->nama_item;?></option>
                                             <?php endforeach; ?>
@@ -62,9 +62,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                                 <div class="col-sm-2">
                                     <div class="form-group">
-                                        <label class="control-label">Sales/SPG</label>
+                                        <label class="control-label">Pegawai</label>
                                         <select  data-plugin-selectTwo class="form-control"  id="kasir" name="kasir">  
-                                            <option value="">Semua SPG</option>
+                                            <option value="">Semua Pegawai</option>
                                             <?php foreach ($sales as $supp): ?>
                                             <option value="<?php echo $supp->id;?>"><?php echo $supp->nama_spg;?></option>
                                              <?php endforeach; ?>
