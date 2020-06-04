@@ -565,7 +565,7 @@ if ($this->input->get('statppn')=='nonppn') {
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label class="control-label">Nama SPG / SALES</label>
+											<label class="control-label">Nama Kasir</label>
 											<select class="form-control cara_bayar" name="nama_spg" id="nama_spg">
 												<?php foreach ($spg as $s): ?>
 													<option value="<?= $s['id']; ?>"><?= $s['nama_spg'] ?></option>
