@@ -62,7 +62,7 @@ class dashboard_model extends CI_Model{
       return $this->db->get()->result();
    }
    public function get_produk_terlaris(){ 
-     $this->db->select("SUM(a.kuantiti) as total, a.kode_item,  b.nama_item, b.satuan");
+     $this->db->select("SUM(a.kuantiti) as total, a.kode_item,  b.nama_item");
      $this->db->from("penjualan_detail a");
      $this->db->join('master_item b', 'a.kode_item = b.kode_item ');   
      $this->db->group_by("a.kode_item");

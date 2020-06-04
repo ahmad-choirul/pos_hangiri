@@ -37,7 +37,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <h2>Dashboard</h2>
                 </header>
                 <!-- start: page -->
-                <section class="panel">
+               <!--  <section class="panel">
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12 col-lg-12 col-xl-4">
@@ -117,7 +117,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             </div>
                         </div>
                     </div>
-                </section>
+                </section> -->
                 <section class="panel">
                     <div class="panel-body">
                         <div class="row">
