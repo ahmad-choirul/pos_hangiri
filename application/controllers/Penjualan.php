@@ -20,12 +20,22 @@ class Penjualan extends CI_Controller {
         $data['total_penerimaan'] = $this->db->count_all('penerimaan_barang'); 
         $this->load->view('member/penjualan/beranda',$data);
     }   
+
     public function diskon()
     {    
         level_user('penjualan','diskon',$this->session->userdata('kategori'),'read') > 0 ? '': show_404();
         $this->load->view('member/penjualan/diskon'); 
     }  
 
+public function hapusbarangkeranjang()
+{
+   cekajax();   
+   $simpan = $this->penjualan_model;
+   $get = $this->input->get();    
+   $stok = $simpan->hapusbarangkeranjang($get['idd']);
+   $data['response'] = "berhasil";
+   echo json_encode($data);
+}
     public function datadiskon()
     {   
         cekajax(); 

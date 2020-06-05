@@ -429,13 +429,15 @@ class Stok_model extends CI_Model
     // CRUD Stok opname end
 
     // datatable data item start
-    var $column_search_pilihanitem = array('kode_item', 'nama_item', 'kategori', 'harga_jual', 'satuan');
-    var $column_order_pilihanitem = array('kode_item', 'nama_item', 'kategori', 'harga_jual', 'satuan', null);
-    var $order_pilihanitem = array('waktu_update' => 'DESC');
+    var $column_search_pilihanitem = array('kode_item', 'nama_item', 'nama_kategori', 'harga_jual');
+    var $column_order_pilihanitem = array('kode_item', 'nama_item', 'nama_kategori', 'harga_jual', null);
+    var $order_pilihanitem = array('a.waktu_update' => 'DESC');
     private function _get_query_pilihanitem()
     {
         $get = $this->input->get();
-        $this->db->from('master_item');
+        $this->db->from('master_item a');
+        $this->db->join('master_kategori b', 'a.kategori = b.id');
+        $this->db->where('jenis_item', 'jual');
         $i = 0;
         foreach ($this->column_search_pilihanitem as $item) {
             if ($get['search']['value']) {

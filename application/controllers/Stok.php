@@ -443,12 +443,10 @@ public function dataitems()
         $row = array(); 
         $row[] = $this->security->xss_clean($r->kode_item); 
         $row[] = $this->security->xss_clean($r->nama_item); 
-        $row[] = $this->security->xss_clean($r->kategori);  
+        $row[] = $this->security->xss_clean($r->nama_kategori); 
         $row[] = $this->security->xss_clean(rupiah($r->harga_jual));   
-        $row[] = $this->security->xss_clean($r->satuan);  
         $row[] = ' 
-        <a onclick="pilih(this)"  data-harga="'.rupiah($r->harga_jual).'" data-stok="'.$r->stok.'" data-satuan="'.$r->satuan.'"  data-namaitem="'.$r->nama_item.'" data-id="'.$r->kode_item.'" class="mt-xs mr-xs btn btn-info datarowobat" role="button"><i class="fa fa-check-square-o"></i></a>
-
+        <a onclick="pilih(this)"  data-harga="'.rupiah($r->harga_jual).'" data-stok="'.$r->stok.'"  data-namaitem="'.$r->nama_item.'" data-id="'.$r->kode_item.'" class="mt-xs mr-xs btn btn-info datarowobat" role="button"><i class="fa fa-check-square-o"></i></a>
         '; 
         $data[] = $row;
     } 
