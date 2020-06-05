@@ -153,11 +153,11 @@
 							</td>
 						</tr>
 						<tr>
-							<td style="font-size: 8px;" >
+							<td style="font-size: 9px;" >
 							<?=$key['kuantiti']?>x	<? echo setrupiah($key['harga']); ?>
-							</td style="text-align: right;" >
-							<td style="text-align: right;"><?php echo setrupiah($key['harga']);?></td>
-							<td style="text-align: right;"><?php echo setrupiah($key['total']);?></td>
+							</td style="text-align: right;font-size: 9px; " >
+							<td style="text-align: right;font-size: 9px; "><?php echo setrupiah($key['harga']);?></td>
+							<td style="text-align: right;font-size: 9px;"><?php echo setrupiah($key['total']);?></td>
 						</tr>
 						<!-- /.sampai SINI-->
 						<?php 
