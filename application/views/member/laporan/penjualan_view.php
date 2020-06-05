@@ -4,8 +4,8 @@
             <th>Tanggal</th>
             <th>Barang</th>
             <th>Harga Item</th>
+            <th>Kuantiti</th>
             <th>Total Harga</th>
-            <th>Stok Sisa</th>
             <th>User</th>
         </tr>
     </thead>
@@ -17,8 +17,8 @@ foreach($posts as $post): ?>
     <td><?php echo tgl_indo($post['tanggal']); ?></td>
     <td><?php echo $post['nama_item']; ?></td>
     <td class="text-right"><?php echo rupiah($post['harga']); ?></td>
+    <td><?php echo $post['kuantiti']; ?></td>
     <td class="text-right"><?php echo rupiah($post['total']); ?></td>
-    <td class="text-right"><?php echo $post['stok_sisa']; ?></td> 
     <td class="text-right"><?php echo $post['nama_admin']; ?></td> 
 </tr> 
 <?php 

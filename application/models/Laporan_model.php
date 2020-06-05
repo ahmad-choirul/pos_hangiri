@@ -94,7 +94,7 @@ class Laporan_model extends CI_Model{
     
     function getrowspenjualan($params = array()){ 
         $this->db->select("c.harga, a.total_harga_item, c.total,
-        a.tanggal, b.nama_admin, a.id,c.harga_beli, d.nama_item,c.stok_sisa");
+        a.tanggal, b.nama_admin, a.id,c.harga_beli,c.kuantiti, d.nama_item,c.stok_sisa");
         $this->db->from("penjualan a");
         $this->db->join('master_admin b', 'b.id = a.id_admin');   
         $this->db->join('penjualan_detail c', 'c.id_penjualan = a.id');  
