@@ -131,13 +131,10 @@
 				<?= $spg; ?>
 
 			</div>
-			<div class="user">
-				<?= $pelanggan; ?>
-			</div>
 		</div>
 
 		<div class="nota">
-			<?=$penjualan?>
+			<?=$penjualan?> | <?= $pelanggan; ?>
 		</div>
 
 		<div class="separate"></div>
