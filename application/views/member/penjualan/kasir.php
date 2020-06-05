@@ -869,7 +869,7 @@ if ($this->input->get('statppn')=='nonppn') {
 			var idd = $(elem).data("kode");   
 			$.ajax({
 				type: 'GET',
-				url: '<?php echo base_url()?>penjualan/keranjanghapus',
+				url: '<?php echo base_url()?>penjualan/hapusbarangkeranjang',
 				data: 'idd=' + idd,
 				dataType 	: 'json',
 				success: function(response) {    

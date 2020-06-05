@@ -199,7 +199,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <th>Nama Item</th> 
                                     <th>Kategori</th>  
 									<th>Harga Jual</th>
-                                    <th>Satuan</th>  
                                     <th></th>
                                 </tr>
                             </thead>
@@ -260,7 +259,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}, 
 			"columnDefs": [
 				{ 
-					"targets": [ 5 ], 
+					"targets": [ 4 ], 
 					"orderable": false, 
 				},
 			],  

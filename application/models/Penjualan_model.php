@@ -433,6 +433,16 @@ class Penjualan_model extends CI_Model
         $this->updatekeranjang($idd);
         return TRUE;
     }
+
+     public function hapusbarangkeranjang($idd)
+    {
+        $query = $this->db->get_where('keranjang_detail', array('id' => $idd), 1);
+        $idkeranjang = $query->row()->id_keranjang;
+
+        $this->db->where('id', $idd)->delete('keranjang_detail');
+        $this->updatekeranjang($idkeranjang);
+        return TRUE;
+    }
     public function cek_keranjang($kode, $pembeli, $racikan)
     {
         if ($pembeli == '') {
@@ -558,7 +568,7 @@ class Penjualan_model extends CI_Model
             'id_admin' => $this->session->userdata('idadmin'),
             'total' => $keranjang->row()->total,
             'tanggal' => date('Y-m-d'),
-            // 'jenis_penjualan' => $data['jns_penjualan'],
+            'id_admin' => $this->session->userdata('idadmin');,
             'tanggal_jam' => date('Y-m-d H:i:s'),
             'retur' => '0'
         );
