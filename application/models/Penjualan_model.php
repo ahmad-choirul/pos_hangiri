@@ -568,7 +568,7 @@ class Penjualan_model extends CI_Model
             'id_admin' => $this->session->userdata('idadmin'),
             'total' => $keranjang->row()->total,
             'tanggal' => date('Y-m-d'),
-            'id_admin' => $this->session->userdata('idadmin');,
+            'id_admin' => $this->session->userdata('idadmin'),
             'tanggal_jam' => date('Y-m-d H:i:s'),
             'retur' => '0'
         );
