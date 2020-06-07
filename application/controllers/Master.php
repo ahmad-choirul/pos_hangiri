@@ -661,6 +661,15 @@ class Master extends CI_Controller {
         $data = array(); 
         foreach ($list as $r) { 
             $row = array(); 
+              $tomboldaftar='';
+        if ($r->id_admin=='0') {
+            $tomboldaftar = 
+            ' 
+            <div class="btn-group dropup">
+            <a class="mb-xs mt-xs mr-xs btn btn-primary href="#" onclick="daftar_akun(this)" data-id_sales="'.$this->security->xss_clean($r->id).'" data-nama_spg="'.$this->security->xss_clean($r->nama_spg).'">Daftar</a>
+            </div>
+            ';
+        }
             $tombolhapus = level_user('master','spg',$this->session->userdata('kategori'),'delete') > 0 ? '<li><a href="#" onclick="hapus(this)" data-id="'.$this->security->xss_clean($r->id).'">Hapus</a></li>':'';
             $tomboledit = level_user('master','spg',$this->session->userdata('kategori'),'edit') > 0 ? '<li><a href="#" onclick="edit(this)" data-id="'.$this->security->xss_clean($r->id).'">Edit</a></li>':'';
             $row[] = ' 
@@ -678,6 +687,7 @@ class Master extends CI_Controller {
             $row[] = $this->security->xss_clean($r->nik);
             $row[] = $this->security->xss_clean($r->alamat);
             $row[] = $this->security->xss_clean($r->kontak);
+        $row[] = $tomboldaftar;
             $data[] = $row;
         } 
         $result = array( 

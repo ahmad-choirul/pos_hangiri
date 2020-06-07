@@ -52,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <th>NIK</th>
                                             <th>Alamat</th> 
                                             <th>Kontak</th> 
+                                            <th>Daftar</th> 
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -65,6 +66,77 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</section>
 
 		
+  <div class="modal fade" id="daftar_akun" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <section class="panel panel-primary">
+                    <?php echo form_open('user/tambahuser',' id="FormulirTambah" enctype="multipart/form-data"');?>  
+                    <header class="panel-heading">
+                        <h2 class="panel-title">Tambah Akun</h2>
+                    </header>
+                    <div class="panel-body">
+                            <input type="hidden" name="kategori" value="32">
+                            <input type="hidden" name="id_spg" id="id_spg">
+                            <input type="hidden" name="nama_admin" id="nama_spg_2">
+                           
+                            <div class="form-group mt-lg username">
+                                <label class="col-sm-3 control-label">Username<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="username" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group mt-lg nama_spg">
+                                <label class="col-sm-3 control-label">Nama spg<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="nama_spg" readonly id="nama_spg_akun" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group mt-lg password">
+                                <label class="col-sm-3 control-label">Password<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="password" name="password" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group mt-lg password2">
+                                <label class="col-sm-3 control-label">Retype Password<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="password" name="password2" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group email">
+                                <label class="col-sm-3 control-label">Email<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="email" class="form-control" />
+                                </div>
+                            </div>   
+                            <div class="form-group aktif">
+                                <label class="col-sm-3 control-label">Status aktif<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <div class="radio-custom radio-primary">
+                                        <input id="aktif" name="aktif" type="radio" checked value="1" required>
+                                        <label for="aktif">Aktif</label>
+                                    </div>
+                                    <div class="radio-custom radio-primary">
+                                        <input id="block" name="aktif" type="radio" value="0">
+                                        <label for="block">Blokir</label>
+                                    </div>  
+                                </div>
+                            </div>   
+                    </div>
+                    <footer class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <button class="btn btn-primary modal-confirm" type="submit" id="submitform">Submit</button>
+                                <button class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </footer>
+                    </form>
+                </section>
+                </div>
+            </div>
+        </div>
+
         <div class="modal fade" id="tambahData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -312,6 +384,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 }); 
                 e.preventDefault(); 
             }); 
+              function daftar_akun(elem){
+      var dataId = $(elem).data("id_spg");   
+      var datanama = $(elem).data("nama_spg");   
+      document.getElementById("id_spg").setAttribute('value', dataId);
+      document.getElementById("nama_spg_akun").setAttribute('value', datanama);
+      document.getElementById("nama_spg_2").setAttribute('value', datanama);
+      $('#daftar_akun').modal();        
+      return false;
+  }
             function detail(elem){
 		        var dataId = $(elem).data("id");   
         		$('#detailData').modal();    

@@ -288,7 +288,7 @@ public function kasir()
     $this->load->view('member/penjualan/kasir',$data); 
 }  
 
-public function tambahkeranjangbarcode(){  
+public function tambahkeranjangbarcode(){
     cekajax();   
     $simpan = $this->penjualan_model;
     $get = $this->input->get();   
@@ -296,7 +296,8 @@ public function tambahkeranjangbarcode(){
     if($query->num_rows() > 0 ){
 
         if($query->row()->stok > 0){ 
-            $simpankeranjang = $simpan->cek_keranjang($get['barcode'],$get['pembeli'],'0');$data['response'] = "tersedia";
+            $simpankeranjang = $simpan->cek_keranjang($get['barcode'],$get['pembeli'],'0');
+            $data['response'] = "tersedia";
         }else{ 
             $data['response'] = "stok kosong";
         }
@@ -485,7 +486,7 @@ public function datahold()
     $draw = intval($this->input->get("draw")); 
     $start = intval($this->input->get("start")); 
     $length = intval($this->input->get("length"));
-    $query = $this->db->order_by("id","ASC")->where(array('hold' => '1','token' => $this->security->get_csrf_hash(),'id_admin' => $this->session->userdata('idadmin')))->get("keranjang");
+    $query = $this->db->order_by("id","ASC")->where(array('hold' => '1','id_admin' => $this->session->userdata('idadmin')))->get("keranjang");
     $data = []; 
     $no = 0;
     foreach($query->result() as $r) { 

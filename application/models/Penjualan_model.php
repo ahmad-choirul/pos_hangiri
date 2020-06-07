@@ -448,10 +448,9 @@ class Penjualan_model extends CI_Model
         if ($pembeli == '') {
             $pembeli = NULL;
         }
-        $query = $this->db->get_where('keranjang', array('hold' => '0', 'token' => $this->security->get_csrf_hash(), 'id_admin' => $this->session->userdata('idadmin')), 1);
+        $query = $this->db->get_where('keranjang', array('hold' => '0','id_admin' => $this->session->userdata('idadmin')), 1);
         if ($query->num_rows() < 1) {
             $array = array(
-                'token' => $this->security->get_csrf_hash(),
                 'tanggal_jam' => date('Y-m-d h:i:s'),
                 'id_admin' => $this->session->userdata('idadmin'),
                 'id_pembeli' => $pembeli,
@@ -469,7 +468,7 @@ class Penjualan_model extends CI_Model
 
     public function get_keranjang()
     {
-        return $this->db->get_where('keranjang', array('hold' => '0', 'token' => $this->security->get_csrf_hash(), 'id_admin' => $this->session->userdata('idadmin')), 1);
+        return $this->db->get_where('keranjang', array('hold' => '0', 'id_admin' => $this->session->userdata('idadmin')), 1);
     }
     public function detail_keranjang($idd)
     {
@@ -618,7 +617,6 @@ class Penjualan_model extends CI_Model
     $items = [];
     $detailkeranjang = $data['keranjang'];
     foreach ($detailkeranjang as $r) {
-        $stoks = $this->db->get_where('master_item', array('kode_item' => $r['kode_item']), 1)->row()->stok;
         $nama_produk = $this->db->get_where('master_item', array('kode_item' => $r['kode_item']), 1)->row()->nama_item;
         $harga = rupiah($r['total']);
         $items[] = [
@@ -645,8 +643,6 @@ class Penjualan_model extends CI_Model
                 // 'tgl_expired' => $stok->row()->tgl_expired,
             );
             $this->db->insert("kartu_stok", $stok_input);
-            $this->db->set('stok', 'stok - ' . (int) $r['kuantiti'], FALSE)->where('kode_item', $r['kode_item'])->update('master_item');
-        
     }
   
     $profil = $this->db->get_where('profil_apotek', array('id' => '1'));

@@ -473,7 +473,7 @@ class Keuangan extends CI_Controller {
         $draw = intval($this->input->get("draw")); 
         $start = intval($this->input->get("start")); 
         $length = intval($this->input->get("length"));
-        $query = $this->db->select("a.id,, a.kode_rekening, a.tanggal, a.masuk, a.keluar, a.keterangan, b.kategori, b.nama_rekening, b.editable")->from("cash_in_out a")->join('rekening_kode b', 'a.kode_rekening = b.kode_rekening')->get();  
+        $query = $this->db->select("a.id, a.kode_rekening, a.tanggal, a.masuk, a.keluar, a.keterangan, b.kategori, b.nama_rekening, b.editable")->from("cash_in_out a")->join('rekening_kode b', 'a.kode_rekening = b.kode_rekening')->get();  
         $data = []; 
         foreach($query->result() as $r) {  
             if($r->kategori == 'pengeluaran'){
