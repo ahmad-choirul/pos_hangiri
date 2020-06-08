@@ -58,6 +58,12 @@ if ($this->input->get('statppn')=='nonppn') {
 }else{
 	$statppn='ppn';
 }
+
+if ($this->input->get('stattrans')=='dinein') {
+	$statppn='dinein';
+}else{
+	$statppn='takeaway';
+}
 ?>
 }
 <body class="bgbody">
@@ -137,6 +143,13 @@ if ($this->input->get('statppn')=='nonppn') {
 										<select class="form-control cara_bayar" name="statppn" id="statppn" onchange='this.form.submit()'>
 											<option value="ppn">PPN</option>
 											<option <?php if ($statppn == 'nonppn' ) echo 'selected' ; ?> value="nonppn">NonPPN</option>
+										</select> 
+									</div>
+									<div class="form-group">
+										<label class="control-label">Jenis Transaksi</label>
+										<select class="form-control cara_bayar" name="stattrans" id="stattrans" onchange='this.form.submit()'>
+											<option value="dinein">Dine In</option>
+											<option <?php if ($stattrans == 'takeaway' ) echo 'selected' ; ?> value="takeaway">NonPPN</option>
 										</select> 
 									</div>
 								</form>
