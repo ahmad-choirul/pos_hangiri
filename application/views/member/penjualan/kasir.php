@@ -60,9 +60,9 @@ if ($this->input->get('statppn')=='nonppn') {
 }
 
 if ($this->input->get('stattrans')=='dinein') {
-	$statppn='dinein';
+	$stattrans='dinein';
 }else{
-	$statppn='takeaway';
+	$stattrans='takeaway';
 }
 ?>
 }
