@@ -142,7 +142,7 @@ if ($this->input->get('stattrans')=='dinein') {
 								<input type="hidden" name="customer" id="customer_dipilih">
 								<form>
 									<div class="row">
-										<div class="col-md-5">
+										<div class="col-md-6">
 											<div class="form-group">
 												<label class="control-label">Jenis Penjualan</label>
 												<select class="form-control cara_bayar" name="statppn" id="statppn" onchange='this.form.submit()'>
@@ -152,7 +152,7 @@ if ($this->input->get('stattrans')=='dinein') {
 												</select> 
 											</div>
 										</div>
-										<div class="col-md-5">
+										<div class="col-md-6">
 											<div class="form-group">
 												<label class="control-label">Jenis Transaksi</label>
 												<select class="form-control cara_bayar" name="stattrans" id="stattrans" onchange='this.form.submit()'>
