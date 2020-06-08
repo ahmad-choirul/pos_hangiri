@@ -107,7 +107,7 @@ class Penjualan_model extends CI_Model
         $this->db->select('*');
         $this->db->from('master_item');
         // if (isset($kategori)) {
-            $this->db->where('jenis_item', 'jual');
+        $this->db->where('jenis_item', 'jual');
         // }
         //filter data by searched keywords
         if (!empty($params['search']['keywords'])) {
@@ -343,13 +343,17 @@ class Penjualan_model extends CI_Model
         );
         $this->db->update("keranjang", $array, array('id' => $idkeranjang));
     }
-    private function simpan_keranjang($idkeranjang, $kodeproduk, $kuantiti, $racikan)
+    private function simpan_keranjang($idkeranjang, $kodeproduk, $kuantiti, $racikan,$jenis_penjualan='')
     {
         $produk = $this->db->get_where('master_item', array('kode_item' => $kodeproduk), 1);
         $query = $this->db->get_where('keranjang_detail', array('id_keranjang' => $idkeranjang, 'kode_item' => $kodeproduk), 1);
         if ($query->num_rows() < 1) {
             $diskon =  $this->diskon_produk($kodeproduk, 1);
-            $harga = $produk->row()->harga_jual;
+            if ($jenis_penjualan=='online') {
+                 $harga = $produk->row()->harga_jual2;
+            }else{
+                 $harga = $produk->row()->harga_jual;
+            }
             $harga_beli = $produk->row()->harga_beli;
             $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
             $array = array(
@@ -367,7 +371,11 @@ class Penjualan_model extends CI_Model
         } else {
             $kuantiti = $query->row()->kuantiti + $kuantiti;
             $diskon =  $this->diskon_produk($kodeproduk, $kuantiti);
-            $harga = $produk->row()->harga_jual;
+            if ($jenis_penjualan=='online') {
+                 $harga = $produk->row()->harga_jual2;
+            }else{
+                 $harga = $produk->row()->harga_jual;
+            }
             $harga_beli = $produk->row()->harga_beli;
             $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
             $this->harga = $harga;
@@ -387,7 +395,7 @@ class Penjualan_model extends CI_Model
         $produk = $this->db->get_where('master_item', array('kode_item' => $query->row()->kode_item), 1);
         $kuantiti = $query->row()->kuantiti + 1;
         $diskon =  $this->diskon_produk($query->row()->kode_item, $kuantiti);
-        $harga = $produk->row()->harga_jual;
+        $harga = $query->row()->harga;
         $harga_beli = $produk->row()->harga_beli;
         $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
         $this->harga = $harga;
@@ -408,7 +416,7 @@ class Penjualan_model extends CI_Model
             $produk = $this->db->get_where('master_item', array('kode_item' => $query->row()->kode_item), 1);
             $kuantiti = $query->row()->kuantiti - 1;
             $diskon =  $this->diskon_produk($query->row()->kode_item, $kuantiti);
-            $harga = $produk->row()->harga_jual;
+            $harga = $query->row()->harga;
             $harga_beli = $produk->row()->harga_beli;
             $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
             $this->harga = $harga;
@@ -434,7 +442,7 @@ class Penjualan_model extends CI_Model
         return TRUE;
     }
 
-     public function hapusbarangkeranjang($idd)
+    public function hapusbarangkeranjang($idd)
     {
         $query = $this->db->get_where('keranjang_detail', array('id' => $idd), 1);
         $idkeranjang = $query->row()->id_keranjang;
@@ -462,7 +470,7 @@ class Penjualan_model extends CI_Model
             $this->simpan_keranjang($idkeranjang, $kode, 1, $racikan);
         } else {
             $idkeranjang = $query->row()->id;
-            $this->simpan_keranjang($idkeranjang, $kode, 1, $racikan);
+            $this->simpan_keranjang($idkeranjang, $kode, 1, $racikan,$query->row()->jenis_penjualan);
         }
     }
 
@@ -470,126 +478,161 @@ class Penjualan_model extends CI_Model
     {
         return $this->db->get_where('keranjang', array('hold' => '0', 'id_admin' => $this->session->userdata('idadmin')), 1);
     }
-    public function detail_keranjang($idd)
+    public function ubahhargakeranjang($statppn,$idd)
     {
-        $this->db->select("a.nama_item,b.kode_item, b.id, b.kuantiti, b.diskon, b.harga, b.total, b.id_keranjang");
-        $this->db->from("master_item a");
-        $this->db->join('keranjang_detail b', 'b.kode_item = a.kode_item');
-        $this->db->where('b.id_keranjang', $idd);
-        $this->db->order_by('b.id', 'DESC');
-        return $this->db->get();
+       $this->db->trans_start();
+       $this->db->select("a.nama_item,b.kode_item, b.id, b.kuantiti, b.diskon, b.harga, b.total, b.id_keranjang");
+       $this->db->from("master_item a");
+       $this->db->join('keranjang_detail b', 'b.kode_item = a.kode_item');
+       $this->db->where('b.id_keranjang', $idd);
+       $this->db->order_by('b.id', 'DESC');
+       $keranjang = $this->db->get();
+       if($keranjang->num_rows() > 0){      
+        foreach($keranjang->result_array() as $r) {
+            $this->db->select('*');
+            $this->db->from('master_item');
+             $this->db->where('kode_item', $r['kode_item']);
+            $dataitem = $this->db->get()->result_array()[0];
+            if ($statppn=='online') {
+                $harga=$dataitem['harga_jual2'];
+            }else{
+                $harga = $dataitem['harga_jual'];
+            }
+            $total = ($harga * $r['kuantiti']) - ($r['diskon'] * $r['kuantiti']);
+            $this->db->where('id_keranjang', $idd);
+            $this->db->where('kode_item', $r['kode_item']);
+            $this->db->update('keranjang_detail',array('harga' => $harga,
+                                                        'total' => $total ));
+        }    
     }
+    $this->db->where('id', $idd);
+    $this->db->update('keranjang',array('jenis_penjualan' => $statppn )); 
+    if($this->db->trans_status() === FALSE){
+       $this->db->trans_rollback();
+   }else{
+       $this->db->trans_complete();
+   }
+}
+public function detail_keranjang($idd)
+{
+    $this->db->select("a.nama_item,b.kode_item, b.id, b.kuantiti, b.diskon, b.harga, b.total, b.id_keranjang");
+    $this->db->from("master_item a");
+    $this->db->join('keranjang_detail b', 'b.kode_item = a.kode_item');
+    $this->db->where('b.id_keranjang', $idd);
+    $this->db->order_by('b.id', 'DESC');
+    return $this->db->get();
+}
 
-    public function rulesholdtransaksi()
-    {
-        return [
-            [
-                'field' => 'keterangan_hold',
-                'label' => 'Keterangan',
-                'rules' => 'required',
-            ]
-        ];
-    }
-    public function holdtransaksi()
-    {
-        $post = $this->input->post();
-        $this->hold = '1';
-        $this->keterangan_hold = $post['keterangan_hold'];
-        $this->waktu_hold = time();
-        return $this->db->update("keranjang", $this, array('hold' => '0', 'token' => $this->security->get_csrf_hash(), 'id_admin' => $this->session->userdata('idadmin')));
-    }
+public function rulesholdtransaksi()
+{
+    return [
+        [
+            'field' => 'keterangan_hold',
+            'label' => 'Keterangan',
+            'rules' => 'required',
+        ]
+    ];
+}
+public function holdtransaksi()
+{
+    $post = $this->input->post();
+    $this->hold = '1';
+    $this->keterangan_hold = $post['keterangan_hold'];
+    $this->waktu_hold = time();
+    return $this->db->update("keranjang", $this, array('hold' => '0', 'token' => $this->security->get_csrf_hash(), 'id_admin' => $this->session->userdata('idadmin')));
+}
 
-    public function bukaholdtransaksi($idkeranjang)
-    {
-        $this->hold = '0';
-        return $this->db->update("keranjang", $this, array('id' => $idkeranjang, 'hold' => '1', 'token' => $this->security->get_csrf_hash(), 'id_admin' => $this->session->userdata('idadmin')));
-    }
+public function bukaholdtransaksi($idkeranjang)
+{
+    $this->hold = '0';
+    return $this->db->update("keranjang", $this, array('id' => $idkeranjang, 'hold' => '1', 'token' => $this->security->get_csrf_hash(), 'id_admin' => $this->session->userdata('idadmin')));
+}
 
-    public function bankjenis($jenis)
-    {
-        return $this->db->get_where('master_bank', array('jenis' => $jenis));
-    }
+public function bankjenis($jenis)
+{
+    return $this->db->get_where('master_bank', array('jenis' => $jenis));
+}
 
-    public function rulestargetedit()
-    {
-        return [
-            [
-                'field' => 'target1',
-                'label' => 'Target Harian',
-                'rules' => 'required',
-            ],
-            [
-                'field' => 'target2',
-                'label' => 'Target Mingguan',
-                'rules' => 'required',
-            ],
-            [
-                'field' => 'target3',
-                'label' => 'Target Bulanan',
-                'rules' => 'required',
-            ],
-        ];
-    }
-    public function updatedatatarget()
-    {
-        $post = $this->input->post();
-        $this->target_1 = bilanganbulat($post["target1"]);
-        $this->target_2 = bilanganbulat($post["target2"]);
-        $this->target_3 = bilanganbulat($post["target3"]);
+public function rulestargetedit()
+{
+    return [
+        [
+            'field' => 'target1',
+            'label' => 'Target Harian',
+            'rules' => 'required',
+        ],
+        [
+            'field' => 'target2',
+            'label' => 'Target Mingguan',
+            'rules' => 'required',
+        ],
+        [
+            'field' => 'target3',
+            'label' => 'Target Bulanan',
+            'rules' => 'required',
+        ],
+    ];
+}
+public function updatedatatarget()
+{
+    $post = $this->input->post();
+    $this->target_1 = bilanganbulat($post["target1"]);
+    $this->target_2 = bilanganbulat($post["target2"]);
+    $this->target_3 = bilanganbulat($post["target3"]);
 
-        return $this->db->update("master_target", $this, array('id' => '1'));
-    }
+    return $this->db->update("master_target", $this, array('id' => '1'));
+}
 
 
-    private function _kode_penjualan()
-    {
-        $jumlah = $this->db->select('*')->from('penjualan')->get()->num_rows();
-        $jml_baru = $jumlah + 1;
-        $kode = sprintf("%06s", $jml_baru);
-        $kode = date('dmy') . $kode;
-        $cek_ada = $this->db->select('*')->from('penjualan')->where('id ="' . $kode . '"')->get()->num_rows();
-        if ($cek_ada > 0) {
-            return $this->_kode_penjualan();
-        } else {
-            return $kode;
-        }
+private function _kode_penjualan()
+{
+    $jumlah = $this->db->select('*')->from('penjualan')->get()->num_rows();
+    $jml_baru = $jumlah + 1;
+    $kode = sprintf("%06s", $jml_baru);
+    $kode = date('dmy') . $kode;
+    $cek_ada = $this->db->select('*')->from('penjualan')->where('id ="' . $kode . '"')->get()->num_rows();
+    if ($cek_ada > 0) {
+        return $this->_kode_penjualan();
+    } else {
+        return $kode;
     }
-    
-    function submitpaymentv2($data)
-    {       
-        $this->db->trans_begin();
+}
+
+function submitpaymentv2($data)
+{       
+    $this->db->trans_begin();
        // $post = $this->input->post();
-        $keranjang = $this->db->get_where('keranjang', array('hold' => '0','id_admin' => $this->session->userdata('idadmin')), 1);
-        $kode_penjualan = $this->_kode_penjualan();
-        $array = array(
-            'id' => $kode_penjualan,
-            'id_pembeli' => $keranjang->row()->id_pembeli,
-            'id_admin' => $this->session->userdata('idadmin'),
-            'total' => $keranjang->row()->total,
-            'tanggal' => date('Y-m-d'),
-            'id_admin' => $this->session->userdata('idadmin'),
-            'tanggal_jam' => date('Y-m-d H:i:s'),
-            'retur' => '0'
-        );
+    $keranjang = $this->db->get_where('keranjang', array('hold' => '0','id_admin' => $this->session->userdata('idadmin')), 1);
+    $kode_penjualan = $this->_kode_penjualan();
+    $array = array(
+        'id' => $kode_penjualan,
+        'id_pembeli' => $keranjang->row()->id_pembeli,
+        'id_admin' => $this->session->userdata('idadmin'),
+        'total' => $keranjang->row()->total,
+        'tanggal' => date('Y-m-d'),
+        'id_admin' => $this->session->userdata('idadmin'),
+        'tanggal_jam' => date('Y-m-d H:i:s'),
+        'retur' => '0'
+    );
 
-        $this->db->insert("penjualan", $array);
-        $cashinout = array(
-            'kode_rekening' => '10001',
-            'tanggal' => date('Y-m-d'),
-            'masuk' => $keranjang->row()->total,
+    $this->db->insert("penjualan", $array);
+    $cashinout = array(
+        'kode_rekening' => '10001',
+        'tanggal' => date('Y-m-d'),
+        'masuk' => $keranjang->row()->total,
+        'id_penjualan' => $kode_penjualan,
+    );
+    $this->db->insert("cash_in_out", $cashinout);
+
+    $cara_bayar_1 = $data['status'];
+    if ($cara_bayar_1 == 'cash') {
+        $pembayaran_1 = array(
             'id_penjualan' => $kode_penjualan,
+            'nominal' => bilanganbulat($data['totalbayar']),
+            'cara_bayar' => 'cash',
+            'catatan' =>'',
         );
-        $this->db->insert("cash_in_out", $cashinout);
-
-        $cara_bayar_1 = $data['status'];
-        if ($cara_bayar_1 == 'cash') {
-            $pembayaran_1 = array(
-                'id_penjualan' => $kode_penjualan,
-                'nominal' => bilanganbulat($data['totalbayar']),
-                'cara_bayar' => 'cash',
-                'catatan' =>'',
-            );
-            $this->db->insert("penjualan_pembayaran", $pembayaran_1);
+        $this->db->insert("penjualan_pembayaran", $pembayaran_1);
 
     } else {//kredit
         $pembayaran_1 = array(
@@ -633,17 +676,17 @@ class Penjualan_model extends CI_Model
             'total' => $r['total'],
         );
         $this->db->insert("penjualan_detail", $keranjangdetail_input);
-            $stok_input = array(
-                'id_penjualan' => $kode_penjualan,
-                'kode_item' => $r['kode_item'],
-                'tanggal' => date('Y-m-d'),
-                'jenis_transaksi' => 'penjualan',
-                'jumlah_keluar' => $r['kuantiti'],
+        $stok_input = array(
+            'id_penjualan' => $kode_penjualan,
+            'kode_item' => $r['kode_item'],
+            'tanggal' => date('Y-m-d'),
+            'jenis_transaksi' => 'penjualan',
+            'jumlah_keluar' => $r['kuantiti'],
                 // 'tgl_expired' => $stok->row()->tgl_expired,
-            );
-            $this->db->insert("kartu_stok", $stok_input);
+        );
+        $this->db->insert("kartu_stok", $stok_input);
     }
-  
+
     $profil = $this->db->get_where('profil_apotek', array('id' => '1'));
     $date = tgl_indo(date('Y-m-d')) . " " . date('H:i:s');
     $this->db->where('id', $keranjang->row()->id)->delete('keranjang');

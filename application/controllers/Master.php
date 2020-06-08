@@ -441,6 +441,7 @@ class Master extends CI_Controller {
             $row[] = $this->security->xss_clean($r->nama_kategori);    
             $row[] = $this->security->xss_clean(rupiah($r->harga_beli)); 
             $row[] = $this->security->xss_clean(rupiah($r->harga_jual));
+            $row[] = $this->security->xss_clean(rupiah($r->harga_jual2));
             $row[] = $this->security->xss_clean(date('d M Y',strtotime($r->tgl_expired)));
             $data[] = $row;
         } 

@@ -55,7 +55,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <?php 
 if ($this->input->get('statppn')=='nonppn') {
 	$statppn='nonppn';
-}else{
+}elseif ($this->input->get('statppn')=='online') {
+	$statppn='online';
+}
+else{
 	$statppn='ppn';
 }
 
@@ -145,6 +148,7 @@ if ($this->input->get('stattrans')=='dinein') {
 												<select class="form-control cara_bayar" name="statppn" id="statppn" onchange='this.form.submit()'>
 													<option value="ppn">PPN</option>
 													<option <?php if ($statppn == 'nonppn' ) echo 'selected' ; ?> value="nonppn">NonPPN</option>
+													<option <?php if ($statppn == 'online' ) echo 'selected' ; ?> value="online">online</option>
 												</select> 
 											</div>
 										</div>
@@ -828,6 +832,7 @@ if ($this->input->get('stattrans')=='dinein') {
 		
 		function beli(elem){            	 
 			var kodebarcode = $(elem).data("barcode");   
+			var statppn = '<?php echo $statppn; ?>';
 			document.getElementById("beli-item"+kodebarcode).setAttribute('disabled','disabled'); 
 			var pembeli = document.getElementById("customer_dipilih").value; 
 			if(kodebarcode != ''){  

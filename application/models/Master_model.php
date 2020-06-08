@@ -550,6 +550,7 @@ class Master_model extends CI_Model{
             'nama_item'=>$post["nama_item"], 
             'keterangan'=>$post["keterangan"], 
             'harga_jual'=>bilanganbulat($post["harga_jual"]),
+            'harga_jual2'=>bilanganbulat($post["harga_jual2"]),
             'harga_beli'=>bilanganbulat($post["harga_beli"]),
             'netto'=>$post["netto"],  
             'stok'=>$post["stok"],  
@@ -571,6 +572,7 @@ class Master_model extends CI_Model{
         $this->stok = $post["stok"];  
         $this->tgl_expired = $post["tanggal_expired"];
         $this->harga_jual = bilanganbulat($post["harga_jual"]); 
+        $this->harga_jual2 = bilanganbulat($post["harga_jual2"]); 
         $this->harga_beli = bilanganbulat($post["harga_beli"]); 
         if (!empty($_FILES["gambar"]["name"])) {
             $this->gambar = $this->_uploadGambarProduk();

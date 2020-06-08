@@ -321,11 +321,10 @@ public function update_pembeli(){
     if($pembeli==''){
         $pembeli = NULL;
     }
-    $query = $this->db->get_where('keranjang', array('hold' => '0','token' => $this->security->get_csrf_hash(),'id_admin' => $this->session->userdata('idadmin')),1);
+    $query = $this->db->get_where('keranjang', array('hold' => '0','id_admin' => $this->session->userdata('idadmin')),1);
     $idkeranjang = $query->row()->id;
     if($query->num_rows() < 1){
-        $array = array(
-            'token'=>$this->security->get_csrf_hash(), 
+        $array = array( 
             'tanggal_jam'=>date('Y-m-d h:i:s'), 
             'id_admin'=>$this->session->userdata('idadmin'),  
             'id_pembeli'=>$pembeli, 
@@ -511,14 +510,24 @@ public function datahold()
    );  
     echo json_encode($result);  
 }
-
+public function cekquery()
+{
+    echo "<pre>";
+    print_r ($this->db->last_query());
+    echo "</pre>";
+}
 public function keranjangdetail($statppn=''){  
     cekajax();
     $result =  array();   
     $arraysub=   array();  
+   
     $query = $this->penjualan_model->get_keranjang();   
-    if($query->num_rows() > 0){   
+    if($query->num_rows() > 0){ 
+        if ($query->row()->jenis_penjualan!=$statppn) {
+            $this->penjualan_model->ubahhargakeranjang($statppn,$query->row()->id);
+        }
         $kuantiti = 0;
+         $total_harga_item=0;
         $detailkeranjang = $this->penjualan_model->detail_keranjang($query->row()->id); 
         if($detailkeranjang->num_rows() > 0){      
             foreach($detailkeranjang->result_array() as $r) {   
@@ -529,18 +538,19 @@ public function keranjangdetail($statppn=''){
                 $subArray['harga']=$this->security->xss_clean(rupiah($r['harga'])); 
                 $subArray['diskon']=$this->security->xss_clean(rupiah($r['diskon']));
                 $subArray['kuantiti']=$this->security->xss_clean($r['kuantiti']);
-                $subArray['total']=$this->security->xss_clean(rupiah($r['total'])); 
+                $subArray['total']=$this->security->xss_clean(rupiah($r['harga']*$r['kuantiti'])); 
                 $subArray['id_keranjang']=$this->security->xss_clean($r['id_keranjang']);
                 $arraysub[] =  $subArray ;  
+                $total_harga_item+=$r['harga']*$r['kuantiti'];
             }    
         } 
         if ($statppn=='ppn') {
-            $totalbayar = $query->row()->total+(0.1*$query->row()->total);
+            $totalbayar = $total_harga_item+(0.1*$total_harga_item);
         }else{
-            $totalbayar=$query->row()->total;
+            $totalbayar=$total_harga_item;
         }
         $result = array(  
-            "total_harga_item" => $this->security->xss_clean(rupiah($query->row()->total_harga_item)),
+            "total_harga_item" => $this->security->xss_clean(rupiah($total_harga_item)),
             "total" => $this->security->xss_clean(rupiah($totalbayar)), 
             "totalInt" => $this->security->xss_clean($totalbayar), 
             "totalKuantiti" => $this->security->xss_clean($kuantiti), 
