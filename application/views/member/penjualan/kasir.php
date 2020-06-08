@@ -664,7 +664,11 @@ if ($this->input->get('stattrans')=='dinein') {
 							<table class="table table-hover mb-none">
 								<tr>
 									<th>
-										<h4>Total Belanja + PPN </h4></th>
+										<?php if ($statppn=='ppn'): ?>
+											<h4>Total Belanja + PPN </h4></th>
+											<?php else: ?>
+												<h4>Total Belanja</h4></th>
+										<?php endif ?>
 										<th>
 											<h4 class="text-dark" id="TotalBelanja"></h4>
 											<input type="hidden" id="TotalBelanjaInt">
