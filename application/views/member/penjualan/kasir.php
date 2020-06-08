@@ -138,20 +138,28 @@ if ($this->input->get('stattrans')=='dinein') {
 								<!-- <input type="text" class="form-control" value="Walk in Customer" readonly="" id="customer"> -->
 								<input type="hidden" name="customer" id="customer_dipilih">
 								<form>
-									<div class="form-group">
-										<label class="control-label">Jenis Penjualan</label>
-										<select class="form-control cara_bayar" name="statppn" id="statppn" onchange='this.form.submit()'>
-											<option value="ppn">PPN</option>
-											<option <?php if ($statppn == 'nonppn' ) echo 'selected' ; ?> value="nonppn">NonPPN</option>
-										</select> 
+									<div class="row">
+										<div class="col-md-5">
+											<div class="form-group">
+												<label class="control-label">Jenis Penjualan</label>
+												<select class="form-control cara_bayar" name="statppn" id="statppn" onchange='this.form.submit()'>
+													<option value="ppn">PPN</option>
+													<option <?php if ($statppn == 'nonppn' ) echo 'selected' ; ?> value="nonppn">NonPPN</option>
+												</select> 
+											</div>
+										</div>
+										<div class="col-md-5">
+											<div class="form-group">
+												<label class="control-label">Jenis Transaksi</label>
+												<select class="form-control cara_bayar" name="stattrans" id="stattrans" onchange='this.form.submit()'>
+													<option value="dinein">Dine In</option>
+													<option <?php if ($stattrans == 'takeaway' ) echo 'selected' ; ?> value="takeaway">Take Away</option>
+												</select> 
+											</div>
+										</div>
 									</div>
-									<div class="form-group">
-										<label class="control-label">Jenis Transaksi</label>
-										<select class="form-control cara_bayar" name="stattrans" id="stattrans" onchange='this.form.submit()'>
-											<option value="dinein">Dine In</option>
-											<option <?php if ($stattrans == 'takeaway' ) echo 'selected' ; ?> value="takeaway">Take Away</option>
-										</select> 
-									</div>
+									
+									
 								</form>
 							<!-- 	<div class="input-group-btn">
 									<button tabindex="-1" class="btn btn-primary" type="button">Pembeli</button>
@@ -1184,147 +1192,147 @@ if ($this->input->get('stattrans')=='dinein') {
             })
             
 
-   document.getElementById("Batalkan").addEventListener("click", function (e) { 
-   	PNotify.removeAll();
-   	$.ajax({
-   		type: 'GET',
-   		url: '<?php echo base_url()?>penjualan/canceltransaksi', 
-   		dataType 	: 'json',
-   		success: function(response) {   
-   			window.setTimeout(function() {  
-   				new PNotify({
-   					title: 'Notifikasi',
-   					text: 	'Berhasil mereset transaksi',
-   					type: 'success',
-   					addclass: 'stack-bottomright',
-   					stack: stack_bottomright
-   				}); 
-   				keranjang()				  
-   				$('#customer').val('Walk in Customer');
-   				$('#customer_dipilih').val('');
-   				$('#modalHapus').modal('hide');
-   			}, 500); 
-   		}
-   	});
-   });
+            document.getElementById("Batalkan").addEventListener("click", function (e) { 
+            	PNotify.removeAll();
+            	$.ajax({
+            		type: 'GET',
+            		url: '<?php echo base_url()?>penjualan/canceltransaksi', 
+            		dataType 	: 'json',
+            		success: function(response) {   
+            			window.setTimeout(function() {  
+            				new PNotify({
+            					title: 'Notifikasi',
+            					text: 	'Berhasil mereset transaksi',
+            					type: 'success',
+            					addclass: 'stack-bottomright',
+            					stack: stack_bottomright
+            				}); 
+            				keranjang()				  
+            				$('#customer').val('Walk in Customer');
+            				$('#customer_dipilih').val('');
+            				$('#modalHapus').modal('hide');
+            			}, 500); 
+            		}
+            	});
+            });
 
-   document.getElementById("FormulirHold").addEventListener("submit", function (e) {  
-   	blurForm();        
-   	$('.help-block').hide();
-   	$('.form-group').removeClass('has-error');
-   	document.getElementById("submitformHold").setAttribute('disabled','disabled');
-   	$('#submitformHold').html('Loading ...');
-   	var form = $('#FormulirHold')[0];
-   	var formData = new FormData(form);
-   	var xhrAjax = $.ajax({
-   		type 		: 'POST',
-   		url 		: $(this).attr('action'),
-   		data 		: formData, 
-   		processData: false,
-   		contentType: false,
-   		cache: false, 
-   		dataType 	: 'json'
-   	}).done(function(data) { 
-   		if ( ! data.success) {		 
-   			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
-   			window.setTimeout(function() {  
-   				document.getElementById("submitformHold").removeAttribute('disabled');  
-   				$('#submitformHold').html('Ya, Saya Yakin');     
-   				var objek = Object.keys(data.errors);  
-   				for (var key in data.errors) {
-   					if (data.errors.hasOwnProperty(key)) { 
-   						var msg = '<div class="help-block" for="'+key+'">'+data.errors[key]+'</span>';
-   						$('.'+key).addClass('has-error');
-   						$('textarea[name="' + key + '"]').after(msg);  
-   					}
-   				}
-   			}, 500);
-   			return false;
-   		} else { 
-   			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
-   			PNotify.removeAll();  
-   			keranjang()	;  
-   			tablehold.ajax.reload();  
-   			document.getElementById("submitformHold").removeAttribute('disabled'); 
-   			$('#modalHold').modal('hide');        
-   			document.getElementById("FormulirHold").reset();    
-   			$('#submitformHold').html('Ya, Saya Yakin'); 
-   			window.setTimeout(function() {  
-   				new PNotify({
-   					title: 'Notifikasi',
-   					text: 	'Berhasil hold transaksi',
-   					type: 'success',
-   					addclass: 'stack-bottomright',
-   					stack: stack_bottomright
-   				}); 			  
-   				$('#customer').val('Walk in Customer');
-   				$('#customer_dipilih').val('');
-   				$('#modalHold').modal('hide');
-   			}, 500); 
-   		}
-   	}).fail(function(data) {   
-   		alert('request gagal');
-   		location.reload();
-   	}); 
-   	e.preventDefault(); 
-   }); 
+            document.getElementById("FormulirHold").addEventListener("submit", function (e) {  
+            	blurForm();        
+            	$('.help-block').hide();
+            	$('.form-group').removeClass('has-error');
+            	document.getElementById("submitformHold").setAttribute('disabled','disabled');
+            	$('#submitformHold').html('Loading ...');
+            	var form = $('#FormulirHold')[0];
+            	var formData = new FormData(form);
+            	var xhrAjax = $.ajax({
+            		type 		: 'POST',
+            		url 		: $(this).attr('action'),
+            		data 		: formData, 
+            		processData: false,
+            		contentType: false,
+            		cache: false, 
+            		dataType 	: 'json'
+            	}).done(function(data) { 
+            		if ( ! data.success) {		 
+            			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
+            			window.setTimeout(function() {  
+            				document.getElementById("submitformHold").removeAttribute('disabled');  
+            				$('#submitformHold').html('Ya, Saya Yakin');     
+            				var objek = Object.keys(data.errors);  
+            				for (var key in data.errors) {
+            					if (data.errors.hasOwnProperty(key)) { 
+            						var msg = '<div class="help-block" for="'+key+'">'+data.errors[key]+'</span>';
+            						$('.'+key).addClass('has-error');
+            						$('textarea[name="' + key + '"]').after(msg);  
+            					}
+            				}
+            			}, 500);
+            			return false;
+            		} else { 
+            			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
+            			PNotify.removeAll();  
+            			keranjang()	;  
+            			tablehold.ajax.reload();  
+            			document.getElementById("submitformHold").removeAttribute('disabled'); 
+            			$('#modalHold').modal('hide');        
+            			document.getElementById("FormulirHold").reset();    
+            			$('#submitformHold').html('Ya, Saya Yakin'); 
+            			window.setTimeout(function() {  
+            				new PNotify({
+            					title: 'Notifikasi',
+            					text: 	'Berhasil hold transaksi',
+            					type: 'success',
+            					addclass: 'stack-bottomright',
+            					stack: stack_bottomright
+            				}); 			  
+            				$('#customer').val('Walk in Customer');
+            				$('#customer_dipilih').val('');
+            				$('#modalHold').modal('hide');
+            			}, 500); 
+            		}
+            	}).fail(function(data) {   
+            		alert('request gagal');
+            		location.reload();
+            	}); 
+            	e.preventDefault(); 
+            }); 
 
 
-   document.getElementById("FormulirPayment").addEventListener("submit", function (e) {  
-   	blurForm();        
-   	document.getElementById("submitPayment").setAttribute('disabled','disabled');
-   	$('#submitPayment').html('Loading ...');
-   	var form = $('#FormulirPayment')[0];
-   	var formData = new FormData(form);
-   	var xhrAjax = $.ajax({
-   		type 		: 'POST',
-   		url 		: $(this).attr('action'),
-   		data 		: formData, 
-   		processData: false,
-   		contentType: false,
-   		cache: false, 
-   		dataType 	: 'json'
-   	}).done(function(data) { 
-   		if ( ! data.success) {	 
-   			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
-   			$('#submitPayment').html('Submit Payment');    
-   			var objek = Object.keys(data.errors);  
-   			for (var key in data.errors) { 
-   				if (key == 'fail') {   
-   					new PNotify({
-   						title: 'Notifikasi',
-   						text: data.errors[key],
-   						type: 'danger'
-   					}); 
-   				}
-   			}
-   		} else {   
-   			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
-   			PNotify.removeAll();    
-   			document.getElementById("FormulirPayment").reset();  
-   			$('#submitPayment').html('Submit Payment');   
-   			new PNotify({
-   				title: 'Notifikasi',
-   				text: data.message,
-   				type: 'success'
-   			});     
-   			keranjang()				  
-   			$('#customer').val('Walk in Customer');
-   			$('#customer_dipilih').val(''); 
-   			$('#modal-payment').modal('hide'); 
-   		}
-   	}).fail(function(data) {   
-   		new PNotify({
-   			title: 'Notifikasi',
-   			text: "Request gagal, browser akan direload",
-   			type: 'danger'
-   		}); 
-   		window.setTimeout(function() {  location.reload();}, 2000);
-   	}); 
-   	e.preventDefault(); 
-   }); 
+            document.getElementById("FormulirPayment").addEventListener("submit", function (e) {  
+            	blurForm();        
+            	document.getElementById("submitPayment").setAttribute('disabled','disabled');
+            	$('#submitPayment').html('Loading ...');
+            	var form = $('#FormulirPayment')[0];
+            	var formData = new FormData(form);
+            	var xhrAjax = $.ajax({
+            		type 		: 'POST',
+            		url 		: $(this).attr('action'),
+            		data 		: formData, 
+            		processData: false,
+            		contentType: false,
+            		cache: false, 
+            		dataType 	: 'json'
+            	}).done(function(data) { 
+            		if ( ! data.success) {	 
+            			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
+            			$('#submitPayment').html('Submit Payment');    
+            			var objek = Object.keys(data.errors);  
+            			for (var key in data.errors) { 
+            				if (key == 'fail') {   
+            					new PNotify({
+            						title: 'Notifikasi',
+            						text: data.errors[key],
+            						type: 'danger'
+            					}); 
+            				}
+            			}
+            		} else {   
+            			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
+            			PNotify.removeAll();    
+            			document.getElementById("FormulirPayment").reset();  
+            			$('#submitPayment').html('Submit Payment');   
+            			new PNotify({
+            				title: 'Notifikasi',
+            				text: data.message,
+            				type: 'success'
+            			});     
+            			keranjang()				  
+            			$('#customer').val('Walk in Customer');
+            			$('#customer_dipilih').val(''); 
+            			$('#modal-payment').modal('hide'); 
+            		}
+            	}).fail(function(data) {   
+            		new PNotify({
+            			title: 'Notifikasi',
+            			text: "Request gagal, browser akan direload",
+            			type: 'danger'
+            		}); 
+            		window.setTimeout(function() {  location.reload();}, 2000);
+            	}); 
+            	e.preventDefault(); 
+            }); 
 
-</script>
+        </script>
 
-</body>
-</html>
+    </body>
+    </html>
