@@ -1169,33 +1169,7 @@ if ($this->input->get('statppn')=='nonppn') {
 
             	}          	
             })
-            $(document).on('click','#modal-payment #paymenttransaksikredit',function(e) { // tombol paymenttransaksikredit sg ono ng modal payment
-            	// e.preventDefault()
-            	var totalbayar=$("#totalbayar").val().replace(/\./g, "");
-            	var totalbelanja = document.getElementById("TotalBelanjaInt").value; 
-
-            	if (Number(totalbayar)>=Number(totalbelanja)) {
-            		window.setTimeout(function() {  
-            			new PNotify({
-            				title: 'Notifikasi',
-            				text: 	'Maaf, total bayar lebih dari total belanja anda',
-            				type: 'warning',
-            				addclass: 'stack-bottomright',
-            				stack: stack_bottomright
-            			}); 
-            		}, 500); 
-            	}
-            })
-			// function struk(){
-   //          	var url = '<?=base_url()?>penjualan/struk?t=' + idk;
-			// 	window.location.href = url;
-			// 	// $('#FormulirHold').a
-   //      	}
-
-			// function struk_k(){
-   //          	var url = '<?=base_url()?>penjualan/struk_kredit?t=' + idk;
-			// 	window.location.href = url;
-   //      	}
+            
 
    document.getElementById("Batalkan").addEventListener("click", function (e) { 
    	PNotify.removeAll();
