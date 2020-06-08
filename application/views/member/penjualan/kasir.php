@@ -149,7 +149,7 @@ if ($this->input->get('stattrans')=='dinein') {
 										<label class="control-label">Jenis Transaksi</label>
 										<select class="form-control cara_bayar" name="stattrans" id="stattrans" onchange='this.form.submit()'>
 											<option value="dinein">Dine In</option>
-											<option <?php if ($stattrans == 'takeaway' ) echo 'selected' ; ?> value="takeaway">NonPPN</option>
+											<option <?php if ($stattrans == 'takeaway' ) echo 'selected' ; ?> value="takeaway">Take Away</option>
 										</select> 
 									</div>
 								</form>
