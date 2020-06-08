@@ -103,7 +103,7 @@
 	</style>
 	<script type="text/javascript">
 		window.print();
-		setTimeout(function () { window.close(); }, 3000);
+		setTimeout(function () { window.close(); }, 2000);
 	</script>
 
 </head>

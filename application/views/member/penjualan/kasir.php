@@ -575,12 +575,7 @@ if ($this->input->get('statppn')=='nonppn') {
 													<!-- </select>  -->
 												</div>
 											</div>
-											<div class="col-md-6">
-												<div class="form-group"> 
-													<label class="control-label">Tanggal Jatuh Tempo</label>
-													<input type="text" autocomplete="off" name="tanggal_jatuh_tempo" id="datepicker" class="form-control datepicker">
-												</div>
-											</div> 
+											
 
 
 										</div>
@@ -1159,7 +1154,7 @@ if ($this->input->get('statppn')=='nonppn') {
             		var pegawai;
             		pegawai = $("#nama_pegawai").val(); 
 
-            		$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar)
+            		$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar,'_blank')
             		.submit()
             	}else{
             		window.setTimeout(function() {  
@@ -1178,7 +1173,6 @@ if ($this->input->get('statppn')=='nonppn') {
             	// e.preventDefault()
             	var totalbayar=$("#totalbayar").val().replace(/\./g, "");
             	var totalbelanja = document.getElementById("TotalBelanjaInt").value; 
-            	var tanggal_jatuh_tempo = document.getElementById("datepicker").value; 
 
             	if (Number(totalbayar)>=Number(totalbelanja)) {
             		window.setTimeout(function() {  
@@ -1190,25 +1184,6 @@ if ($this->input->get('statppn')=='nonppn') {
             				stack: stack_bottomright
             			}); 
             		}, 500); 
-            	}else{
-            		if (tanggal_jatuh_tempo!=null) {
-            			var tmp=$("#datepicker").val(); 
-            			var pegawai;
-            			pegawai = $("#nama_pegawai").val(); 
-
-            			$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk_kredit?t='+idk+'&pegawai='+pegawai+'&tmp='+tmp+'&idd='+idkd+'&bayar='+totalbayar)
-            			.submit()
-            		}else{
-            			window.setTimeout(function() {  
-            				new PNotify({
-            					title: 'Notifikasi',
-            					text: 	'Maaf, periksa inputan tanggal jatuh tempo anda',
-            					type: 'warning',
-            					addclass: 'stack-bottomright',
-            					stack: stack_bottomright
-            				}); 
-            			}, 500); 
-            		}
             	}
             })
 			// function struk(){
