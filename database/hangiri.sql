@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 08, 2020 at 02:55 AM
+-- Generation Time: Jun 09, 2020 at 01:37 AM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -320,15 +320,16 @@ CREATE TABLE `keranjang` (
   `hold` enum('0','1') NOT NULL DEFAULT '0',
   `keterangan_hold` varchar(200) NOT NULL,
   `waktu_hold` varchar(50) NOT NULL,
-  `status` int(1) NOT NULL DEFAULT '0'
+  `status` int(1) NOT NULL DEFAULT '0',
+  `jenis_penjualan` enum('ppn','nonppn','online','') NOT NULL DEFAULT 'ppn'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `keranjang`
 --
 
-INSERT INTO `keranjang` (`id`, `tanggal_jam`, `id_admin`, `id_pembeli`, `total_harga_item`, `total`, `hold`, `keterangan_hold`, `waktu_hold`, `status`) VALUES
-(7, '2020-06-07 11:05:50', 1, NULL, '44985', '44985', '0', '', '', 0);
+INSERT INTO `keranjang` (`id`, `tanggal_jam`, `id_admin`, `id_pembeli`, `total_harga_item`, `total`, `hold`, `keterangan_hold`, `waktu_hold`, `status`, `jenis_penjualan`) VALUES
+(7, '2020-06-07 11:05:50', 1, NULL, '0', '0', '0', '', '', 0, 'online');
 
 -- --------------------------------------------------------
 
@@ -346,13 +347,6 @@ CREATE TABLE `keranjang_detail` (
   `kuantiti` float NOT NULL,
   `total` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `keranjang_detail`
---
-
-INSERT INTO `keranjang_detail` (`id`, `id_keranjang`, `kode_item`, `harga_beli`, `harga`, `diskon`, `kuantiti`, `total`) VALUES
-(11, 7, '123', '10000', '15000', '5', 3, '44985');
 
 -- --------------------------------------------------------
 
@@ -437,6 +431,7 @@ CREATE TABLE `master_item` (
   `keterangan` varchar(500) NOT NULL,
   `gambar` varchar(200) NOT NULL DEFAULT 'default.jpg',
   `harga_jual` decimal(10,0) NOT NULL DEFAULT '0',
+  `harga_jual2` decimal(10,0) NOT NULL DEFAULT '0',
   `harga_beli` varchar(10) NOT NULL DEFAULT '0',
   `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `netto` varchar(20) NOT NULL,
@@ -449,9 +444,9 @@ CREATE TABLE `master_item` (
 -- Dumping data for table `master_item`
 --
 
-INSERT INTO `master_item` (`kode_item`, `kategori`, `nama_item`, `keterangan`, `gambar`, `harga_jual`, `harga_beli`, `waktu_update`, `netto`, `stok`, `tgl_expired`, `jenis_item`) VALUES
-('1123', 1, 'beras', '1', '11.png', '12000', '12000', '2020-06-01 23:59:14', '1', 100, '2020-06-30', 'bahan'),
-('123', 0, 'aqua', 'a', '123.png', '15000', '10000', '2020-06-07 15:59:48', '100', 1, '2020-06-01', 'jual');
+INSERT INTO `master_item` (`kode_item`, `kategori`, `nama_item`, `keterangan`, `gambar`, `harga_jual`, `harga_jual2`, `harga_beli`, `waktu_update`, `netto`, `stok`, `tgl_expired`, `jenis_item`) VALUES
+('1123', 1, 'beras', '1', '11.png', '12000', '15000', '12000', '2020-06-08 16:28:51', '1', 100, '2020-06-30', 'bahan'),
+('123', 0, 'aqua', 'a', '123.png', '15000', '17000', '10000', '2020-06-08 16:29:00', '100', 1, '2020-06-01', 'jual');
 
 -- --------------------------------------------------------
 
@@ -1374,12 +1369,12 @@ ALTER TABLE `kategori_user_modul`
 -- AUTO_INCREMENT for table `keranjang`
 --
 ALTER TABLE `keranjang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `keranjang_detail`
 --
 ALTER TABLE `keranjang_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `komisi_detail`
 --
