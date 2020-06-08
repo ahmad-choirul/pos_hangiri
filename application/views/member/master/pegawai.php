@@ -38,7 +38,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="row show-grid">
                                 <div class="col-md-6" align="left"><h2 class="panel-title">Data Pegawai</h2></div>
                                 <?php  
-                                echo level_user('master','spg',$this->session->userdata('kategori'),'add') > 0 ? '<div class="col-md-6" align="right"><a class="btn btn-success" href="#"  data-toggle="modal" data-target="#tambahData"><i class="fa fa-plus"></i> Tambah</a></div>':'';
+                                echo level_user('master','pegawai',$this->session->userdata('kategori'),'add') > 0 ? '<div class="col-md-6" align="right"><a class="btn btn-success" href="#"  data-toggle="modal" data-target="#tambahData"><i class="fa fa-plus"></i> Tambah</a></div>':'';
                                 ?> 
 							</div>
                         </header>
@@ -76,8 +76,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </header>
                     <div class="panel-body">
                             <input type="hidden" name="kategori" value="32">
-                            <input type="hidden" name="id_spg" id="id_spg">
-                            <input type="hidden" name="nama_admin" id="nama_spg_2">
+                            <input type="hidden" name="id_pegawai" id="id_pegawai">
+                            <input type="hidden" name="nama_admin" id="nama_pegawai_2">
                            
                             <div class="form-group mt-lg username">
                                 <label class="col-sm-3 control-label">Username<span class="required">*</span></label>
@@ -85,10 +85,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <input type="text" name="username" class="form-control"/>
                                 </div>
                             </div>
-                            <div class="form-group mt-lg nama_spg">
-                                <label class="col-sm-3 control-label">Nama spg<span class="required">*</span></label>
+                            <div class="form-group mt-lg nama_pegawai">
+                                <label class="col-sm-3 control-label">Nama pegawai<span class="required">*</span></label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="nama_spg" readonly id="nama_spg_akun" class="form-control"/>
+                                    <input type="text" name="nama_pegawai" readonly id="nama_pegawai_akun" class="form-control"/>
                                 </div>
                             </div>
                             <div class="form-group mt-lg password">
@@ -141,7 +141,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="modal-dialog">
                 <div class="modal-content">
                 <section class="panel panel-primary">
-                    <?php echo form_open('master/spgtambah',' id="FormulirTambah"');?>  
+                    <?php echo form_open('master/pegawaitambah',' id="FormulirTambah"');?>  
                     <header class="panel-heading">
                         <h2 class="panel-title">Tambah Apotek</h2>
                     </header>
@@ -152,10 +152,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <input type="text" name="nik" class="form-control" required/>
                                 </div>
                             </div>
-                            <div class="form-group mt-lg nama_spg">
+                            <div class="form-group mt-lg nama_pegawai">
                                 <label class="col-sm-3 control-label">Nama Pegawai<span class="required">*</span></label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="nama_spg" class="form-control" required/>
+                                    <input type="text" name="nama_pegawai" class="form-control" required/>
                                 </div>
                             </div>
                             
@@ -212,7 +212,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="modal-dialog">
                 <div class="modal-content">
                 <section class="panel  panel-primary">
-                    <?php echo form_open('master/spgedit',' id="FormulirEdit"');?>  
+                    <?php echo form_open('master/pegawaiedit',' id="FormulirEdit"');?>  
                     <input type="hidden" name="idd" id="idd">
                     <header class="panel-heading">
                         <h2 class="panel-title">Edit Data Pegawai</h2>
@@ -224,10 +224,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <input type="text" name="nik" id="nik" class="form-control" required/>
                                 </div>
                             </div>
-                            <div class="form-group mt-lg nama_spg">
+                            <div class="form-group mt-lg nama_pegawai">
                                 <label class="col-sm-3 control-label">Nama Pegawai<span class="required">*</span></label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="nama_spg" id="nama_spg" class="form-control" required/>
+                                    <input type="text" name="nama_pegawai" id="nama_pegawai" class="form-control" required/>
                                 </div>
                             </div>
                             
@@ -278,7 +278,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <footer class="panel-footer"> 
                         <div class="row">
                             <div class="col-md-12 text-right"> 
-                                <?php echo form_open('master/spghapus',' id="FormulirHapus"');?>  
+                                <?php echo form_open('master/pegawaihapus',' id="FormulirHapus"');?>  
                                 <input type="hidden" name="idd" id="idddelete">
                                 <button type="submit" class="btn btn-danger" id="submitformHapus">Delete</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -313,7 +313,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 "serverSide": true, 
                 "order": [], 
                 "ajax": {
-                    "url": "<?php echo base_url()?>master/dataspg",
+                    "url": "<?php echo base_url()?>master/datapegawai",
                     "type": "GET"
                 }, 
                 "columnDefs": [
@@ -385,11 +385,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 e.preventDefault(); 
             }); 
               function daftar_akun(elem){
-      var dataId = $(elem).data("id_spg");   
-      var datanama = $(elem).data("nama_spg");   
-      document.getElementById("id_spg").setAttribute('value', dataId);
-      document.getElementById("nama_spg_akun").setAttribute('value', datanama);
-      document.getElementById("nama_spg_2").setAttribute('value', datanama);
+      var dataId = $(elem).data("id_pegawai");   
+      var datanama = $(elem).data("nama_pegawai");   
+      document.getElementById("id_pegawai").setAttribute('value', dataId);
+      document.getElementById("nama_pegawai_akun").setAttribute('value', datanama);
+      document.getElementById("nama_pegawai_2").setAttribute('value', datanama);
       $('#daftar_akun').modal();        
       return false;
   }
@@ -399,7 +399,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 $('#showdetail').html('Loading...'); 
                 $.ajax({
                     type: 'GET',
-                    url: '<?php echo base_url()?>master/spgdetail',
+                    url: '<?php echo base_url()?>master/pegawaidetail',
                     data: 'id=' + dataId,
                     dataType 	: 'json',
                     success: function(response) { 
@@ -407,7 +407,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $.each(response, function(i, item) {
                             datarow+='<table class="table table-bordered table-hover table-striped dataTable no-footer">';
 							datarow+="<tr><td>NIK</td><td>: "+item.nik+"</td></tr>";
-                            datarow+="<tr><td>Nama SPG</td><td>: "+item.nama_spg+"</td></tr>";
+                            datarow+="<tr><td>Nama pegawai</td><td>: "+item.nama_pegawai+"</td></tr>";
                             datarow+="<tr><td>Alamat</td><td>: "+item.alamat+"</td></tr>";
                             datarow+="<tr><td>Kontak </td><td>: "+item.kontak+"</td></tr>";
                             datarow+="</table>";
@@ -423,12 +423,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         		$('#editData').modal();        
                 $.ajax({
                     type: 'GET',
-                    url: '<?php echo base_url()?>master/spgdetail',
+                    url: '<?php echo base_url()?>master/pegawaidetail',
                     data: 'id=' + dataId,
                     dataType 	: 'json',
                     success: function(response) {  
                         $.each(response, function(i, item) { 
-                        document.getElementById("nama_spg").setAttribute('value', item.nama_spg);
+                        document.getElementById("nama_pegawai").setAttribute('value', item.nama_pegawai);
                         document.getElementById("alamat").value = item.alamat;
                         document.getElementById("kontak").value = item.kontak;
 						document.getElementById("nik").value = item.nik;

@@ -674,16 +674,16 @@ class Master_model extends CI_Model{
      } 
      //datatable pilihan obat end
 
-    // datatable spg start
-    var $column_search_spg = array('nama_spg','no_ijin','kontak','alamat'); 
-    var $column_order_spg = array(null, 'nama_spg','no_ijin','kontak','alamat');
-    var $order_spg = array('waktu_update' => 'DESC');
-    private function _get_query_spg()
+    // datatable pegawai start
+    var $column_search_pegawai = array('nama_pegawai','no_ijin','kontak','alamat'); 
+    var $column_order_pegawai = array(null, 'nama_pegawai','no_ijin','kontak','alamat');
+    var $order_pegawai = array('waktu_update' => 'DESC');
+    private function _get_query_pegawai()
     { 
         $get = $this->input->get();
-        $this->db->from('master_spg'); 
+        $this->db->from('master_pegawai'); 
         $i = 0; 
-        foreach ($this->column_search_spg as $item)
+        foreach ($this->column_search_pegawai as $item)
         {
             if($get['search']['value'])
             { 
@@ -697,26 +697,26 @@ class Master_model extends CI_Model{
                     $this->db->or_like($item, $get['search']['value']);
                 }
  
-                if(count($this->column_search_spg) - 1 == $i) 
+                if(count($this->column_search_pegawai) - 1 == $i) 
                     $this->db->group_end(); 
             }
             $i++;
         } 
         if(isset($get['order'])) 
         {
-            $this->db->order_by($this->column_order_spg[$get['order']['0']['column']], $get['order']['0']['dir']);
+            $this->db->order_by($this->column_order_pegawai[$get['order']['0']['column']], $get['order']['0']['dir']);
         } 
-        else if(isset($this->order_spg))
+        else if(isset($this->order_pegawai))
         {
-            $order = $this->order_spg;
+            $order = $this->order_pegawai;
             $this->db->order_by(key($order), $order[key($order)]);
         }
     }
  
-    function get_spg_datatable()
+    function get_pegawai_datatable()
     {
         $get = $this->input->get();
-        $this->_get_query_spg();
+        $this->_get_query_pegawai();
         // $this->db->where('jenis_pembeli','2');
         if($get['length'] != -1)
         $this->db->limit($get['length'], $get['start']);
@@ -724,59 +724,59 @@ class Master_model extends CI_Model{
         return $query->result();
     }
  
-    function count_filtered_datatable_spg()
+    function count_filtered_datatable_pegawai()
     {
-        $this->_get_query_spg();
+        $this->_get_query_pegawai();
         $query = $this->db->get();
         return $query->num_rows();
     }
  
-    public function count_all_datatable_spg()
+    public function count_all_datatable_pegawai()
     {
-        $this->db->from('master_spg');
+        $this->db->from('master_pegawai');
         return $this->db->count_all_results();
     } 
-    //datatable spg end
+    //datatable pegawai end
 
-    //CRUD spg start 
-    public function rulesspg()
+    //CRUD pegawai start 
+    public function rulespegawai()
     {
         return [
             [
-            'field' => 'nama_spg',
-            'label' => 'Nama SPG',
+            'field' => 'nama_pegawai',
+            'label' => 'Nama pegawai',
             'rules' => 'required',
             ] 
         ];
     } 
-    function simpandataspg(){   
+    function simpandatapegawai(){   
         $post = $this->input->post();   
         $array = array(
             'kontak'=>$post["kontak"],
             'alamat'=>$post["alamat"],  
-            'nama_spg'=>$post["nama_spg"], 
+            'nama_pegawai'=>$post["nama_pegawai"], 
 			'kontak'=>$post["kontak"], 
 			'nik'=>$post["nik"], 
         );
-        $this->db->insert("master_spg", $array);  
+        $this->db->insert("master_pegawai", $array);  
         return $this->db->insert_id();
     } 
-    public function updatedataspg()
+    public function updatedatapegawai()
     {
         $post = $this->input->post();
-        $this->nama_spg = $post["nama_spg"];
+        $this->nama_pegawai = $post["nama_pegawai"];
         $this->alamat = $post["alamat"];
 		$this->kontak = $post["kontak"];
 		$this->nik = $post["nik"];
-        return $this->db->update("master_spg", $this, array('id' => $post['idd']));
+        return $this->db->update("master_pegawai", $this, array('id' => $post['idd']));
     } 
-    public function hapusdataspg()
+    public function hapusdatapegawai()
     {
         $post = $this->input->post(); 
         $this->db->where('id', $post['idd']);
-        return $this->db->delete('master_spg');  
+        return $this->db->delete('master_pegawai');  
     }
-    //CRUD spg end 
+    //CRUD pegawai end 
     
 // datatable operasional start
 var $column_search_operasional = array('tgl_operasional','keterangan','jumlah','editor');

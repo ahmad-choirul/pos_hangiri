@@ -673,7 +673,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 $.each(response.datasub, function(i, itemsub) {
                     i = i + 1;
                     datarow += "<tr><td>" + i + "</td>";
-                    datarow += "<td>" + itemsub.nama_spg + "</td>";
+                    datarow += "<td>" + itemsub.nama_pegawai + "</td>";
                     datarow += "<td>" + itemsub.total + "</td>";
                     datarow += "</tr>";
                 });

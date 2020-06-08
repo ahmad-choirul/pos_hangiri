@@ -252,7 +252,7 @@ public function ajaxPaginationDataKasir($kode)
         // echo json_encode($data['post1']);die;
         // $data['post2'] = $this->penjualan_model->getRows2(array($where1, $kategori, 'limit'=>$this->perPage));
     $data['dokter'] = $this->db->get('master_dokter')->result();
-    $data['spg'] = $this->penjualan_model->get_spg();
+    $data['pegawai'] = $this->penjualan_model->get_pegawai();
 
     $data['loop'] = $kode <= 2? $data['post'] : $data['post1'];
 
@@ -272,7 +272,7 @@ public function kasir()
     $data = array();
     $totalRec = 0;
 
-    $data['spg'] = $this->penjualan_model->get_spg();
+    $data['pegawai'] = $this->penjualan_model->get_pegawai();
 
     $data['loop'] =$this->penjualan_model->getRows(array());
     $totalRec = count($data['loop']);
@@ -615,7 +615,7 @@ public function submitpayment(){
 }
 
 function struk()
-{   $keranjang = $this->db->get_where('keranjang', array('hold' => '0', 'token' => $this->security->get_csrf_hash(), 'id_admin' => $this->session->userdata('idadmin')), 1);
+{   $keranjang = $this->db->get_where('keranjang', array('hold' => '0', 'id_admin' => $this->session->userdata('idadmin')), 1);
 
 $data['id_pembeli'] =  $keranjang->row()->id_pembeli;
 $date = $this->input->get('tmp');
@@ -650,18 +650,18 @@ $this->db->where('a.id_keranjang', $id);
 $this->db->order_by('a.id', 'DESC'); 
 $detail = $this->db->get();
         // 
-$ids = $this->input->get('spg');
+$ids = $this->input->get('pegawai');
 $this->db->select("*");
-$this->db->from("master_spg a");
-$this->db->where('a.id', $ids);
-$spg = $this->db->get();
+$this->db->from("master_pegawai ");
+$this->db->where('master_pegawai.id_admin', $ids);
+$pegawai = $this->db->get();
         // 
 
         // data
 $data['keranjang'] =  $detail->result_array();
 $data['penjualan'] =  $idpnj +1;
-$data['spg'] =  $spg->row()->nama_spg;
-$data['id_spg'] =  $spg->row()->id;
+$data['pegawai'] =  $pegawai->row()->nama_pegawai;
+$data['id_pegawai'] =  $pegawai->row()->id;
 $data['kode'] =  $this->input->get('tp');
 $data['apoteker'] =  $pembeli->result_array();
 $data['toko'] =  $toko->result_array();
@@ -711,18 +711,18 @@ public function struk_kredit()
     $this->db->order_by('a.id', 'DESC'); 
     $detail = $this->db->get();
         // 
-    $ids = $this->input->get('spg');
+    $ids = $this->input->get('pegawai');
     $this->db->select("*");
-    $this->db->from("master_spg a");
+    $this->db->from("master_pegawai a");
     $this->db->where('a.id', $ids);
-    $spg = $this->db->get();
+    $pegawai = $this->db->get();
         // 
 
         // data
     $data['keranjang'] =  $detail->result_array();
     $data['penjualan'] =  $idpnj +1;
-    $data['spg'] =  $spg->row()->nama_spg;
-    $data['id_spg'] =  $spg->row()->id;
+    $data['pegawai'] =  $pegawai->row()->nama_pegawai;
+    $data['id_pegawai'] =  $pegawai->row()->id;
     $data['kode'] =  $this->input->get('tp');
     $data['apoteker'] =  $pembeli->result_array();
     $data['toko'] =  $toko->result_array();

@@ -3,8 +3,8 @@
         <tr>
             <th>Nomor Transaksi</th>
             <th>Tanggal Transaksi</th>
-            <th>Nama SPG</th> 
-            <th>Kontak SPG</th> 
+            <th>Nama pegawai</th> 
+            <th>Kontak pegawai</th> 
             <th>Nama Barang</th> 
             <th>Jumlah</th> 
             <th>Komisi/Barang</th> 
@@ -21,7 +21,7 @@ foreach($posts as $post): ?>
 <tr>
     <td><?php echo $post['id_penjualan']; ?></td>
     <td><?php echo tgl_indo($post['tgl_transaksi']); ?></td>
-    <td><?php echo $post['nama_spg']; ?></td>
+    <td><?php echo $post['nama_pegawai']; ?></td>
     <td><?php echo $post['kontak']; ?></td> 
     <td><?php echo $post['nama_item']; ?></td>
     <td><?php echo $post['jumlah']; ?></td> 

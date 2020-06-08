@@ -466,7 +466,7 @@ CREATE TABLE `master_komisi` (
   `id_komisi` int(11) NOT NULL,
   `id_penjualan` varchar(30) NOT NULL,
   `tgl_transaksi` date NOT NULL,
-  `id_spg` int(11) NOT NULL,
+  `id_pegawai` int(11) NOT NULL,
   `total` varchar(50) NOT NULL,
   `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -517,13 +517,13 @@ INSERT INTO `master_pembeli` (`id`, `nama_pembeli`, `alamat`, `hp`, `waktu_updat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `master_spg`
+-- Table structure for table `master_pegawai`
 --
 
-CREATE TABLE `master_spg` (
+CREATE TABLE `master_pegawai` (
   `id` int(11) NOT NULL,
   `no_ijin` varchar(50) NOT NULL,
-  `nama_spg` varchar(50) NOT NULL,
+  `nama_pegawai` varchar(50) NOT NULL,
   `alamat` text NOT NULL,
   `nik` varchar(50) NOT NULL,
   `kontak` varchar(20) NOT NULL,
@@ -531,10 +531,10 @@ CREATE TABLE `master_spg` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `master_spg`
+-- Dumping data for table `master_pegawai`
 --
 
-INSERT INTO `master_spg` (`id`, `no_ijin`, `nama_spg`, `alamat`, `nik`, `kontak`, `waktu_update`) VALUES
+INSERT INTO `master_pegawai` (`id`, `no_ijin`, `nama_pegawai`, `alamat`, `nik`, `kontak`, `waktu_update`) VALUES
 (1, '91230010', 'pegawai 1', 'Jember', '35203123100', '08123121', '2020-03-19 12:06:16'),
 (2, '', 'pegawai 2', 'aaaa', '2342', '123', '2020-05-18 01:51:55');
 
@@ -641,8 +641,8 @@ INSERT INTO `modul` (`id`, `label`, `controller`, `nama_function`, `aksi_edit`, 
 (41, 'Profil Apotek', 'tools', 'profil', '1', '0', '0'),
 (42, 'Import Produk', 'tools', 'import_item', '0', '0', '1'),
 (43, 'Edit Password', 'password', 'index', '1', '0', '0'),
-(44, 'SPG', 'master', 'spg', '0', '0', '0'),
-(45, 'Laporan SPG', 'laporan', 'spg', '0', '0', '0'),
+(44, 'pegawai', 'master', 'pegawai', '0', '0', '0'),
+(45, 'Laporan pegawai', 'laporan', 'pegawai', '0', '0', '0'),
 (46, 'Master Biaya Operasional', 'master', 'operasional', '1', '1', '1'),
 (47, 'Stok Utility', 'stok', 'utility', '1', '0', '1'),
 (48, 'Target', 'penjualan', 'target', '1', '0', '1');
@@ -742,7 +742,7 @@ CREATE TABLE `penjualan` (
   `id` varchar(50) NOT NULL,
   `id_pembeli` int(11) DEFAULT NULL,
   `id_admin` int(11) NOT NULL,
-  `id_spg` int(11) NOT NULL,
+  `id_pegawai` int(11) NOT NULL,
   `total_harga_item` decimal(10,0) NOT NULL,
   `total` decimal(10,0) NOT NULL,
   `tanggal` date NOT NULL,
@@ -757,7 +757,7 @@ CREATE TABLE `penjualan` (
 -- Dumping data for table `penjualan`
 --
 
-INSERT INTO `penjualan` (`id`, `id_pembeli`, `id_admin`, `id_spg`, `total_harga_item`, `total`, `tanggal`, `tanggal_jam`, `retur`, `tanggal_retur`, `admin_retur`, `jenis_penjualan`) VALUES
+INSERT INTO `penjualan` (`id`, `id_pembeli`, `id_admin`, `id_pegawai`, `total_harga_item`, `total`, `tanggal`, `tanggal_jam`, `retur`, `tanggal_retur`, `admin_retur`, `jenis_penjualan`) VALUES
 ('030620000001', NULL, 1, 1, '0', '15000', '2020-06-03', '2020-06-03 11:12:40', '0', '0000-00-00 00:00:00', NULL, 0),
 ('030620000002', NULL, 1, 1, '0', '15000', '2020-06-03', '2020-06-03 11:13:01', '0', '0000-00-00 00:00:00', NULL, 0),
 ('030620000003', NULL, 1, 1, '0', '15000', '2020-06-03', '2020-06-03 11:15:10', '0', '0000-00-00 00:00:00', NULL, 0),
@@ -1124,9 +1124,9 @@ ALTER TABLE `master_pembeli`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `master_spg`
+-- Indexes for table `master_pegawai`
 --
-ALTER TABLE `master_spg`
+ALTER TABLE `master_pegawai`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1347,9 +1347,9 @@ ALTER TABLE `master_operasional`
 ALTER TABLE `master_pembeli`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- AUTO_INCREMENT for table `master_spg`
+-- AUTO_INCREMENT for table `master_pegawai`
 --
-ALTER TABLE `master_spg`
+ALTER TABLE `master_pegawai`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `master_supplier`

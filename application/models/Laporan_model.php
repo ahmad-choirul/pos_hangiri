@@ -147,15 +147,15 @@ class Laporan_model extends CI_Model{
     }
 
 
-    function getrowspg($params = array()){ 
+    function getrowpegawai($params = array()){ 
         $this->db->select("a.id_komisi, a.id_penjualan, a.tgl_transaksi,
-         b.nama_spg, a.total, b.kontak, c.komisi, c.jumlah, d.nama_item");
+         b.nama_pegawai, a.total, b.kontak, c.komisi, c.jumlah, d.nama_item");
         $this->db->from("master_komisi a");
-        $this->db->join('master_spg b','a.id_komisi = b.id'); 
+        $this->db->join('master_pegawai b','a.id_komisi = b.id'); 
         $this->db->join('komisi_detail c','a.id_komisi = c.id_komisi');
         $this->db->join('master_item d','c.id_barang = d.kode_item');   
-        if(!empty($params['search']['spg'])){
-            $this->db->where('a.id_spg',$params['search']['spg']);
+        if(!empty($params['search']['pegawai'])){
+            $this->db->where('a.id_pegawai',$params['search']['pegawai']);
         } 
         if(!empty($params['search']['firstdate']) AND !empty($params['search']['lastdate'])){
             $this->db->where('a.tgl_transaksi BETWEEN "'.$params['search']['firstdate']. '" and "'. $params['search']['lastdate'].'"');

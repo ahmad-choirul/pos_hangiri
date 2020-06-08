@@ -58,7 +58,7 @@ if ($this->input->get('statppn')=='nonppn') {
 }else{
 	$statppn='ppn';
 }
- ?>
+?>
 }
 <body class="bgbody">
 	<section class="body">
@@ -133,12 +133,12 @@ if ($this->input->get('statppn')=='nonppn') {
 								<input type="hidden" name="customer" id="customer_dipilih">
 								<form>
 									<div class="form-group">
-									<label class="control-label">Jenis Penjualan</label>
-									<select class="form-control cara_bayar" name="statppn" id="statppn" onchange='this.form.submit()'>
-										<option value="ppn">PPN</option>
-										<option <?php if ($statppn == 'nonppn' ) echo 'selected' ; ?> value="nonppn">NonPPN</option>
-									</select> 
-								</div>
+										<label class="control-label">Jenis Penjualan</label>
+										<select class="form-control cara_bayar" name="statppn" id="statppn" onchange='this.form.submit()'>
+											<option value="ppn">PPN</option>
+											<option <?php if ($statppn == 'nonppn' ) echo 'selected' ; ?> value="nonppn">NonPPN</option>
+										</select> 
+									</div>
 								</form>
 							<!-- 	<div class="input-group-btn">
 									<button tabindex="-1" class="btn btn-primary" type="button">Pembeli</button>
@@ -566,52 +566,54 @@ if ($this->input->get('statppn')=='nonppn') {
 									<div class="col-md-6">
 										<div class="form-group">
 											<label class="control-label">Nama Kasir</label>
-											<select class="form-control cara_bayar" name="nama_spg" id="nama_spg">
-												<?php foreach ($spg as $s): ?>
-													<option value="<?= $s['id']; ?>"><?= $s['nama_spg'] ?></option>
-												<?php endforeach ?>  
-											</select> 
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group"> 
-											<label class="control-label">Tanggal Jatuh Tempo</label>
-											<input type="text" autocomplete="off" name="tanggal_jatuh_tempo" id="datepicker" class="form-control datepicker">
-										</div>
-									</div> 
-									
-									
-								</div>
-								
-								<div class="row my-4">
-									<div class="col-md-12">
-										
-									</div> 
-								</div> 
-								<div class="row my-5" id="tambah1">
-									<div class="col-md-12">
-										<div class="row form-group">
-											
-										</div>
-									</div> 
-								</div>
-							</section>
+											<!-- <select class="form-control cara_bayar" name="nama_pegawai" id="nama_pegawai"> -->
+												<!-- <?php foreach ($pegawai as $s): ?>
+													<option value="<?= $s['id']; ?>"><?= $s['nama_pegawai'] ?></option>
+													<?php endforeach ?>   -->
+													<input type="hidden" name="nama_pegawai" id="nama_pegawai" value="<?php echo $this->session->userdata('idadmin'); ?>">
+													<input type="text" class="form-control" readonly="readonly" value="<?php echo $this->session->userdata('nama_admin'); ?>">
+													<!-- </select>  -->
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group"> 
+													<label class="control-label">Tanggal Jatuh Tempo</label>
+													<input type="text" autocomplete="off" name="tanggal_jatuh_tempo" id="datepicker" class="form-control datepicker">
+												</div>
+											</div> 
 
 
-							<section class="panel" id="formbayar2" >
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="control-label">Total Dibayar</label>
-											<input type="text" name="totalbayar" id="totalbayar" value="0" class="form-control mask_price" />
 										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group"> 
-											<label class="control-label">Nama Pelanggan</label>
-											<input type="text" autocomplete="off" name="nama_pelanggan" id="nama_pelanggan" class="form-control	">
+
+										<div class="row my-4">
+											<div class="col-md-12">
+
+											</div> 
+										</div> 
+										<div class="row my-5" id="tambah1">
+											<div class="col-md-12">
+												<div class="row form-group">
+
+												</div>
+											</div> 
 										</div>
-									</div> 
+									</section>
+
+
+									<section class="panel" id="formbayar2" >
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="control-label">Total Dibayar</label>
+													<input type="text" name="totalbayar" id="totalbayar" value="0" class="form-control mask_price" />
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group"> 
+													<label class="control-label">Nama Pelanggan</label>
+													<input type="text" autocomplete="off" name="nama_pelanggan" id="nama_pelanggan" class="form-control	">
+												</div>
+											</div> 
 									<!-- <div class="col-md-6">
 										<div class="form-group"> 
 											<label class="control-label">Cara Bayar</label>
@@ -1034,9 +1036,10 @@ if ($this->input->get('statppn')=='nonppn') {
 
 
         var idk;
-        var spg;
         var idkd;
-        spg = $("#nama_spg").val(); 
+
+        var pegawai;
+        pegawai = $("#nama_pegawai").val(); 
 
         function keranjang(){   
         	$('#cara_bayar1').val('cash'); 
@@ -1153,7 +1156,10 @@ if ($this->input->get('statppn')=='nonppn') {
             	var totalbelanja = document.getElementById("TotalBelanjaInt").value; 
             	var pelanggan = document.getElementById("nama_pelanggan").value; 
             	if (Number(totalbayar)>=Number(totalbelanja)) {
-            		$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&spg='+spg+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar)
+            		var pegawai;
+            		pegawai = $("#nama_pegawai").val(); 
+
+            		$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar)
             		.submit()
             	}else{
             		window.setTimeout(function() {  
@@ -1187,7 +1193,10 @@ if ($this->input->get('statppn')=='nonppn') {
             	}else{
             		if (tanggal_jatuh_tempo!=null) {
             			var tmp=$("#datepicker").val(); 
-            			$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk_kredit?t='+idk+'&spg='+spg+'&tmp='+tmp+'&idd='+idkd+'&bayar='+totalbayar)
+            			var pegawai;
+            			pegawai = $("#nama_pegawai").val(); 
+
+            			$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk_kredit?t='+idk+'&pegawai='+pegawai+'&tmp='+tmp+'&idd='+idkd+'&bayar='+totalbayar)
             			.submit()
             		}else{
             			window.setTimeout(function() {  

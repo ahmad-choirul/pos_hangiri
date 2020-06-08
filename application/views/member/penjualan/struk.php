@@ -65,7 +65,7 @@
                     <td>T.O.P</td><td>:</td><td><?=$status.$akr.date('d/m/Y')?></td>
                 </tr>
                 <tr>
-                    <td>No. Order/Sales</td><td>:</td><td><?=$penjualan?>/<?= $spg; ?></td>
+                    <td>No. Order/Sales</td><td>:</td><td><?=$penjualan?>/<?= $pegawai; ?></td>
                 </tr>
                 <?php if($status=="Kredit"){?>
                         

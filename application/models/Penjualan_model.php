@@ -9,10 +9,10 @@ use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 class Penjualan_model extends CI_Model
 {
 
-    public function get_spg()
+    public function get_pegawai()
     {
         $this->db->select('*');
-        $this->db->from('master_spg');
+        $this->db->from('master_pegawai');
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -559,7 +559,7 @@ class Penjualan_model extends CI_Model
     {       
         $this->db->trans_begin();
        // $post = $this->input->post();
-        $keranjang = $this->db->get_where('keranjang', array('hold' => '0', 'token' => $this->security->get_csrf_hash(), 'id_admin' => $this->session->userdata('idadmin')), 1);
+        $keranjang = $this->db->get_where('keranjang', array('hold' => '0','id_admin' => $this->session->userdata('idadmin')), 1);
         $kode_penjualan = $this->_kode_penjualan();
         $array = array(
             'id' => $kode_penjualan,
@@ -631,7 +631,6 @@ class Penjualan_model extends CI_Model
             'diskon' => $r['diskon'],
             'kuantiti' => $r['kuantiti'],
             'total' => $r['total'],
-            'stok_sisa' => $stoks - $r['kuantiti'],
         );
         $this->db->insert("penjualan_detail", $keranjangdetail_input);
             $stok_input = array(

@@ -515,7 +515,7 @@ class Laporan extends CI_Controller {
 	public function penjualan()
 	{     
         level_user('laporan','penjualan',$this->session->userdata('kategori'),'read') > 0 ? '': show_404();
-        $data['sales'] = $this->db->get('master_spg')->result(); 
+        $data['sales'] = $this->db->get('master_pegawai')->result(); 
         $data['costumer'] = $this->db->get('master_pembeli')->result(); 
         $data['obat'] = $this->db->get('master_item')->result();
         $this->load->view('member/laporan/penjualan',$data);
@@ -733,11 +733,11 @@ class Laporan extends CI_Controller {
         exit;  
     }
 
-    // spg
-    public function spg()
+    // pegawai
+    public function pegawai()
 	{    
-        level_user('laporan','spg',$this->session->userdata('kategori'),'read') > 0 ? '': show_404();
-        $conditions['spg'] = '*';
+        level_user('laporan','pegawai',$this->session->userdata('kategori'),'read') > 0 ? '': show_404();
+        $conditions['pegawai'] = '*';
         $timestamp    = strtotime(date('F Y'));
         $conditions['search']['firstdate'] = date('Y-m-01', $timestamp);
         $conditions['search']['lastdate'] = date('Y-m-t', $timestamp);
@@ -746,11 +746,11 @@ class Laporan extends CI_Controller {
         $conditions['limit'] = '10';
         
         //get posts data
-        $data['posts'] = $this->laporan_model->getrowspg($conditions);
-        $data['spg'] = $this->db->get('master_spg a')->result(); 
-        $this->load->view('member/laporan/spg',$data);
+        $data['posts'] = $this->laporan_model->getrowpegawai($conditions);
+        $data['pegawai'] = $this->db->get('master_pegawai a')->result(); 
+        $this->load->view('member/laporan/pegawai',$data);
     }   
-	public function laporanspg()
+	public function laporanpegawai()
 	{   
         $conditions = array(); 
         $page = $this->input->get('page');
@@ -760,18 +760,18 @@ class Laporan extends CI_Controller {
             $offset = $page;
         }
          
-        $spg = $this->input->get('spg');
+        $pegawai = $this->input->get('pegawai');
         $firstdate = $this->input->get('firstdate');
         $lastdate = $this->input->get('lastdate'); 
-        $conditions['search']['spg'] = $spg;
+        $conditions['search']['pegawai'] = $pegawai;
         $conditions['search']['firstdate'] = $firstdate;
         $conditions['search']['lastdate'] = $lastdate;
         //total rows count
-        $totalRec = count($this->laporan_model->getrowspg($conditions)); 
+        $totalRec = count($this->laporan_model->getrowpegawai($conditions)); 
         
         //pagination configuration
         $config['target']      = '#postList';
-        $config['base_url']    = base_url().'laporan/laporanspg';
+        $config['base_url']    = base_url().'laporan/laporanpegawai';
         $config['total_rows']  = $totalRec;
         $config['per_page']    = $this->perPage;
         $config['link_func']   = 'searchFilter';
@@ -782,13 +782,13 @@ class Laporan extends CI_Controller {
         $conditions['limit'] = $this->perPage;
         
         //get posts data
-        $data['posts'] = $this->laporan_model->getrowspg($conditions);
+        $data['posts'] = $this->laporan_model->getrowpegawai($conditions);
         
         //load the view
-        $this->load->view('member/laporan/spg_view', $data, false);
+        $this->load->view('member/laporan/pegawai_view', $data, false);
     }   
     
-    function excel_spg(){       
+    function excel_pegawai(){       
         
         $spreadsheet = new Spreadsheet();
         $supplier = $this->input->get('supplier');

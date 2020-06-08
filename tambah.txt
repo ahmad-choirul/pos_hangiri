@@ -1,4 +1,4 @@
-komisi group by id_spg / bulan
+komisi group by id_pegawai / bulan
 query laporan penjualan
 crud pembayaran kredit
 komisi dapat dari data item

@@ -30,9 +30,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<?php $this->load->view("komponen/sidebar.php") ?>
 				<section role="main" class="content-body">
 					<header class="page-header">  
-						<h2>Laporan Komisi SPG</h2>
+						<h2>Laporan Komisi pegawai</h2>
 					</header>  
-                    <form id="Formulir" method="GET" action="<?php echo base_url();?>laporan/excel_spg/" target="_blank">
+                    <form id="Formulir" method="GET" action="<?php echo base_url();?>laporan/excel_pegawai/" target="_blank">
 					<!-- start: page --> 
                     <section class="panel"> 
                         <div class="panel-body">  
@@ -51,11 +51,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label class="control-label">SPG</label>
-                                        <select  data-plugin-selectTwo class="form-control"  id="spg" name="spg">  
-                                            <option value="">Semua SPG</option>
-                                            <?php foreach ($spg as $supp): ?>
-                                            <option value="<?php echo $supp->id;?>"><?php echo $supp->nama_spg;?></option>
+                                        <label class="control-label">pegawai</label>
+                                        <select  data-plugin-selectTwo class="form-control"  id="pegawai" name="pegawai">  
+                                            <option value="">Semua pegawai</option>
+                                            <?php foreach ($pegawai as $supp): ?>
+                                            <option value="<?php echo $supp->id;?>"><?php echo $supp->nama_pegawai;?></option>
                                             <?php endforeach; ?>
                                         </select> 
                                     </div>
@@ -83,8 +83,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <tr>
                                         <th>Nomor Transaksi</th>
                                         <th>Tanggal Transaksi</th>
-                                        <th>Nama SPG</th> 
-                                        <th>Kontak SPG</th> 
+                                        <th>Nama pegawai</th> 
+                                        <th>Kontak pegawai</th> 
                                         <th>Nama Barang</th> 
                                         <th>Jumlah</th> 
                                         <th>Komisi/Barang</th> 
@@ -101,7 +101,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <tr>
                                 <td><?php echo $post['id_penjualan']; ?></td>
                                 <td><?php echo tgl_indo($post['tgl_transaksi']); ?></td>
-                                <td><?php echo $post['nama_spg']; ?></td>
+                                <td><?php echo $post['nama_pegawai']; ?></td>
                                 <td><?php echo $post['kontak']; ?></td> 
                                 <td><?php echo $post['nama_item']; ?></td>
                                 <td><?php echo $post['jumlah']; ?></td> 
@@ -158,7 +158,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			var lastdate = $('#lastdate').val();
             $.ajax({
 				type: 'GET',
-				url: '<?php echo base_url(); ?>laporan/laporanspg/'+page_num,
+				url: '<?php echo base_url(); ?>laporan/laporanpegawai/'+page_num,
 				data: 'page='+page_num+'&supplier='+supplier+'&firstdate='+firstdate+'&lastdate='+lastdate,success: function (html) { 
 					$('#postList').html(html);
 				    document.getElementById("KontenHTML").style.display = "block";  

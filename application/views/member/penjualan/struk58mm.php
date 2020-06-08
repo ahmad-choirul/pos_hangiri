@@ -128,7 +128,7 @@
 				<?=date('d M Y')?>
 			</div>
 			<div class="user">
-				<?= $spg; ?>
+				<?= $pegawai; ?>
 
 			</div>
 		</div>

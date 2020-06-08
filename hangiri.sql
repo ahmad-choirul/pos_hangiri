@@ -628,7 +628,7 @@ CREATE TABLE `master_komisi` (
   `id_komisi` int(11) NOT NULL,
   `id_penjualan` varchar(30) NOT NULL,
   `tgl_transaksi` date NOT NULL,
-  `id_spg` int(11) NOT NULL,
+  `id_pegawai` int(11) NOT NULL,
   `total` varchar(50) NOT NULL,
   `waktu_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -637,7 +637,7 @@ CREATE TABLE `master_komisi` (
 -- Dumping data for table `master_komisi`
 --
 
-INSERT INTO `master_komisi` (`id_komisi`, `id_penjualan`, `tgl_transaksi`, `id_spg`, `total`, `waktu_update`) VALUES
+INSERT INTO `master_komisi` (`id_komisi`, `id_penjualan`, `tgl_transaksi`, `id_pegawai`, `total`, `waktu_update`) VALUES
 (1, '300619000006', '2020-05-05', 1, '2000', '2020-05-05 06:14:43'),
 (2, '300619000006', '2020-05-05', 1, '4000', '2020-05-05 09:11:05');
 
@@ -780,13 +780,13 @@ INSERT INTO `master_satuan` (`id`, `isi_persatuan`, `satuan_besar`, `waktu_updat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `master_spg`
+-- Table structure for table `master_pegawai`
 --
 
-CREATE TABLE `master_spg` (
+CREATE TABLE `master_pegawai` (
   `id` int(11) NOT NULL,
   `no_ijin` varchar(50) NOT NULL,
-  `nama_spg` varchar(50) NOT NULL,
+  `nama_pegawai` varchar(50) NOT NULL,
   `alamat` text NOT NULL,
   `nik` varchar(50) NOT NULL,
   `kontak` varchar(20) NOT NULL,
@@ -794,10 +794,10 @@ CREATE TABLE `master_spg` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `master_spg`
+-- Dumping data for table `master_pegawai`
 --
 
-INSERT INTO `master_spg` (`id`, `no_ijin`, `nama_spg`, `alamat`, `nik`, `kontak`, `waktu_update`) VALUES
+INSERT INTO `master_pegawai` (`id`, `no_ijin`, `nama_pegawai`, `alamat`, `nik`, `kontak`, `waktu_update`) VALUES
 (1, '91230010', 'Supratno', 'Jember', '35203123100', '08123121', '2020-03-19 12:06:16');
 
 -- --------------------------------------------------------
@@ -953,8 +953,8 @@ INSERT INTO `modul` (`id`, `label`, `controller`, `nama_function`, `aksi_edit`, 
 (41, 'Profil Apotek', 'tools', 'profil', '1', '0', '0'),
 (42, 'Import Produk', 'tools', 'import_item', '0', '0', '1'),
 (43, 'Edit Password', 'password', 'index', '1', '0', '0'),
-(44, 'SPG', 'master', 'spg', '0', '0', '0'),
-(45, 'Laporan SPG', 'laporan', 'spg', '0', '0', '0'),
+(44, 'pegawai', 'master', 'pegawai', '0', '0', '0'),
+(45, 'Laporan pegawai', 'laporan', 'pegawai', '0', '0', '0'),
 (46, 'Master Biaya Operasional', 'master', 'operasional', '1', '1', '1'),
 (47, 'Stok Utility', 'stok', 'utility', '1', '0', '1'),
 (48, 'Target', 'penjualan', 'target', '1', '0', '1');
@@ -1148,7 +1148,7 @@ CREATE TABLE `penjualan` (
   `id` varchar(50) NOT NULL,
   `id_pembeli` int(11) DEFAULT NULL,
   `id_admin` int(11) NOT NULL,
-  `id_spg` int(11) NOT NULL,
+  `id_pegawai` int(11) NOT NULL,
   `total_upah_peracik` decimal(10,0) NOT NULL,
   `total_harga_item` decimal(10,0) NOT NULL,
   `total` decimal(10,0) NOT NULL,
@@ -1164,7 +1164,7 @@ CREATE TABLE `penjualan` (
 -- Dumping data for table `penjualan`
 --
 
-INSERT INTO `penjualan` (`id`, `id_pembeli`, `id_admin`, `id_spg`, `total_upah_peracik`, `total_harga_item`, `total`, `tanggal`, `tanggal_jam`, `retur`, `tanggal_retur`, `admin_retur`, `jenis_penjualan`) VALUES
+INSERT INTO `penjualan` (`id`, `id_pembeli`, `id_admin`, `id_pegawai`, `total_upah_peracik`, `total_harga_item`, `total`, `tanggal`, `tanggal_jam`, `retur`, `tanggal_retur`, `admin_retur`, `jenis_penjualan`) VALUES
 ('030520000039', 22, 1, 0, '0', '529000', '529000', '2020-05-03', '2020-05-03 17:50:29', '0', '0000-00-00 00:00:00', NULL, 1),
 ('030520000040', NULL, 1, 0, '0', '530000', '530000', '2020-05-03', '2020-05-03 17:51:12', '0', '0000-00-00 00:00:00', NULL, 1),
 ('030520000041', NULL, 1, 0, '0', '68000', '68000', '2020-05-03', '2020-05-03 17:52:20', '0', '0000-00-00 00:00:00', NULL, 1),
@@ -1734,9 +1734,9 @@ ALTER TABLE `master_satuan`
   ADD KEY `idx_satuan_besar` (`satuan_besar`);
 
 --
--- Indexes for table `master_spg`
+-- Indexes for table `master_pegawai`
 --
-ALTER TABLE `master_spg`
+ALTER TABLE `master_pegawai`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1984,9 +1984,9 @@ ALTER TABLE `master_pembeli`
 ALTER TABLE `master_racikan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT for table `master_spg`
+-- AUTO_INCREMENT for table `master_pegawai`
 --
-ALTER TABLE `master_spg`
+ALTER TABLE `master_pegawai`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `master_supplier`

@@ -296,16 +296,6 @@ class User_model extends CI_Model{
             'rules' => 'required',
             ] ,
             [
-            'field' => 'alamat',
-            'label' => 'alamat',
-            'rules' => 'required',
-            ] ,
-            [
-            'field' => 'handphone',
-            'label' => 'handphone',
-            'rules' => 'required',
-            ] ,
-            [
             'field' => 'email',
             'label' => 'email',
             'rules' => 'required',
@@ -314,21 +304,30 @@ class User_model extends CI_Model{
     } 
     
     function simpandatauser(){   
-        $post = $this->input->post();   
-        $password= password_hash($post['password'], PASSWORD_BCRYPT);
-        $array = array(
-            'kategori'=>$post["kategori"], 
-            'username'=>$post["username"], 
-            'password'=>$password,  
-            'nama_admin'=>$post["nama_admin"], 
-            'jenis_kelamin'=>$post["jenis_kelamin"], 
-            'alamat'=>$post["alamat"], 
-            'telepon'=>$post["telepon"], 
-            'handphone'=>$post["handphone"],    
-            'email'=>$post["email"],   
-            'aktif'=>$post["aktif"],     
-        );
-        return $this->db->insert("master_admin", $array);  
+  
+    $post = $this->input->post();   
+    $password= password_hash($post['password'], PASSWORD_BCRYPT);
+    $this->db->trans_start();
+    $array = array(
+        'kategori'=>$post["kategori"], 
+        'username'=>$post["username"], 
+        'password'=>$password,  
+        'nama_admin'=>$post["nama_admin"], 
+        'email'=>$post["email"],   
+        'aktif'=>$post["aktif"],     
+    );
+    $this->db->insert("master_admin", $array);  
+
+        $this->session->set_flashdata('query', $this->db->last_query());
+    if ($post['id_pegawai']!='') {
+        $this->db->where('id', $post['id_pegawai']);
+        $this->db->update('master_pegawai', array('id_admin' => $this->db->insert_id() ));
+    }
+    if($this->db->trans_status() === FALSE){
+        return $this->db->trans_rollback();
+    }else{
+        return $this->db->trans_complete();
+    }
     }    
      
     public function rulesuseredit()

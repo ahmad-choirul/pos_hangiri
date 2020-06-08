@@ -150,16 +150,16 @@ class Dashboard extends CI_Controller {
 
 public function komisi(){
     cekajax();
-    // $this->db->select("b.nama_spg, sum(a.total) as total");
+    // $this->db->select("b.nama_pegawai, sum(a.total) as total");
     // $this->db->from("master_komisi a");
-    // $this->db->join('master_spg b','a.id_spg = b.id', 'left');
+    // $this->db->join('master_pegawai b','a.id_pegawai = b.id', 'left');
     // MONTH(a.tgl_transaksi) = MONTH(NOW()) and YEAR(a.tgl_transaksi) = YEAR(NOW())
     // $this->db->order_by('total', 'DESC');
-    $query = $this->db->query("SELECT `b`.`nama_spg`, sum(a.total) as total FROM `master_komisi` `a` LEFT JOIN `master_spg` `b` ON `a`.`id_spg` = `b`.`id` WHERE MONTH(a.tgl_transaksi) = MONTH(NOW()) AND YEAR(a.tgl_transaksi) = YEAR(NOW()) ORDER BY `total` DESC ");
+    $query = $this->db->query("SELECT `b`.`nama_pegawai`, sum(a.total) as total FROM `master_komisi` `a` LEFT JOIN `master_pegawai` `b` ON `a`.`id_pegawai` = `b`.`id` WHERE MONTH(a.tgl_transaksi) = MONTH(NOW()) AND YEAR(a.tgl_transaksi) = YEAR(NOW()) ORDER BY `total` DESC ");
     $subitem= $query->result();
     $arraysub =[];
     foreach($subitem as $r) {
-     $subArray['nama_spg']=$r->nama_spg;
+     $subArray['nama_pegawai']=$r->nama_pegawai;
      $subArray['total']=rupiah($r->total);
      $arraysub[] =  $subArray ;
  }
@@ -190,8 +190,8 @@ public function catatantambah(){
     $insert_id = $simpan->updatedataoperasional();
     if($insert_id > 0) {
         $data['success']= true;
-        $data['spg']= $post["nama_spg"];
-        $data['id_spg']= $insert_id;
+        $data['pegawai']= $post["nama_pegawai"];
+        $data['id_pegawai']= $insert_id;
         $data['message']="Berhasil menyimpan data";
     }else{
         $errors['fail'] = "gagal melakukan update data";

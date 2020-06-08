@@ -646,18 +646,18 @@ class Master extends CI_Controller {
         echo json_encode($data); 
     }
 
-    // SPG
-    public function spg()
+    // pegawai
+    public function pegawai()
 	{     
-        level_user('master','spg',$this->session->userdata('kategori'),'read') > 0 ? '': show_404();
-        $this->load->view('member/master/spg'); 
+        level_user('master','pegawai',$this->session->userdata('kategori'),'read') > 0 ? '': show_404();
+        $this->load->view('member/master/pegawai'); 
     }  
     
-    public function dataspg()
+    public function datapegawai()
 	{   
         cekajax(); 
         $get = $this->input->get();
-        $list = $this->master_model->get_spg_datatable();
+        $list = $this->master_model->get_pegawai_datatable();
         $data = array(); 
         foreach ($list as $r) { 
             $row = array(); 
@@ -666,12 +666,12 @@ class Master extends CI_Controller {
             $tomboldaftar = 
             ' 
             <div class="btn-group dropup">
-            <a class="mb-xs mt-xs mr-xs btn btn-primary href="#" onclick="daftar_akun(this)" data-id_sales="'.$this->security->xss_clean($r->id).'" data-nama_spg="'.$this->security->xss_clean($r->nama_spg).'">Daftar</a>
+            <a class="mb-xs mt-xs mr-xs btn btn-primary href="#" onclick="daftar_akun(this)" data-id_pegawai="'.$this->security->xss_clean($r->id).'" data-nama_pegawai="'.$this->security->xss_clean($r->nama_pegawai).'">Daftar</a>
             </div>
             ';
         }
-            $tombolhapus = level_user('master','spg',$this->session->userdata('kategori'),'delete') > 0 ? '<li><a href="#" onclick="hapus(this)" data-id="'.$this->security->xss_clean($r->id).'">Hapus</a></li>':'';
-            $tomboledit = level_user('master','spg',$this->session->userdata('kategori'),'edit') > 0 ? '<li><a href="#" onclick="edit(this)" data-id="'.$this->security->xss_clean($r->id).'">Edit</a></li>':'';
+            $tombolhapus = level_user('master','pegawai',$this->session->userdata('kategori'),'delete') > 0 ? '<li><a href="#" onclick="hapus(this)" data-id="'.$this->security->xss_clean($r->id).'">Hapus</a></li>':'';
+            $tomboledit = level_user('master','pegawai',$this->session->userdata('kategori'),'edit') > 0 ? '<li><a href="#" onclick="edit(this)" data-id="'.$this->security->xss_clean($r->id).'">Edit</a></li>':'';
             $row[] = ' 
                     <div class="btn-group dropup">
                         <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Action <span class="caret"></span></button>
@@ -682,7 +682,7 @@ class Master extends CI_Controller {
                         </ul>
                     </div>
                     ';
-            $row[] = $this->security->xss_clean($r->nama_spg);
+            $row[] = $this->security->xss_clean($r->nama_pegawai);
             $row[] = $this->security->xss_clean($r->kontak);
             $row[] = $this->security->xss_clean($r->nik);
             $row[] = $this->security->xss_clean($r->alamat);
@@ -692,28 +692,28 @@ class Master extends CI_Controller {
         } 
         $result = array( 
             "draw" => $get['draw'],
-            "recordsTotal" => $this->master_model->count_all_datatable_spg(),
-            "recordsFiltered" => $this->master_model->count_filtered_datatable_spg(),
+            "recordsTotal" => $this->master_model->count_all_datatable_pegawai(),
+            "recordsFiltered" => $this->master_model->count_filtered_datatable_pegawai(),
             "data" => $data,
         ); 
         echo json_encode($result); 
     }
 
-    public function spgtambah(){ 
+    public function pegawaitambah(){ 
         cekajax(); 
         $post = $this->input->post();
         $simpan = $this->master_model;
 		$validation = $this->form_validation; 
-        $validation->set_rules($simpan->rulesspg());
+        $validation->set_rules($simpan->rulespegawai());
 		if ($this->form_validation->run() == FALSE){
 			$errors = $this->form_validation->error_array();
 			$data['errors'] = $errors;
         }else{    
-            $insert_id = $simpan->simpandataspg();
+            $insert_id = $simpan->simpandatapegawai();
             if($insert_id > 0) { 
                 $data['success']= true;
-                $data['spg']= $post["nama_spg"];
-                $data['id_spg']= $insert_id;
+                $data['pegawai']= $post["nama_pegawai"];
+                $data['id_pegawai']= $insert_id;
                 $data['message']="Berhasil menyimpan data";
             }else{
                 $errors['fail'] = "gagal melakukan update data";
@@ -723,13 +723,13 @@ class Master extends CI_Controller {
         $data['token'] = $this->security->get_csrf_hash();
         echo json_encode($data); 
     } 
-    public function spgdetail(){  
+    public function pegawaidetail(){  
         cekajax(); 
        $idd = intval($this->input->get("id")); 
-       $query = $this->db->select("no_ijin, nama_spg, kontak, alamat, nik")->get_where('master_spg', array('id' => $idd),1);
+       $query = $this->db->select("no_ijin, nama_pegawai, kontak, alamat, nik")->get_where('master_pegawai', array('id' => $idd),1);
        
         $result = array(  
-            "nama_spg" => $this->security->xss_clean($query->row()->nama_spg),
+            "nama_pegawai" => $this->security->xss_clean($query->row()->nama_pegawai),
             "alamat" => $this->security->xss_clean($query->row()->alamat),
             "kontak" => $this->security->xss_clean($query->row()->kontak),
 			"nik" => $this->security->xss_clean($query->row()->nik),
@@ -737,26 +737,26 @@ class Master extends CI_Controller {
         );    
     	echo'['.json_encode($result).']';
     }
-    public function spgedit(){ 
+    public function pegawaiedit(){ 
         cekajax(); 
         $simpan = $this->master_model;
 		$validation = $this->form_validation; 
-        $validation->set_rules($simpan->rulesspg());
+        $validation->set_rules($simpan->rulespegawai());
 		if ($this->form_validation->run() == FALSE){
 			$errors = $this->form_validation->error_array();
 			$data['errors'] = $errors;
         }else{    
-            $simpan->updatedataspg();
+            $simpan->updatedatapegawai();
             $data['success']= true;
             $data['message']="Berhasil menyimpan data";
         }
         $data['token'] = $this->security->get_csrf_hash();
         echo json_encode($data); 
     }
-    public function spghapus(){ 
+    public function pegawaihapus(){ 
         cekajax(); 
         $hapus = $this->master_model;
-        if($hapus->hapusdataspg()){ 
+        if($hapus->hapusdatapegawai()){ 
             $data['success']= true;
             $data['message']="Berhasil menghapus data"; 
         }else{    
