@@ -10,7 +10,7 @@
 		.content {
 			width: 50mm;
 			font-size: 8px;
-			padding: 5px;
+
 		}
 		.content .title {
 			text-align: left;
@@ -110,19 +110,7 @@
 </head>
 <body>
 	<div class="content" >
-		<div class="title">
-			<?php 
-			echo htmlspecialchars("
-				Jl. Wijaya Kusuma No.50
-				");
-			echo "<br>";
-			?>
-		</div>
-		<div class="subttitle">
-			<?php
-			echo htmlspecialchars("Kec. Patrang, Kabupaten Jember,68118");
-			?>
-		</div>
+
 
 		<div class="head-desc">
 			<div class="date">
