@@ -8,7 +8,7 @@
 			  font-family: "Arial Narrow";
 		}
 		.content {
-			width: 58mm;
+			width: 50mm;
 			font-size: 8px;
 			padding: 5px;
 		}
@@ -22,7 +22,7 @@
 		.content .subtitle {
 			margin-left: -2%;
 			text-align: center;
-			font-size: 9px;
+			font-size: 10px;
 			line-height: 11px;
 			text-decoration: bold;
 		}
@@ -121,17 +121,13 @@
 		</div>
 		<div class="subttitle">
 			<?php
-			echo htmlspecialchars("	Kec. Patrang, Kabupaten Jember,68118");
+			echo htmlspecialchars("Kec. Patrang, Kabupaten Jember,68118");
 			?>
 		</div>
 
 		<div class="head-desc">
 			<div class="date">
-				<?=date('d M Y')?>
-			</div>
-			<div class="user">
-				<?= $pegawai; ?>
-
+				<?=date('d M Y')?> | <?= $pegawai; ?>
 			</div>
 		</div>
 
@@ -177,26 +173,31 @@
 					<td style="text-align: left;"></td>
 					<td></td>
 					<td></td> -->
-					<table style="font-size:9px;text-align: left; " border="0" width="100%" >
+					<table  border="0" width="100%" >
 						<tr>
-							<td>Jumlah</td>
-							<td><?php echo setrupiah($ttl1); ?></td>
+							<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Jumlah</td>
+							<td style="font-size:9px;text-align: right; margin-right: 10px;float: right; "><?php echo setrupiah($ttl1); ?></td>
+							<td></td>
 						</tr>
 						<tr>
-							<td>PPN (10%)</td>
-							<td><?php echo setrupiah($ppn); ?></td>
+							<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">PPN (10%)</td>
+							<td style="font-size:9px;text-align: right; margin-right: 10px;float: right; "><?php echo setrupiah($ppn); ?></td>
+						<td></td>
 						</tr>
 						<tr>
-							<td>Total</td>
-							<td><?php echo setrupiah($end); ?></td>
+							<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Total</td>
+							<td style="font-size:9px;text-align: right; margin-right: 10px; float: right;"><?php echo setrupiah($end); ?></td>
+						<td></td>
 						</tr>
 						<tr>
-							<td>Bayar</td>
-							<td><?php echo setrupiah($totalbayar); ?></td>
+							<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Bayar</td>
+							<td style="font-size:9px;text-align: right; margin-right: 10px; float: right;"><?php echo setrupiah($totalbayar); ?></td>
+							<td></td>
 						</tr>
 						<tr>
-							<td>Kembali</td>
-							<td><?php echo setrupiah($totalbayar-($end)); ?></td>
+							<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Kembali</td>
+							<td style="font-size:9px;text-align: right; margin-right: 10px;float: right; "><?php echo setrupiah($totalbayar-($end)); ?></td>
+							<td></td>
 						</tr>
 
 					</table>
