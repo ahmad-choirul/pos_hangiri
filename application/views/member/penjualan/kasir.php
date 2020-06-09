@@ -258,7 +258,8 @@ if ($this->input->get('stattrans')=='dinein') {
 											<div class="row">
 												<div class="col-md-12"> 
 													<span class="text-bold">
-														<?php echo rupiah($key['harga_jual']); ?>
+														<?php echo rupiah($key['harga_jual']); ?> /
+														<?php echo rupiah($key['harga_jual2']); ?>
 													</span>
 												</div> 
 											</div>

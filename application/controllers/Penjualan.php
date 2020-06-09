@@ -245,7 +245,7 @@ public function ajaxPaginationDataKasir($kode)
     $conditions['start'] = $offset;
     $conditions['limit'] = $this->perPage;
 
-    $data['post1'] = $this->penjualan_model->getRows1($kategori,$conditions);
+    // $data['post1'] = $this->penjualan_model->getRows1($kategori,$conditions);
 
         //get the posts data
     $data['post'] = $this->penjualan_model->getRows($conditions);
@@ -447,7 +447,7 @@ function ajaxPaginationData(){
     $conditions['limit'] = $this->perPage;
 
         //get posts data
-    $data['posts'] = $this->penjualan_model->getRows($conditions    );
+    $data['posts'] = $this->penjualan_model->getRows($conditions);
 
         //load the view
     $this->load->view('member/penjualan/ajax-pagination-data', $data, false);

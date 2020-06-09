@@ -10,7 +10,8 @@
         <div class="row">
             <div class="col-md-12"> 
                 <span class="text-bold">
-                <?php echo rupiah($post['harga_jual']); ?>
+                <?php echo rupiah($post['harga_jual']); ?>/
+                <?php echo rupiah($post['harga_jual2']); ?> 
                 </span>
             </div> 
             </div>
