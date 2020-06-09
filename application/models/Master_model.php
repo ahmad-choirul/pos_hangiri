@@ -446,8 +446,8 @@ class Master_model extends CI_Model{
    
 	
 	// datatable item start
-    var $column_search_item = array('kode_item','nama_item','harga_beli','nama_kategori','harga_jual','lokasi'); 
-    var $column_order_item = array(null, 'kode_item','nama_item','harga_beli','nama_kategori','harga_jual','lokasi');
+    var $column_search_item = array('kode_item','nama_item','harga_beli','nama_kategori','harga_jual'); 
+    var $column_order_item = array(null, 'kode_item','nama_item','harga_beli','nama_kategori','harga_jual');
     var $order_item = array('waktu_update' => 'DESC');
     private function _get_query_item()
     { 
