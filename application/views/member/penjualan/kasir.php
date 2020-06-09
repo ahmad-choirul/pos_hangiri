@@ -1182,12 +1182,13 @@ if ($this->input->get('stattrans')=='dinein') {
             	var totalbelanja = document.getElementById("TotalBelanjaInt").value; 
             	var pelanggan = document.getElementById("nama_pelanggan").value; 
             	var catatan = document.getElementById("catatan").value; 
+            	var statppn = '<?php echo $statppn; ?>'; 
             	// var catatan = "catatan"; 
             	if (Number(totalbayar)>=Number(totalbelanja)) {
             		var pegawai;
             		pegawai = $("#nama_pegawai").val(); 
             		
-            		$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan)
+            		$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn)
             		.submit()
             	}else{
             		window.setTimeout(function() {  

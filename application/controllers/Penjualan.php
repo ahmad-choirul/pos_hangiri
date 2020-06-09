@@ -680,7 +680,7 @@ $data['kepada'] =  "Costumer Toko";
 $data['pelanggan'] =  $this->input->get('pelanggan');
 $data['totalbayar'] =  $this->input->get('bayar');
 $data['catatan'] =  $this->input->get('catatan');
-$data['catatan'] =  $this->input->get('catatan');
+$data['statppn'] =  $this->input->get('statppn');
 $status = $this->penjualan_model->submitpaymentv2($data);
 if ($status) {
     $this->load->view('member/penjualan/struk58mm', $data);     

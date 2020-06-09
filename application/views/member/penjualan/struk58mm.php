@@ -142,8 +142,7 @@
 				<table style="font-size:10px;line-height: 8px; width: 90%" border="0" >
 					<!-- /.LOOPING DARI SINI-->
 					<?php
-					$ttl1 = 0;
-					$ttl2 = 0;
+					$total = 0;
 					foreach ($keranjang as $key) : ?>
 						<tr>
 							<td colspan="2" style="text-transform: uppercase;">
@@ -158,10 +157,8 @@
 							</tr>
 							<!-- /.sampai SINI-->
 							<?php 
-							$ttl1 += $key['total'];
-							$ttl2 += $key['total'];
-							$ppn = $ttl1*10/100;
-							$end = $ttl1+$ppn;
+							$total += $key['total'];
+							$ppn = $total*10/100;
 							?>
 						<?php endforeach ?>
 					</table>
@@ -177,19 +174,23 @@
 					<table  border="0" width="95%" >
 						<tr>
 							<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Jumlah</td>
-							<td style="font-size:9px;text-align: left; margin-right: 10px;float: right; "><?php echo setrupiah($ttl1); ?></td>
+							<td style="font-size:9px;text-align: left; margin-right: 10px;float: right; "><?php echo setrupiah($total); ?></td>
 							<td style="font-size:8px;text-align: right; margin-right: 10px;float: right; "> </td>
 						</tr>
-						<tr>
-							<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">PPN (10%)</td>
-							<td style="font-size:9px;text-align: left; margin-right: 10px;float: right; "><?php echo setrupiah($ppn); ?></td>
-							<td style="font-size:9px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
-						</tr>
-						<tr>
-							<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Total</td>
-							<td style="font-size:9px;text-align: left; margin-right: 10px; float: right;"><?php echo setrupiah($end); ?></td>
-							<td style="font-size:8px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
-						</tr>
+						<?php if ($statppn=='ppn'): ?>
+							<tr>
+								<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">PPN (10%)</td>
+								<td style="font-size:9px;text-align: left; margin-right: 10px;float: right; "><?php echo setrupiah($ppn); ?></td>
+								<td style="font-size:9px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
+							</tr>
+							<tr>
+								<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Total</td>
+								<td style="font-size:9px;text-align: left; margin-right: 10px; float: right;"><?php echo setrupiah($total+$ppn); $total=$total+$ppn;?></td>
+
+								<td style="font-size:8px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
+							</tr>
+						<?php endif ?>
+						
 						<tr>
 							<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Bayar</td>
 							<td style="font-size:9px;text-align: left; margin-right: 10px; float: right;"><?php echo setrupiah($totalbayar); ?></td>
@@ -197,7 +198,7 @@
 						</tr>
 						<tr>
 							<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Kembali</td>
-							<td style="font-size:9px;text-align: left; margin-right: 10px;float: right; "><?php echo setrupiah($totalbayar-($end)); ?></td>
+							<td style="font-size:9px;text-align: left; margin-right: 10px;float: right; "><?php echo setrupiah($totalbayar-($total)); ?></td>
 							<td style="font-size:8px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
 						</tr>
 						<tr>
