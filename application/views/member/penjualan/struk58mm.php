@@ -5,7 +5,7 @@
 	</title>
 	<style type="text/css">
 		html {
-			  font-family: "Arial Narrow";
+			font-family: "Arial Narrow";
 		}
 		.content {
 			width: 50mm;
@@ -56,7 +56,7 @@
 			border-top: 1px dashed #000;
 		}
 		.content .transaction-table {
-			width: 100%;
+			width: 90%;
 			font-size: 10px;
 		}
 		.content .transaction-table .name {
@@ -154,7 +154,7 @@
 							<td style="font-size: 9px; line-height: 7px;" >
 								<?=$key['kuantiti']?>x	<? echo setrupiah($key['harga']); ?></td>
 								<td style="font-size: 9px;line-height: 7px; text-align: left; "><?php echo setrupiah($key['harga']);?></td>
-								<td style="font-size: 9px;line-height: 7px; text-align: left; "><?php echo setrupiah($key['total']);?></td>
+								<td style="font-size: 9px;line-height: 7px; text-align: right; "><?php echo setrupiah($key['total']);?></td>
 							</tr>
 							<!-- /.sampai SINI-->
 							<?php 
@@ -173,34 +173,67 @@
 					<td style="text-align: left;"></td>
 					<td></td>
 					<td></td> -->
-					<table  border="0" width="100%" >
+
+					<table  border="0" width="95%" >
 						<tr>
 							<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Jumlah</td>
-							<td style="font-size:9px;text-align: right; margin-right: 10px;float: right; "><?php echo setrupiah($ttl1); ?></td>
-							<td></td>
+							<td style="font-size:9px;text-align: left; margin-right: 10px;float: right; "><?php echo setrupiah($ttl1); ?></td>
+							<td style="font-size:8px;text-align: right; margin-right: 10px;float: right; "> </td>
 						</tr>
 						<tr>
 							<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">PPN (10%)</td>
-							<td style="font-size:9px;text-align: right; margin-right: 10px;float: right; "><?php echo setrupiah($ppn); ?></td>
-						<td></td>
+							<td style="font-size:9px;text-align: left; margin-right: 10px;float: right; "><?php echo setrupiah($ppn); ?></td>
+							<td style="font-size:9px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
 						</tr>
 						<tr>
 							<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Total</td>
-							<td style="font-size:9px;text-align: right; margin-right: 10px; float: right;"><?php echo setrupiah($end); ?></td>
-						<td></td>
+							<td style="font-size:9px;text-align: left; margin-right: 10px; float: right;"><?php echo setrupiah($end); ?></td>
+							<td style="font-size:8px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
 						</tr>
 						<tr>
 							<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Bayar</td>
-							<td style="font-size:9px;text-align: right; margin-right: 10px; float: right;"><?php echo setrupiah($totalbayar); ?></td>
-							<td></td>
+							<td style="font-size:9px;text-align: left; margin-right: 10px; float: right;"><?php echo setrupiah($totalbayar); ?></td>
+							<td style="font-size:8px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
 						</tr>
 						<tr>
 							<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Kembali</td>
-							<td style="font-size:9px;text-align: right; margin-right: 10px;float: right; "><?php echo setrupiah($totalbayar-($end)); ?></td>
-							<td></td>
+							<td style="font-size:9px;text-align: left; margin-right: 10px;float: right; "><?php echo setrupiah($totalbayar-($end)); ?></td>
+							<td style="font-size:8px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
+						</tr>
+						<tr>
+							<td style="font-size:9px;text-align:left;  " ><b>Catatan : </b></td>
+						</tr>
+						<tr>
+							<td colspan="3" style="font-size:9px;"> ---  <?php echo $catatan; ?> -----</td>
+
 						</tr>
 
 					</table>
+					<br>
+					<!-- -------------------batas STRUK  ------------------- -->
+			<!-- 		<h3>STRUK PENJUALAN UNTUK DAPUR</h3>
+					<hr>
+					<table  border="0" width="100%" >
+						<?php
+							// $ttl1 = 0;
+							// $ttl2 = 0;
+						foreach ($keranjang as $key) : ?>
+							<tr>
+
+								<td style="font-size:9px;text-align:left;  " >
+									<?=$key['nama_item']?>   x <?=$key['kuantiti']?>
+								</td>
+							</tr>
+						<?php endforeach ?>
+						<tr>
+							<td style="font-size:9px;text-align:left;  " ><b>Catatan : </b></td>
+						</tr>
+						<tr>
+							<td style="font-size:9px;text-align:left; "> ~ <?php echo $catatan; ?> ~</td>
+						</tr>
+					</table> -->
+					<!-- -------------------batas STRUK  ------------------- -->
+					
 				<!-- 	<td style="text-align: left; width: 60%; font-size: 10px;">
 						Jumlah <br>
 						PPN (10%) <br> 
