@@ -201,8 +201,8 @@ public function promositambahweb(){
     if($kode_promosi!=null){
        redirect("http://babe-q.com?kode=$kode_promosi");
     }else{
-        $errors['fail'] = "gagal melakukan update data";
-        $data['errors'] = $errors;
+       redirect("http://babe-q.com?kode=gagal");
+
     }
 
 }
