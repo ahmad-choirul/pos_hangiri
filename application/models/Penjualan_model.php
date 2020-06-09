@@ -20,7 +20,7 @@ class Penjualan_model extends CI_Model
     public function data_diskon()
     {
         $this->db->select("a.id, a.kode_item, a.min_kuantiti,
-         a.diskon, a.tanggal_berakhir, b.nama_item");
+           a.diskon, a.tanggal_berakhir, b.nama_item");
         $this->db->from("master_diskon_kelipatan a");
         $this->db->join('master_item b', 'b.kode_item = a.kode_item');
         return $this->db->get()->result_array();
@@ -208,16 +208,16 @@ class Penjualan_model extends CI_Model
     }
 
 
-    // datatable databank start
-    var $column_search_databank = array('jenis', 'singkatan', 'nama_bank');
-    var $column_order_databank = array(null, 'jenis', 'singkatan', 'nama_bank');
-    var $order_databank = array('waktu_update' => 'DESC');
-    private function _get_query_databank()
+    // datatable kode_promosi start
+    var $column_search_kode_promosi = array('kode_promosi','nama', 'instagram', 'tanggal_lahir','hp');
+    var $column_order_kode_promosi = array(null,'kode_promosi','nama', 'instagram', 'tanggal_lahir','hp');
+    var $order_kode_promosi = array('id_kode_promosi' => 'DESC');
+    private function _get_query_kode_promosi()
     {
         $get = $this->input->get();
-        $this->db->from('master_bank');
+        $this->db->from('master_kode_promosi');
         $i = 0;
-        foreach ($this->column_search_databank as $item) {
+        foreach ($this->column_search_kode_promosi as $item) {
             if ($get['search']['value']) {
                 if ($i === 0) {
                     $this->db->group_start();
@@ -226,84 +226,130 @@ class Penjualan_model extends CI_Model
                     $this->db->or_like($item, $get['search']['value']);
                 }
 
-                if (count($this->column_search_databank) - 1 == $i)
+                if (count($this->column_search_kode_promosi) - 1 == $i)
                     $this->db->group_end();
             }
             $i++;
         }
         if (isset($get['order'])) {
-            $this->db->order_by($this->column_order_databank[$get['order']['0']['column']], $get['order']['0']['dir']);
-        } else if (isset($this->order_databank)) {
-            $order = $this->order_databank;
+            $this->db->order_by($this->column_order_kode_promosi[$get['order']['0']['column']], $get['order']['0']['dir']);
+        } else if (isset($this->order_kode_promosi)) {
+            $order = $this->order_kode_promosi;
             $this->db->order_by(key($order), $order[key($order)]);
         }
     }
 
-    function get_databank_datatable()
+    function get_kode_promosi_datatable()
     {
         $get = $this->input->get();
-        $this->_get_query_databank();
+        $this->_get_query_kode_promosi();
         if ($get['length'] != -1)
             $this->db->limit($get['length'], $get['start']);
         $query = $this->db->get();
         return $query->result();
     }
 
-    function count_filtered_datatable_databank()
+    function count_filtered_datatable_kode_promosi()
     {
-        $this->_get_query_databank();
+        $this->_get_query_kode_promosi();
         $query = $this->db->get();
         return $query->num_rows();
     }
 
-    public function count_all_datatable_databank()
+    public function count_all_datatable_kode_promosi()
     {
-        $this->db->from('master_bank');
+        $this->db->from('master_kode_promosi');
         return $this->db->count_all_results();
     }
-    //datatable databank end
+    //datatable kode_promosi end
 
-    // CRUD data bank start
-    public function rulesbank()
+    // CRUD data promosi start
+    public function rulespromosi()
     {
         return [
             [
-                'field' => 'singkatan',
-                'label' => 'singkatan bank',
+                'field' => 'nama',
+                'label' => 'nama',
                 'rules' => 'required',
             ],
             [
-                'field' => 'nama_bank',
-                'label' => 'nama bank',
+                'field' => 'instagram',
+                'label' => 'instagram',
+                'rules' => 'required',
+            ],
+            [
+                'field' => 'hp',
+                'label' => 'hp',
                 'rules' => 'required',
             ]
         ];
     }
-    function simpandatabank()
+
+    function simpandatapromosi()
     {
         $post = $this->input->post();
+        do {
+            $kode_promosi = date("md").''.$this->create_random(4);
+            $this->db->where('kode_promosi', $kode_promosi);
+            $hasil = $this->db->get('master_kode_promosi')->num_rows();
+        } while ($hasil>0);
         $array = array(
-            'singkatan' => $post["singkatan"],
-            'nama_bank' => $post["nama_bank"],
-            'jenis' => $post["jenis"],
+            'kode_promosi' => $kode_promosi,
+            'nama' => $post["nama"],
+            'instagram' => $post["instagram"],
+            'tanggal_lahir' => $post["tanggal_lahir"],
+            'hp' => $post["hp"],
         );
-        return $this->db->insert("master_bank", $array);
+        return $this->db->insert("master_kode_promosi", $array);
     }
 
-    public function updatedatabank()
+        function simpandatapromosiweb()
     {
         $post = $this->input->post();
-        $this->singkatan = $post["singkatan"];
-        $this->nama_bank = $post["nama_bank"];
-        $this->jenis = $post["jenis"];
-        return $this->db->update("master_bank", $this, array('singkatan' => $post['idd']));
+        do {
+            $kode_promosi = date("md").''.$this->create_random(4);
+            $this->db->where('kode_promosi', $kode_promosi);
+            $hasil = $this->db->get('master_kode_promosi')->num_rows();
+        } while ($hasil>0);
+        $array = array(
+            'kode_promosi' => $kode_promosi,
+            'nama' => $post["nama"],
+            'instagram' => $post["instagram"],
+            'tanggal_lahir' => $post["tanggal_lahir"],
+            'hp' => $post["hp"],
+        );
+        if ($this->db->insert("master_kode_promosi", $array)) {
+            return $kode_promosi;
+        }else{
+            return null;
+        }
     }
 
-    public function hapusdatabank()
+    function create_random($length)
+    {
+        $data = 'ABCDEFGHIJKLMNOPQRSTU1234567890';
+        $string = '';
+        for($i = 0; $i < $length; $i++) {
+            $pos = rand(0, strlen($data)-1);
+            $string .= $data{$pos};
+        }
+        return $string;
+    }
+    public function updatedatapromosi()
     {
         $post = $this->input->post();
-        $this->db->where('singkatan', $post['idd']);
-        return $this->db->delete('master_bank');
+        $this->nama = $post["nama"];
+        $this->instagram = $post["instagram"];
+        $this->tanggal_lahir = $post["tanggal_lahir"];
+        $this->hp = $post["hp"];
+        return $this->db->update("master_kode_promosi", $this, array('id_kode_promosi' => $post['idd']));
+    }
+
+    public function hapuskode_promosi()
+    {
+        $post = $this->input->post();
+        $this->db->where('id_kode_promosi', $post['idd']);
+        return $this->db->update('master_kode_promosi',array('status' => '0' ));
     }
     // CRUD supplier end
 
@@ -350,50 +396,71 @@ class Penjualan_model extends CI_Model
         if ($query->num_rows() < 1) {
             $diskon =  $this->diskon_produk($kodeproduk, 1);
             if ($jenis_penjualan=='online') {
-                 $harga = $produk->row()->harga_jual2;
-            }else{
-                 $harga = $produk->row()->harga_jual;
-            }
-            $harga_beli = $produk->row()->harga_beli;
-            $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
-            $array = array(
-                'id_keranjang' => $idkeranjang,
-                'kode_item' => $kodeproduk,
-                'harga' => $harga,
-                'harga_beli' => $harga_beli,
-                'diskon' => $diskon,
-                'kuantiti' => $kuantiti,
-                'total' => $total,
-            );
-            $this->db->insert("keranjang_detail", $array);
-            $this->updatekeranjang($idkeranjang);
-            return TRUE;
-        } else {
-            $kuantiti = $query->row()->kuantiti + $kuantiti;
-            $diskon =  $this->diskon_produk($kodeproduk, $kuantiti);
-            if ($jenis_penjualan=='online') {
-                 $harga = $produk->row()->harga_jual2;
-            }else{
-                 $harga = $produk->row()->harga_jual;
-            }
-            $harga_beli = $produk->row()->harga_beli;
-            $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
-            $this->harga = $harga;
-            $this->harga_beli = $harga_beli;
-            $this->diskon = $diskon;
-            $this->kuantiti = $kuantiti;
-            $this->total = $total;
-            $this->db->update("keranjang_detail", $this, array('id_keranjang' => $idkeranjang, 'kode_item' => $kodeproduk));
-            $this->updatekeranjang($idkeranjang);
-            return TRUE;
-        }
-    }
-    public function tambahkeranjang($idd)
-    {
-        $query = $this->db->get_where('keranjang_detail', array('id' => $idd), 1);
-        $idkeranjang = $query->row()->id_keranjang;
+               $harga = $produk->row()->harga_jual2;
+           }else{
+               $harga = $produk->row()->harga_jual;
+           }
+           $harga_beli = $produk->row()->harga_beli;
+           $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
+           $array = array(
+            'id_keranjang' => $idkeranjang,
+            'kode_item' => $kodeproduk,
+            'harga' => $harga,
+            'harga_beli' => $harga_beli,
+            'diskon' => $diskon,
+            'kuantiti' => $kuantiti,
+            'total' => $total,
+        );
+           $this->db->insert("keranjang_detail", $array);
+           $this->updatekeranjang($idkeranjang);
+           return TRUE;
+       } else {
+        $kuantiti = $query->row()->kuantiti + $kuantiti;
+        $diskon =  $this->diskon_produk($kodeproduk, $kuantiti);
+        if ($jenis_penjualan=='online') {
+           $harga = $produk->row()->harga_jual2;
+       }else{
+           $harga = $produk->row()->harga_jual;
+       }
+       $harga_beli = $produk->row()->harga_beli;
+       $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
+       $this->harga = $harga;
+       $this->harga_beli = $harga_beli;
+       $this->diskon = $diskon;
+       $this->kuantiti = $kuantiti;
+       $this->total = $total;
+       $this->db->update("keranjang_detail", $this, array('id_keranjang' => $idkeranjang, 'kode_item' => $kodeproduk));
+       $this->updatekeranjang($idkeranjang);
+       return TRUE;
+   }
+}
+public function tambahkeranjang($idd)
+{
+    $query = $this->db->get_where('keranjang_detail', array('id' => $idd), 1);
+    $idkeranjang = $query->row()->id_keranjang;
+    $produk = $this->db->get_where('master_item', array('kode_item' => $query->row()->kode_item), 1);
+    $kuantiti = $query->row()->kuantiti + 1;
+    $diskon =  $this->diskon_produk($query->row()->kode_item, $kuantiti);
+    $harga = $query->row()->harga;
+    $harga_beli = $produk->row()->harga_beli;
+    $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
+    $this->harga = $harga;
+    $this->harga_beli = $harga_beli;
+    $this->diskon = $diskon;
+    $this->kuantiti = $kuantiti;
+    $this->total = $total;
+    $this->db->update("keranjang_detail", $this, array('id' => $idd, 'kode_item' => $query->row()->kode_item));
+    $this->updatekeranjang($idkeranjang);
+    return TRUE;
+}
+
+public function kurangkeranjang($idd)
+{
+    $query = $this->db->get_where('keranjang_detail', array('id' => $idd), 1);
+    $idkeranjang = $query->row()->id_keranjang;
+    if ($query->row()->kuantiti > 1) {
         $produk = $this->db->get_where('master_item', array('kode_item' => $query->row()->kode_item), 1);
-        $kuantiti = $query->row()->kuantiti + 1;
+        $kuantiti = $query->row()->kuantiti - 1;
         $diskon =  $this->diskon_produk($query->row()->kode_item, $kuantiti);
         $harga = $query->row()->harga;
         $harga_beli = $produk->row()->harga_beli;
@@ -405,113 +472,92 @@ class Penjualan_model extends CI_Model
         $this->total = $total;
         $this->db->update("keranjang_detail", $this, array('id' => $idd, 'kode_item' => $query->row()->kode_item));
         $this->updatekeranjang($idkeranjang);
-        return TRUE;
-    }
-
-    public function kurangkeranjang($idd)
-    {
-        $query = $this->db->get_where('keranjang_detail', array('id' => $idd), 1);
-        $idkeranjang = $query->row()->id_keranjang;
-        if ($query->row()->kuantiti > 1) {
-            $produk = $this->db->get_where('master_item', array('kode_item' => $query->row()->kode_item), 1);
-            $kuantiti = $query->row()->kuantiti - 1;
-            $diskon =  $this->diskon_produk($query->row()->kode_item, $kuantiti);
-            $harga = $query->row()->harga;
-            $harga_beli = $produk->row()->harga_beli;
-            $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
-            $this->harga = $harga;
-            $this->harga_beli = $harga_beli;
-            $this->diskon = $diskon;
-            $this->kuantiti = $kuantiti;
-            $this->total = $total;
-            $this->db->update("keranjang_detail", $this, array('id' => $idd, 'kode_item' => $query->row()->kode_item));
-            $this->updatekeranjang($idkeranjang);
-        } else {
-            $this->db->where('id', $idd)->delete('keranjang_detail');
-            $this->updatekeranjang($idkeranjang);
-        }
-        return TRUE;
-    }
-
-    public function hapuskeranjang($idd)
-    {
-        // $query = $this->db->get_where('keranjang_detail', array('id' => $idd), 1);
-        // $idkeranjang = $query->row()->id_keranjang;
-        $this->db->where('id_keranjang', $idd)->delete('keranjang_detail');
-        $this->updatekeranjang($idd);
-        return TRUE;
-    }
-
-    public function hapusbarangkeranjang($idd)
-    {
-        $query = $this->db->get_where('keranjang_detail', array('id' => $idd), 1);
-        $idkeranjang = $query->row()->id_keranjang;
-
+    } else {
         $this->db->where('id', $idd)->delete('keranjang_detail');
         $this->updatekeranjang($idkeranjang);
-        return TRUE;
     }
-    public function cek_keranjang($kode, $pembeli, $racikan)
-    {
-        if ($pembeli == '') {
-            $pembeli = NULL;
-        }
-        $query = $this->db->get_where('keranjang', array('hold' => '0','id_admin' => $this->session->userdata('idadmin')), 1);
-        if ($query->num_rows() < 1) {
-            $array = array(
-                'tanggal_jam' => date('Y-m-d h:i:s'),
-                'id_admin' => $this->session->userdata('idadmin'),
-                'id_pembeli' => $pembeli,
-                'total' => '0',
-                'hold' => '0',
-            );
-            $this->db->insert("keranjang", $array);
-            $idkeranjang = $this->db->insert_id();
-            $this->simpan_keranjang($idkeranjang, $kode, 1, $racikan);
-        } else {
-            $idkeranjang = $query->row()->id;
-            $this->simpan_keranjang($idkeranjang, $kode, 1, $racikan,$query->row()->jenis_penjualan);
-        }
-    }
+    return TRUE;
+}
 
-    public function get_keranjang()
-    {
-        return $this->db->get_where('keranjang', array('hold' => '0', 'id_admin' => $this->session->userdata('idadmin')), 1);
+public function hapuskeranjang($idd)
+{
+        // $query = $this->db->get_where('keranjang_detail', array('id' => $idd), 1);
+        // $idkeranjang = $query->row()->id_keranjang;
+    $this->db->where('id_keranjang', $idd)->delete('keranjang_detail');
+    $this->updatekeranjang($idd);
+    return TRUE;
+}
+
+public function hapusbarangkeranjang($idd)
+{
+    $query = $this->db->get_where('keranjang_detail', array('id' => $idd), 1);
+    $idkeranjang = $query->row()->id_keranjang;
+
+    $this->db->where('id', $idd)->delete('keranjang_detail');
+    $this->updatekeranjang($idkeranjang);
+    return TRUE;
+}
+public function cek_keranjang($kode, $pembeli, $racikan)
+{
+    if ($pembeli == '') {
+        $pembeli = NULL;
     }
-    public function ubahhargakeranjang($statppn,$idd)
-    {
-       $this->db->trans_start();
-       $this->db->select("a.nama_item,b.kode_item, b.id, b.kuantiti, b.diskon, b.harga, b.total, b.id_keranjang");
-       $this->db->from("master_item a");
-       $this->db->join('keranjang_detail b', 'b.kode_item = a.kode_item');
-       $this->db->where('b.id_keranjang', $idd);
-       $this->db->order_by('b.id', 'DESC');
-       $keranjang = $this->db->get();
-       if($keranjang->num_rows() > 0){      
-        foreach($keranjang->result_array() as $r) {
-            $this->db->select('*');
-            $this->db->from('master_item');
-             $this->db->where('kode_item', $r['kode_item']);
-            $dataitem = $this->db->get()->result_array()[0];
-            if ($statppn=='online') {
-                $harga=$dataitem['harga_jual2'];
-            }else{
-                $harga = $dataitem['harga_jual'];
-            }
-            $total = ($harga * $r['kuantiti']) - ($r['diskon'] * $r['kuantiti']);
-            $this->db->where('id_keranjang', $idd);
-            $this->db->where('kode_item', $r['kode_item']);
-            $this->db->update('keranjang_detail',array('harga' => $harga,
-                                                        'total' => $total ));
-        }    
+    $query = $this->db->get_where('keranjang', array('hold' => '0','id_admin' => $this->session->userdata('idadmin')), 1);
+    if ($query->num_rows() < 1) {
+        $array = array(
+            'tanggal_jam' => date('Y-m-d h:i:s'),
+            'id_admin' => $this->session->userdata('idadmin'),
+            'id_pembeli' => $pembeli,
+            'total' => '0',
+            'hold' => '0',
+        );
+        $this->db->insert("keranjang", $array);
+        $idkeranjang = $this->db->insert_id();
+        $this->simpan_keranjang($idkeranjang, $kode, 1, $racikan);
+    } else {
+        $idkeranjang = $query->row()->id;
+        $this->simpan_keranjang($idkeranjang, $kode, 1, $racikan,$query->row()->jenis_penjualan);
     }
-    $this->db->where('id', $idd);
-    $this->db->update('keranjang',array('jenis_penjualan' => $statppn )); 
-    if($this->db->trans_status() === FALSE){
-       $this->db->trans_rollback();
-   }else{
-       $this->db->trans_complete();
-   }
+}
+
+public function get_keranjang()
+{
+    return $this->db->get_where('keranjang', array('hold' => '0', 'id_admin' => $this->session->userdata('idadmin')), 1);
+}
+public function ubahhargakeranjang($statppn,$idd)
+{
+ $this->db->trans_start();
+ $this->db->select("a.nama_item,b.kode_item, b.id, b.kuantiti, b.diskon, b.harga, b.total, b.id_keranjang");
+ $this->db->from("master_item a");
+ $this->db->join('keranjang_detail b', 'b.kode_item = a.kode_item');
+ $this->db->where('b.id_keranjang', $idd);
+ $this->db->order_by('b.id', 'DESC');
+ $keranjang = $this->db->get();
+ if($keranjang->num_rows() > 0){      
+    foreach($keranjang->result_array() as $r) {
+        $this->db->select('*');
+        $this->db->from('master_item');
+        $this->db->where('kode_item', $r['kode_item']);
+        $dataitem = $this->db->get()->result_array()[0];
+        if ($statppn=='online') {
+            $harga=$dataitem['harga_jual2'];
+        }else{
+            $harga = $dataitem['harga_jual'];
+        }
+        $total = ($harga * $r['kuantiti']) - ($r['diskon'] * $r['kuantiti']);
+        $this->db->where('id_keranjang', $idd);
+        $this->db->where('kode_item', $r['kode_item']);
+        $this->db->update('keranjang_detail',array('harga' => $harga,
+            'total' => $total ));
+    }    
+}
+$this->db->where('id', $idd);
+$this->db->update('keranjang',array('jenis_penjualan' => $statppn )); 
+if($this->db->trans_status() === FALSE){
+ $this->db->trans_rollback();
+}else{
+ $this->db->trans_complete();
+}
 }
 public function detail_keranjang($idd)
 {
@@ -548,9 +594,9 @@ public function bukaholdtransaksi($idkeranjang)
     return $this->db->update("keranjang", $this, array('id' => $idkeranjang, 'hold' => '1', 'token' => $this->security->get_csrf_hash(), 'id_admin' => $this->session->userdata('idadmin')));
 }
 
-public function bankjenis($jenis)
+public function promosijenis($jenis)
 {
-    return $this->db->get_where('master_bank', array('jenis' => $jenis));
+    return $this->db->get_where('master_kode_promosi', array('jenis' => $jenis));
 }
 
 public function rulestargetedit()
@@ -626,13 +672,13 @@ function submitpaymentv2($data)
 
     // $cara_bayar_1 = $data['status'];
     // if ($cara_bayar_1 == 'cash') {
-        $pembayaran_1 = array(
-            'id_penjualan' => $kode_penjualan,
-            'nominal' => bilanganbulat($data['totalbayar']),
-            'cara_bayar' => 'cash',
-            'catatan' =>'',
-        );
-        $this->db->insert("penjualan_pembayaran", $pembayaran_1);
+    $pembayaran_1 = array(
+        'id_penjualan' => $kode_penjualan,
+        'nominal' => bilanganbulat($data['totalbayar']),
+        'cara_bayar' => 'cash',
+        'catatan' =>'',
+    );
+    $this->db->insert("penjualan_pembayaran", $pembayaran_1);
 
     // } else {//kredit
     //     $pembayaran_1 = array(
@@ -692,11 +738,11 @@ function submitpaymentv2($data)
     $this->db->where('id', $keranjang->row()->id)->delete('keranjang');
     if ($this->db->trans_status() === FALSE)
     {
-     $this->db->trans_rollback();
-     return false;
- }
- else
- {
+       $this->db->trans_rollback();
+       return false;
+   }
+   else
+   {
     $this->db->trans_commit();
     return true;
 }

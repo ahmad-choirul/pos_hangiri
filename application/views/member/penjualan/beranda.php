@@ -65,9 +65,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             </div>
                                                         </li> 
                                                         <li>
-                                                            <a href="<?php echo base_url()?>penjualan/jenispembayaran" class="menu-item" style="color: white;"><i class="fa fa-folder"></i> Jenis Pembayaran</a>
+                                                            <a href="<?php echo base_url()?>penjualan/kode_promosi" class="menu-item" style="color: white;"><i class="fa fa-folder"></i> Jenis Pembayaran</a>
                                                             <div class="item-options">
-                                                                <a href="<?php echo base_url()?>penjualan/jenispembayaran">
+                                                                <a href="<?php echo base_url()?>penjualan/kode_promosi">
                                                                     <i class="fa fa-arrow-circle-o-left"></i>
                                                                 </a> 
                                                             </div>

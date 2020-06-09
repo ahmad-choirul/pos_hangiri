@@ -102,54 +102,80 @@ public function hapusdiskon(){
     echo json_encode($data); 
 } 
 
-public function jenispembayaran()
+public function kode_promosi()
 {    
-    level_user('penjualan','jenispembayaran',$this->session->userdata('kategori'),'read') > 0 ? '': show_404();
-    $this->load->view('member/penjualan/jenispembayaran'); 
+    level_user('penjualan','kode_promosi',$this->session->userdata('kategori'),'read') > 0 ? '': show_404();
+    $this->load->view('member/penjualan/kode_promosi'); 
 }  
-public function databank()
+public function data_kode_promosi()
 {   
     cekajax(); 
     $get = $this->input->get();
-    $list = $this->penjualan_model->get_databank_datatable();
+    $list = $this->penjualan_model->get_kode_promosi_datatable();
     $data = array(); 
     foreach ($list as $r) { 
         $row = array(); 
-        $tombolhapus = level_user('penjualan','jenispembayaran',$this->session->userdata('kategori'),'delete') > 0 ? '<li><a href="#" onclick="hapus(this)" data-id="'.$this->security->xss_clean($r->singkatan).'">Hapus</a></li>':'';
-        $tomboledit = level_user('penjualan','jenispembayaran',$this->session->userdata('kategori'),'edit') > 0 ? '<li><a href="#" onclick="edit(this)" data-id="'.$this->security->xss_clean($r->singkatan).'">Edit</a></li>':'';
-
+        $tombolhapus = level_user('penjualan','kode_promosi',$this->session->userdata('kategori'),'delete') > 0 ? '<li><a href="#" onclick="hapus(this)" data-id="'.$this->security->xss_clean($r->id_kode_promosi).'">Hapus</a></li>':'';
+        $tomboledit = level_user('penjualan','kode_promosi',$this->session->userdata('kategori'),'edit') > 0 ? '<li><a href="#" onclick="edit(this)" data-id="'.$this->security->xss_clean($r->id_kode_promosi).'">Edit</a></li>':'';
         $row[] = ' 
         <div class="btn-group dropup">
         <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Action <span class="caret"></span></button>
-        <ul class="dropdown-menu" role="menu">  
-        '.$tomboledit.'
+        <ul class="dropdown-menu" role="menu">
+        '.$tomboledit.' 
         '.$tombolhapus.' 
         </ul>
         </div>
         ';
-        $row[] = $this->security->xss_clean($r->jenis); 
-        $row[] = $this->security->xss_clean($r->singkatan);
-        $row[] = $this->security->xss_clean($r->nama_bank);
+        $status='';
+        if ($r->status=='1') {
+            $status = '<a class="btn btn-primary">Aktif</a>';
+        }else{
+            $status='<a class="btn btn-danger">Non Aktif</a>';
+        }
+        $row[] = $this->security->xss_clean($r->kode_promosi); 
+        $row[] = $this->security->xss_clean($r->nama); 
+        $row[] = $this->security->xss_clean($r->instagram);
+        $row[] = $this->security->xss_clean($r->tanggal_lahir);
+        $row[] = $this->security->xss_clean($r->hp);
+        $row[] = $status;
         $data[] = $row;
     } 
     $result = array(
         "draw" => $get['draw'],
-        "recordsTotal" => $this->penjualan_model->count_all_datatable_databank(),
-        "recordsFiltered" => $this->penjualan_model->count_filtered_datatable_databank(),
+        "recordsTotal" => $this->penjualan_model->count_all_datatable_kode_promosi(),
+        "recordsFiltered" => $this->penjualan_model->count_filtered_datatable_kode_promosi(),
         "data" => $data,
     ); 
     echo json_encode($result); 
 }
-public function banktambah(){ 
+
+
+public function promosidetail(){  
+    cekajax(); 
+    $idd = $this->input->get("id");
+    $query = $this->db->get_where('master_kode_promosi', array('id_kode_promosi' => $idd),1);
+    $result = array(  
+        "id_kode_promosi" => $this->security->xss_clean($query->row()->id_kode_promosi),
+        "kode_promosi" => $this->security->xss_clean($query->row()->kode_promosi),
+        "nama" => $this->security->xss_clean($query->row()->nama),
+        "instagram" => $this->security->xss_clean($query->row()->instagram),
+        "tanggal_lahir" => $this->security->xss_clean($query->row()->tanggal_lahir), 
+        "hp" => $this->security->xss_clean($query->row()->hp), 
+    );    
+    echo'['.json_encode($result).']';
+}
+
+
+public function promositambah(){ 
     cekajax(); 
     $simpan = $this->penjualan_model;
     $validation = $this->form_validation; 
-    $validation->set_rules($simpan->rulesbank());
+    $validation->set_rules($simpan->rulespromosi());
     if ($this->form_validation->run() == FALSE){
      $errors = $this->form_validation->error_array();
      $data['errors'] = $errors;
  }else{    
-    if($simpan->simpandatabank()){
+    if($simpan->simpandatapromosi()){
         $data['success']= true;
         $data['message']="Berhasil menyimpan data";  
     }else{
@@ -162,28 +188,36 @@ $data['token'] = $this->security->get_csrf_hash();
 echo json_encode($data); 
 }
 
-public function bankdetail(){  
-    cekajax(); 
-    $idd = $this->input->get("id");
-    $query = $this->db->get_where('master_bank', array('singkatan' => $idd),1);
-    $result = array(  
-        "nama_bank" => $this->security->xss_clean($query->row()->nama_bank),
-        "singkatan" => $this->security->xss_clean($query->row()->singkatan),
-        "jenis" => $this->security->xss_clean($query->row()->jenis), 
-    );    
-    echo'['.json_encode($result).']';
-}
 
-public function bankedit(){ 
-    cekajax(); 
+public function promositambahweb(){ 
     $simpan = $this->penjualan_model;
     $validation = $this->form_validation; 
-    $validation->set_rules($simpan->rulesbank());
+    $validation->set_rules($simpan->rulespromosi());
     if ($this->form_validation->run() == FALSE){
      $errors = $this->form_validation->error_array();
      $data['errors'] = $errors;
  }else{    
-    if($simpan->updatedatabank()){
+    $kode_promosi = $simpan->simpandatapromosi();
+    if($kode_promosi!=null){
+       redirect("http://babe-q.com?kode=$kode_promosi");
+    }else{
+        $errors['fail'] = "gagal melakukan update data";
+        $data['errors'] = $errors;
+    }
+
+}
+}
+
+public function promosiedit(){ 
+    cekajax(); 
+    $simpan = $this->penjualan_model;
+    $validation = $this->form_validation; 
+    $validation->set_rules($simpan->rulespromosi());
+    if ($this->form_validation->run() == FALSE){
+     $errors = $this->form_validation->error_array();
+     $data['errors'] = $errors;
+ }else{    
+    if($simpan->updatedatapromosi()){
         $data['success']= true;
         $data['message']="Berhasil menyimpan data";
     }else{
@@ -196,10 +230,10 @@ $data['token'] = $this->security->get_csrf_hash();
 echo json_encode($data); 
 }
 
-public function bankhapus(){ 
+public function promosihapus(){ 
     cekajax(); 
     $hapus = $this->penjualan_model;
-    if($hapus->hapusdatabank()){ 
+    if($hapus->hapuskode_promosi()){ 
         $data['success']= true;
         $data['message']="Berhasil menghapus data"; 
     }else{    
@@ -561,11 +595,11 @@ public function keranjangdetail($statppn=''){
     echo'{"datarows":'.json_encode($array).',"datasub":'.json_encode($datasub).'}';
 }
 
-public function bankjenis(){  
+public function promosijenis(){  
     cekajax();       
     $get = $this->input->get();    
-    $bank = $this->penjualan_model->bankjenis($get['jenis']);  
-    foreach($bank->result_array() as $r) {    
+    $promosi = $this->penjualan_model->promosijenis($get['jenis']);  
+    foreach($promosi->result_array() as $r) {    
         $subArray['singkatan']=$this->security->xss_clean($r['singkatan']);  
         $arraysub[] =  $subArray ;  
     }   
