@@ -142,7 +142,7 @@ class Dashboard extends CI_Controller {
     foreach($subitem as $r) {   
      $subArray['kode_item']=$r->kode_item;
      $subArray['nama_item']=$r->nama_item;   
-     $subArray['total']=$r->total ." ". $r->satuan;   
+     $subArray['total']=$r->total;   
      $arraysub[] =  $subArray ; 
  }   
  echo'{"datasub":'.json_encode($arraysub).'}';
