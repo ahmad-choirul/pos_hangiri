@@ -631,14 +631,7 @@ $data['id_pembeli'] =  $keranjang->row()->id_pembeli;
 $date = $this->input->get('tmp');
 $data['tempo'] = date("yyyy-mm-dd",strtotime($date)) ;
 
-  //no
-$this->db->order_by('id', 'DESC'); 
-$this->db->limit(1);
-if (isset($this->db->get('penjualan')->row()->id)) {
-    $idpnj = $this->db->get('penjualan')->row()->id;
-}else{
-    $idpnj = 0;    
-}
+
         //pembeli
 if ($data['id_pembeli']!='') {
    $this->db->where('id',  $data['id_pembeli']);
@@ -669,7 +662,7 @@ $pegawai = $this->db->get();
 
         // data
 $data['keranjang'] =  $detail->result_array();
-$data['penjualan'] =  $idpnj +1;
+$data['penjualan'] =  $this->penjualan_model->_kode_penjualan();
 $data['pegawai'] =  $pegawai->row()->nama_admin;
 $data['id_pegawai'] =  $pegawai->row()->id;
 $data['kode'] =  $this->input->get('tp');
@@ -684,10 +677,13 @@ $data['statppn'] =  $this->input->get('statppn');
 $status = $this->penjualan_model->submitpaymentv2($data);
 if ($status) {
     $this->load->view('member/penjualan/struk58mm', $data);   
-    $this->load->view('member/penjualan/struk_dapur58mm', $data);   
+    // $this->load->view('member/penjualan/struk_dapur58mm', $data);   
 }else{
     redirect('penjualan/kasir','refresh');
 }
 }
-
+public function print_dapur()
+{
+   $this->load->view('member/penjualan/struk_dapur58mm', $data);  
+}
 }

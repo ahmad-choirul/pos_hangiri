@@ -103,7 +103,13 @@
 	</style>
 	<script type="text/javascript">
 		window.print();
+		window.onafterprint = function(e){
+			closePrintView();
+		};
 
+		function closePrintView() {
+			window.location.href = 'google.com';   
+		}
 	</script>
 
 </head>

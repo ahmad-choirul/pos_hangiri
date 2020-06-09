@@ -584,9 +584,9 @@ public function updatedatatarget()
 }
 
 
-private function _kode_penjualan()
+public function _kode_penjualan()
 {
-    $jumlah = $this->db->select('*')->from('penjualan')->get()->num_rows();
+    $jumlah = $this->db->select('*')->from('penjualan')->where('tanggal',date('Y-m-d'))->get()->num_rows();
     $jml_baru = $jumlah + 1;
     $kode = sprintf("%06s", $jml_baru);
     $kode = date('dmy') . $kode;
