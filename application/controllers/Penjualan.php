@@ -662,25 +662,25 @@ $detail = $this->db->get();
         // 
 $ids = $this->input->get('pegawai');
 $this->db->select("*");
-$this->db->from("master_pegawai ");
-$this->db->where('master_pegawai.id_admin', $ids);
+$this->db->from("master_admin ");
+$this->db->where('master_admin.id', $ids);
 $pegawai = $this->db->get();
         // 
 
         // data
 $data['keranjang'] =  $detail->result_array();
 $data['penjualan'] =  $idpnj +1;
-$data['pegawai'] =  $pegawai->row()->nama_pegawai;
+$data['pegawai'] =  $pegawai->row()->nama_admin;
 $data['id_pegawai'] =  $pegawai->row()->id;
 $data['kode'] =  $this->input->get('tp');
 $data['apoteker'] =  $pembeli->result_array();
 $data['toko'] =  $toko->result_array();
-$data['status'] =  "Cash";
+$data['status'] =  "cash";
 $data['kepada'] =  "Costumer Toko";
 $data['pelanggan'] =  $this->input->get('pelanggan');
 $data['totalbayar'] =  $this->input->get('bayar');
 $status = $this->penjualan_model->submitpaymentv2($data);
-if (true) {
+if ($status) {
     $this->load->view('member/penjualan/struk58mm', $data);     
 }else{
     redirect('penjualan/kasir','refresh');

@@ -624,8 +624,8 @@ function submitpaymentv2($data)
     );
     $this->db->insert("cash_in_out", $cashinout);
 
-    $cara_bayar_1 = $data['status'];
-    if ($cara_bayar_1 == 'cash') {
+    // $cara_bayar_1 = $data['status'];
+    // if ($cara_bayar_1 == 'cash') {
         $pembayaran_1 = array(
             'id_penjualan' => $kode_penjualan,
             'nominal' => bilanganbulat($data['totalbayar']),
@@ -634,27 +634,27 @@ function submitpaymentv2($data)
         );
         $this->db->insert("penjualan_pembayaran", $pembayaran_1);
 
-    } else {//kredit
-        $pembayaran_1 = array(
-            'id_penjualan' => $kode_penjualan,
-            'nominal' => bilanganbulat($data['totalbayar']),
-            'cara_bayar' => 'kredit',
-            'catatan' => $this->input->post('catatan')[0],
-        );
-        $this->db->insert("penjualan_pembayaran", $pembayaran_1);
+    // } else {//kredit
+    //     $pembayaran_1 = array(
+    //         'id_penjualan' => $kode_penjualan,
+    //         'nominal' => bilanganbulat($data['totalbayar']),
+    //         'cara_bayar' => 'kredit',
+    //         'catatan' => $this->input->post('catatan')[0],
+    //     );
+    //     $this->db->insert("penjualan_pembayaran", $pembayaran_1);
 
-        $piutang = array(
-            'id_penjualan' => $kode_penjualan,
-            'id_pembeli' =>  $keranjang->row()->id_pembeli,
-            'judul' => 'kredit pembelian',
-            'tanggal_jatuh_tempo' => $data['tempo'],
-            'nominal' => bilanganbulat($keranjang->row()->total_harga_item),
-            'nominal_dibayar' => bilanganbulat($data['totalbayar']),
-            'sudah_lunas' => '0',
-            'keterangan' => $this->input->post('catatan')[0],
-        );
-        $this->db->insert("piutang_history", $piutang);
-    }
+    //     $piutang = array(
+    //         'id_penjualan' => $kode_penjualan,
+    //         'id_pembeli' =>  $keranjang->row()->id_pembeli,
+    //         'judul' => 'kredit pembelian',
+    //         'tanggal_jatuh_tempo' => $data['tempo'],
+    //         'nominal' => bilanganbulat($keranjang->row()->total_harga_item),
+    //         'nominal_dibayar' => bilanganbulat($data['totalbayar']),
+    //         'sudah_lunas' => '0',
+    //         'keterangan' => $this->input->post('catatan')[0],
+    //     );
+    //     $this->db->insert("piutang_history", $piutang);
+    // }
 
 
     $items = [];

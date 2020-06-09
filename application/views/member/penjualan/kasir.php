@@ -1183,8 +1183,8 @@ if ($this->input->get('stattrans')=='dinein') {
             	if (Number(totalbayar)>=Number(totalbelanja)) {
             		var pegawai;
             		pegawai = $("#nama_pegawai").val(); 
-
-            		$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar,'_blank')
+            		
+            		$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar)
             		.submit()
             	}else{
             		window.setTimeout(function() {  
