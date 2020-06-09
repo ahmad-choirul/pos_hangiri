@@ -53,6 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <th>Kategori</th>
                     <th>Harga beli</th>
                     <th>Harga Jual</th>
+                    <th>Harga Jual 2</th>
                     <th>Tanggal Kadaluarsa</th>
                 </tr>
             </thead>
@@ -105,6 +106,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <label class="col-sm-3 control-label">Harga Jual<span class="required">*</span></label>
                     <div class="col-sm-9">
                         <input type="text" name="harga_jual" class="form-control mask_price" required />
+                    </div>
+                </div> 
+
+                 <div class="form-group harga_jual2">
+                    <label class="col-sm-3 control-label">Harga Jual 2<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="text" name="harga_jual2" class="form-control mask_price" required />
                     </div>
                 </div> 
                 <div class="form-group harga_jual">
@@ -224,6 +232,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <label class="col-sm-3 control-label">Harga Jual<span class="required">*</span></label>
                     <div class="col-sm-9">
                         <input type="text" name="harga_jual"   id="harga_jual" class="form-control mask_price" required />
+                    </div>
+                </div> 
+
+                 <div class="form-group harga_jual">
+                    <label class="col-sm-3 control-label">Harga Jual 2<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <input type="text" name="harga_jual2"   id="harga_jual2" class="form-control mask_price" required />
                     </div>
                 </div> 
 
@@ -421,6 +436,7 @@ e.preventDefault();
                 datarow+="<tr><td>Nama Item</td><td>: "+item.nama_item+"</td></tr>";
                 datarow+="<tr><td>Harga Beli</td><td>: "+item.harga_beli+"</td></tr>";
                 datarow+="<tr><td>Harga Jual</td><td>: "+item.harga_jual+"</td></tr>";
+                datarow+="<tr><td>Harga Jual 2</td><td>: "+item.harga_jual2+"</td></tr>";
                 datarow+="<tr><td>Netto</td><td>: "+item.netto+"</td></tr>";
                 datarow+="<tr><td>Stok</td><td>: "+item.stok+"</td></tr>";
                 datarow+="<tr><td>Tanggal Kadaluarsa</td><td>: "+item.tanggal_expired+"</td></tr>";
@@ -452,6 +468,7 @@ e.preventDefault();
                 document.getElementById("keterangan").value = item.keterangan;
                 document.getElementById("harga_beli").value = item.harga_beliedit;
                 document.getElementById("harga_jual").value = item.harga_jualedit;
+                document.getElementById("harga_jual2").value = item.harga_jualedit2;
                 document.getElementById("tanggal_expired").value = item.tanggal_expireds;
                 document.getElementById("gambar").src = '<?php echo base_url()?>images/'+item.gambar; 
                 $("#kategori").select2("val", item.kategori);
