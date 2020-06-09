@@ -13,7 +13,7 @@
 			padding: 5px;
 		}
 		.content .title {
-			text-align: center;
+			text-align: left;
 			font-size: 10px;
 			line-height: 11px;
 			text-decoration: bold;
@@ -44,11 +44,11 @@
 			text-align: right;
 		}
 		.content .nota {
-			text-align: center;
+			text-align: left;
 			margin-top: 5px;
 			margin-bottom: 5px;
 			font-size: 10px;
-			line-height: 8px;
+			line-height: 9px;
 		}
 		.content .separate {
 			margin-top: 10px;
@@ -103,8 +103,9 @@
 	</style>
 	<script type="text/javascript">
 		window.print();
+		window.print();
 		window.location('<?php echo site_url('penjualan/kasir?statppn=ppn&stattrans=dinein') ?>') 
-	
+
 	</script>
 
 </head>
@@ -113,14 +114,14 @@
 		<div class="title">
 			<?php 
 			echo htmlspecialchars("
-				Jl. Wijaya Kusuma No.50, Pagah, Jemberlor
+				Jl. Wijaya Kusuma No.50
 				");
 			echo "<br>";
 			?>
 		</div>
 		<div class="subttitle">
 			<?php
-			echo htmlspecialchars("	Kec. Patrang, Kabupaten Jember, Jawa Timur 68118");
+			echo htmlspecialchars("	Kec. Patrang, Kabupaten Jember,68118");
 			?>
 		</div>
 
@@ -154,22 +155,21 @@
 							</td>
 						</tr>
 						<tr>
-							<td style="font-size: 9px;" >
-							<?=$key['kuantiti']?>x	<? echo setrupiah($key['harga']); ?>
-							</td style="text-align: right;font-size: 9px; " >
-							<td style="text-align: right;font-size: 9px; "><?php echo setrupiah($key['harga']);?></td>
-							<td style="text-align: right;font-size: 9px;"><?php echo setrupiah($key['total']);?></td>
-						</tr>
-						<!-- /.sampai SINI-->
-						<?php 
-						$ttl1 += $key['total'];
-						$ttl2 += $key['total'];
-						$ppn = $ttl1*10/100;
-						$end = $ttl1+$ppn;
-						?>
-					<?php endforeach ?>
+							<td style="font-size: 9px; line-height: 7px;" >
+								<?=$key['kuantiti']?>x	<? echo setrupiah($key['harga']); ?></td>
+								<td style="font-size: 9px;line-height: 7px; text-align: left; "><?php echo setrupiah($key['harga']);?></td>
+								<td style="font-size: 9px;line-height: 7px; text-align: left; "><?php echo setrupiah($key['total']);?></td>
+							</tr>
+							<!-- /.sampai SINI-->
+							<?php 
+							$ttl1 += $key['total'];
+							$ttl2 += $key['total'];
+							$ppn = $ttl1*10/100;
+							$end = $ttl1+$ppn;
+							?>
+						<?php endforeach ?>
+					</table>
 				</table>
-			</table>
 <!-- 
 			<table style="font-size:8px;" border="0" width="90%">
 				<tr>
@@ -177,7 +177,7 @@
 					<td style="text-align: left;"></td>
 					<td></td>
 					<td></td> -->
-					<table style="font-size:9px;text-align: right;float: right;" border="0" width="100%" >
+					<table style="font-size:9px;text-align: left; " border="0" width="100%" >
 						<tr>
 							<td>Jumlah</td>
 							<td><?php echo setrupiah($ttl1); ?></td>
@@ -212,15 +212,15 @@
 						<?php echo setrupiah($totalbayar); ?> <br>
 						<?php echo setrupiah($totalbayar-($end+$ppn)); ?></td> -->
 			<!-- 		</tr>
-				</table> -->
+			</table> -->
 
-			</div>
 		</div>
-		<?php 
-		function setrupiah($angka)
-		{
-			$hasil = "Rp. ".number_format($angka,2,',','.');
-			return $hasil;
-		} ?>
-	</body>
-	</html>
+	</div>
+	<?php 
+	function setrupiah($angka)
+	{
+		$hasil = "Rp. ".number_format($angka,2,',','.');
+		return $hasil;
+	} ?>
+</body>
+</html>
