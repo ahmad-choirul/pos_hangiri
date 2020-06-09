@@ -103,8 +103,6 @@
 	</style>
 	<script type="text/javascript">
 		window.print();
-		window.print();
-		window.location('<?php echo site_url('penjualan/kasir?statppn=ppn&stattrans=dinein') ?>') 
 
 	</script>
 

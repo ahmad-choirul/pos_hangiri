@@ -669,55 +669,55 @@ if ($this->input->get('stattrans')=='dinein') {
 											<h4>Total Belanja + PPN </h4></th>
 											<?php else: ?>
 												<h4>Total Belanja</h4></th>
-										<?php endif ?>
-										<th>
-											<h4 class="text-dark" id="TotalBelanja"></h4>
-											<input type="hidden" id="TotalBelanjaInt">
-										</th>
-										<th><h4>Total Item</h4></th>
-										<th><h4 class="text-dark" id="TotalKuantiti"></h4></th>
-									</tr>
-								</table>
-							</div>
-						</div>
-						<hr>
-						<div class="row">
-							<div class="col-md-12 text-right"> 
-								<div class="row">
-									<div class="col-md-6"> 	
-										<button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" id="paymenttransaksi">Bayar <small>(Tunai)</small></button>
-									</div> 
-
+											<?php endif ?>
+											<th>
+												<h4 class="text-dark" id="TotalBelanja"></h4>
+												<input type="hidden" id="TotalBelanjaInt">
+											</th>
+											<th><h4>Total Item</h4></th>
+											<th><h4 class="text-dark" id="TotalKuantiti"></h4></th>
+										</tr>
+									</table>
 								</div>
 							</div>
-						</div>
-					</footer> 
-				</section>
-			</form>
+							<hr>
+							<div class="row">
+								<div class="col-md-12 text-right"> 
+									<div class="row">
+										<div class="col-md-6"> 	
+											<button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" id="paymenttransaksi">Bayar <small>(Tunai)</small></button>
+										</div> 
+
+									</div>
+								</div>
+							</div>
+						</footer> 
+					</section>
+				</form>
+			</div>
 		</div>
 	</div>
-</div>
 
 
-<!-- Vendor -->
-<script src="<?php echo base_url()?>assets/vendor/jquery/jquery.min.js"></script>  
-<script src="<?php echo base_url()?>assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-<script src="<?php echo base_url()?>assets/vendor/bootstrap/js/bootstrap.js"></script>
-<script src="<?php echo base_url()?>assets/vendor/nanoscroller/nanoscroller.js"></script>
-<script src="<?php echo base_url()?>assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-<script src="<?php echo base_url()?>assets/vendor/magnific-popup/magnific-popup.js"></script>
-<script src="<?php echo base_url()?>assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
-<script src="<?php echo base_url()?>assets/vendor/isotope/jquery.isotope.js"></script>
-<script src="<?php echo base_url()?>assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
-<script src="<?php echo base_url()?>assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
-<script src="<?php echo base_url()?>assets/vendor/pnotify/pnotify.custom.js"></script>
-<script src="<?php echo base_url()?>assets/javascripts/theme.js"></script> 
-<script src="<?php echo base_url()?>assets/javascripts/theme.init.js"></script>  
-<script type="text/javascript">
-	$(document).ready(function() {
-		keranjang();
-	});
-</script>
+	<!-- Vendor -->
+	<script src="<?php echo base_url()?>assets/vendor/jquery/jquery.min.js"></script>  
+	<script src="<?php echo base_url()?>assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+	<script src="<?php echo base_url()?>assets/vendor/bootstrap/js/bootstrap.js"></script>
+	<script src="<?php echo base_url()?>assets/vendor/nanoscroller/nanoscroller.js"></script>
+	<script src="<?php echo base_url()?>assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+	<script src="<?php echo base_url()?>assets/vendor/magnific-popup/magnific-popup.js"></script>
+	<script src="<?php echo base_url()?>assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+	<script src="<?php echo base_url()?>assets/vendor/isotope/jquery.isotope.js"></script>
+	<script src="<?php echo base_url()?>assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
+	<script src="<?php echo base_url()?>assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
+	<script src="<?php echo base_url()?>assets/vendor/pnotify/pnotify.custom.js"></script>
+	<script src="<?php echo base_url()?>assets/javascripts/theme.js"></script> 
+	<script src="<?php echo base_url()?>assets/javascripts/theme.init.js"></script>  
+	<script type="text/javascript">
+		$(document).ready(function() {
+			keranjang();
+		});
+	</script>
 </script>
 <script>   
 	function paymentsubmit(total,dibayar){
@@ -1188,8 +1188,11 @@ if ($this->input->get('stattrans')=='dinein') {
             		var pegawai;
             		pegawai = $("#nama_pegawai").val(); 
             		
-            		$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn)
-            		.submit()
+            		// $('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn)
+            		// .submit()
+            		window.open('<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn,'_blank');
+            		window.setTimeout(function() {  location.reload();}, 2000);
+            		
             	}else{
             		window.setTimeout(function() {  
             			new PNotify({

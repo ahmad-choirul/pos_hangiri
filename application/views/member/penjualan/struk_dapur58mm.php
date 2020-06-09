@@ -103,7 +103,6 @@
 	</style>
 	<script type="text/javascript">
 		window.print();
-		window.print();
 		window.location('<?php echo site_url('penjualan/kasir?statppn=ppn&stattrans=dinein') ?>') 
 
 	</script>
@@ -138,15 +137,10 @@
 		<div class="separate"></div>
 
 		<div class="transaction">
-			
-			
-					<!-- -------------------batas STRUK  ------------------- -->
 					<h3>STRUK PENJUALAN UNTUK DAPUR</h3>
 					<hr>
 					<table  border="0" width="100%" >
 						<?php
-							// $ttl1 = 0;
-							// $ttl2 = 0;
 						foreach ($keranjang as $key) : ?>
 							<tr>
 
@@ -162,29 +156,7 @@
 							<td style="font-size:9px;text-align:left; "> ~ <?php echo $catatan; ?> ~</td>
 						</tr>
 					</table>
-					<!-- -------------------batas STRUK  ------------------- -->
-					
-				<!-- 	<td style="text-align: left; width: 60%; font-size: 10px;">
-						Jumlah <br>
-						PPN (10%) <br> 
-						Bayar  <br>
-					Kembali</td>
-
-					<td style="text-align: right; width: 35%;">
-						<?php echo setrupiah($end); ?> <br> 
-						<?php echo setrupiah($ppn); ?><br>
-						<?php echo setrupiah($totalbayar); ?> <br>
-						<?php echo setrupiah($totalbayar-($end+$ppn)); ?></td> -->
-			<!-- 		</tr>
-			</table> -->
-
 		</div>
 	</div>
-	<?php 
-	function setrupiah($angka)
-	{
-		$hasil = "Rp. ".number_format($angka,2,',','.');
-		return $hasil;
-	} ?>
 </body>
 </html>
