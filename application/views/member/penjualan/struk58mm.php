@@ -5,7 +5,7 @@
 	</title>
 	<style type="text/css">
 		html {
-			font-family: "Verdana";
+			  font-family: "Arial Narrow";
 		}
 		.content {
 			width: 58mm;
