@@ -1181,11 +1181,12 @@ if ($this->input->get('stattrans')=='dinein') {
             	var totalbayar=$("#totalbayar").val().replace(/\./g, "");
             	var totalbelanja = document.getElementById("TotalBelanjaInt").value; 
             	var pelanggan = document.getElementById("nama_pelanggan").value; 
+            	var catatan = document.getElementById("catatan").value; 
             	if (Number(totalbayar)>=Number(totalbelanja)) {
             		var pegawai;
             		pegawai = $("#nama_pegawai").val(); 
             		
-            		$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar)
+            		$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan)
             		.submit()
             	}else{
             		window.setTimeout(function() {  
