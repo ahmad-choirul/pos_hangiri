@@ -66,7 +66,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <select  data-plugin-selectTwo class="form-control" onchange="searchFilter()" id="kasir" name="kasir">  
                                             <option value="">Semua Pegawai</option>
                                             <?php foreach ($sales as $supp): ?>
-                                            <option value="<?php echo $supp->id;?>"><?php echo $supp->nama_pegawai;?></option>
+                                            <option value="<?php echo $supp->id;?>"><?php echo $supp->nama_admin;?></option>
                                              <?php endforeach; ?>
                                         </select> 
                                     </div>

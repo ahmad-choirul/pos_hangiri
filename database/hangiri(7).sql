@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 10, 2020 at 02:32 AM
+-- Generation Time: Jun 11, 2020 at 01:00 AM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -43,21 +43,8 @@ CREATE TABLE `cash_in_out` (
 --
 
 INSERT INTO `cash_in_out` (`id`, `kode_rekening`, `tanggal`, `masuk`, `keluar`, `id_hutang_dibayar`, `id_piutang_dibayar`, `id_penjualan`, `keterangan`) VALUES
-(1, '10001', '2020-06-09', '20000', '0', NULL, NULL, '090620000001', ''),
-(2, '10001', '2020-06-09', '20000', '0', NULL, NULL, '090620000002', ''),
-(3, '10001', '2020-06-09', '20000', '0', NULL, NULL, '090620000003', ''),
-(4, '10001', '2020-06-09', '20000', '0', NULL, NULL, '090620000004', ''),
-(5, '10001', '2020-06-09', '20000', '0', NULL, NULL, '090620000005', ''),
-(6, '10001', '2020-06-09', '20000', '0', NULL, NULL, '090620000006', ''),
-(7, '10001', '2020-06-09', '20000', '0', NULL, NULL, '090620000007', ''),
-(8, '10001', '2020-06-09', '20000', '0', NULL, NULL, '090620000008', ''),
-(9, '10001', '2020-06-09', '5000', '0', NULL, NULL, '090620000009', ''),
-(10, '10001', '2020-06-09', '5000', '0', NULL, NULL, '090620000010', ''),
-(11, '10001', '2020-06-09', '6000', '0', NULL, NULL, '090620000011', ''),
-(12, '10001', '2020-06-09', '20000', '0', NULL, NULL, '090620000012', ''),
-(13, '10001', '2020-06-10', '25000', '0', NULL, NULL, '100620000001', ''),
-(14, '10001', '2020-06-10', '20000', '0', NULL, NULL, '100620000002', ''),
-(15, '10001', '2020-06-10', '25000', '0', NULL, NULL, '100620000003', '');
+(1, '10001', '2020-06-11', '27500', '0', NULL, NULL, '110620000001', ''),
+(2, '10001', '2020-06-11', '22000', '0', NULL, NULL, '110620000002', '');
 
 -- --------------------------------------------------------
 
@@ -121,22 +108,9 @@ CREATE TABLE `kartu_stok` (
 --
 
 INSERT INTO `kartu_stok` (`id`, `nomor_rec_penerimaan`, `id_utility`, `id_stok_opname`, `id_stok_keluar`, `id_penjualan`, `kode_item`, `tanggal`, `jenis_transaksi`, `jumlah_masuk`, `jumlah_keluar`, `stok_sisa`) VALUES
-(1, NULL, NULL, NULL, NULL, '090620000001', '10', '2020-06-09', 'penjualan', 0, 1, ''),
-(2, NULL, NULL, NULL, NULL, '090620000002', '10', '2020-06-09', 'penjualan', 0, 1, ''),
-(3, NULL, NULL, NULL, NULL, '090620000003', '10', '2020-06-09', 'penjualan', 0, 1, ''),
-(4, NULL, NULL, NULL, NULL, '090620000004', '10', '2020-06-09', 'penjualan', 0, 1, ''),
-(5, NULL, NULL, NULL, NULL, '090620000005', '10', '2020-06-09', 'penjualan', 0, 1, ''),
-(6, NULL, NULL, NULL, NULL, '090620000006', '10', '2020-06-09', 'penjualan', 0, 1, ''),
-(7, NULL, NULL, NULL, NULL, '090620000007', '10', '2020-06-09', 'penjualan', 0, 1, ''),
-(8, NULL, NULL, NULL, NULL, '090620000008', '10', '2020-06-09', 'penjualan', 0, 1, ''),
-(9, NULL, NULL, NULL, NULL, '090620000009', '100', '2020-06-09', 'penjualan', 0, 1, ''),
-(10, NULL, NULL, NULL, NULL, '090620000010', '101', '2020-06-09', 'penjualan', 0, 1, ''),
-(11, NULL, NULL, NULL, NULL, '090620000011', '103', '2020-06-09', 'penjualan', 0, 1, ''),
-(12, NULL, NULL, NULL, NULL, '090620000012', '10', '2020-06-09', 'penjualan', 0, 1, ''),
-(13, NULL, NULL, NULL, NULL, '100620000001', '100', '2020-06-10', 'penjualan', 0, 1, ''),
-(14, NULL, NULL, NULL, NULL, '100620000001', '10', '2020-06-10', 'penjualan', 0, 1, ''),
-(15, NULL, NULL, NULL, NULL, '100620000002', '10', '2020-06-10', 'penjualan', 0, 1, ''),
-(16, NULL, NULL, NULL, NULL, '100620000003', '10', '2020-06-10', 'penjualan', 0, 1, '');
+(1, NULL, NULL, NULL, NULL, '110620000001', '10', '2020-06-11', 'penjualan', 0, 1, ''),
+(2, NULL, NULL, NULL, NULL, '110620000001', '101', '2020-06-11', 'penjualan', 0, 1, ''),
+(3, NULL, NULL, NULL, NULL, '110620000002', '10', '2020-06-11', 'penjualan', 0, 1, '');
 
 -- --------------------------------------------------------
 
@@ -323,6 +297,7 @@ CREATE TABLE `keranjang` (
   `id_pembeli` int(11) DEFAULT NULL,
   `total_harga_item` decimal(10,0) NOT NULL,
   `total` decimal(10,0) NOT NULL,
+  `diskon` decimal(10,0) NOT NULL,
   `hold` enum('0','1') NOT NULL DEFAULT '0',
   `keterangan_hold` varchar(200) NOT NULL,
   `waktu_hold` varchar(50) NOT NULL,
@@ -390,8 +365,8 @@ CREATE TABLE `master_admin` (
 INSERT INTO `master_admin` (`id`, `kategori`, `username`, `password`, `nama_admin`, `jenis_kelamin`, `alamat`, `telepon`, `handphone`, `email`, `aktif`, `waktu_update`) VALUES
 (1, 31, 'admin', '$2y$10$GqSP/ynXwcWbmyAwz0yKluIXG7Nv3S18l6D7btXxIhTeRolAi0nh6', 'admin', 'laki-laki', 'Jl Danau Toba 70B Jember', '', '081217736148', 'kantorposku@gmail.com', '1', '2020-05-04 12:04:44'),
 (2, 32, 'user_kasir', '$2y$10$l1yNDeXjOcFP5jUAvp/be.C4aiC4J.5kwr26wiupnzbkduT4IKe3y', 'Andika', 'laki-laki', 'Jalan kelapa muda no 21', '', '082183439921', 'andika@gmail.com', '1', '2019-07-05 04:24:09'),
-(3, 33, 'users', '$2y$10$l1yNDeXjOcFP5jUAvp/be.C4aiC4J.5kwr26wiupnzbkduT4IKe3y', 'Sang User', 'laki-laki', 'Jl. Dummy nomor Coba-coba', '', '081122334455', 'iniemail@mail.com', '1', '2020-01-07 11:58:10'),
-(18, 32, 'pegawai2', '$2y$10$hEy/Pu48iCgAXMSoHcZBeODGAg1ISt9cSlju8GNO8/dURYkDjNrQW', 'pegawai 2', 'laki-laki', '', '', '', 'a@a.com', '1', '2020-06-08 00:28:34');
+(3, 33, 'rio', '$2y$10$l1yNDeXjOcFP5jUAvp/be.C4aiC4J.5kwr26wiupnzbkduT4IKe3y', 'Sang User', 'laki-laki', 'Jl. Dummy nomor Coba-coba', '', '081122334455', 'iniemail@mail.com', '1', '2020-06-10 01:58:30'),
+(19, 32, 'rosi', '$2y$10$luPbo/bwdMIWzConU3Qx9eMw9yrh5ubeiiJpoQGrJ92aY3Gxlb4My', 'rosi', 'laki-laki', '', '', '', 'a@a.com', '1', '2020-06-10 01:58:19');
 
 -- --------------------------------------------------------
 
@@ -627,8 +602,8 @@ CREATE TABLE `master_pegawai` (
 --
 
 INSERT INTO `master_pegawai` (`id`, `no_ijin`, `nama_pegawai`, `alamat`, `nik`, `kontak`, `waktu_update`, `id_admin`) VALUES
-(1, '91230010', 'pegawai 1', 'Jember', '35203123100', '08123121', '2020-03-19 12:06:16', 0),
-(2, '', 'pegawai 2', 'aaaa', '2342', '123', '2020-05-18 01:51:55', 18);
+(3, '', 'rosi', 'jember', '13256', '082111333222', '2020-06-10 01:21:21', 0),
+(4, '', 'rion', 'tes', '675', 'tes', '2020-06-10 01:23:08', 0);
 
 -- --------------------------------------------------------
 
@@ -858,6 +833,7 @@ CREATE TABLE `penjualan` (
   `id_pegawai` int(11) NOT NULL,
   `total_harga_item` decimal(10,0) NOT NULL,
   `total` decimal(10,0) NOT NULL,
+  `diskon` decimal(10,0) NOT NULL,
   `tanggal` date NOT NULL,
   `tanggal_jam` datetime NOT NULL,
   `retur` enum('0','1') NOT NULL DEFAULT '0',
@@ -870,22 +846,9 @@ CREATE TABLE `penjualan` (
 -- Dumping data for table `penjualan`
 --
 
-INSERT INTO `penjualan` (`id`, `id_pembeli`, `id_admin`, `id_pegawai`, `total_harga_item`, `total`, `tanggal`, `tanggal_jam`, `retur`, `tanggal_retur`, `admin_retur`, `jenis_penjualan`) VALUES
-('090620000001', NULL, 1, 0, '0', '20000', '2020-06-09', '2020-06-09 10:52:39', '0', '0000-00-00 00:00:00', NULL, '0'),
-('090620000002', NULL, 1, 0, '0', '20000', '2020-06-09', '2020-06-09 10:53:25', '0', '0000-00-00 00:00:00', NULL, '0'),
-('090620000003', NULL, 1, 0, '0', '20000', '2020-06-09', '2020-06-09 10:53:53', '0', '0000-00-00 00:00:00', NULL, '0'),
-('090620000004', NULL, 1, 0, '0', '20000', '2020-06-09', '2020-06-09 10:54:14', '0', '0000-00-00 00:00:00', NULL, '0'),
-('090620000005', NULL, 1, 0, '0', '20000', '2020-06-09', '2020-06-09 10:54:29', '0', '0000-00-00 00:00:00', NULL, '0'),
-('090620000006', NULL, 1, 0, '0', '20000', '2020-06-09', '2020-06-09 11:06:55', '0', '0000-00-00 00:00:00', NULL, '0'),
-('090620000007', NULL, 1, 0, '0', '20000', '2020-06-09', '2020-06-09 11:08:08', '0', '0000-00-00 00:00:00', NULL, '0'),
-('090620000008', NULL, 1, 0, '0', '20000', '2020-06-09', '2020-06-09 11:09:20', '0', '0000-00-00 00:00:00', NULL, '0'),
-('090620000009', NULL, 1, 0, '0', '5000', '2020-06-09', '2020-06-09 16:08:29', '0', '0000-00-00 00:00:00', NULL, '0'),
-('090620000010', NULL, 1, 0, '0', '5000', '2020-06-09', '2020-06-09 16:14:46', '0', '0000-00-00 00:00:00', NULL, '0'),
-('090620000011', NULL, 1, 0, '0', '6000', '2020-06-09', '2020-06-09 16:20:27', '0', '0000-00-00 00:00:00', NULL, '0'),
-('090620000012', NULL, 1, 0, '0', '20000', '2020-06-09', '2020-06-09 16:22:00', '0', '0000-00-00 00:00:00', NULL, '0'),
-('100620000001', NULL, 1, 0, '0', '25000', '2020-06-10', '2020-06-10 06:59:10', '0', '0000-00-00 00:00:00', NULL, '0'),
-('100620000002', NULL, 1, 0, '0', '20000', '2020-06-10', '2020-06-10 07:00:25', '0', '0000-00-00 00:00:00', NULL, '0'),
-('100620000003', NULL, 1, 0, '0', '25000', '2020-06-10', '2020-06-10 07:12:38', '0', '0000-00-00 00:00:00', NULL, 'gojek');
+INSERT INTO `penjualan` (`id`, `id_pembeli`, `id_admin`, `id_pegawai`, `total_harga_item`, `total`, `diskon`, `tanggal`, `tanggal_jam`, `retur`, `tanggal_retur`, `admin_retur`, `jenis_penjualan`) VALUES
+('110620000001', NULL, 1, 0, '0', '27500', '0', '2020-06-11', '2020-06-11 05:52:52', '0', '0000-00-00 00:00:00', NULL, 'ppn'),
+('110620000002', NULL, 1, 0, '0', '22000', '0', '2020-06-11', '2020-06-11 05:53:38', '0', '0000-00-00 00:00:00', NULL, 'ppn');
 
 -- --------------------------------------------------------
 
@@ -909,22 +872,9 @@ CREATE TABLE `penjualan_detail` (
 --
 
 INSERT INTO `penjualan_detail` (`id`, `id_penjualan`, `kode_item`, `harga_beli`, `harga`, `diskon`, `kuantiti`, `total`) VALUES
-(1, '090620000001', '10', '0', '20000', '0', 1, '20000'),
-(2, '090620000002', '10', '0', '20000', '0', 1, '20000'),
-(3, '090620000003', '10', '0', '20000', '0', 1, '20000'),
-(4, '090620000004', '10', '0', '20000', '0', 1, '20000'),
-(5, '090620000005', '10', '0', '25000', '0', 1, '25000'),
-(6, '090620000006', '10', '0', '25000', '0', 1, '25000'),
-(7, '090620000007', '10', '0', '25000', '0', 1, '25000'),
-(8, '090620000008', '10', '0', '25000', '0', 1, '25000'),
-(9, '090620000009', '100', '0', '5000', '0', 1, '5000'),
-(10, '090620000010', '101', '0', '5000', '0', 1, '5000'),
-(11, '090620000011', '103', '0', '6000', '0', 1, '6000'),
-(12, '090620000012', '10', '0', '20000', '0', 1, '20000'),
-(13, '100620000001', '100', '0', '5000', '0', 1, '5000'),
-(14, '100620000001', '10', '0', '20000', '0', 1, '20000'),
-(15, '100620000002', '10', '0', '20000', '0', 1, '20000'),
-(16, '100620000003', '10', '0', '25000', '0', 1, '25000');
+(1, '110620000001', '10', '0', '20000', '0', 1, '20000'),
+(2, '110620000001', '101', '0', '5000', '0', 1, '5000'),
+(3, '110620000002', '10', '0', '20000', '0', 1, '20000');
 
 -- --------------------------------------------------------
 
@@ -936,14 +886,8 @@ CREATE TABLE `penjualan_pembayaran` (
   `id` int(11) NOT NULL,
   `id_penjualan` varchar(50) NOT NULL,
   `nominal` decimal(10,0) NOT NULL,
-  `cara_bayar` enum('cash','credit card','debet') NOT NULL DEFAULT 'cash',
-  `swipe` varchar(100) NOT NULL,
-  `card_no` varchar(100) NOT NULL,
-  `holder_name` varchar(100) NOT NULL,
-  `bank` varchar(30) NOT NULL,
-  `month` varchar(10) NOT NULL,
-  `year` varchar(10) NOT NULL,
-  `security_code` varchar(100) NOT NULL,
+  `cara_bayar` enum('cash','edc') NOT NULL DEFAULT 'cash',
+  `no_kartu` varchar(100) NOT NULL,
   `catatan` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -951,22 +895,9 @@ CREATE TABLE `penjualan_pembayaran` (
 -- Dumping data for table `penjualan_pembayaran`
 --
 
-INSERT INTO `penjualan_pembayaran` (`id`, `id_penjualan`, `nominal`, `cara_bayar`, `swipe`, `card_no`, `holder_name`, `bank`, `month`, `year`, `security_code`, `catatan`) VALUES
-(1, '090620000001', '25000', 'cash', '', '', '', '', '', '', '', ''),
-(2, '090620000002', '25000', 'cash', '', '', '', '', '', '', '', ''),
-(3, '090620000003', '25000', 'cash', '', '', '', '', '', '', '', ''),
-(4, '090620000004', '20000', 'cash', '', '', '', '', '', '', '', ''),
-(5, '090620000005', '25000', 'cash', '', '', '', '', '', '', '', ''),
-(6, '090620000006', '30000', 'cash', '', '', '', '', '', '', '', ''),
-(7, '090620000007', '30000', 'cash', '', '', '', '', '', '', '', ''),
-(8, '090620000008', '30000', 'cash', '', '', '', '', '', '', '', ''),
-(9, '090620000009', '6000', 'cash', '', '', '', '', '', '', '', ''),
-(10, '090620000010', '6000', 'cash', '', '', '', '', '', '', '', ''),
-(11, '090620000011', '7000', 'cash', '', '', '', '', '', '', '', ''),
-(12, '090620000012', '25000', 'cash', '', '', '', '', '', '', '', ''),
-(13, '100620000001', '30000', 'cash', '', '', '', '', '', '', '', ''),
-(14, '100620000002', '30000', 'cash', '', '', '', '', '', '', '', ''),
-(15, '100620000003', '30000', 'cash', '', '', '', '', '', '', '', '');
+INSERT INTO `penjualan_pembayaran` (`id`, `id_penjualan`, `nominal`, `cara_bayar`, `no_kartu`, `catatan`) VALUES
+(1, '110620000001', '30000', 'cash', '', ''),
+(2, '110620000002', '22000', 'edc', '123', '');
 
 -- --------------------------------------------------------
 
@@ -1449,7 +1380,7 @@ ALTER TABLE `stok_opname`
 -- AUTO_INCREMENT for table `cash_in_out`
 --
 ALTER TABLE `cash_in_out`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `hutang_dibayar_history`
 --
@@ -1464,7 +1395,7 @@ ALTER TABLE `hutang_history`
 -- AUTO_INCREMENT for table `kartu_stok`
 --
 ALTER TABLE `kartu_stok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `kategori_user`
 --
@@ -1479,12 +1410,12 @@ ALTER TABLE `kategori_user_modul`
 -- AUTO_INCREMENT for table `keranjang`
 --
 ALTER TABLE `keranjang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `keranjang_detail`
 --
 ALTER TABLE `keranjang_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `komisi_detail`
 --
@@ -1494,7 +1425,7 @@ ALTER TABLE `komisi_detail`
 -- AUTO_INCREMENT for table `master_admin`
 --
 ALTER TABLE `master_admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `master_diskon_kelipatan`
 --
@@ -1524,7 +1455,7 @@ ALTER TABLE `master_operasional`
 -- AUTO_INCREMENT for table `master_pegawai`
 --
 ALTER TABLE `master_pegawai`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `master_pembeli`
 --
@@ -1564,12 +1495,12 @@ ALTER TABLE `penerimaan_barang_detail`
 -- AUTO_INCREMENT for table `penjualan_detail`
 --
 ALTER TABLE `penjualan_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `penjualan_pembayaran`
 --
 ALTER TABLE `penjualan_pembayaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `piutang_dibayar_history`
 --

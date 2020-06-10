@@ -69,6 +69,17 @@ if ($this->input->get('stattrans')=='dinein') {
 }else{
 	$stattrans='takeaway';
 }
+
+if ($this->input->get('potongan')=='10') {
+	$potongan='10';
+}elseif($this->input->get('potongan')=='20') {
+	$potongan='20';
+}elseif($this->input->get('potongan')=='30') {
+	$potongan='30';
+}
+else{
+	$potongan='0';
+}
 ?>
 }
 <body class="bgbody">
@@ -144,7 +155,7 @@ if ($this->input->get('stattrans')=='dinein') {
 								<input type="hidden" name="customer" id="customer_dipilih">
 								<form>
 									<div class="row">
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<div class="form-group">
 												<label class="control-label">Jenis Penjualan</label>
 												<select class="form-control cara_bayar" name="statppn" id="statppn" onchange='this.form.submit()'>
@@ -155,12 +166,23 @@ if ($this->input->get('stattrans')=='dinein') {
 												</select> 
 											</div>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<div class="form-group">
 												<label class="control-label">Jenis Transaksi</label>
 												<select class="form-control cara_bayar" name="stattrans" id="stattrans" onchange='this.form.submit()'>
 													<option value="dinein">Dine In</option>
 													<option <?php if ($stattrans == 'takeaway' ) echo 'selected' ; ?> value="takeaway">Take Away</option>
+												</select> 
+											</div>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Diskon</label>
+												<select class="form-control potongan" name="potongan" id="potongan" onchange='this.form.submit()'>
+													<option value="0">Tanpa Diskon</option>
+													<option <?php if ($potongan == '10' ) echo 'selected' ; ?> value="10">Disc 10%</option>
+													<option <?php if ($potongan == '20' ) echo 'selected' ; ?> value="20">Disc 20%</option>
+													<option <?php if ($potongan == '30' ) echo 'selected' ; ?> value="30">Disc 30%</option>
 												</select> 
 											</div>
 										</div>
@@ -595,63 +617,49 @@ if ($this->input->get('stattrans')=='dinein') {
 									<div class="col-md-6">
 										<div class="form-group">
 											<label class="control-label">Nama Kasir</label>
-											<!-- <select class="form-control cara_bayar" name="nama_pegawai" id="nama_pegawai"> -->
-												<!-- <?php foreach ($pegawai as $s): ?>
-													<option value="<?= $s['id']; ?>"><?= $s['nama_pegawai'] ?></option>
-													<?php endforeach ?>   -->
-													<input type="hidden" name="nama_pegawai" id="nama_pegawai" value="<?php echo $this->session->userdata('idadmin'); ?>">
-													<input type="text" class="form-control" readonly="readonly" value="<?php echo $this->session->userdata('nama_admin'); ?>">
-													<!-- </select>  -->
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="form-group">
-													<label class="control-label">Diskon</label>
-													<select class="form-control" name="potongan" id="potongan">
-												
-													<option value="0">Tanpa Diskon</option>
-													<option value="10">Disc 10%</option>
-													<option value="20">Disc 20%</option>
-													<option value="30">Disc 30%</option>
-													
-												
-													</select> 
-												</div>
-											</div>
-											
+											<input type="hidden" name="nama_pegawai" id="nama_pegawai" value="<?php echo $this->session->userdata('idadmin'); ?>">
+											<input type="text" class="form-control" readonly="readonly" value="<?php echo $this->session->userdata('nama_admin'); ?>">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">No Kartu</label>
+											<input type="text" class="form-control" id="no_kartu" name="no_kartu">
+										</div>
+									</div>
 
+
+								</div>
+
+								<div class="row my-4">
+									<div class="col-md-12">
+
+									</div> 
+								</div> 
+								<div class="row my-5" id="tambah1">
+									<div class="col-md-12">
+										<div class="row form-group">
 
 										</div>
+									</div> 
+								</div>
+							</section>
 
-										<div class="row my-4">
-											<div class="col-md-12">
 
-											</div> 
-										</div> 
-										<div class="row my-5" id="tambah1">
-											<div class="col-md-12">
-												<div class="row form-group">
-
-												</div>
-											</div> 
+							<section class="panel" id="formbayar2" >
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">Total Dibayar</label>
+											<input type="text" name="totalbayar" id="totalbayar" value="0" class="form-control mask_price" />
 										</div>
-									</section>
-
-
-									<section class="panel" id="formbayar2" >
-										<div class="row">
-											<div class="col-md-6">
-												<div class="form-group">
-													<label class="control-label">Total Dibayar</label>
-													<input type="text" name="totalbayar" id="totalbayar" value="0" class="form-control mask_price" />
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="form-group"> 
-													<label class="control-label">Nama Pelanggan</label>
-													<input type="text" autocomplete="off" name="nama_pelanggan" id="nama_pelanggan" class="form-control	">
-												</div>
-											</div> 
+									</div>
+									<div class="col-md-6">
+										<div class="form-group"> 
+											<label class="control-label">Nama Pelanggan</label>
+											<input type="text" autocomplete="off" name="nama_pelanggan" id="nama_pelanggan" class="form-control	">
+										</div>
+									</div> 
 									<!-- <div class="col-md-6">
 										<div class="form-group"> 
 											<label class="control-label">Cara Bayar</label>
@@ -703,6 +711,9 @@ if ($this->input->get('stattrans')=='dinein') {
 									<div class="row">
 										<div class="col-md-6"> 	
 											<button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-lg btn-block" id="paymenttransaksi">Bayar <small>(Tunai)</small></button>
+										</div>
+										<div class="col-md-6"> 	
+											<button type="button" class="mb-xs mt-xs mr-xs btn btn-warning btn-lg btn-block" id="paymenttransaksiedc">Bayar <small>(EDC)</small></button>
 										</div> 
 
 									</div>
@@ -1092,11 +1103,12 @@ if ($this->input->get('stattrans')=='dinein') {
         	$('#totaldibayar2').val('0'); 
         	$('#GrandTotalDibayar').html('0'); 
         	var jenis_penjualan = $('#jenis_penjualan').find(":selected").text();
+        	var statppn = '<?php echo $statppn ?>';
 			// document.getElementById("formbayar2").style.display = "";  
 			$('#Kembalian').html('0'); 
 			$.ajax({
 				type: 'GET',
-				url: '<?php echo base_url()?>penjualan/keranjangdetail/<?php echo $statppn ?>', 
+				url: '<?php echo base_url()?>penjualan/keranjangdetail/<?php echo $statppn ?>/<?php echo $potongan ?>', 
 				dataType 	: 'json',
 				success: function(response) { 
 
@@ -1109,6 +1121,18 @@ if ($this->input->get('stattrans')=='dinein') {
 							viewtotal+='<th style="text-align: left;">Sub Total</th>';
 							viewtotal+='<th style="text-align: right;">'+item.total_harga_item+'</th>';
 							viewtotal+='</tr>'; 
+							if (item.tambah_ppnint!='0') {
+								viewtotal+='<tr>';
+								viewtotal+='<th style="text-align: left;">PPN 10%</th>';
+								viewtotal+='<th style="text-align: right;">'+item.tambah_ppn+'</th>';
+								viewtotal+='</tr>'; 
+							}
+							if (item.besar_potonganint!='0') {
+								viewtotal+='<tr>';
+								viewtotal+='<th style="text-align: left;">potongan</th>';
+								viewtotal+='<th style="text-align: right;">'+item.besar_potongan+'</th>';
+								viewtotal+='</tr>'; 
+							}
 							viewtotal+='<tr  class="primary">';
 							viewtotal+='<th style="text-align: left;">Total</th>';
 							viewtotal+='<th style="text-align: right;">'+item.total+'</th>';
@@ -1202,7 +1226,7 @@ if ($this->input->get('stattrans')=='dinein') {
             	var catatan = document.getElementById("catatan").value; 
             	var statppn = '<?php echo $statppn; ?>'; 
             	var stattrans = '<?php echo $stattrans; ?>'; 
-            	var potongan = $('#potongan').val();
+            	var potongan = '<?php echo $potongan ?>';
             	// var catatan = "catatan"; 
             	if (Number(totalbayar)>=Number(totalbelanja)) {
             		var pegawai;
@@ -1217,7 +1241,7 @@ if ($this->input->get('stattrans')=='dinein') {
             		window.setTimeout(function() {  
             			new PNotify({
             				title: 'Notifikasi',
-            				text: 	'Maaf, periksa inputan total bayar anda',
+            				text: 	'Maaf, periksa inputan total bayar anda (total bayar kurang dari total pesanan)',
             				type: 'warning',
             				addclass: 'stack-bottomright',
             				stack: stack_bottomright
@@ -1227,148 +1251,194 @@ if ($this->input->get('stattrans')=='dinein') {
             	}          	
             })
             
+             $(document).on('click','#modal-payment #paymenttransaksiedc',function(e) { // tombol paymenttransaksi sg ono ng modal payment
+            	// e.preventDefault()
+            	var totalbayar=$("#totalbayar").val().replace(/\./g, "");
+            	var totalbelanja = document.getElementById("TotalBelanjaInt").value; 
+            	var pelanggan = document.getElementById("nama_pelanggan").value; 
+            	var catatan = document.getElementById("catatan").value; 
+            	var no_kartu = document.getElementById("no_kartu").value; 
+            	var statppn = '<?php echo $statppn; ?>'; 
+            	var stattrans = '<?php echo $stattrans; ?>'; 
+            	var potongan = '<?php echo $potongan ?>';
+            	// var catatan = "catatan"; 
+            	if (no_kartu!='') {
+            		if (Number(totalbayar)==Number(totalbelanja)) {
+            			var pegawai;
+            			pegawai = $("#nama_pegawai").val(); 
 
-            document.getElementById("Batalkan").addEventListener("click", function (e) { 
-            	PNotify.removeAll();
-            	$.ajax({
-            		type: 'GET',
-            		url: '<?php echo base_url()?>penjualan/canceltransaksi', 
-            		dataType 	: 'json',
-            		success: function(response) {   
-            			window.setTimeout(function() {  
-            				new PNotify({
-            					title: 'Notifikasi',
-            					text: 	'Berhasil mereset transaksi',
-            					type: 'success',
-            					addclass: 'stack-bottomright',
-            					stack: stack_bottomright
-            				}); 
-            				keranjang()				  
-            				$('#customer').val('Walk in Customer');
-            				$('#customer_dipilih').val('');
-            				$('#modalHapus').modal('hide');
-            			}, 500); 
-            		}
-            	});
-            });
-
-            document.getElementById("FormulirHold").addEventListener("submit", function (e) {  
-            	blurForm();        
-            	$('.help-block').hide();
-            	$('.form-group').removeClass('has-error');
-            	document.getElementById("submitformHold").setAttribute('disabled','disabled');
-            	$('#submitformHold').html('Loading ...');
-            	var form = $('#FormulirHold')[0];
-            	var formData = new FormData(form);
-            	var xhrAjax = $.ajax({
-            		type 		: 'POST',
-            		url 		: $(this).attr('action'),
-            		data 		: formData, 
-            		processData: false,
-            		contentType: false,
-            		cache: false, 
-            		dataType 	: 'json'
-            	}).done(function(data) { 
-            		if ( ! data.success) {		 
-            			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
-            			window.setTimeout(function() {  
-            				document.getElementById("submitformHold").removeAttribute('disabled');  
-            				$('#submitformHold').html('Ya, Saya Yakin');     
-            				var objek = Object.keys(data.errors);  
-            				for (var key in data.errors) {
-            					if (data.errors.hasOwnProperty(key)) { 
-            						var msg = '<div class="help-block" for="'+key+'">'+data.errors[key]+'</span>';
-            						$('.'+key).addClass('has-error');
-            						$('textarea[name="' + key + '"]').after(msg);  
-            					}
-            				}
-            			}, 500);
-            			return false;
-            		} else { 
-            			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
-            			PNotify.removeAll();  
-            			keranjang()	;  
-            			tablehold.ajax.reload();  
-            			document.getElementById("submitformHold").removeAttribute('disabled'); 
-            			$('#modalHold').modal('hide');        
-            			document.getElementById("FormulirHold").reset();    
-            			$('#submitformHold').html('Ya, Saya Yakin'); 
-            			window.setTimeout(function() {  
-            				new PNotify({
-            					title: 'Notifikasi',
-            					text: 	'Berhasil hold transaksi',
-            					type: 'success',
-            					addclass: 'stack-bottomright',
-            					stack: stack_bottomright
-            				}); 			  
-            				$('#customer').val('Walk in Customer');
-            				$('#customer_dipilih').val('');
-            				$('#modalHold').modal('hide');
-            			}, 500); 
-            		}
-            	}).fail(function(data) {   
-            		alert('request gagal');
-            		location.reload();
-            	}); 
-            	e.preventDefault(); 
-            }); 
-
-
-            document.getElementById("FormulirPayment").addEventListener("submit", function (e) {  
-            	blurForm();        
-            	document.getElementById("submitPayment").setAttribute('disabled','disabled');
-            	$('#submitPayment').html('Loading ...');
-            	var form = $('#FormulirPayment')[0];
-            	var formData = new FormData(form);
-            	var xhrAjax = $.ajax({
-            		type 		: 'POST',
-            		url 		: $(this).attr('action'),
-            		data 		: formData, 
-            		processData: false,
-            		contentType: false,
-            		cache: false, 
-            		dataType 	: 'json'
-            	}).done(function(data) { 
-            		if ( ! data.success) {	 
-            			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
-            			$('#submitPayment').html('Submit Payment');    
-            			var objek = Object.keys(data.errors);  
-            			for (var key in data.errors) { 
-            				if (key == 'fail') {   
-            					new PNotify({
-            						title: 'Notifikasi',
-            						text: data.errors[key],
-            						type: 'danger'
-            					}); 
-            				}
-            			}
-            		} else {   
-            			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
-            			PNotify.removeAll();    
-            			document.getElementById("FormulirPayment").reset();  
-            			$('#submitPayment').html('Submit Payment');   
+            		// $('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn)
+            		// .submit()
+            		window.open('<?=base_url()?>penjualan/strukedc?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn+'&stattrans='+stattrans+'&potongan='+potongan+'&no_kartu='+no_kartu,'_blank');
+            		window.setTimeout(function() {  location.reload();}, 2000);
+            		
+            	}else{
+            		window.setTimeout(function() {  
             			new PNotify({
             				title: 'Notifikasi',
-            				text: data.message,
-            				type: 'success'
-            			});     
-            			keranjang()				  
-            			$('#customer').val('Walk in Customer');
-            			$('#customer_dipilih').val(''); 
-            			$('#modal-payment').modal('hide'); 
-            		}
-            	}).fail(function(data) {   
-            		new PNotify({
-            			title: 'Notifikasi',
-            			text: "Request gagal, browser akan direload",
-            			type: 'danger'
-            		}); 
-            		window.setTimeout(function() {  location.reload();}, 2000);
-            	}); 
-            	e.preventDefault(); 
-            }); 
+            				text: 	'Maaf, periksa inputan total bayar anda (total bayar harus sama dengan total pesanan)',
+            				type: 'warning',
+            				addclass: 'stack-bottomright',
+            				stack: stack_bottomright
+            			}); 
+            		}, 500); 
 
-        </script>
+            	}   
+            }else{
+            		window.setTimeout(function() {  
+            			new PNotify({
+            				title: 'Notifikasi',
+            				text: 	'Maaf, No Kartu belum di isi',
+            				type: 'warning',
+            				addclass: 'stack-bottomright',
+            				stack: stack_bottomright
+            			}); 
+            		}, 500); 
 
-    </body>
-    </html>
+            	}      	
+        })
+
+             document.getElementById("Batalkan").addEventListener("click", function (e) { 
+             	PNotify.removeAll();
+             	$.ajax({
+             		type: 'GET',
+             		url: '<?php echo base_url()?>penjualan/canceltransaksi', 
+             		dataType 	: 'json',
+             		success: function(response) {   
+             			window.setTimeout(function() {  
+             				new PNotify({
+             					title: 'Notifikasi',
+             					text: 	'Berhasil mereset transaksi',
+             					type: 'success',
+             					addclass: 'stack-bottomright',
+             					stack: stack_bottomright
+             				}); 
+             				keranjang()				  
+             				$('#customer').val('Walk in Customer');
+             				$('#customer_dipilih').val('');
+             				$('#modalHapus').modal('hide');
+             			}, 500); 
+             		}
+             	});
+             });
+
+             document.getElementById("FormulirHold").addEventListener("submit", function (e) {  
+             	blurForm();        
+             	$('.help-block').hide();
+             	$('.form-group').removeClass('has-error');
+             	document.getElementById("submitformHold").setAttribute('disabled','disabled');
+             	$('#submitformHold').html('Loading ...');
+             	var form = $('#FormulirHold')[0];
+             	var formData = new FormData(form);
+             	var xhrAjax = $.ajax({
+             		type 		: 'POST',
+             		url 		: $(this).attr('action'),
+             		data 		: formData, 
+             		processData: false,
+             		contentType: false,
+             		cache: false, 
+             		dataType 	: 'json'
+             	}).done(function(data) { 
+             		if ( ! data.success) {		 
+             			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
+             			window.setTimeout(function() {  
+             				document.getElementById("submitformHold").removeAttribute('disabled');  
+             				$('#submitformHold').html('Ya, Saya Yakin');     
+             				var objek = Object.keys(data.errors);  
+             				for (var key in data.errors) {
+             					if (data.errors.hasOwnProperty(key)) { 
+             						var msg = '<div class="help-block" for="'+key+'">'+data.errors[key]+'</span>';
+             						$('.'+key).addClass('has-error');
+             						$('textarea[name="' + key + '"]').after(msg);  
+             					}
+             				}
+             			}, 500);
+             			return false;
+             		} else { 
+             			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
+             			PNotify.removeAll();  
+             			keranjang()	;  
+             			tablehold.ajax.reload();  
+             			document.getElementById("submitformHold").removeAttribute('disabled'); 
+             			$('#modalHold').modal('hide');        
+             			document.getElementById("FormulirHold").reset();    
+             			$('#submitformHold').html('Ya, Saya Yakin'); 
+             			window.setTimeout(function() {  
+             				new PNotify({
+             					title: 'Notifikasi',
+             					text: 	'Berhasil hold transaksi',
+             					type: 'success',
+             					addclass: 'stack-bottomright',
+             					stack: stack_bottomright
+             				}); 			  
+             				$('#customer').val('Walk in Customer');
+             				$('#customer_dipilih').val('');
+             				$('#modalHold').modal('hide');
+             			}, 500); 
+             		}
+             	}).fail(function(data) {   
+             		alert('request gagal');
+             		location.reload();
+             	}); 
+             	e.preventDefault(); 
+             }); 
+
+
+             document.getElementById("FormulirPayment").addEventListener("submit", function (e) {  
+             	blurForm();        
+             	document.getElementById("submitPayment").setAttribute('disabled','disabled');
+             	$('#submitPayment').html('Loading ...');
+             	var form = $('#FormulirPayment')[0];
+             	var formData = new FormData(form);
+             	var xhrAjax = $.ajax({
+             		type 		: 'POST',
+             		url 		: $(this).attr('action'),
+             		data 		: formData, 
+             		processData: false,
+             		contentType: false,
+             		cache: false, 
+             		dataType 	: 'json'
+             	}).done(function(data) { 
+             		if ( ! data.success) {	 
+             			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
+             			$('#submitPayment').html('Submit Payment');    
+             			var objek = Object.keys(data.errors);  
+             			for (var key in data.errors) { 
+             				if (key == 'fail') {   
+             					new PNotify({
+             						title: 'Notifikasi',
+             						text: data.errors[key],
+             						type: 'danger'
+             					}); 
+             				}
+             			}
+             		} else {   
+             			$('input[name=<?php echo $this->security->get_csrf_token_name();?>]').val(data.token);
+             			PNotify.removeAll();    
+             			document.getElementById("FormulirPayment").reset();  
+             			$('#submitPayment').html('Submit Payment');   
+             			new PNotify({
+             				title: 'Notifikasi',
+             				text: data.message,
+             				type: 'success'
+             			});     
+             			keranjang()				  
+             			$('#customer').val('Walk in Customer');
+             			$('#customer_dipilih').val(''); 
+             			$('#modal-payment').modal('hide'); 
+             		}
+             	}).fail(function(data) {   
+             		new PNotify({
+             			title: 'Notifikasi',
+             			text: "Request gagal, browser akan direload",
+             			type: 'danger'
+             		}); 
+             		window.setTimeout(function() {  location.reload();}, 2000);
+             	}); 
+             	e.preventDefault(); 
+             }); 
+
+         </script>
+
+     </body>
+     </html>

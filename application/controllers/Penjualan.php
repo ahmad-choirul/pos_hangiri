@@ -200,10 +200,10 @@ public function promositambahweb(){
     $kode_promosi = $simpan->simpandatapromosi();
     if($kode_promosi!=null){
        redirect("http://babe-q.com?kode=$kode_promosi");
-    }else{
+   }else{
        redirect("http://babe-q.com?kode=gagal");
 
-    }
+   }
 
 }
 }
@@ -549,13 +549,14 @@ public function datahold()
    );  
     echo json_encode($result);  
 }
-public function keranjangdetail($statppn=''){  
+public function keranjangdetail($statppn='',$potongan=0){  
     cekajax();
     $result =  array();   
     $arraysub=   array();  
-
+    $id_keranjang='';
     $query = $this->penjualan_model->get_keranjang();   
     if($query->num_rows() > 0){ 
+        $id_keranjang=$query->row()->id;
         if ($query->row()->jenis_penjualan!=$statppn) {
             $this->penjualan_model->ubahhargakeranjang($statppn,$query->row()->id);
         }
@@ -577,19 +578,33 @@ public function keranjangdetail($statppn=''){
                 $total_harga_item+=$r['harga']*$r['kuantiti'];
             }    
         } 
+        $totalbayar = $total_harga_item;
         if ($statppn=='ppn') {
-            $totalbayar = $total_harga_item+(0.1*$total_harga_item);
+            $tambah_ppn = 0.1*$total_harga_item;
         }else{
-            $totalbayar=$total_harga_item;
+            $tambah_ppn=0;
         }
+        $totalbayar+=$tambah_ppn;
+        $besar_potongan = ($potongan/100)*$totalbayar;
+        $totalbayar-=$besar_potongan;
         $result = array(  
             "total_harga_item" => $this->security->xss_clean(rupiah($total_harga_item)),
             "total" => $this->security->xss_clean(rupiah($totalbayar)), 
+            "besar_potongan" => $this->security->xss_clean(rupiah($besar_potongan)),
+            "besar_potonganint" => $this->security->xss_clean($besar_potongan),
+            "tambah_ppn" => $this->security->xss_clean(rupiah($tambah_ppn)),
+            "tambah_ppnint" => $this->security->xss_clean($tambah_ppn), 
             "totalInt" => $this->security->xss_clean($totalbayar), 
             "totalKuantiti" => $this->security->xss_clean($kuantiti), 
         );
+        $dataupdatekeranjang = array('total_harga_item' => $total_harga_item,
+            'total' => $totalbayar,
+            'diskon' => $besar_potongan, );
+        $this->db->where('id', $id_keranjang);
+        $this->db->update('keranjang', $dataupdatekeranjang);
     } 
     $datasub = $arraysub;
+
     $array[] =  $result ; 
     echo'{"datarows":'.json_encode($array).',"datasub":'.json_encode($datasub).'}';
 }
@@ -720,5 +735,67 @@ if ($status) {
 public function print_dapur()
 {
    $this->load->view('member/penjualan/struk_dapur58mm', $data);  
+}
+
+function strukedc()
+{   $keranjang = $this->db->get_where('keranjang', array('hold' => '0', 'id_admin' => $this->session->userdata('idadmin')), 1);
+
+$data['id_pembeli'] =  $keranjang->row()->id_pembeli;
+$date = $this->input->get('tmp');
+$data['tempo'] = date("yyyy-mm-dd",strtotime($date)) ;
+
+
+        //pembeli
+if ($data['id_pembeli']!='') {
+   $this->db->where('id',  $data['id_pembeli']);
+}
+$this->db->limit(1);
+$pembeli = $this->db->get('master_pembeli');
+        //apotek
+$this->db->order_by('id', 'DESC'); 
+$this->db->limit(1);
+$toko = $this->db->get('profil_apotek');
+        //keranjang
+$id = $this->input->get('t');
+$this->db->select("*");
+$this->db->from("keranjang_detail a");
+$this->db->join('master_item b', 'a.kode_item = b.kode_item');  
+        // $this->db->join('keranjang c', 'a.id_keranjang = c.id'); 
+$this->db->where('a.id_keranjang', $id);
+        // $this->db->group_by('a.id');
+$this->db->order_by('a.id', 'DESC'); 
+$detail = $this->db->get();
+        // 
+$ids = $this->input->get('pegawai');
+$this->db->select("*");
+$this->db->from("master_admin ");
+$this->db->where('master_admin.id', $ids);
+$pegawai = $this->db->get();
+        // 
+
+        // data
+$data['keranjang'] =  $detail->result_array();
+$data['penjualan'] =  $this->penjualan_model->_kode_penjualan();
+$data['pegawai'] =  $this->session->userdata('nama_admin');;
+$data['id_pegawai'] =  $ids;
+$data['kode'] =  $this->input->get('tp');
+$data['apoteker'] =  $pembeli->result_array();
+$data['toko'] =  $toko->result_array();
+$data['status'] =  "edc";
+$data['kepada'] =  "Costumer Toko";
+$data['pelanggan'] =  $this->input->get('pelanggan');
+$data['totalbayar'] =  $this->input->get('bayar');
+$data['catatan'] =  $this->input->get('catatan');
+$data['statppn'] =  $this->input->get('statppn');
+$data['stattrans'] =  $this->input->get('stattrans');
+$data['potongan'] =  $this->input->get('potongan');
+$data['no_kartu'] =  $this->input->get('no_kartu');
+$status = $this->penjualan_model->submitpaymentv2($data);
+if ($status) {
+    $this->load->view('member/penjualan/struk58mm', $data);   
+    $this->load->view('member/penjualan/struk_dapur58mm', $data);   
+}else{
+    redirect('penjualan/kasir','refresh');
+}
 }
 }

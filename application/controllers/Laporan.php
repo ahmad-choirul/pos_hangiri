@@ -515,7 +515,7 @@ class Laporan extends CI_Controller {
 	public function penjualan()
 	{     
         level_user('laporan','penjualan',$this->session->userdata('kategori'),'read') > 0 ? '': show_404();
-        $data['sales'] = $this->db->get('master_pegawai')->result(); 
+        $data['sales'] = $this->db->get('master_admin')->result(); 
         $data['costumer'] = $this->db->get('master_pembeli')->result(); 
         $data['obat'] = $this->db->get('master_item')->result();
         $this->load->view('member/laporan/penjualan',$data);
