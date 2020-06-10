@@ -723,8 +723,8 @@ class Master extends CI_Controller {
 			    $data['errors'] = $errors;
             }  
         }
-        $data['token'] = $this->security->get_csrf_hash();
-        echo json_encode($data); 
+        // $data['token'] = $this->security->get_csrf_hash();
+        // echo json_encode($data); 
     } 
     public function pegawaidetail(){  
         cekajax(); 

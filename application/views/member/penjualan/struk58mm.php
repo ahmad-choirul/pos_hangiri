@@ -108,7 +108,7 @@
 		};
 
 		function closePrintView() {
-			window.location.href = 'google.com';   
+			// window.location.href = 'google.com';   
 		}
 	</script>
 
