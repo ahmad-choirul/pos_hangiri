@@ -395,7 +395,9 @@ class Penjualan_model extends CI_Model
         $query = $this->db->get_where('keranjang_detail', array('id_keranjang' => $idkeranjang, 'kode_item' => $kodeproduk), 1);
         if ($query->num_rows() < 1) {
             $diskon =  $this->diskon_produk($kodeproduk, 1);
-            if ($jenis_penjualan=='online') {
+            if ($jenis_penjualan=='grab') {
+               $harga = $produk->row()->harga_jual2;
+           } elseif ($jenis_penjualan=='gojek') {
                $harga = $produk->row()->harga_jual2;
            }else{
                $harga = $produk->row()->harga_jual;
@@ -417,9 +419,11 @@ class Penjualan_model extends CI_Model
        } else {
         $kuantiti = $query->row()->kuantiti + $kuantiti;
         $diskon =  $this->diskon_produk($kodeproduk, $kuantiti);
-        if ($jenis_penjualan=='online') {
-           $harga = $produk->row()->harga_jual2;
-       }else{
+       if ($jenis_penjualan=='grab') {
+               $harga = $produk->row()->harga_jual2;
+           } elseif ($jenis_penjualan=='gojek') {
+               $harga = $produk->row()->harga_jual2;
+           }else{
            $harga = $produk->row()->harga_jual;
        }
        $harga_beli = $produk->row()->harga_beli;
@@ -539,9 +543,11 @@ public function ubahhargakeranjang($statppn,$idd)
         $this->db->from('master_item');
         $this->db->where('kode_item', $r['kode_item']);
         $dataitem = $this->db->get()->result_array()[0];
-        if ($statppn=='online') {
-            $harga=$dataitem['harga_jual2'];
-        }else{
+        if ($statppn=='grab') {
+               $harga =  $dataitem['harga_jual2'];
+           } elseif ($statppn=='gojek') {
+               $harga =  $dataitem['harga_jual2'];
+           }else{
             $harga = $dataitem['harga_jual'];
         }
         $total = ($harga * $r['kuantiti']) - ($r['diskon'] * $r['kuantiti']);
@@ -658,6 +664,7 @@ function submitpaymentv2($data)
         'tanggal' => date('Y-m-d'),
         'id_admin' => $this->session->userdata('idadmin'),
         'tanggal_jam' => date('Y-m-d H:i:s'),
+        'jenis_penjualan' => $data['statppn'],
         'retur' => '0'
     );
 

@@ -55,8 +55,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <?php 
 if ($this->input->get('statppn')=='nonppn') {
 	$statppn='nonppn';
-}elseif ($this->input->get('statppn')=='online') {
-	$statppn='online';
+}else if($this->input->get('statppn')=='grab') {
+	$statppn='grab';
+}else if($this->input->get('statppn')=='gojek') {
+	$statppn='gojek';
 }
 else{
 	$statppn='ppn';
@@ -148,7 +150,8 @@ if ($this->input->get('stattrans')=='dinein') {
 												<select class="form-control cara_bayar" name="statppn" id="statppn" onchange='this.form.submit()'>
 													<option value="ppn">PPN</option>
 													<option <?php if ($statppn == 'nonppn' ) echo 'selected' ; ?> value="nonppn">NonPPN</option>
-													<option <?php if ($statppn == 'online' ) echo 'selected' ; ?> value="online">online</option>
+													<option <?php if ($statppn == 'grab' ) echo 'selected' ; ?> value="grab">Grab</option>
+													<option <?php if ($statppn == 'gojek' ) echo 'selected' ; ?> value="gojek">Gojek</option>
 												</select> 
 											</div>
 										</div>
