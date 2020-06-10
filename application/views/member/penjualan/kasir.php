@@ -841,6 +841,7 @@ if ($this->input->get('stattrans')=='dinein') {
 		function beli(elem){            	 
 			var kodebarcode = $(elem).data("barcode");   
 			var statppn = '<?php echo $statppn; ?>';
+			var stattrans = '<?php echo $stattrans; ?>';
 			document.getElementById("beli-item"+kodebarcode).setAttribute('disabled','disabled'); 
 			var pembeli = document.getElementById("customer_dipilih").value; 
 			if(kodebarcode != ''){  
@@ -1186,6 +1187,7 @@ if ($this->input->get('stattrans')=='dinein') {
             	var pelanggan = document.getElementById("nama_pelanggan").value; 
             	var catatan = document.getElementById("catatan").value; 
             	var statppn = '<?php echo $statppn; ?>'; 
+            	var stattrans = '<?php echo $stattrans; ?>'; 
             	// var catatan = "catatan"; 
             	if (Number(totalbayar)>=Number(totalbelanja)) {
             		var pegawai;
@@ -1193,7 +1195,7 @@ if ($this->input->get('stattrans')=='dinein') {
             		
             		// $('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn)
             		// .submit()
-            		window.open('<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn,'_blank');
+            		window.open('<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn+'&stattrans='+stattrans,'_blank');
             		window.setTimeout(function() {  location.reload();}, 2000);
             		
             	}else{
