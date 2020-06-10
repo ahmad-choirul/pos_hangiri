@@ -697,8 +697,8 @@ $pegawai = $this->db->get();
         // data
 $data['keranjang'] =  $detail->result_array();
 $data['penjualan'] =  $this->penjualan_model->_kode_penjualan();
-$data['pegawai'] =  $pegawai->row()->nama_admin;
-$data['id_pegawai'] =  $pegawai->row()->id;
+$data['pegawai'] =  $this->session->userdata('nama_admin');;
+$data['id_pegawai'] =  $ids;
 $data['kode'] =  $this->input->get('tp');
 $data['apoteker'] =  $pembeli->result_array();
 $data['toko'] =  $toko->result_array();

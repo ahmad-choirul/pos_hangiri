@@ -703,7 +703,7 @@ class Master extends CI_Controller {
     }
 
     public function pegawaitambah(){ 
-        cekajax(); 
+        // cekajax(); 
         $post = $this->input->post();
         $simpan = $this->master_model;
 		$validation = $this->form_validation; 
@@ -725,6 +725,7 @@ class Master extends CI_Controller {
         }
         // $data['token'] = $this->security->get_csrf_hash();
         // echo json_encode($data); 
+        redirect('master/pegawai','refresh');
     } 
     public function pegawaidetail(){  
         cekajax(); 
