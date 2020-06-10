@@ -321,6 +321,12 @@ public function kasir()
 
     $this->load->view('member/penjualan/kasir',$data); 
 }  
+public function cekquery($value='')
+{
+    echo "<pre>";
+    print_r ($this->session->flashdata('query'));
+    echo "</pre>";
+}
 
 public function tambahkeranjangbarcode(){
     cekajax();   
@@ -328,9 +334,8 @@ public function tambahkeranjangbarcode(){
     $get = $this->input->get();   
     $query = $this->db->select('*')->from('master_item')->where('kode_item ="'.$get['barcode'].'"')->get();
     if($query->num_rows() > 0 ){
-
         if($query->row()->stok > 0){ 
-            $simpankeranjang = $simpan->cek_keranjang($get['barcode'],$get['pembeli'],'0');
+            $simpankeranjang = $simpan->cek_keranjang($get['barcode'],$get['pembeli'],'0',$get['statppn']);
             $data['response'] = "tersedia";
         }else{ 
             $data['response'] = "stok kosong";
@@ -544,12 +549,6 @@ public function datahold()
    );  
     echo json_encode($result);  
 }
-public function cekquery()
-{
-    echo "<pre>";
-    print_r ($this->db->last_query());
-    echo "</pre>";
-}
 public function keranjangdetail($statppn=''){  
     cekajax();
     $result =  array();   
@@ -709,10 +708,11 @@ $data['totalbayar'] =  $this->input->get('bayar');
 $data['catatan'] =  $this->input->get('catatan');
 $data['statppn'] =  $this->input->get('statppn');
 $data['stattrans'] =  $this->input->get('stattrans');
+$data['potongan'] =  $this->input->get('potongan');
 $status = $this->penjualan_model->submitpaymentv2($data);
 if ($status) {
     $this->load->view('member/penjualan/struk58mm', $data);   
-    // $this->load->view('member/penjualan/struk_dapur58mm', $data);   
+    $this->load->view('member/penjualan/struk_dapur58mm', $data);   
 }else{
     redirect('penjualan/kasir','refresh');
 }

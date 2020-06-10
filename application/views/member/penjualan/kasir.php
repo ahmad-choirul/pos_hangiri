@@ -604,6 +604,20 @@ if ($this->input->get('stattrans')=='dinein') {
 													<!-- </select>  -->
 												</div>
 											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label class="control-label">Diskon</label>
+													<select class="form-control" name="potongan" id="potongan">
+												
+													<option value="0">Tanpa Diskon</option>
+													<option value="10">Disc 10%</option>
+													<option value="20">Disc 20%</option>
+													<option value="30">Disc 30%</option>
+													
+												
+													</select> 
+												</div>
+											</div>
 											
 
 
@@ -848,7 +862,7 @@ if ($this->input->get('stattrans')=='dinein') {
 				$.ajax({
 					type: 'GET',
 					url: '<?php echo base_url()?>penjualan/tambahkeranjangbarcode',
-					data: 'barcode=' + kodebarcode +'&pembeli='+pembeli,
+					data: 'barcode=' + kodebarcode +'&pembeli='+pembeli+'&statppn='+statppn,
 					dataType 	: 'json',
 					success: function(response) {  
 						if(response.response == '0'){
@@ -1188,6 +1202,7 @@ if ($this->input->get('stattrans')=='dinein') {
             	var catatan = document.getElementById("catatan").value; 
             	var statppn = '<?php echo $statppn; ?>'; 
             	var stattrans = '<?php echo $stattrans; ?>'; 
+            	var potongan = $('#potongan').val();
             	// var catatan = "catatan"; 
             	if (Number(totalbayar)>=Number(totalbelanja)) {
             		var pegawai;
@@ -1195,7 +1210,7 @@ if ($this->input->get('stattrans')=='dinein') {
             		
             		// $('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn)
             		// .submit()
-            		window.open('<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn+'&stattrans='+stattrans,'_blank');
+            		window.open('<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn+'&stattrans='+stattrans+'&potongan='+potongan,'_blank');
             		window.setTimeout(function() {  location.reload();}, 2000);
             		
             	}else{

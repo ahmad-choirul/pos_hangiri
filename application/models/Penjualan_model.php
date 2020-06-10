@@ -20,7 +20,7 @@ class Penjualan_model extends CI_Model
     public function data_diskon()
     {
         $this->db->select("a.id, a.kode_item, a.min_kuantiti,
-           a.diskon, a.tanggal_berakhir, b.nama_item");
+         a.diskon, a.tanggal_berakhir, b.nama_item");
         $this->db->from("master_diskon_kelipatan a");
         $this->db->join('master_item b', 'b.kode_item = a.kode_item');
         return $this->db->get()->result_array();
@@ -303,7 +303,7 @@ class Penjualan_model extends CI_Model
         return $this->db->insert("master_kode_promosi", $array);
     }
 
-        function simpandatapromosiweb()
+    function simpandatapromosiweb()
     {
         $post = $this->input->post();
         do {
@@ -331,7 +331,7 @@ class Penjualan_model extends CI_Model
         $string = '';
         for($i = 0; $i < $length; $i++) {
             $pos = rand(0, strlen($data)-1);
-            $string .= $data{$pos};
+            $string .= $data[$pos];
         }
         return $string;
     }
@@ -396,15 +396,15 @@ class Penjualan_model extends CI_Model
         if ($query->num_rows() < 1) {
             $diskon =  $this->diskon_produk($kodeproduk, 1);
             if ($jenis_penjualan=='grab') {
-               $harga = $produk->row()->harga_jual2;
-           } elseif ($jenis_penjualan=='gojek') {
-               $harga = $produk->row()->harga_jual2;
-           }else{
-               $harga = $produk->row()->harga_jual;
-           }
-           $harga_beli = $produk->row()->harga_beli;
-           $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
-           $array = array(
+             $harga = $produk->row()->harga_jual2;
+         } elseif ($jenis_penjualan=='gojek') {
+             $harga = $produk->row()->harga_jual2;
+         }else{
+             $harga = $produk->row()->harga_jual;
+         }
+         $harga_beli = $produk->row()->harga_beli;
+         $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
+         $array = array(
             'id_keranjang' => $idkeranjang,
             'kode_item' => $kodeproduk,
             'harga' => $harga,
@@ -413,30 +413,31 @@ class Penjualan_model extends CI_Model
             'kuantiti' => $kuantiti,
             'total' => $total,
         );
-           $this->db->insert("keranjang_detail", $array);
-           $this->updatekeranjang($idkeranjang);
-           return TRUE;
-       } else {
+         $this->db->insert("keranjang_detail", $array);  
+         $this->session->set_flashdata('query', $this->db->last_query());     
+         $this->updatekeranjang($idkeranjang);
+         return TRUE;
+     } else {
         $kuantiti = $query->row()->kuantiti + $kuantiti;
         $diskon =  $this->diskon_produk($kodeproduk, $kuantiti);
-       if ($jenis_penjualan=='grab') {
-               $harga = $produk->row()->harga_jual2;
-           } elseif ($jenis_penjualan=='gojek') {
-               $harga = $produk->row()->harga_jual2;
-           }else{
-           $harga = $produk->row()->harga_jual;
-       }
-       $harga_beli = $produk->row()->harga_beli;
-       $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
-       $this->harga = $harga;
-       $this->harga_beli = $harga_beli;
-       $this->diskon = $diskon;
-       $this->kuantiti = $kuantiti;
-       $this->total = $total;
-       $this->db->update("keranjang_detail", $this, array('id_keranjang' => $idkeranjang, 'kode_item' => $kodeproduk));
-       $this->updatekeranjang($idkeranjang);
-       return TRUE;
-   }
+        if ($jenis_penjualan=='grab') {
+         $harga = $produk->row()->harga_jual2;
+     } elseif ($jenis_penjualan=='gojek') {
+         $harga = $produk->row()->harga_jual2;
+     }else{
+         $harga = $produk->row()->harga_jual;
+     }
+     $harga_beli = $produk->row()->harga_beli;
+     $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
+     $this->harga = $harga;
+     $this->harga_beli = $harga_beli;
+     $this->diskon = $diskon;
+     $this->kuantiti = $kuantiti;
+     $this->total = $total;
+     $this->db->update("keranjang_detail", $this, array('id_keranjang' => $idkeranjang, 'kode_item' => $kodeproduk));
+     $this->updatekeranjang($idkeranjang);
+     return TRUE;
+ }
 }
 public function tambahkeranjang($idd)
 {
@@ -446,16 +447,16 @@ public function tambahkeranjang($idd)
     $kuantiti = $query->row()->kuantiti + 1;
     $diskon =  $this->diskon_produk($query->row()->kode_item, $kuantiti);
     $harga = $query->row()->harga;
-    $harga_beli = $produk->row()->harga_beli;
-    $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
-    $this->harga = $harga;
-    $this->harga_beli = $harga_beli;
-    $this->diskon = $diskon;
-    $this->kuantiti = $kuantiti;
-    $this->total = $total;
-    $this->db->update("keranjang_detail", $this, array('id' => $idd, 'kode_item' => $query->row()->kode_item));
-    $this->updatekeranjang($idkeranjang);
-    return TRUE;
+ $harga_beli = $produk->row()->harga_beli;
+ $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
+ $this->harga = $harga;
+ $this->harga_beli = $harga_beli;
+ $this->diskon = $diskon;
+ $this->kuantiti = $kuantiti;
+ $this->total = $total;
+ $this->db->update("keranjang_detail", $this, array('id' => $idd, 'kode_item' => $query->row()->kode_item));
+ $this->updatekeranjang($idkeranjang);
+ return TRUE;
 }
 
 public function kurangkeranjang($idd)
@@ -467,20 +468,20 @@ public function kurangkeranjang($idd)
         $kuantiti = $query->row()->kuantiti - 1;
         $diskon =  $this->diskon_produk($query->row()->kode_item, $kuantiti);
         $harga = $query->row()->harga;
-        $harga_beli = $produk->row()->harga_beli;
-        $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
-        $this->harga = $harga;
-        $this->harga_beli = $harga_beli;
-        $this->diskon = $diskon;
-        $this->kuantiti = $kuantiti;
-        $this->total = $total;
-        $this->db->update("keranjang_detail", $this, array('id' => $idd, 'kode_item' => $query->row()->kode_item));
-        $this->updatekeranjang($idkeranjang);
-    } else {
-        $this->db->where('id', $idd)->delete('keranjang_detail');
-        $this->updatekeranjang($idkeranjang);
-    }
-    return TRUE;
+     $harga_beli = $produk->row()->harga_beli;
+     $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
+     $this->harga = $harga;
+     $this->harga_beli = $harga_beli;
+     $this->diskon = $diskon;
+     $this->kuantiti = $kuantiti;
+     $this->total = $total;
+     $this->db->update("keranjang_detail", $this, array('id' => $idd, 'kode_item' => $query->row()->kode_item));
+     $this->updatekeranjang($idkeranjang);
+ } else {
+    $this->db->where('id', $idd)->delete('keranjang_detail');
+    $this->updatekeranjang($idkeranjang);
+}
+return TRUE;
 }
 
 public function hapuskeranjang($idd)
@@ -501,7 +502,7 @@ public function hapusbarangkeranjang($idd)
     $this->updatekeranjang($idkeranjang);
     return TRUE;
 }
-public function cek_keranjang($kode, $pembeli, $racikan)
+public function cek_keranjang($kode, $pembeli, $racikan,$jenis_penjualan='')
 {
     if ($pembeli == '') {
         $pembeli = NULL;
@@ -517,10 +518,10 @@ public function cek_keranjang($kode, $pembeli, $racikan)
         );
         $this->db->insert("keranjang", $array);
         $idkeranjang = $this->db->insert_id();
-        $this->simpan_keranjang($idkeranjang, $kode, 1, $racikan);
+        $this->simpan_keranjang($idkeranjang, $kode, 1, $racikan,$jenis_penjualan);
     } else {
         $idkeranjang = $query->row()->id;
-        $this->simpan_keranjang($idkeranjang, $kode, 1, $racikan,$query->row()->jenis_penjualan);
+        $this->simpan_keranjang($idkeranjang, $kode, 1, $racikan,$jenis_penjualan);
     }
 }
 
@@ -530,39 +531,39 @@ public function get_keranjang()
 }
 public function ubahhargakeranjang($statppn,$idd)
 {
- $this->db->trans_start();
- $this->db->select("a.nama_item,b.kode_item, b.id, b.kuantiti, b.diskon, b.harga, b.total, b.id_keranjang");
- $this->db->from("master_item a");
- $this->db->join('keranjang_detail b', 'b.kode_item = a.kode_item');
- $this->db->where('b.id_keranjang', $idd);
- $this->db->order_by('b.id', 'DESC');
- $keranjang = $this->db->get();
- if($keranjang->num_rows() > 0){      
+   $this->db->trans_start();
+   $this->db->select("a.nama_item,b.kode_item, b.id, b.kuantiti, b.diskon, b.harga, b.total, b.id_keranjang");
+   $this->db->from("master_item a");
+   $this->db->join('keranjang_detail b', 'b.kode_item = a.kode_item');
+   $this->db->where('b.id_keranjang', $idd);
+   $this->db->order_by('b.id', 'DESC');
+   $keranjang = $this->db->get();
+   if($keranjang->num_rows() > 0){      
     foreach($keranjang->result_array() as $r) {
         $this->db->select('*');
         $this->db->from('master_item');
         $this->db->where('kode_item', $r['kode_item']);
         $dataitem = $this->db->get()->result_array()[0];
         if ($statppn=='grab') {
-               $harga =  $dataitem['harga_jual2'];
-           } elseif ($statppn=='gojek') {
-               $harga =  $dataitem['harga_jual2'];
-           }else{
-            $harga = $dataitem['harga_jual'];
-        }
-        $total = ($harga * $r['kuantiti']) - ($r['diskon'] * $r['kuantiti']);
-        $this->db->where('id_keranjang', $idd);
-        $this->db->where('kode_item', $r['kode_item']);
-        $this->db->update('keranjang_detail',array('harga' => $harga,
-            'total' => $total ));
-    }    
+         $harga =  $dataitem['harga_jual2'];
+     } elseif ($statppn=='gojek') {
+         $harga =  $dataitem['harga_jual2'];
+     }else{
+        $harga = $dataitem['harga_jual'];
+    }
+    $total = ($harga * $r['kuantiti']) - ($r['diskon'] * $r['kuantiti']);
+    $this->db->where('id_keranjang', $idd);
+    $this->db->where('kode_item', $r['kode_item']);
+    $this->db->update('keranjang_detail',array('harga' => $harga,
+        'total' => $total ));
+}    
 }
 $this->db->where('id', $idd);
 $this->db->update('keranjang',array('jenis_penjualan' => $statppn )); 
 if($this->db->trans_status() === FALSE){
- $this->db->trans_rollback();
+   $this->db->trans_rollback();
 }else{
- $this->db->trans_complete();
+   $this->db->trans_complete();
 }
 }
 public function detail_keranjang($idd)
@@ -656,11 +657,13 @@ function submitpaymentv2($data)
        // $post = $this->input->post();
     $keranjang = $this->db->get_where('keranjang', array('hold' => '0','id_admin' => $this->session->userdata('idadmin')), 1);
     $kode_penjualan = $this->_kode_penjualan();
+    $hasil_potongan = ($data['potongan']/100)*$keranjang->row()->total;
     $array = array(
         'id' => $kode_penjualan,
         'id_pembeli' => $keranjang->row()->id_pembeli,
         'id_admin' => $this->session->userdata('idadmin'),
         'total' => $keranjang->row()->total,
+        'diskon' => $hasil_potongan,
         'tanggal' => date('Y-m-d'),
         'id_admin' => $this->session->userdata('idadmin'),
         'tanggal_jam' => date('Y-m-d H:i:s'),
@@ -686,29 +689,6 @@ function submitpaymentv2($data)
         'catatan' =>'',
     );
     $this->db->insert("penjualan_pembayaran", $pembayaran_1);
-
-    // } else {//kredit
-    //     $pembayaran_1 = array(
-    //         'id_penjualan' => $kode_penjualan,
-    //         'nominal' => bilanganbulat($data['totalbayar']),
-    //         'cara_bayar' => 'kredit',
-    //         'catatan' => $this->input->post('catatan')[0],
-    //     );
-    //     $this->db->insert("penjualan_pembayaran", $pembayaran_1);
-
-    //     $piutang = array(
-    //         'id_penjualan' => $kode_penjualan,
-    //         'id_pembeli' =>  $keranjang->row()->id_pembeli,
-    //         'judul' => 'kredit pembelian',
-    //         'tanggal_jatuh_tempo' => $data['tempo'],
-    //         'nominal' => bilanganbulat($keranjang->row()->total_harga_item),
-    //         'nominal_dibayar' => bilanganbulat($data['totalbayar']),
-    //         'sudah_lunas' => '0',
-    //         'keterangan' => $this->input->post('catatan')[0],
-    //     );
-    //     $this->db->insert("piutang_history", $piutang);
-    // }
-
 
     $items = [];
     $detailkeranjang = $data['keranjang'];
@@ -745,11 +725,11 @@ function submitpaymentv2($data)
     $this->db->where('id', $keranjang->row()->id)->delete('keranjang');
     if ($this->db->trans_status() === FALSE)
     {
-       $this->db->trans_rollback();
-       return false;
-   }
-   else
-   {
+     $this->db->trans_rollback();
+     return false;
+ }
+ else
+ {
     $this->db->trans_commit();
     return true;
 }
