@@ -131,7 +131,7 @@
 
 		<div class="head-desc">
 			<div class="date">
-				<?=date('d M Y')?> | <?= $pegawai; ?>
+				<?=date('d M Y')?> | <?= $pegawai; ?> | <?php echo $statppn ?>
 			</div>
 		</div>
 
