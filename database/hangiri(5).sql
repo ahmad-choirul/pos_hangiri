@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2020 at 03:27 AM
+-- Generation Time: Jun 10, 2020 at 02:32 AM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -37,6 +37,27 @@ CREATE TABLE `cash_in_out` (
   `id_penjualan` varchar(50) DEFAULT NULL,
   `keterangan` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cash_in_out`
+--
+
+INSERT INTO `cash_in_out` (`id`, `kode_rekening`, `tanggal`, `masuk`, `keluar`, `id_hutang_dibayar`, `id_piutang_dibayar`, `id_penjualan`, `keterangan`) VALUES
+(1, '10001', '2020-06-09', '20000', '0', NULL, NULL, '090620000001', ''),
+(2, '10001', '2020-06-09', '20000', '0', NULL, NULL, '090620000002', ''),
+(3, '10001', '2020-06-09', '20000', '0', NULL, NULL, '090620000003', ''),
+(4, '10001', '2020-06-09', '20000', '0', NULL, NULL, '090620000004', ''),
+(5, '10001', '2020-06-09', '20000', '0', NULL, NULL, '090620000005', ''),
+(6, '10001', '2020-06-09', '20000', '0', NULL, NULL, '090620000006', ''),
+(7, '10001', '2020-06-09', '20000', '0', NULL, NULL, '090620000007', ''),
+(8, '10001', '2020-06-09', '20000', '0', NULL, NULL, '090620000008', ''),
+(9, '10001', '2020-06-09', '5000', '0', NULL, NULL, '090620000009', ''),
+(10, '10001', '2020-06-09', '5000', '0', NULL, NULL, '090620000010', ''),
+(11, '10001', '2020-06-09', '6000', '0', NULL, NULL, '090620000011', ''),
+(12, '10001', '2020-06-09', '20000', '0', NULL, NULL, '090620000012', ''),
+(13, '10001', '2020-06-10', '25000', '0', NULL, NULL, '100620000001', ''),
+(14, '10001', '2020-06-10', '20000', '0', NULL, NULL, '100620000002', ''),
+(15, '10001', '2020-06-10', '25000', '0', NULL, NULL, '100620000003', '');
 
 -- --------------------------------------------------------
 
@@ -94,6 +115,28 @@ CREATE TABLE `kartu_stok` (
   `jumlah_keluar` int(5) NOT NULL,
   `stok_sisa` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kartu_stok`
+--
+
+INSERT INTO `kartu_stok` (`id`, `nomor_rec_penerimaan`, `id_utility`, `id_stok_opname`, `id_stok_keluar`, `id_penjualan`, `kode_item`, `tanggal`, `jenis_transaksi`, `jumlah_masuk`, `jumlah_keluar`, `stok_sisa`) VALUES
+(1, NULL, NULL, NULL, NULL, '090620000001', '10', '2020-06-09', 'penjualan', 0, 1, ''),
+(2, NULL, NULL, NULL, NULL, '090620000002', '10', '2020-06-09', 'penjualan', 0, 1, ''),
+(3, NULL, NULL, NULL, NULL, '090620000003', '10', '2020-06-09', 'penjualan', 0, 1, ''),
+(4, NULL, NULL, NULL, NULL, '090620000004', '10', '2020-06-09', 'penjualan', 0, 1, ''),
+(5, NULL, NULL, NULL, NULL, '090620000005', '10', '2020-06-09', 'penjualan', 0, 1, ''),
+(6, NULL, NULL, NULL, NULL, '090620000006', '10', '2020-06-09', 'penjualan', 0, 1, ''),
+(7, NULL, NULL, NULL, NULL, '090620000007', '10', '2020-06-09', 'penjualan', 0, 1, ''),
+(8, NULL, NULL, NULL, NULL, '090620000008', '10', '2020-06-09', 'penjualan', 0, 1, ''),
+(9, NULL, NULL, NULL, NULL, '090620000009', '100', '2020-06-09', 'penjualan', 0, 1, ''),
+(10, NULL, NULL, NULL, NULL, '090620000010', '101', '2020-06-09', 'penjualan', 0, 1, ''),
+(11, NULL, NULL, NULL, NULL, '090620000011', '103', '2020-06-09', 'penjualan', 0, 1, ''),
+(12, NULL, NULL, NULL, NULL, '090620000012', '10', '2020-06-09', 'penjualan', 0, 1, ''),
+(13, NULL, NULL, NULL, NULL, '100620000001', '100', '2020-06-10', 'penjualan', 0, 1, ''),
+(14, NULL, NULL, NULL, NULL, '100620000001', '10', '2020-06-10', 'penjualan', 0, 1, ''),
+(15, NULL, NULL, NULL, NULL, '100620000002', '10', '2020-06-10', 'penjualan', 0, 1, ''),
+(16, NULL, NULL, NULL, NULL, '100620000003', '10', '2020-06-10', 'penjualan', 0, 1, '');
 
 -- --------------------------------------------------------
 
@@ -287,13 +330,6 @@ CREATE TABLE `keranjang` (
   `jenis_penjualan` enum('ppn','nonppn','online','') NOT NULL DEFAULT 'ppn'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `keranjang`
---
-
-INSERT INTO `keranjang` (`id`, `tanggal_jam`, `id_admin`, `id_pembeli`, `total_harga_item`, `total`, `hold`, `keterangan_hold`, `waktu_hold`, `status`, `jenis_penjualan`) VALUES
-(3, '2020-06-09 08:26:21', 1, NULL, '0', '0', '0', '', '', 0, 'online');
-
 -- --------------------------------------------------------
 
 --
@@ -399,109 +435,109 @@ CREATE TABLE `master_item` (
 --
 
 INSERT INTO `master_item` (`kode_item`, `kategori`, `nama_item`, `keterangan`, `gambar`, `harga_jual`, `harga_jual2`, `harga_beli`, `waktu_update`, `netto`, `stok`, `tgl_expired`, `jenis_item`) VALUES
-('10', 1, 'CHICKEN CRISPY ROLL', 'keterangan', 'default.jpg', '20000', '25000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('100', 1, 'FANTA', 'keterangan', 'default.jpg', '5000', '6250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('101', 1, 'SPRITE', 'keterangan', 'default.jpg', '5000', '6250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('102', 1, 'COCA COLA', 'keterangan', 'default.jpg', '5000', '6250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('103', 1, 'FRESTEA', 'keterangan', 'default.jpg', '6000', '7500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('104', 1, 'NASI', 'keterangan', 'default.jpg', '5000', '6250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('11', 1, 'SOFT ROLL', 'keterangan', 'default.jpg', '24000', '30000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('12', 1, 'TERIYAKI ROLL', 'keterangan', 'default.jpg', '20000', '25000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('13', 1, 'SPICY TUNA ROLL', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('14', 1, 'CALIFORNIA ROLL', 'keterangan', 'default.jpg', '27000', '33750', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('15', 1, 'BAKED SALMON ROLL', 'keterangan', 'default.jpg', '32000', '40000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('16', 1, 'SALMON FRESH ROLL', 'keterangan', 'default.jpg', '27000', '33750', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('17', 1, 'SAKE MAKI', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('18', 1, 'EBITO ROLL', 'keterangan', 'default.jpg', '27000', '33750', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('19', 1, 'TAMAGO CRUNCH', 'keterangan', 'default.jpg', '18000', '22500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('2', 1, 'TOBIKO SUSHI', 'keterangan', 'default.jpg', '20000', '25000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('20', 1, 'SALMON TERIYAKI DON', 'keterangan', 'default.jpg', '29000', '36250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('21', 1, 'SALMON KATSU DON', 'keterangan', 'default.jpg', '29000', '36250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('22', 1, 'SALMON YAKINIKU DON', 'keterangan', 'default.jpg', '29000', '36250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('23', 1, 'KATSU DON', 'keterangan', 'default.jpg', '22000', '27500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('24', 1, 'EBY DON', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('25', 1, 'EBY FURAI BENTO', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('26', 1, 'CHICKEN KATSU BENTO', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('27', 1, 'CHICKEN TERIYAKI BENTO', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('28', 1, 'CHICKEN YAKINIKU BENTO', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('29', 1, 'BEEF KATSU BENTO', 'keterangan', 'default.jpg', '30000', '37500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('3', 1, 'SALMON MAYO', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('30', 1, 'BEEF TERIYAKI BENTO', 'keterangan', 'default.jpg', '30000', '37500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('31', 1, 'BEEF YAKINIKU BENTO', 'keterangan', 'default.jpg', '30000', '37500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('32', 1, 'CHICKEN TERIYAKI', 'keterangan', 'default.jpg', '20000', '25000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('33', 1, 'ENOKI CRISPY', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('34', 1, 'TAKOYAKI SOSIS', 'keterangan', 'default.jpg', '11000', '13750', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('35', 1, 'TAKOYAKI CUMI', 'keterangan', 'default.jpg', '15000', '18750', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('36', 1, 'TAKOYAKI CHICKEN', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('37', 1, 'CHICKEN CURRY RAMEN', 'keterangan', 'default.jpg', '22000', '27500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('38', 1, 'EBY CURRY RAMEN', 'keterangan', 'default.jpg', '23000', '28750', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('39', 1, 'SAKURA RAMEN', 'keterangan', 'default.jpg', '20000', '25000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('4', 1, 'SALMON SUSHI', 'keterangan', 'default.jpg', '23000', '28750', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('40', 1, 'TOKYO RAMEN', 'keterangan', 'default.jpg', '21000', '26250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('41', 1, 'TORI YAKISOBA', 'keterangan', 'default.jpg', '20000', '25000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('42', 1, 'NIKU YAKISOBA', 'keterangan', 'default.jpg', '22000', '27500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('43', 1, 'SALMON SASHIMI', 'keterangan', 'default.jpg', '30000', '37500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('44', 1, 'SHABU PAKET SMALL', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('45', 1, 'SHABU PAKET MEDIUM', 'keterangan', 'default.jpg', '40000', '50000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('46', 1, 'SHABU PAKET LARGE', 'keterangan', 'default.jpg', '55000', '68750', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('47', 1, 'SHABU CHICKEN', 'keterangan', 'default.jpg', '22000', '27500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('48', 1, 'SHABU SEAFOOD', 'keterangan', 'default.jpg', '35000', '43750', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('49', 1, 'SHABU BEEF', 'keterangan', 'default.jpg', '30000', '37500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('5', 1, 'KANI CRISPY ROLL', 'keterangan', 'default.jpg', '23000', '28750', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('50', 1, 'SAUCE GOMA', 'keterangan', 'default.jpg', '5000', '6250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('51', 1, 'SAUCE TOMYUM', 'keterangan', 'default.jpg', '5000', '6250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('52', 1, 'YAKINIKU PAKET REGULER', 'keterangan', 'default.jpg', '37000', '46250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('53', 1, 'YAKINIKU PAKET EXTRA', 'keterangan', 'default.jpg', '60000', '75000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('54', 1, 'YAKINIKU CHICKEN', 'keterangan', 'default.jpg', '18000', '22500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('55', 1, 'YAKINIKU BEEF', 'keterangan', 'default.jpg', '22000', '27500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('56', 1, 'YAKINIKU SEAFOOD', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('57', 1, 'SAUCE YAKINIKU', 'keterangan', 'default.jpg', '4000', '5000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('58', 1, 'SAUCE BLACKPAPPER', 'keterangan', 'default.jpg', '4000', '5000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('59', 1, 'SAUCE BBQ', 'keterangan', 'default.jpg', '4000', '5000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('6', 1, 'TUNA CRISPY ROLL', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('60', 1, 'EXTRA PAKCOI', 'keterangan', 'default.jpg', '4000', '5000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('61', 1, 'EXTRA ENOKI', 'keterangan', 'default.jpg', '4000', '5000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('62', 1, 'EXTRA DAUN BAWANG', 'keterangan', 'default.jpg', '4000', '5000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('63', 1, 'EXTRA SAWI PUTIH', 'keterangan', 'default.jpg', '4000', '5000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('64', 1, 'EXTRA WORTEL', 'keterangan', 'default.jpg', '4000', '5000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('65', 1, 'EXTRA BOMBAY', 'keterangan', 'default.jpg', '4000', '5000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('66', 1, 'EXTRA CUMI', 'keterangan', 'default.jpg', '14000', '17500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('67', 1, 'EXTRA CHIKUWA', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('68', 1, 'EXTRA UDANG', 'keterangan', 'default.jpg', '17000', '21250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('69', 1, 'EXTRA BAKSO IKAN', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('7', 1, 'SALMON FRY ROLL', 'keterangan', 'default.jpg', '30000', '37500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('70', 1, 'EXTRA BEEF', 'keterangan', 'default.jpg', '14000', '17500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('71', 1, 'EXTRA IKAN DORI', 'keterangan', 'default.jpg', '14000', '17500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('72', 1, 'EXTRA KANI STICK', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('73', 1, 'EXTRA CHICKEN', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('74', 1, 'EXTRA SOSIS', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('75', 1, 'TAGOR SOSIS+TEH TAREEK', 'keterangan', 'default.jpg', '17000', '21250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('76', 1, 'TAGOR AYAM+TEH TAREEK', 'keterangan', 'default.jpg', '18000', '22500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('77', 1, 'TAGOR CUMI+THE TAREEK', 'keterangan', 'default.jpg', '21000', '26250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('78', 1, 'ICE OCHA', 'keterangan', 'default.jpg', '8000', '10000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('79', 1, 'HOT OCHA', 'keterangan', 'default.jpg', '8000', '10000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('8', 1, 'EBY FURAI ROLL', 'keterangan', 'default.jpg', '21000', '26250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('80', 1, 'HOT TEA', 'keterangan', 'default.jpg', '5000', '6250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('81', 1, 'ICE TEA', 'keterangan', 'default.jpg', '5000', '6250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('82', 1, 'HOT JERUK', 'keterangan', 'default.jpg', '7000', '8750', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('83', 1, 'ICE JERUK', 'keterangan', 'default.jpg', '7000', '8750', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('84', 1, 'HOT CAPPUCINO', 'keterangan', 'default.jpg', '10000', '12500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('85', 1, 'ICE CAPPUCINO', 'keterangan', 'default.jpg', '10000', '12500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('86', 1, 'HOT LYCHEE TEA', 'keterangan', 'default.jpg', '8000', '10000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('87', 1, 'ICE LYCHEE TEA', 'keterangan', 'default.jpg', '8000', '10000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('88', 1, 'HOT CHOCOLATE', 'keterangan', 'default.jpg', '10000', '12500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('89', 1, 'ICE CHOCOLATE', 'keterangan', 'default.jpg', '10000', '12500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('9', 1, 'SAUZIE ROLL', 'keterangan', 'default.jpg', '18000', '22500', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('90', 1, 'HOT LEMON TEA', 'keterangan', 'default.jpg', '8000', '10000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('91', 1, 'ICE LEMON TEA', 'keterangan', 'default.jpg', '8000', '10000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('92', 1, 'AIR MINERAL', 'keterangan', 'default.jpg', '5000', '6250', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('93', 1, 'STRAWBERRY SMOOTIE', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('94', 1, 'ISLAND FREEZE', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('95', 1, 'MELON FREEZE', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('96', 1, 'LEMON SQUASH', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('97', 1, 'THE TAREEK MATCHA', 'keterangan', 'default.jpg', '8000', '10000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('98', 1, 'THE TAREEK OVALTINE', 'keterangan', 'default.jpg', '8000', '10000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual'),
-('99', 1, 'THE TAREEK TIRAMISU', 'keterangan', 'default.jpg', '8000', '10000', '0', '2020-06-09 01:26:05', '0', 1, '2020-06-09', 'jual');
+('10', 1, 'CHICKEN CRISPY ROLL', 'keterangan', 'default.jpg', '20000', '25000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('100', 2, 'FANTA', 'keterangan', 'default.jpg', '5000', '6250', '0', '2020-06-08 23:24:53', '0', 1, '2020-06-09', 'jual'),
+('101', 2, 'SPRITE', 'keterangan', 'default.jpg', '5000', '6250', '0', '2020-06-08 23:24:50', '0', 1, '2020-06-09', 'jual'),
+('102', 2, 'COCA COLA', 'keterangan', 'default.jpg', '5000', '6250', '0', '2020-06-08 23:24:47', '0', 1, '2020-06-09', 'jual'),
+('103', 2, 'FRESTEA', 'keterangan', 'default.jpg', '6000', '7500', '0', '2020-06-08 23:25:03', '0', 1, '2020-06-09', 'jual'),
+('104', 1, 'NASI', 'keterangan', 'default.jpg', '5000', '6250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('11', 1, 'SOFT ROLL', 'keterangan', 'default.jpg', '24000', '30000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('12', 1, 'TERIYAKI ROLL', 'keterangan', 'default.jpg', '20000', '25000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('13', 1, 'SPICY TUNA ROLL', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('14', 1, 'CALIFORNIA ROLL', 'keterangan', 'default.jpg', '27000', '33750', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('15', 1, 'BAKED SALMON ROLL', 'keterangan', 'default.jpg', '32000', '40000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('16', 1, 'SALMON FRESH ROLL', 'keterangan', 'default.jpg', '27000', '33750', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('17', 1, 'SAKE MAKI', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('18', 1, 'EBITO ROLL', 'keterangan', 'default.jpg', '27000', '33750', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('19', 1, 'TAMAGO CRUNCH', 'keterangan', 'default.jpg', '18000', '22500', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('2', 1, 'TOBIKO SUSHI', 'keterangan', 'default.jpg', '20000', '25000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('20', 1, 'SALMON TERIYAKI DON', 'keterangan', 'default.jpg', '29000', '36250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('21', 1, 'SALMON KATSU DON', 'keterangan', 'default.jpg', '29000', '36250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('22', 1, 'SALMON YAKINIKU DON', 'keterangan', 'default.jpg', '29000', '36250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('23', 1, 'KATSU DON', 'keterangan', 'default.jpg', '22000', '27500', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('24', 1, 'EBY DON', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('25', 1, 'EBY FURAI BENTO', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('26', 1, 'CHICKEN KATSU BENTO', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('27', 1, 'CHICKEN TERIYAKI BENTO', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('28', 1, 'CHICKEN YAKINIKU BENTO', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('29', 1, 'BEEF KATSU BENTO', 'keterangan', 'default.jpg', '30000', '37500', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('3', 1, 'SALMON MAYO', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('30', 1, 'BEEF TERIYAKI BENTO', 'keterangan', 'default.jpg', '30000', '37500', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('31', 1, 'BEEF YAKINIKU BENTO', 'keterangan', 'default.jpg', '30000', '37500', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('32', 1, 'CHICKEN TERIYAKI', 'keterangan', 'default.jpg', '20000', '25000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('33', 1, 'ENOKI CRISPY', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('34', 1, 'TAKOYAKI SOSIS', 'keterangan', 'default.jpg', '11000', '13750', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('35', 1, 'TAKOYAKI CUMI', 'keterangan', 'default.jpg', '15000', '18750', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('36', 1, 'TAKOYAKI CHICKEN', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('37', 1, 'CHICKEN CURRY RAMEN', 'keterangan', 'default.jpg', '22000', '27500', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('38', 1, 'EBY CURRY RAMEN', 'keterangan', 'default.jpg', '23000', '28750', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('39', 1, 'SAKURA RAMEN', 'keterangan', 'default.jpg', '20000', '25000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('4', 1, 'SALMON SUSHI', 'keterangan', 'default.jpg', '23000', '28750', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('40', 1, 'TOKYO RAMEN', 'keterangan', 'default.jpg', '21000', '26250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('41', 1, 'TORI YAKISOBA', 'keterangan', 'default.jpg', '20000', '25000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('42', 1, 'NIKU YAKISOBA', 'keterangan', 'default.jpg', '22000', '27500', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('43', 1, 'SALMON SASHIMI', 'keterangan', 'default.jpg', '30000', '37500', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('44', 1, 'SHABU PAKET SMALL', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('45', 1, 'SHABU PAKET MEDIUM', 'keterangan', 'default.jpg', '40000', '50000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('46', 1, 'SHABU PAKET LARGE', 'keterangan', 'default.jpg', '55000', '68750', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('47', 1, 'SHABU CHICKEN', 'keterangan', 'default.jpg', '22000', '27500', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('48', 1, 'SHABU SEAFOOD', 'keterangan', 'default.jpg', '35000', '43750', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('49', 1, 'SHABU BEEF', 'keterangan', 'default.jpg', '30000', '37500', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('5', 1, 'KANI CRISPY ROLL', 'keterangan', 'default.jpg', '23000', '28750', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('50', 1, 'SAUCE GOMA', 'keterangan', 'default.jpg', '5000', '6250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('51', 1, 'SAUCE TOMYUM', 'keterangan', 'default.jpg', '5000', '6250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('52', 1, 'YAKINIKU PAKET REGULER', 'keterangan', 'default.jpg', '37000', '46250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('53', 1, 'YAKINIKU PAKET EXTRA', 'keterangan', 'default.jpg', '60000', '75000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('54', 1, 'YAKINIKU CHICKEN', 'keterangan', 'default.jpg', '18000', '22500', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('55', 1, 'YAKINIKU BEEF', 'keterangan', 'default.jpg', '22000', '27500', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('56', 1, 'YAKINIKU SEAFOOD', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('57', 1, 'SAUCE YAKINIKU', 'keterangan', 'default.jpg', '4000', '5000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('58', 1, 'SAUCE BLACKPAPPER', 'keterangan', 'default.jpg', '4000', '5000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('59', 1, 'SAUCE BBQ', 'keterangan', 'default.jpg', '4000', '5000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('6', 1, 'TUNA CRISPY ROLL', 'keterangan', 'default.jpg', '25000', '31250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('60', 1, 'EXTRA PAKCOI', 'keterangan', 'default.jpg', '4000', '5000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('61', 1, 'EXTRA ENOKI', 'keterangan', 'default.jpg', '4000', '5000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('62', 1, 'EXTRA DAUN BAWANG', 'keterangan', 'default.jpg', '4000', '5000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('63', 1, 'EXTRA SAWI PUTIH', 'keterangan', 'default.jpg', '4000', '5000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('64', 1, 'EXTRA WORTEL', 'keterangan', 'default.jpg', '4000', '5000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('65', 1, 'EXTRA BOMBAY', 'keterangan', 'default.jpg', '4000', '5000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('66', 1, 'EXTRA CUMI', 'keterangan', 'default.jpg', '14000', '17500', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('67', 1, 'EXTRA CHIKUWA', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('68', 1, 'EXTRA UDANG', 'keterangan', 'default.jpg', '17000', '21250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('69', 1, 'EXTRA BAKSO IKAN', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('7', 1, 'SALMON FRY ROLL', 'keterangan', 'default.jpg', '30000', '37500', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('70', 1, 'EXTRA BEEF', 'keterangan', 'default.jpg', '14000', '17500', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('71', 1, 'EXTRA IKAN DORI', 'keterangan', 'default.jpg', '14000', '17500', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('72', 1, 'EXTRA KANI STICK', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('73', 1, 'EXTRA CHICKEN', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('74', 1, 'EXTRA SOSIS', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('75', 1, 'TAGOR SOSIS+TEH TAREEK', 'keterangan', 'default.jpg', '17000', '21250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('76', 1, 'TAGOR AYAM+TEH TAREEK', 'keterangan', 'default.jpg', '18000', '22500', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('77', 1, 'TAGOR CUMI+THE TAREEK', 'keterangan', 'default.jpg', '21000', '26250', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('78', 2, 'ICE OCHA', 'keterangan', 'default.jpg', '8000', '10000', '0', '2020-06-08 23:59:50', '0', 1, '2020-06-09', 'jual'),
+('79', 2, 'HOT OCHA', 'keterangan', 'default.jpg', '8000', '10000', '0', '2020-06-08 23:59:54', '0', 1, '2020-06-09', 'jual'),
+('8', 1, 'EBY FURAI ROLL', 'keterangan', 'default.jpg', '21000', '26250', '0', '2020-06-09 00:02:03', '0', 1, '2020-06-09', 'jual'),
+('80', 2, 'HOT TEA', 'keterangan', 'default.jpg', '5000', '6250', '0', '2020-06-09 00:00:00', '0', 1, '2020-06-09', 'jual'),
+('81', 2, 'ICE TEA', 'keterangan', 'default.jpg', '5000', '6250', '0', '2020-06-09 00:00:29', '0', 1, '2020-06-09', 'jual'),
+('82', 2, 'HOT JERUK', 'keterangan', 'default.jpg', '7000', '8750', '0', '2020-06-09 00:00:33', '0', 1, '2020-06-09', 'jual'),
+('83', 2, 'ICE JERUK', 'keterangan', 'default.jpg', '7000', '8750', '0', '2020-06-09 00:00:36', '0', 1, '2020-06-09', 'jual'),
+('84', 2, 'HOT CAPPUCINO', 'keterangan', 'default.jpg', '10000', '12500', '0', '2020-06-09 00:00:39', '0', 1, '2020-06-09', 'jual'),
+('85', 2, 'ICE CAPPUCINO', 'keterangan', 'default.jpg', '10000', '12500', '0', '2020-06-09 00:00:42', '0', 1, '2020-06-09', 'jual'),
+('86', 2, 'HOT LYCHEE TEA', 'keterangan', 'default.jpg', '8000', '10000', '0', '2020-06-09 00:00:45', '0', 1, '2020-06-09', 'jual'),
+('87', 2, 'ICE LYCHEE TEA', 'keterangan', 'default.jpg', '8000', '10000', '0', '2020-06-09 00:00:47', '0', 1, '2020-06-09', 'jual'),
+('88', 2, 'HOT CHOCOLATE', 'keterangan', 'default.jpg', '10000', '12500', '0', '2020-06-09 00:00:56', '0', 1, '2020-06-09', 'jual'),
+('89', 2, 'ICE CHOCOLATE', 'keterangan', 'default.jpg', '10000', '12500', '0', '2020-06-09 00:00:53', '0', 1, '2020-06-09', 'jual'),
+('9', 1, 'SAUZIE ROLL', 'keterangan', 'default.jpg', '18000', '22500', '0', '2020-06-09 00:02:09', '0', 1, '2020-06-09', 'jual'),
+('90', 2, 'HOT LEMON TEA', 'keterangan', '90.jpg', '8000', '10000', '0', '2020-06-09 00:01:03', '0', 1, '2020-06-09', 'jual'),
+('91', 2, 'ICE LEMON TEA', 'keterangan', 'default.jpg', '8000', '10000', '0', '2020-06-09 00:01:06', '0', 1, '2020-06-09', 'jual'),
+('92', 2, 'AIR MINERAL', 'keterangan', 'default.jpg', '5000', '6250', '0', '2020-06-09 00:01:08', '0', 1, '2020-06-09', 'jual'),
+('93', 2, 'STRAWBERRY SMOOTIE', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-09 00:01:11', '0', 1, '2020-06-09', 'jual'),
+('94', 2, 'ISLAND FREEZE', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-09 00:01:18', '0', 1, '2020-06-09', 'jual'),
+('95', 2, 'MELON FREEZE', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-09 00:01:21', '0', 1, '2020-06-09', 'jual'),
+('96', 2, 'LEMON SQUASH', 'keterangan', 'default.jpg', '12000', '15000', '0', '2020-06-09 00:01:25', '0', 1, '2020-06-09', 'jual'),
+('97', 2, 'THE TAREEK MATCHA', 'keterangan', 'default.jpg', '8000', '10000', '0', '2020-06-09 00:01:30', '0', 1, '2020-06-09', 'jual'),
+('98', 1, 'THE TAREEK OVALTINE', 'keterangan', 'default.jpg', '8000', '10000', '0', '2020-06-08 18:26:05', '0', 1, '2020-06-09', 'jual'),
+('99', 2, 'THE TAREEK TIRAMISU', 'keterangan', 'default.jpg', '8000', '10000', '0', '2020-06-09 00:01:58', '0', 1, '2020-06-09', 'jual');
 
 -- --------------------------------------------------------
 
@@ -522,6 +558,22 @@ CREATE TABLE `master_kategori` (
 INSERT INTO `master_kategori` (`id`, `nama_kategori`, `waktu_update`) VALUES
 (0, 'Minuman', '2020-06-01 20:12:00'),
 (1, 'Makanan', '2020-05-18 01:42:12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `master_kode_promosi`
+--
+
+CREATE TABLE `master_kode_promosi` (
+  `id_kode_promosi` int(11) NOT NULL,
+  `kode_promosi` varchar(100) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `instagram` varchar(100) NOT NULL,
+  `tanggal_lahir` date NOT NULL,
+  `hp` varchar(100) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -682,7 +734,7 @@ INSERT INTO `modul` (`id`, `label`, `controller`, `nama_function`, `aksi_edit`, 
 (21, 'Kartu Stok', 'stok', 'kartustok', '1', '1', '1'),
 (22, 'Penjualan Beranda', 'penjualan', 'index', '0', '0', '0'),
 (23, 'Diskon Produk', 'penjualan', 'diskon', '0', '1', '1'),
-(24, 'Jenis Pembayaran', 'penjualan', 'jenispembayaran', '1', '1', '1'),
+(24, 'Jenis Pembayaran', 'penjualan', 'kode_promosi', '1', '1', '1'),
 (25, 'Kasir / Point Of Sales', 'penjualan', 'kasir', '0', '0', '0'),
 (26, 'Keuangan Beranda', 'keuangan', 'index', '0', '0', '0'),
 (27, 'Kode Rekening', 'keuangan', 'koderekening', '1', '1', '1'),
@@ -811,8 +863,29 @@ CREATE TABLE `penjualan` (
   `retur` enum('0','1') NOT NULL DEFAULT '0',
   `tanggal_retur` datetime NOT NULL,
   `admin_retur` int(11) DEFAULT NULL,
-  `jenis_penjualan` tinyint(4) NOT NULL
+  `jenis_penjualan` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `penjualan`
+--
+
+INSERT INTO `penjualan` (`id`, `id_pembeli`, `id_admin`, `id_pegawai`, `total_harga_item`, `total`, `tanggal`, `tanggal_jam`, `retur`, `tanggal_retur`, `admin_retur`, `jenis_penjualan`) VALUES
+('090620000001', NULL, 1, 0, '0', '20000', '2020-06-09', '2020-06-09 10:52:39', '0', '0000-00-00 00:00:00', NULL, '0'),
+('090620000002', NULL, 1, 0, '0', '20000', '2020-06-09', '2020-06-09 10:53:25', '0', '0000-00-00 00:00:00', NULL, '0'),
+('090620000003', NULL, 1, 0, '0', '20000', '2020-06-09', '2020-06-09 10:53:53', '0', '0000-00-00 00:00:00', NULL, '0'),
+('090620000004', NULL, 1, 0, '0', '20000', '2020-06-09', '2020-06-09 10:54:14', '0', '0000-00-00 00:00:00', NULL, '0'),
+('090620000005', NULL, 1, 0, '0', '20000', '2020-06-09', '2020-06-09 10:54:29', '0', '0000-00-00 00:00:00', NULL, '0'),
+('090620000006', NULL, 1, 0, '0', '20000', '2020-06-09', '2020-06-09 11:06:55', '0', '0000-00-00 00:00:00', NULL, '0'),
+('090620000007', NULL, 1, 0, '0', '20000', '2020-06-09', '2020-06-09 11:08:08', '0', '0000-00-00 00:00:00', NULL, '0'),
+('090620000008', NULL, 1, 0, '0', '20000', '2020-06-09', '2020-06-09 11:09:20', '0', '0000-00-00 00:00:00', NULL, '0'),
+('090620000009', NULL, 1, 0, '0', '5000', '2020-06-09', '2020-06-09 16:08:29', '0', '0000-00-00 00:00:00', NULL, '0'),
+('090620000010', NULL, 1, 0, '0', '5000', '2020-06-09', '2020-06-09 16:14:46', '0', '0000-00-00 00:00:00', NULL, '0'),
+('090620000011', NULL, 1, 0, '0', '6000', '2020-06-09', '2020-06-09 16:20:27', '0', '0000-00-00 00:00:00', NULL, '0'),
+('090620000012', NULL, 1, 0, '0', '20000', '2020-06-09', '2020-06-09 16:22:00', '0', '0000-00-00 00:00:00', NULL, '0'),
+('100620000001', NULL, 1, 0, '0', '25000', '2020-06-10', '2020-06-10 06:59:10', '0', '0000-00-00 00:00:00', NULL, '0'),
+('100620000002', NULL, 1, 0, '0', '20000', '2020-06-10', '2020-06-10 07:00:25', '0', '0000-00-00 00:00:00', NULL, '0'),
+('100620000003', NULL, 1, 0, '0', '25000', '2020-06-10', '2020-06-10 07:12:38', '0', '0000-00-00 00:00:00', NULL, 'gojek');
 
 -- --------------------------------------------------------
 
@@ -830,6 +903,28 @@ CREATE TABLE `penjualan_detail` (
   `kuantiti` float NOT NULL,
   `total` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `penjualan_detail`
+--
+
+INSERT INTO `penjualan_detail` (`id`, `id_penjualan`, `kode_item`, `harga_beli`, `harga`, `diskon`, `kuantiti`, `total`) VALUES
+(1, '090620000001', '10', '0', '20000', '0', 1, '20000'),
+(2, '090620000002', '10', '0', '20000', '0', 1, '20000'),
+(3, '090620000003', '10', '0', '20000', '0', 1, '20000'),
+(4, '090620000004', '10', '0', '20000', '0', 1, '20000'),
+(5, '090620000005', '10', '0', '25000', '0', 1, '25000'),
+(6, '090620000006', '10', '0', '25000', '0', 1, '25000'),
+(7, '090620000007', '10', '0', '25000', '0', 1, '25000'),
+(8, '090620000008', '10', '0', '25000', '0', 1, '25000'),
+(9, '090620000009', '100', '0', '5000', '0', 1, '5000'),
+(10, '090620000010', '101', '0', '5000', '0', 1, '5000'),
+(11, '090620000011', '103', '0', '6000', '0', 1, '6000'),
+(12, '090620000012', '10', '0', '20000', '0', 1, '20000'),
+(13, '100620000001', '100', '0', '5000', '0', 1, '5000'),
+(14, '100620000001', '10', '0', '20000', '0', 1, '20000'),
+(15, '100620000002', '10', '0', '20000', '0', 1, '20000'),
+(16, '100620000003', '10', '0', '25000', '0', 1, '25000');
 
 -- --------------------------------------------------------
 
@@ -851,6 +946,27 @@ CREATE TABLE `penjualan_pembayaran` (
   `security_code` varchar(100) NOT NULL,
   `catatan` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `penjualan_pembayaran`
+--
+
+INSERT INTO `penjualan_pembayaran` (`id`, `id_penjualan`, `nominal`, `cara_bayar`, `swipe`, `card_no`, `holder_name`, `bank`, `month`, `year`, `security_code`, `catatan`) VALUES
+(1, '090620000001', '25000', 'cash', '', '', '', '', '', '', '', ''),
+(2, '090620000002', '25000', 'cash', '', '', '', '', '', '', '', ''),
+(3, '090620000003', '25000', 'cash', '', '', '', '', '', '', '', ''),
+(4, '090620000004', '20000', 'cash', '', '', '', '', '', '', '', ''),
+(5, '090620000005', '25000', 'cash', '', '', '', '', '', '', '', ''),
+(6, '090620000006', '30000', 'cash', '', '', '', '', '', '', '', ''),
+(7, '090620000007', '30000', 'cash', '', '', '', '', '', '', '', ''),
+(8, '090620000008', '30000', 'cash', '', '', '', '', '', '', '', ''),
+(9, '090620000009', '6000', 'cash', '', '', '', '', '', '', '', ''),
+(10, '090620000010', '6000', 'cash', '', '', '', '', '', '', '', ''),
+(11, '090620000011', '7000', 'cash', '', '', '', '', '', '', '', ''),
+(12, '090620000012', '25000', 'cash', '', '', '', '', '', '', '', ''),
+(13, '100620000001', '30000', 'cash', '', '', '', '', '', '', '', ''),
+(14, '100620000002', '30000', 'cash', '', '', '', '', '', '', '', ''),
+(15, '100620000003', '30000', 'cash', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -1152,6 +1268,12 @@ ALTER TABLE `master_kategori`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `master_kode_promosi`
+--
+ALTER TABLE `master_kode_promosi`
+  ADD PRIMARY KEY (`id_kode_promosi`);
+
+--
 -- Indexes for table `master_komisi`
 --
 ALTER TABLE `master_komisi`
@@ -1327,7 +1449,7 @@ ALTER TABLE `stok_opname`
 -- AUTO_INCREMENT for table `cash_in_out`
 --
 ALTER TABLE `cash_in_out`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `hutang_dibayar_history`
 --
@@ -1342,7 +1464,7 @@ ALTER TABLE `hutang_history`
 -- AUTO_INCREMENT for table `kartu_stok`
 --
 ALTER TABLE `kartu_stok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `kategori_user`
 --
@@ -1357,12 +1479,12 @@ ALTER TABLE `kategori_user_modul`
 -- AUTO_INCREMENT for table `keranjang`
 --
 ALTER TABLE `keranjang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `keranjang_detail`
 --
 ALTER TABLE `keranjang_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `komisi_detail`
 --
@@ -1383,6 +1505,11 @@ ALTER TABLE `master_diskon_kelipatan`
 --
 ALTER TABLE `master_kategori`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `master_kode_promosi`
+--
+ALTER TABLE `master_kode_promosi`
+  MODIFY `id_kode_promosi` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `master_komisi`
 --
@@ -1437,12 +1564,12 @@ ALTER TABLE `penerimaan_barang_detail`
 -- AUTO_INCREMENT for table `penjualan_detail`
 --
 ALTER TABLE `penjualan_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `penjualan_pembayaran`
 --
 ALTER TABLE `penjualan_pembayaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `piutang_dibayar_history`
 --
