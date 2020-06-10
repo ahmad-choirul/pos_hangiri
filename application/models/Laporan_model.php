@@ -94,13 +94,16 @@ class Laporan_model extends CI_Model{
     
     function getrowspenjualan($params = array()){ 
         $this->db->select("c.harga, a.total_harga_item, c.total,
-        a.tanggal, b.nama_admin, a.id,c.harga_beli,c.kuantiti, d.nama_item");
+        a.tanggal, b.nama_admin, a.id,c.harga_beli,c.kuantiti,a.jenis_penjualan, d.nama_item");
         $this->db->from("penjualan a");
         $this->db->join('master_admin b', 'b.id = a.id_admin');   
         $this->db->join('penjualan_detail c', 'c.id_penjualan = a.id');  
         $this->db->join('master_item d', 'd.kode_item = c.kode_item');  
         if(!empty($params['search']['kasir'])){
             $this->db->where('a.id_admin',$params['search']['kasir']);
+        } 
+        if(!empty($params['search']['jenis_penjualan'])){
+            $this->db->where('a.jenis_penjualan',$params['search']['jenis_penjualan']);
         } 
         if(!empty($params['search']['obat'])){
             $this->db->where('c.kode_item',$params['search']['obat']);

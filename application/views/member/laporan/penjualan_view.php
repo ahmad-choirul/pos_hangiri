@@ -7,6 +7,7 @@
             <th>Kuantiti</th>
             <th>Total Harga</th>
             <th>User</th>
+            <th>Jenis Penjualan</th>
         </tr>
     </thead>
     <tbody> 
@@ -19,7 +20,8 @@ foreach($posts as $post): ?>
     <td class="text-right"><?php echo rupiah($post['harga']); ?></td>
     <td><?php echo $post['kuantiti']; ?></td>
     <td class="text-right"><?php echo rupiah($post['total']); ?></td>
-    <td class="text-right"><?php echo $post['nama_admin']; ?></td> 
+    <td ><?php echo $post['nama_admin']; ?></td> 
+    <td ><?php echo $post['jenis_penjualan']; ?></td> 
 </tr> 
 <?php 
     $total += $post['total'];

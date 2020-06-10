@@ -536,8 +536,10 @@ class Laporan extends CI_Controller {
         $costumer = $this->input->get('costumer');
         $firstdate = $this->input->get('firstdate');
         $lastdate = $this->input->get('lastdate'); 
+        $jenis_penjualan = $this->input->get('jenis_penjualan'); 
         $conditions['search']['kasir'] = $kasir;
         $conditions['search']['obat'] = $obat;
+        $conditions['search']['jenis_penjualan'] = $jenis_penjualan;
         $conditions['search']['costumer'] = $costumer;
         $conditions['search']['firstdate'] = $firstdate;
         $conditions['search']['lastdate'] = $lastdate;

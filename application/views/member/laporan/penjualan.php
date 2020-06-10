@@ -52,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="col-sm-2">
                                     <div class="form-group">
                                         <label class="control-label">Nama Item</label>
-                                        <select  data-plugin-selectTwo class="form-control"  id="obat" name="obat">  
+                                        <select  data-plugin-selectTwo class="form-control" onchange="searchFilter()" id="obat" name="obat">  
                                             <option value="">Semua Item</option>
                                             <?php foreach ($obat as $supp): ?>
                                             <option value="<?php echo $supp->kode_item;?>"><?php echo $supp->nama_item;?></option>
@@ -63,7 +63,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="col-sm-2">
                                     <div class="form-group">
                                         <label class="control-label">Pegawai</label>
-                                        <select  data-plugin-selectTwo class="form-control"  id="kasir" name="kasir">  
+                                        <select  data-plugin-selectTwo class="form-control" onchange="searchFilter()" id="kasir" name="kasir">  
                                             <option value="">Semua Pegawai</option>
                                             <?php foreach ($sales as $supp): ?>
                                             <option value="<?php echo $supp->id;?>"><?php echo $supp->nama_pegawai;?></option>
@@ -74,11 +74,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <div class="col-sm-2">
                                     <div class="form-group">
                                         <label class="control-label">Costumer</label>
-                                        <select  data-plugin-selectTwo class="form-control"  id="costumer" name="costumer">  
+                                        <select  data-plugin-selectTwo class="form-control" onchange="searchFilter()"  id="costumer" name="costumer">  
                                             <option value="">Semua Costumer</option>
                                             <?php foreach ($costumer as $supp): ?>
                                             <option value="<?php echo $supp->id;?>"><?php echo $supp->nama_pembeli;?></option>
                                             <?php endforeach; ?>
+                                        </select> 
+                                    </div>
+                                </div>
+                                 <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label class="control-label">Jenis Penjualan</label>
+                                        <select  data-plugin-selectTwo class="form-control" onchange="searchFilter()"  id="jenis_penjualan" name="jenis_penjualan">  
+                                            <option value="">Semua</option>
+                                            <option value="ppn">PPN</option>
+                                            <option value="nonppn">Non PPN</option>
+                                            <option value="gojek">Gojek</option>
+                                            <option value="grab">Grab</option>
                                         </select> 
                                     </div>
                                 </div>
@@ -139,12 +151,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             var kasir = $('#kasir').val();
             var costumer = $('#costumer').val();
             var obat = $('#obat').val();
+            var jenis_penjualan = $('#jenis_penjualan').val();
 			var firstdate = $('#firstdate').val();
 			var lastdate = $('#lastdate').val();
             $.ajax({
 				type: 'GET',
 				url: '<?php echo base_url(); ?>laporan/laporanpenjualan/'+page_num,
-				data: 'page='+page_num+'&kasir='+kasir+'&obat='+obat+'&costumer='+costumer+'&firstdate='+firstdate+'&lastdate='+lastdate,success: function (html) { 
+				data: 'page='+page_num+'&kasir='+kasir+'&obat='+obat+'&jenis_penjualan='+jenis_penjualan+'&costumer='+costumer+'&firstdate='+firstdate+'&lastdate='+lastdate,success: function (html) { 
 					$('#postList').html(html);
 				    document.getElementById("KontenHTML").style.display = "block";  
 				}
