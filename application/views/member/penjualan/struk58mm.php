@@ -56,7 +56,7 @@
 			border-top: 1px dashed #000;
 		}
 		.content .transaction-table {
-			width: 90%;
+			width: 85%;
 			font-size: 10px;
 		}
 		.content .transaction-table .name {
@@ -166,7 +166,7 @@
 					<td></td>
 					<td></td> -->
 
-					<table  border="0" width="95%" >
+					<table  border="0" width="85%" >
 						<tr>
 							<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Jumlah</td>
 							<td style="font-size:9px;text-align: left; margin-right: 10px;float: right; "><?php echo setrupiah($total); ?></td>
