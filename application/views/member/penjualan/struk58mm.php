@@ -101,66 +101,63 @@
 		}
 
 	</style>
-	<script type="text/javascript">
-		window.print();
-		window.print();
-	</script>
 
 </head>
 <body>
-	<div class="content" >
-		<div class="title">
-			<?php 
-			echo htmlspecialchars("
-				Jl. Wijaya Kusuma No.50
-				");
-			echo "<br>";
-			?>
-		</div>
-		<div class="subttitle">
-			<?php
-			echo htmlspecialchars("Kec. Patrang, Kabupaten Jember,68118");
-			?>
-		</div>
-
-		<div class="head-desc">
-			<div class="date">
-				<?=date('d M Y')?> | <?= $pegawai; ?> | <?php echo $statppn ?>
+	<div id="strukkasir">
+		<div class="content" >
+			<div class="title">
+				<?php 
+				echo htmlspecialchars("
+					Jl. Wijaya Kusuma No.50
+					");
+				echo "<br>";
+				?>
 			</div>
-		</div>
+			<div class="subttitle">
+				<?php
+				echo htmlspecialchars("Kec. Patrang, Kabupaten Jember,68118");
+				?>
+			</div>
 
-		<div class="nota">
-			<?=$penjualan?> | <?= $pelanggan; ?>
-		</div>
+			<div class="head-desc">
+				<div class="date">
+					<?=date('d M Y')?> | <?= $pegawai; ?> | <?php echo $statppn ?>
+				</div>
+			</div>
 
-		<div class="separate"></div>
+			<div class="nota">
+				<?=$penjualan?> | <?= $pelanggan; ?>
+			</div>
 
-		<div class="transaction">
-			<table class="transaction-table" cellspacing="0" cellpadding="0">
-				<table style="font-size:10px;line-height: 8px; width: 90%" border="0" >
-					<!-- /.LOOPING DARI SINI-->
-					<?php
-					$total = 0;
-					foreach ($keranjang as $key) : ?>
-						<tr>
-							<td colspan="2" style="text-transform: uppercase;">
-								<?=$key['nama_item']?>
-							</td>
-						</tr>
-						<tr>
-							<td style="font-size: 9px; line-height: 7px;" >
-								<?=$key['kuantiti']?>x	<? echo setrupiah($key['harga']); ?></td>
-								<td style="font-size: 9px;line-height: 7px; text-align: left; "><?php echo setrupiah($key['harga']);?></td>
-								<td style="font-size: 9px;line-height: 7px; text-align: right; "><?php echo setrupiah($key['total']);?></td>
+			<div class="separate"></div>
+
+			<div class="transaction">
+				<table class="transaction-table" cellspacing="0" cellpadding="0">
+					<table style="font-size:10px;line-height: 8px; width: 90%" border="0" >
+						<!-- /.LOOPING DARI SINI-->
+						<?php
+						$total = 0;
+						foreach ($keranjang as $key) : ?>
+							<tr>
+								<td colspan="2" style="text-transform: uppercase;">
+									<?=$key['nama_item']?>
+								</td>
 							</tr>
-							<!-- /.sampai SINI-->
-							<?php 
-							$total += $key['total'];
-							$ppn = $total*10/100;
-							?>
-						<?php endforeach ?>
+							<tr>
+								<td style="font-size: 9px; line-height: 7px;" >
+									<?=$key['kuantiti']?>x	<? echo setrupiah($key['harga']); ?></td>
+									<td style="font-size: 9px;line-height: 7px; text-align: left; "><?php echo setrupiah($key['harga']);?></td>
+									<td style="font-size: 9px;line-height: 7px; text-align: right; "><?php echo setrupiah($key['total']);?></td>
+								</tr>
+								<!-- /.sampai SINI-->
+								<?php 
+								$total += $key['total'];
+								$ppn = $total*10/100;
+								?>
+							<?php endforeach ?>
+						</table>
 					</table>
-				</table>
 <!-- 
 			<table style="font-size:8px;" border="0" width="90%">
 				<tr>
@@ -218,13 +215,31 @@
 
 					</table>
 					<br>
-					<!-- -------------------batas STRUK  ------------------- -->
-			<!-- 		<h3>STRUK PENJUALAN UNTUK DAPUR</h3>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div id="strukdapur"> 
+			<div class="content" >
+				<div class="head-desc">
+					<div class="date">
+						<?=date('d M Y')?> | <?= $pegawai; ?>
+					</div>
+				</div>
+
+				<div class="nota">
+					<?=$penjualan?> | <?= $pelanggan; ?>
+				</div>
+
+				<div class="separate"></div>
+
+				<div class="transaction">
+					<h3>STRUK PENJUALAN UNTUK DAPUR</h3>
 					<hr>
 					<table  border="0" width="100%" >
 						<?php
-							// $ttl1 = 0;
-							// $ttl2 = 0;
 						foreach ($keranjang as $key) : ?>
 							<tr>
 
@@ -239,30 +254,36 @@
 						<tr>
 							<td style="font-size:9px;text-align:left; "> ~ <?php echo $catatan; ?> ~</td>
 						</tr>
-					</table> -->
-					<!-- -------------------batas STRUK  ------------------- -->
-					
-				<!-- 	<td style="text-align: left; width: 60%; font-size: 10px;">
-						Jumlah <br>
-						PPN (10%) <br> 
-						Bayar  <br>
-					Kembali</td>
-
-					<td style="text-align: right; width: 35%;">
-						<?php echo setrupiah($end); ?> <br> 
-						<?php echo setrupiah($ppn); ?><br>
-						<?php echo setrupiah($totalbayar); ?> <br>
-						<?php echo setrupiah($totalbayar-($end+$ppn)); ?></td> -->
-			<!-- 		</tr>
-			</table> -->
-
+					</table>
+				</div>
+			</div>
 		</div>
-	</div>
-	<?php 
-	function setrupiah($angka)
-	{
-		$hasil = "Rp. ".number_format($angka,2,',','.');
-		return $hasil;
-	} ?>
+		<script type="text/javascript">
+
+			function printDiv(divName) {
+				var printContents = document.getElementById(divName).innerHTML;
+				var originalContents = document.body.innerHTML;
+
+				document.body.innerHTML = printContents;
+
+				window.print();
+
+				document.body.innerHTML = originalContents;
+			}
+			printDiv('strukkasir');
+
+var delayInMilliseconds = 4000; //1 second
+
+setTimeout(function() {
+	printDiv('strukdapur');
+}, delayInMilliseconds);
+window.location('<?php echo site_url('penjualan/kasir?statppn=ppn&stattrans=dinein') ?>') 
+</script>
+<?php 
+function setrupiah($angka)
+{
+	$hasil = "Rp. ".number_format($angka,2,',','.');
+	return $hasil;
+} ?>
 </body>
 </html>

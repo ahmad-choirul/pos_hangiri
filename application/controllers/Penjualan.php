@@ -726,17 +726,11 @@ $data['stattrans'] =  $this->input->get('stattrans');
 $data['potongan'] =  $this->input->get('potongan');
 $status = $this->penjualan_model->submitpaymentv2($data);
 if ($status) {
-    $this->load->view('member/penjualan/struk58mm', $data);   
-    $this->load->view('member/penjualan/struk_dapur58mm', $data);   
+    $this->load->view('member/penjualan/struk58mm', $data); 
 }else{
     redirect('penjualan/kasir','refresh');
 }
 }
-public function print_dapur()
-{
-   $this->load->view('member/penjualan/struk_dapur58mm', $data);  
-}
-
 function strukedc()
 {   $keranjang = $this->db->get_where('keranjang', array('hold' => '0', 'id_admin' => $this->session->userdata('idadmin')), 1);
 
@@ -792,8 +786,7 @@ $data['potongan'] =  $this->input->get('potongan');
 $data['no_kartu'] =  $this->input->get('no_kartu');
 $status = $this->penjualan_model->submitpaymentv2($data);
 if ($status) {
-    $this->load->view('member/penjualan/struk58mm', $data);   
-    $this->load->view('member/penjualan/struk_dapur58mm', $data);   
+    $this->load->view('member/penjualan/struk58mm', $data); 
 }else{
     redirect('penjualan/kasir','refresh');
 }
