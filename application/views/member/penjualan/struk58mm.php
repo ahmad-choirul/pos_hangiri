@@ -56,7 +56,7 @@
 			border-top: 1px dashed #000;
 		}
 		.content .transaction-table {
-			width: 85%;
+			width: 80%;
 			font-size: 10px;
 		}
 		.content .transaction-table .name {
@@ -122,12 +122,12 @@
 
 			<div class="head-desc">
 				<div class="date">
-					<?=date('d M Y')?> | <?= $pegawai; ?> | <?php echo $statppn ?>
+					<?= strtoupper(date('d M Y'));?> | <?= strtoupper($pegawai); ?> | <?php echo strtoupper($statppn) ?>
 				</div>
 			</div>
 
 			<div class="nota">
-				<?=$penjualan?> | <?= $pelanggan; ?>
+				<?= strtoupper($penjualan);?> | <?= strtoupper($pelanggan); ?>
 			</div>
 
 			<div class="separate"></div>
@@ -166,7 +166,7 @@
 					<td></td>
 					<td></td> -->
 
-					<table  border="0" width="85%" >
+					<table  border="0" width="95%" >
 						<tr>
 							<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Jumlah</td>
 							<td style="font-size:9px;text-align: left; margin-right: 10px;float: right; "><?php echo setrupiah($total); ?></td>
@@ -243,7 +243,7 @@
 						foreach ($keranjang as $key) : ?>
 							<tr>
 
-								<td style="font-size:9px;text-align:left;  " >
+								<td style="font-size:11px;text-align:left;  " >
 									<?=$key['nama_item']?>   x <?=$key['kuantiti']?>
 								</td>
 							</tr>
