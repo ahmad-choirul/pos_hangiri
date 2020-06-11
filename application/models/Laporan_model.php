@@ -1,9 +1,9 @@
 <?php
 class Laporan_model extends CI_Model{   
-     
+
     function getrowspo($params = array()){ 
         $this->db->select("a.nomor_po, a.tgl_po, a.termin,
-         a.pembayaran, a.supplier, a.total, a.keterangan, b.nama_supplier");
+           a.pembayaran, a.supplier, a.total, a.keterangan, b.nama_supplier");
         $this->db->from("purchase_order a");
         $this->db->join('master_supplier b', 'b.id = a.supplier');   
         if(!empty($params['search']['supplier'])){
@@ -27,7 +27,7 @@ class Laporan_model extends CI_Model{
     
     function getrowspembelian($params = array()){ 
         $this->db->select("a.nomor_faktur, a.tgl_pembelian, a.termin,
-         a.pembayaran, a.supplier, a.total, a.keterangan, b.nama_supplier");
+           a.pembayaran, a.supplier, a.total, a.keterangan, b.nama_supplier");
         $this->db->from("pembelian_langsung a");
         $this->db->join('master_supplier b', 'b.id = a.supplier');   
         if(!empty($params['search']['supplier'])){
@@ -70,10 +70,10 @@ class Laporan_model extends CI_Model{
         return $query->result_array();
     }
 
-     
+
     function getrowsstok($params = array()){ 
         $this->db->select("a.kode_item, a.tanggal, a.jumlah_masuk, a.jenis_transaksi,
-         a.jumlah_keluar, b.nama_item");
+           a.jumlah_keluar, b.nama_item");
         $this->db->from("kartu_stok a");
         $this->db->join('master_item b', 'b.kode_item = a.kode_item');    
         if(!empty($params['search']['firstdate']) AND !empty($params['search']['lastdate'])){
@@ -92,24 +92,20 @@ class Laporan_model extends CI_Model{
         return $query->result_array();
     }
     
+
     function getrowspenjualan($params = array()){ 
-        $this->db->select("c.harga, a.total_harga_item, c.total,
-        a.tanggal, b.nama_admin, a.id,c.harga_beli,c.kuantiti,a.jenis_penjualan, d.nama_item");
+        $this->db->select("a.total_harga_item, a.total,
+            a.tanggal, e.nama_admin, a.id,a.id as id_penjualan,e.nama_admin");
         $this->db->from("penjualan a");
-        $this->db->join('master_admin b', 'b.id = a.id_admin');   
-        $this->db->join('penjualan_detail c', 'c.id_penjualan = a.id');  
-        $this->db->join('master_item d', 'd.kode_item = c.kode_item');  
+        $this->db->join('master_admin e', 'e.id = a.id_admin');            
         if(!empty($params['search']['kasir'])){
             $this->db->where('a.id_admin',$params['search']['kasir']);
         } 
+        if(!empty($params['search']['id_penjualan'])){
+            $this->db->where('a.id',$params['search']['id_penjualan']);
+        } 
         if(!empty($params['search']['jenis_penjualan'])){
             $this->db->where('a.jenis_penjualan',$params['search']['jenis_penjualan']);
-        } 
-        if(!empty($params['search']['obat'])){
-            $this->db->where('c.kode_item',$params['search']['obat']);
-        } 
-        if(!empty($params['search']['costumer'])){
-            $this->db->where('a.id_pembeli',$params['search']['costumer']);
         } 
         if(!empty($params['search']['firstdate']) AND !empty($params['search']['lastdate'])){
             $this->db->where('a.tanggal BETWEEN "'.$params['search']['firstdate']. '" and "'. $params['search']['lastdate'].'"');
@@ -128,9 +124,10 @@ class Laporan_model extends CI_Model{
     } 
 
 
+
     function getrowskeuangan($params = array()){ 
         $this->db->select("a.kode_rekening, a.tanggal, a.masuk, a.keluar,
-         a.keterangan, b.nama_rekening ");
+           a.keterangan, b.nama_rekening ");
         $this->db->from("cash_in_out a");
         $this->db->join('rekening_kode b', 'b.kode_rekening = a.kode_rekening');    
         if(!empty($params['search']['firstdate']) AND !empty($params['search']['lastdate'])){
@@ -152,7 +149,7 @@ class Laporan_model extends CI_Model{
 
     function getrowpegawai($params = array()){ 
         $this->db->select("a.id_komisi, a.id_penjualan, a.tgl_transaksi,
-         b.nama_pegawai, a.total, b.kontak, c.komisi, c.jumlah, d.nama_item");
+           b.nama_pegawai, a.total, b.kontak, c.komisi, c.jumlah, d.nama_item");
         $this->db->from("master_komisi a");
         $this->db->join('master_pegawai b','a.id_komisi = b.id'); 
         $this->db->join('komisi_detail c','a.id_komisi = c.id_komisi');

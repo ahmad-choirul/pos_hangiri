@@ -515,9 +515,9 @@ class Laporan extends CI_Controller {
 	public function penjualan()
 	{     
         level_user('laporan','penjualan',$this->session->userdata('kategori'),'read') > 0 ? '': show_404();
-        $data['sales'] = $this->db->get('master_admin')->result(); 
+        $data['admin'] = $this->db->get('master_admin')->result(); 
         $data['costumer'] = $this->db->get('master_pembeli')->result(); 
-        $data['obat'] = $this->db->get('master_item')->result();
+        $data['obat'] = $this->db->get('master_item')->result();    
         $this->load->view('member/laporan/penjualan',$data);
     }   
     
@@ -531,16 +531,14 @@ class Laporan extends CI_Controller {
             $offset = $page;
         }
          
-        $kasir = $this->input->get('kasir');
-        $obat = $this->input->get('obat');
-        $costumer = $this->input->get('costumer');
+        $jenis_penjualan = $this->input->get('jenis_penjualan');
+        $id_penjualan = $this->input->get('id_penjualan');
         $firstdate = $this->input->get('firstdate');
         $lastdate = $this->input->get('lastdate'); 
-        $jenis_penjualan = $this->input->get('jenis_penjualan'); 
+        $kasir = $this->input->get('kasir');
         $conditions['search']['kasir'] = $kasir;
-        $conditions['search']['obat'] = $obat;
+        $conditions['search']['id_penjualan'] = $id_penjualan;
         $conditions['search']['jenis_penjualan'] = $jenis_penjualan;
-        $conditions['search']['costumer'] = $costumer;
         $conditions['search']['firstdate'] = $firstdate;
         $conditions['search']['lastdate'] = $lastdate;
         //total rows count
@@ -564,7 +562,6 @@ class Laporan extends CI_Controller {
         //load the view
         $this->load->view('member/laporan/penjualan_view', $data, false);
     }   
-    
     function excel_penjualan(){       
         
         $spreadsheet = new Spreadsheet();

@@ -17,6 +17,14 @@ class Penjualan_model extends CI_Model
         return $query->result_array();
     }
 
+    public function get_penjualan($idd){ 
+    $this->db->select("a.*,b.nama_pembeli,d.nama_admin");
+    $this->db->from("penjualan a");
+    $this->db->join('master_pembeli b', 'b.id = a.id_pembeli', 'left');
+    $this->db->join('master_admin d', 'd.id = a.id_admin', 'left');
+    $this->db->where('a.id', $idd,'1'); 
+    return $this->db->get()->result_array();
+} 
     public function data_diskon()
     {
         $this->db->select("a.id, a.kode_item, a.min_kuantiti,

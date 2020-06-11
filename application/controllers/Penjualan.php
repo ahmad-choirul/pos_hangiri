@@ -67,6 +67,37 @@ class Penjualan extends CI_Controller {
     echo json_encode($result);  
 }  
 
+
+ public function penjualandetail(){  
+        cekajax(); 
+        $idd = $this->input->get("id");  
+        $query = $this->penjualan_model->get_penjualan($idd); 
+            foreach ($query as $po_data) {
+            $result = array(  
+                "id" => $this->security->xss_clean($po_data['id']),
+                "id_pembeli" => $this->security->xss_clean($po_data['nama_pembeli']),
+                "id_admin" => $this->security->xss_clean($po_data['nama_admin']),
+                "tanggal_jam" => $this->security->xss_clean(tgl_indo($po_data['tanggal_jam'])),
+                "total_harga_item" => $this->security->xss_clean($po_data['total_harga_item']),
+                "jenis_penjualan" => $this->security->xss_clean($po_data['jenis_penjualan']),
+            );     
+        }
+        
+        // $this->db->join('penjualan_detail b', 'a.id = b.id_penjualan');
+        $detailpo = $this->db->get_where('penjualan_detail a', array('id_penjualan' => $idd)); 
+        foreach($detailpo->result() as $r) {
+            $subArray['kode_item']=$this->security->xss_clean($r->kode_item);
+            $subArray['harga_beli']=$this->security->xss_clean(rupiah($r->harga_beli));
+            $subArray['harga_jual']=$this->security->xss_clean(rupiah($r->harga));
+            $subArray['total']=$this->security->xss_clean(rupiah($r->total));
+           
+            $arraysub[] =  $subArray ; 
+        }  
+        $datasub = $arraysub;
+        $array[] =  $result ; 
+        echo'{"datarows":'.json_encode($array).',"datasub":'.json_encode($datasub).'}';
+    }   
+
 public function diskontambah(){ 
     cekajax(); 
     $simpan = $this->penjualan_model;
