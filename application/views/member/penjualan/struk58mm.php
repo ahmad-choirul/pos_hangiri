@@ -263,30 +263,26 @@
 			function printDiv(divName) {
 				var printContents = document.getElementById(divName).innerHTML;
 				var originalContents = document.body.innerHTML;
-
 				document.body.innerHTML = printContents;
-
 				window.print();
-
 				document.body.innerHTML = originalContents;
 			}
 
 			printDiv('strukkasir');
+			setTimeout(function(){
+				printDiv('strukdapur');  
+			},5000);
 
-setTimeout(function(){
-			printDiv('strukdapur');  
-},5000);
+			setTimeout(function(){
+				self.close();  
+			},7000);
 
-setTimeout(function(){
-			self.close();  
-},7000);
-
-</script>
-<?php 
-function setrupiah($angka)
-{
-	$hasil = "Rp. ".number_format($angka,2,',','.');
-	return $hasil;
-} ?>
-</body>
-</html>
+		</script>
+		<?php 
+		function setrupiah($angka)
+		{
+			$hasil = "Rp. ".number_format($angka,2,',','.');
+			return $hasil;
+		} ?>
+	</body>
+	</html>
