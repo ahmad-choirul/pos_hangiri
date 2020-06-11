@@ -270,14 +270,17 @@
 
 				document.body.innerHTML = originalContents;
 			}
+
 			printDiv('strukkasir');
 
-var delayInMilliseconds = 4000; //1 second
+setTimeout(function(){
+			printDiv('strukdapur');  
+},3000);
 
-setTimeout(function() {
-	printDiv('strukdapur');
-}, delayInMilliseconds);
-window.location('<?php echo site_url('penjualan/kasir?statppn=ppn&stattrans=dinein') ?>') 
+setTimeout(function(){
+			self.close();  
+},5000);
+
 </script>
 <?php 
 function setrupiah($angka)
