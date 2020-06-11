@@ -275,11 +275,11 @@
 
 setTimeout(function(){
 			printDiv('strukdapur');  
-},3000);
+},5000);
 
 setTimeout(function(){
 			self.close();  
-},5000);
+},7000);
 
 </script>
 <?php 
