@@ -50,13 +50,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <thead>
                             <tr>
                               
-                                <th rowspan="2" style="text-align: center;">ID Penjualan</th>
-                                <th rowspan="2" style="text-align: center;">Tanggal</th>
-                                <th rowspan="2" style="text-align: center;">Total</th>
-                                <th rowspan="2" style="text-align: center;">Nama User</th>
-                                <th rowspan="2" style="text-align: center;">Jenis Penjualan</th>
-                                <th colspan="2" style="text-align: center;">Jenis Pembayaran</th>
-                                <th rowspan="2" style="text-align: center;">No Kartu Debit</th>
+                                <th  style="text-align: center;">ID Penjualan</th>
+                                <th  style="text-align: center;">Tanggal</th>
+                                <th style="text-align: center;">Total</th>
+                                <th  style="text-align: center;">Nama User</th>
+                                <th  style="text-align: center;">Jenis Penjualan</th>
+                                <th  style="text-align: center;">Jenis Pembayaran</th>
+                                <th  style="text-align: center;">No Kartu Debit</th>
            
 
            
@@ -64,7 +64,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                  
                     
                 </thead>
-                <tbody>
+                <tbody style="text-align: right;">
                     <td> 1 </td>
                     <td>08-03-2020  </td>
                     <td>20.000</td>
