@@ -691,21 +691,21 @@ function submitpaymentv2($data)
     $this->db->insert("cash_in_out", $cashinout);
 
     $cara_bayar_1 = $data['status'];
-    if ($cara_bayar_1 == 'cash') {
-        $pembayaran_1 = array(
-            'id_penjualan' => $kode_penjualan,
-            'nominal' => bilanganbulat($data['totalbayar']),
-            'cara_bayar' => 'cash',
-            'catatan' =>'',
-        );
-        $this->db->insert("penjualan_pembayaran", $pembayaran_1);
-    }
+   
     if ($cara_bayar_1 == 'edc') {
         $pembayaran_1 = array(
             'id_penjualan' => $kode_penjualan,
             'nominal' => bilanganbulat($data['totalbayar']),
             'cara_bayar' => 'edc',
             'no_kartu' => $data['no_kartu'],
+            'catatan' =>'',
+        );
+        $this->db->insert("penjualan_pembayaran", $pembayaran_1);
+    }else {
+        $pembayaran_1 = array(
+            'id_penjualan' => $kode_penjualan,
+            'nominal' => bilanganbulat($data['totalbayar']),
+            'cara_bayar' => 'cash',
             'catatan' =>'',
         );
         $this->db->insert("penjualan_pembayaran", $pembayaran_1);
