@@ -189,7 +189,7 @@
 						$hasil_potongan=0;
 						if ($potongan!=0&&$potonganrp!=0): ?>
 							<tr>
-								<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Diskon <?php echo $potongan; ?> % + <?php echo setrupiah($potonganrp); ?></td>
+								<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Diskon <?php echo $potongan; ?> % + <?php echo $potonganrp; ?></td>
 								<td style="font-size:9px;text-align: left; margin-right: 10px; float: right;"><?php $hasil_potongan=(($potongan/100)*$total)+$potonganrp; echo setrupiah($hasil_potongan); ?></td>
 
 								<td style="font-size:8px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
@@ -209,6 +209,11 @@
 										<td style="font-size:8px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
 									</tr>
 								<?php endif ?>
+								<tr>
+									<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Total Akhir</td>
+									<td style="font-size:9px;text-align: left; margin-right: 10px; float: right;"><?php echo setrupiah($total-$hasil_potongan); ?></td>
+									<td style="font-size:8px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
+								</tr>
 								<tr>
 									<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Bayar</td>
 									<td style="font-size:9px;text-align: left; margin-right: 10px; float: right;"><?php echo setrupiah($totalbayar); ?></td>
