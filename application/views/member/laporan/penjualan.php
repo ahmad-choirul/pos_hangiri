@@ -74,6 +74,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
           </div>
 
+           <div class="col-sm-2">
+            <div class="form-group">
+              <label>Jenis Pembayaran</label>
+              <select data-plugin-selectTwo class="form-control" name="jenis_pembayaran" id="jenis_pembayaran">                    
+                <option value="">Pilih semua</option>
+                  <option value="cash" >cash</option>
+                  <option value="edc" >edc</option>
+              </select> 
+            </div>
+          </div>
+
           <div class="col-sm-2">
             <div class="form-group">
               <label class="control-label">No Transaksi</label>
@@ -138,11 +149,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
    var firstdate = $('#firstdate').val();
    var lastdate = $('#lastdate').val();
    var jenis_penjualan = $('#jenis_penjualan').val();
+   var jenis_pembayaran= $('#jenis_pembayaran').val();
    var id_penjualan = $('#id_penjualan').val();
    $.ajax({
     type: 'GET',
     url: '<?php echo base_url(); ?>laporan/laporanpenjualan/'+page_num,
-    data: 'page='+page_num+'&kasir='+id_admin+'&id_penjualan='+id_penjualan+'&firstdate='+firstdate+'&jenis_penjualan='+jenis_penjualan+'&lastdate='+lastdate,success: function (html) { 
+    data: 'page='+page_num+'&kasir='+id_admin+'&id_penjualan='+id_penjualan+'&firstdate='+firstdate+'&jenis_penjualan='+jenis_penjualan+'&jenis_pembayaran='+jenis_pembayaran+'&lastdate='+lastdate,success: function (html) { 
      $('#postList').html(html);
      document.getElementById("KontenHTML").style.display = "block";  
    }

@@ -108,6 +108,9 @@ class Laporan_model extends CI_Model{
         if(!empty($params['search']['jenis_penjualan'])){
             $this->db->where('a.jenis_penjualan',$params['search']['jenis_penjualan']);
         } 
+         if(!empty($params['search']['jenis_pembayaran'])){
+            $this->db->where('f.cara_bayar',$params['search']['jenis_pembayaran']);
+        } 
         if(!empty($params['search']['firstdate']) AND !empty($params['search']['lastdate'])){
             $this->db->where('a.tanggal BETWEEN "'.$params['search']['firstdate']. '" and "'. $params['search']['lastdate'].'"');
         }

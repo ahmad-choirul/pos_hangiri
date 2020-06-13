@@ -536,6 +536,9 @@ class Laporan extends CI_Controller {
         $firstdate = $this->input->get('firstdate');
         $lastdate = $this->input->get('lastdate'); 
         $kasir = $this->input->get('kasir');
+        $jenis_pembayaran = $this->input->get('jenis_pembayaran');
+
+        $conditions['search']['jenis_pembayaran'] = $jenis_pembayaran;
         $conditions['search']['kasir'] = $kasir;
         $conditions['search']['id_penjualan'] = $id_penjualan;
         $conditions['search']['jenis_penjualan'] = $jenis_penjualan;
@@ -567,10 +570,12 @@ class Laporan extends CI_Controller {
         $spreadsheet = new Spreadsheet();
 
         $jenis_penjualan = $this->input->get('jenis_penjualan');
+        $jenis_pembayaran = $this->input->get('jenis_pembayaran');
         $id_penjualan = $this->input->get('id_penjualan');
         $firstdate = $this->input->get('firstdate');
         $lastdate = $this->input->get('lastdate'); 
         $kasir = $this->input->get('kasir');
+        $conditions['search']['jenis_pembayaran'] = $jenis_pembayaran;
         $conditions['search']['kasir'] = $kasir;
         $conditions['search']['id_penjualan'] = $id_penjualan;
         $conditions['search']['jenis_penjualan'] = $jenis_penjualan;
