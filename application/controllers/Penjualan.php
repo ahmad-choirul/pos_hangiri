@@ -580,7 +580,7 @@ public function datahold()
    );  
     echo json_encode($result);  
 }
-public function keranjangdetail($statppn='',$potongan=0){  
+public function keranjangdetail($statppn='',$potongan=0,$potonganrp=0){  
     cekajax();
     $result =  array();   
     $arraysub=   array();  
@@ -617,6 +617,7 @@ public function keranjangdetail($statppn='',$potongan=0){
         }
         $totalbayar+=$tambah_ppn;
         $besar_potongan = ($potongan/100)*$totalbayar;
+        $besar_potongan+=$potonganrp;
         $totalbayar-=$besar_potongan;
         $result = array(  
             "total_harga_item" => $this->security->xss_clean(rupiah($total_harga_item)),

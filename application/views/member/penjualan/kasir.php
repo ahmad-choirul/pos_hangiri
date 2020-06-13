@@ -80,6 +80,13 @@ if ($this->input->get('potongan')=='10') {
 else{
 	$potongan='0';
 }
+
+if ($this->input->get('potonganrp')!='') {
+	$potonganrp=$this->input->get('potonganrp');
+}
+else{
+	$potonganrp='0';
+}
 ?>
 }
 <body class="bgbody">
@@ -195,13 +202,13 @@ else{
 												
 											</div>
 										</div><div class="col-md-9">
-										<div class="form-group">
-											<input type="text" placeholder="Nominal Potongan" id="potonganrp" name="potonganrp" class="form-control mask_price">
-										</div></div>
-									</div>
-									
-									
-								</form>
+											<div class="form-group">
+												<input type="text" placeholder="Nominal Potongan" id="potonganrp" name="potonganrp" value="<?php echo $potonganrp ?>" class="form-control mask_price">
+											</div></div>
+										</div>
+
+
+									</form>
 							<!-- 	<div class="input-group-btn">
 									<button tabindex="-1" class="btn btn-primary" type="button">Pembeli</button>
 									<button tabindex="-1" data-toggle="dropdown" class="btn btn-primary dropdown-toggle" type="button" aria-expanded="false">
@@ -1113,14 +1120,16 @@ else{
         	$('#cara_bayar2').val('cash'); 
         	$('#totaldibayar1').val('0'); 
         	$('#totaldibayar2').val('0'); 
-        	$('#GrandTotalDibayar').html('0'); 
+        	$('#GrandTotalDibayar').html('0');
+        	var potonganrp=$("#potonganrp").val().replace(/\./g, "");
+
         	var jenis_penjualan = $('#jenis_penjualan').find(":selected").text();
         	var statppn = '<?php echo $statppn ?>';
 			// document.getElementById("formbayar2").style.display = "";  
 			$('#Kembalian').html('0'); 
 			$.ajax({
 				type: 'GET',
-				url: '<?php echo base_url()?>penjualan/keranjangdetail/<?php echo $statppn ?>/<?php echo $potongan ?>', 
+				url: '<?php echo base_url()?>penjualan/keranjangdetail/<?php echo $statppn ?>/<?php echo $potongan ?>/'+potonganrp, 
 				dataType 	: 'json',
 				success: function(response) { 
 
