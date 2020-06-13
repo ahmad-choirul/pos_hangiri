@@ -4,13 +4,11 @@
             <th>aksi</th>
             <th>ID Penjualan</th>
             <th>Tanggal</th>
-         <!--      <th>Barang</th>
-            <th>Jumlah</th>
-            <th>Satuan</th> -->
-            <!-- th>Harga Item</th>
-            <th>Diskon</th>
-            <th>komisi</th> -->
+            <th>Total Diskon</th>
             <th>Total Harga</th>
+            <th>Total Akhir</th>
+            <th>Jenis Penjualan</th>
+            <th>Jenis Pembayaran</th>
              <th>Nama Admin</th> 
         </tr>
     </thead>
@@ -36,27 +34,20 @@
             <td><?php echo $tombolaksi; ?></td>
             <td><?php echo $post['id_penjualan']; ?></td>
             <td><?php echo tgl_indo($post['tanggal']); ?></td>
-            <!-- <td><?php echo $post['nama_item']; ?></td> 
-            <td><?php echo $post['kuantiti']; ?></td>
-            <td><?php echo $post['satuan']; ?></td> 
-            <td class="text-right"><?php echo rupiah($post['harga']); ?></td>
             <td class="text-right"><?php echo rupiah($post['diskon']); ?></td>
-            <td class="text-right"><?php echo rupiah($post['komisi']); ?></td> -->
+            <td class="text-right"><?php echo rupiah($post['total_harga_item']); ?></td>
             <td class="text-right"><?php echo rupiah($post['total']); ?></td>
+            <td class="text-right"><?php echo $post['jenis_penjualan']; ?></td>
+            <td class="text-right"><?php echo $post['cara_bayar']; ?></td>
             <td class="text-right"><?php echo $post['nama_admin']; ?></td>
-            <!-- <td class="text-right"><?php echo $post['stok_sisa']; ?> <?php echo $post['satuan']; ?></td>  -->
         </tr>  
         <?php 
         $total += $post['total'];
-        // $komisi += $post['komisi'];
-        // $diskon += $post['diskon'];
         ?>
     <?php endforeach;?>  
     <tr>
         <td colspan="2"></td>
         <td><b>Total</b></td>
-        <!-- <td class="text-right"><b> <?=rupiah($diskon)?></b></td> -->
-        <!-- <td class="text-right"><b> <?=rupiah($komisi)?></b></td> -->
         <td class="text-right"><b> <?=rupiah($total)?></b></td>
     </tr>
 </tbody>
