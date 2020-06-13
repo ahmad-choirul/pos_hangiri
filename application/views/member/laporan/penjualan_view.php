@@ -15,7 +15,7 @@
     <tbody> 
         <?php 
         $total = 0;
-        $komisi = 0;
+        $total_item = 0;
         $diskon = 0;
         foreach($posts as $post): 
          $tombolhapus =  '<li><a href="#" onclick="hapus(this)" data-id="'.$post['id'].'">Hapus</a></li>';
@@ -43,11 +43,15 @@
         </tr>  
         <?php 
         $total += $post['total'];
+        $total_item += $post['total_harga_item'];
+        $diskon += $post['diskon'];
         ?>
     <?php endforeach;?>  
     <tr>
         <td colspan="2"></td>
         <td><b>Total</b></td>
+        <td class="text-right"><b> <?=rupiah($diskon)?></b></td>
+        <td class="text-right"><b> <?=rupiah($total_item)?></b></td>
         <td class="text-right"><b> <?=rupiah($total)?></b></td>
     </tr>
 </tbody>
