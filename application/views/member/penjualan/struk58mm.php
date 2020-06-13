@@ -127,7 +127,7 @@
 			</div>
 
 			<div class="nota">
-				<?= strtoupper($penjualan);?> | <?= strtoupper($pelanggan); ?>
+				<?= strtoupper($penjualan);?> | <?= strtoupper($pelanggan); ?> | <?= strtoupper($status); ?>
 			</div>
 
 			<div class="separate"></div>
