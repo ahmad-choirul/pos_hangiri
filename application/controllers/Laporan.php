@@ -595,7 +595,8 @@ class Laporan extends CI_Controller {
         ->setCellValue('E1', 'Total Akhir') 
         ->setCellValue('F1', 'Jenis Penjualan') 
         ->setCellValue('G1', 'Jenis Pembayaran') 
-        ->setCellValue('H1', 'Admin') 
+        ->setCellValue('H1', 'No Kartu') 
+        ->setCellValue('I1', 'Admin') 
         ;
 
         $i=2; 
@@ -612,7 +613,8 @@ class Laporan extends CI_Controller {
             ->setCellValue('E'.$i, $total)
             ->setCellValue('F'.$i, $post['jenis_penjualan'])
             ->setCellValue('G'.$i, $post['cara_bayar'])
-            ->setCellValue('H'.$i, $post['nama_admin'])
+            ->setCellValue('H'.$i, $post['no_kartu'])
+            ->setCellValue('I'.$i, $post['nama_admin'])
             ;
             $i++;
         }

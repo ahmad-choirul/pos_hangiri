@@ -9,6 +9,7 @@
             <th>Total Akhir</th>
             <th>Jenis Penjualan</th>
             <th>Jenis Pembayaran</th>
+            <th>No Kartu</th>
              <th>Nama Admin</th> 
         </tr>
     </thead>
@@ -39,6 +40,7 @@
             <td class="text-right"><?php echo rupiah($post['total']); ?></td>
             <td class="text-right"><?php echo $post['jenis_penjualan']; ?></td>
             <td class="text-right"><?php echo $post['cara_bayar']; ?></td>
+            <td class="text-right"><?php echo $post['no_kartu']; ?></td>
             <td class="text-right"><?php echo $post['nama_admin']; ?></td>
         </tr>  
         <?php 
