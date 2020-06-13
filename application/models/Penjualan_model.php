@@ -666,6 +666,7 @@ function submitpaymentv2($data)
     $keranjang = $this->db->get_where('keranjang', array('hold' => '0','id_admin' => $this->session->userdata('idadmin')), 1);
     $kode_penjualan = $this->_kode_penjualan();
     $hasil_potongan = ($data['potongan']/100)*$keranjang->row()->total;
+    $hasil_potongan +=$data['potonganrp'];
     $array = array(
         'id' => $kode_penjualan,
         'id_pembeli' => $keranjang->row()->id_pembeli,

@@ -187,102 +187,116 @@
 						<?php endif ?>
 						<?php 
 						$hasil_potongan=0;
-						if ($potongan!=0): ?>
+						if ($potongan!=0&&$potonganrp!=0): ?>
 							<tr>
-								<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Diskon <?php echo $potongan; ?> %</td>
-								<td style="font-size:9px;text-align: left; margin-right: 10px; float: right;"><?php $hasil_potongan=($potongan/100)*$total; echo setrupiah($hasil_potongan); ?></td>
+								<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Diskon <?php echo $potongan; ?> % + <?php echo setrupiah($potonganrp); ?></td>
+								<td style="font-size:9px;text-align: left; margin-right: 10px; float: right;"><?php $hasil_potongan=(($potongan/100)*$total)+$potonganrp; echo setrupiah($hasil_potongan); ?></td>
 
 								<td style="font-size:8px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
 							</tr>
-						<?php endif ?>
-						<tr>
-							<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Bayar</td>
-							<td style="font-size:9px;text-align: left; margin-right: 10px; float: right;"><?php echo setrupiah($totalbayar); ?></td>
-							<td style="font-size:8px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
-						</tr>
-						<tr>
-							<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Kembali</td>
-							<td style="font-size:9px;text-align: left; margin-right: 10px;float: right; "><?php echo setrupiah($totalbayar-($total-$hasil_potongan)); ?></td>
-							<td style="font-size:8px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
-						</tr>
-						<tr>
-							<td style="font-size:9px;text-align:left;  " ><b>Catatan : </b></td>
-						</tr>
-						<tr>
-							<td colspan="3" style="font-size:9px;"> ---  <?php echo $catatan; ?> -----</td>
+							<?php elseif($potongan!=0): ?>
+								<tr>
+									<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Diskon <?php echo $potongan; ?> %</td>
+									<td style="font-size:9px;text-align: left; margin-right: 10px; float: right;"><?php $hasil_potongan=(($potongan/100)*$total); echo setrupiah($hasil_potongan); ?></td>
 
-						</tr>
+									<td style="font-size:8px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
+								</tr>
+								<?php elseif($potonganrp!=0): ?>
+									<tr>
+										<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Diskon <?php echo setrupiah($potonganrp); ?> </td>
+										<td style="font-size:9px;text-align: left; margin-right: 10px; float: right;"><?php $hasil_potongan=$potonganrp; echo setrupiah($hasil_potongan); ?></td>
 
-					</table>
-					<br>
-				</div>
-			</div>
-		</div>
+										<td style="font-size:8px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
+									</tr>
+								<?php endif ?>
+								<tr>
+									<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Bayar</td>
+									<td style="font-size:9px;text-align: left; margin-right: 10px; float: right;"><?php echo setrupiah($totalbayar); ?></td>
+									<td style="font-size:8px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
+								</tr>
+								<tr>
+									<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Kembali</td>
+									<td style="font-size:9px;text-align: left; margin-right: 10px;float: right; "><?php echo setrupiah($totalbayar-($total-$hasil_potongan)); ?></td>
+									<td style="font-size:8px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
+								</tr>
+								<tr>
+									<td style="font-size:9px;text-align:left;  " ><b>Catatan : </b></td>
+								</tr>
+								<tr>
+									<td colspan="3" style="font-size:9px;"> ---  <?php echo $catatan; ?> -----</td>
 
+								</tr>
 
-
-		<div id="strukdapur"> 
-			<div class="content" >
-				<div class="head-desc">
-					<div class="date">
-						<?=date('d M Y')?> | <?= $pegawai; ?>
+							</table>
+							<br>
+						</div>
 					</div>
 				</div>
 
-				<div class="nota">
-					<?=$penjualan?> | <?= $pelanggan; ?>
+
+
+				<div id="strukdapur"> 
+					<div class="content" >
+						<div class="head-desc">
+							<div class="date">
+								<?=date('d M Y')?> | <?= $pegawai; ?>
+							</div>
+						</div>
+
+						<div class="nota">
+							<?=$penjualan?> | <?= $pelanggan; ?>
+						</div>
+
+						<div class="separate"></div>
+
+						<div class="transaction">
+							<h3>STRUK PENJUALAN UNTUK DAPUR</h3>
+							<hr>
+							<table  border="0" width="100%" >
+								<?php
+								foreach ($keranjang as $key) : ?>
+									<tr>
+
+										<td style="font-size:11px;text-align:left;  " >
+											<?=$key['nama_item']?>   x <?=$key['kuantiti']?>
+										</td>
+									</tr>
+								<?php endforeach ?>
+								<tr>
+									<td style="font-size:9px;text-align:left;  " ><b>Catatan : </b></td>
+								</tr>
+								<tr>
+									<td style="font-size:9px;text-align:left; "> ~ <?php echo $catatan; ?> ~</td>
+								</tr>
+							</table>
+						</div>
+					</div>
 				</div>
+				<script type="text/javascript">
 
-				<div class="separate"></div>
+					function printDiv(divName) {
+						var printContents = document.getElementById(divName).innerHTML;
+						var originalContents = document.body.innerHTML;
+						document.body.innerHTML = printContents;
+						window.print();
+						document.body.innerHTML = originalContents;
+					}
 
-				<div class="transaction">
-					<h3>STRUK PENJUALAN UNTUK DAPUR</h3>
-					<hr>
-					<table  border="0" width="100%" >
-						<?php
-						foreach ($keranjang as $key) : ?>
-							<tr>
+					printDiv('strukkasir');
+					setTimeout(function(){
+						printDiv('strukdapur');  
+					},5000);
 
-								<td style="font-size:11px;text-align:left;  " >
-									<?=$key['nama_item']?>   x <?=$key['kuantiti']?>
-								</td>
-							</tr>
-						<?php endforeach ?>
-						<tr>
-							<td style="font-size:9px;text-align:left;  " ><b>Catatan : </b></td>
-						</tr>
-						<tr>
-							<td style="font-size:9px;text-align:left; "> ~ <?php echo $catatan; ?> ~</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
-		<script type="text/javascript">
+					setTimeout(function(){
+						self.close();  
+					},7000);
 
-			function printDiv(divName) {
-				var printContents = document.getElementById(divName).innerHTML;
-				var originalContents = document.body.innerHTML;
-				document.body.innerHTML = printContents;
-				window.print();
-				document.body.innerHTML = originalContents;
-			}
-
-			printDiv('strukkasir');
-			setTimeout(function(){
-				printDiv('strukdapur');  
-			},5000);
-
-			setTimeout(function(){
-				self.close();  
-			},7000);
-
-		</script>
-		<?php 
-		function setrupiah($angka)
-		{
-			$hasil = "Rp. ".number_format($angka,2,',','.');
-			return $hasil;
-		} ?>
-	</body>
-	</html>
+				</script>
+				<?php 
+				function setrupiah($angka)
+				{
+					$hasil = "Rp. ".number_format($angka,2,',','.');
+					return $hasil;
+				} ?>
+			</body>
+			</html>

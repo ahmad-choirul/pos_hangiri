@@ -196,7 +196,7 @@ else{
 											</div>
 										</div><div class="col-md-9">
 										<div class="form-group">
-											<input type="number" placeholder="Nominal Potongan" name="" class="form-control">
+											<input type="text" placeholder="Nominal Potongan" id="potonganrp" name="potonganrp" class="form-control mask_price">
 										</div></div>
 									</div>
 									
@@ -1233,6 +1233,7 @@ else{
             $(document).on('click','#modal-payment #paymenttransaksi',function(e) { // tombol paymenttransaksi sg ono ng modal payment
             	// e.preventDefault()
             	var totalbayar=$("#totalbayar").val().replace(/\./g, "");
+            	var potonganrp=$("#potonganrp").val().replace(/\./g, "");
             	var totalbelanja = document.getElementById("TotalBelanjaInt").value; 
             	var pelanggan = document.getElementById("nama_pelanggan").value; 
             	var catatan = document.getElementById("catatan").value; 
@@ -1246,7 +1247,7 @@ else{
             		
             		// $('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn)
             		// .submit()
-            		window.open('<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn+'&stattrans='+stattrans+'&potongan='+potongan,'_blank');
+            		window.open('<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn+'&stattrans='+stattrans+'&potongan='+potongan+'&potonganrp='+potonganrp,'_blank');
             		window.setTimeout(function() {  location.reload();}, 2000);
             		
             	}else{
@@ -1266,6 +1267,7 @@ else{
              $(document).on('click','#modal-payment #paymenttransaksiedc',function(e) { // tombol paymenttransaksi sg ono ng modal payment
             	// e.preventDefault()
             	var totalbayar=$("#totalbayar").val().replace(/\./g, "");
+            	var potonganrp=$("#potonganrp").val().replace(/\./g, "");
             	var totalbelanja = document.getElementById("TotalBelanjaInt").value; 
             	var pelanggan = document.getElementById("nama_pelanggan").value; 
             	var catatan = document.getElementById("catatan").value; 
@@ -1281,7 +1283,7 @@ else{
 
             		// $('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn)
             		// .submit()
-            		window.open('<?=base_url()?>penjualan/strukedc?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn+'&stattrans='+stattrans+'&potongan='+potongan+'&no_kartu='+no_kartu,'_blank');
+            		window.open('<?=base_url()?>penjualan/strukedc?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn+'&stattrans='+stattrans+'&potongan='+potongan+'&no_kartu='+no_kartu+'&potonganrp='+potonganrp,'_blank');
             		window.setTimeout(function() {  location.reload();}, 2000);
             		
             	}else{

@@ -755,6 +755,10 @@ $data['catatan'] =  $this->input->get('catatan');
 $data['statppn'] =  $this->input->get('statppn');
 $data['stattrans'] =  $this->input->get('stattrans');
 $data['potongan'] =  $this->input->get('potongan');
+$data['potonganrp'] =  $this->input->get('potonganrp');
+if ($data['potonganrp']==''||$data['potonganrp']==null) {
+   $data['potonganrp']=0;
+}
 $status = $this->penjualan_model->submitpaymentv2($data);
 if ($status) {
     $this->load->view('member/penjualan/struk58mm', $data); 
@@ -814,6 +818,10 @@ $data['catatan'] =  $this->input->get('catatan');
 $data['statppn'] =  $this->input->get('statppn');
 $data['stattrans'] =  $this->input->get('stattrans');
 $data['potongan'] =  $this->input->get('potongan');
+$data['potonganrp'] =  $this->input->get('potonganrp');
+if ($data['potonganrp']==''||$data['potonganrp']==null) {
+   $data['potonganrp']=0;
+}
 $data['no_kartu'] =  $this->input->get('no_kartu');
 $status = $this->penjualan_model->submitpaymentv2($data);
 if ($status) {
