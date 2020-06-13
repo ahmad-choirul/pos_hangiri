@@ -187,6 +187,18 @@ else{
 											</div>
 										</div>
 									</div>
+									<br>
+									<div class="row">
+										<div class="col-md-3">
+											<div class="form-group">
+												<label class="form-control">Potongan</label>
+												
+											</div>
+										</div><div class="col-md-9">
+										<div class="form-group">
+											<input type="number" placeholder="Nominal Potongan" name="" class="form-control">
+										</div></div>
+									</div>
 									
 									
 								</form>
@@ -1285,17 +1297,17 @@ else{
 
             	}   
             }else{
-            		window.setTimeout(function() {  
-            			new PNotify({
-            				title: 'Notifikasi',
-            				text: 	'Maaf, No Kartu belum di isi',
-            				type: 'warning',
-            				addclass: 'stack-bottomright',
-            				stack: stack_bottomright
-            			}); 
-            		}, 500); 
+            	window.setTimeout(function() {  
+            		new PNotify({
+            			title: 'Notifikasi',
+            			text: 	'Maaf, No Kartu belum di isi',
+            			type: 'warning',
+            			addclass: 'stack-bottomright',
+            			stack: stack_bottomright
+            		}); 
+            	}, 500); 
 
-            	}      	
+            }      	
         })
 
              document.getElementById("Batalkan").addEventListener("click", function (e) { 
