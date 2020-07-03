@@ -536,6 +536,7 @@ class Laporan extends CI_Controller {
         $firstdate = $this->input->get('firstdate');
         $lastdate = $this->input->get('lastdate'); 
         $kasir = $this->input->get('kasir');
+        $resto = $this->input->get('resto');
         $jenis_pembayaran = $this->input->get('jenis_pembayaran');
 
         $conditions['search']['jenis_pembayaran'] = $jenis_pembayaran;
@@ -544,6 +545,7 @@ class Laporan extends CI_Controller {
         $conditions['search']['jenis_penjualan'] = $jenis_penjualan;
         $conditions['search']['firstdate'] = $firstdate;
         $conditions['search']['lastdate'] = $lastdate;
+        $conditions['search']['resto'] = $resto;
         //total rows count
         $totalRec = count($this->laporan_model->getrowspenjualan($conditions)); 
         

@@ -482,6 +482,7 @@ public function holdtransaksi(){
     echo json_encode($data); 
 }
 
+
 function ajaxPaginationData(){
     $conditions = array();
         //calc offset number
@@ -495,11 +496,15 @@ function ajaxPaginationData(){
         //set conditions for search
     $keywords = $this->input->get('keywords');
     $sortBy = $this->input->get('sortBy');
+    $sortkategori = $this->input->get('sortkategori');
     if(!empty($keywords)){
         $conditions['search']['keywords'] = $keywords;
     }
     if(!empty($sortBy)){
         $conditions['search']['sortBy'] = $sortBy;
+    }
+     if(!empty($sortkategori)){
+        $conditions['search']['sortkategori'] = $sortkategori;
     }
         //total rows count
     $totalRec = count($this->penjualan_model->getRows($conditions)); 
@@ -523,7 +528,6 @@ function ajaxPaginationData(){
     $this->load->view('member/penjualan/ajax-pagination-data', $data, false);
 
 }
-
 public function datapembeli()
 {   
     cekajax(); 
@@ -756,6 +760,7 @@ $data['catatan'] =  $this->input->get('catatan');
 $data['statppn'] =  $this->input->get('statppn');
 $data['stattrans'] =  $this->input->get('stattrans');
 $data['potongan'] =  $this->input->get('potongan');
+$data['resto'] =  $this->input->get('resto');
 $data['potonganrp'] =  $this->input->get('potonganrp');
 if ($data['potonganrp']==''||$data['potonganrp']==null) {
    $data['potonganrp']=0;
@@ -819,6 +824,7 @@ $data['catatan'] =  $this->input->get('catatan');
 $data['statppn'] =  $this->input->get('statppn');
 $data['stattrans'] =  $this->input->get('stattrans');
 $data['potongan'] =  $this->input->get('potongan');
+$data['resto'] =  $this->input->get('resto');
 $data['potonganrp'] =  $this->input->get('potonganrp');
 if ($data['potonganrp']==''||$data['potonganrp']==null) {
    $data['potonganrp']=0;

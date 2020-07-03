@@ -66,13 +66,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								<?php } ?>
 								<fieldset>
 									<div class="form-group nama_apotek">
-										<label class="col-md-3 control-label" for="nama_apotek">Nama Apotek</label>
+										<label class="col-md-3 control-label" for="nama_apotek">Nama Restoran</label>
 										<div class="col-md-8">
 											<input type="text" class="form-control" name="nama_apotek" value="<?php echo $this->security->xss_clean($profil->row()->nama_apotek); ?>">
 										</div>
 									</div>
 									<div class="form-group alamat">
-										<label class="col-md-3 control-label" for="alamat">Alamat Apotek</label>
+										<label class="col-md-3 control-label" for="alamat">Alamat Restoran</label>
 										<div class="col-md-8">
 											<textarea class="form-control" name="alamat"><?php echo $this->security->xss_clean($profil->row()->alamat); ?></textarea>
 										</div>

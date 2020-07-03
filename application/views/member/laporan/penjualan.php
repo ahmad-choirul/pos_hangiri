@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>  
   <meta charset="UTF-8"> 
   <link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favicon.png" type="image/ico">   
-  <title>PT Airlangga sentral internasional</title>    
+  <title>PT BIGENMI GEMILANG INDONESIA</title>    
   <meta name="author" content="Paber">  
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link rel="stylesheet" href="<?php echo base_url()?>assets/vendor/bootstrap/css/bootstrap.css" />
@@ -52,7 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="col-sm-2">
             <div class="form-group">
               <label>Kasir</label>
-              <select data-plugin-selectTwo class="form-control" name="id_admin" id="id_admin">                    
+              <select data-plugin-selectTwo class="form-control" name="id_admin" id="id_admin" onchange="searchFilter()" >                    
                 <option value="">Pilih semua</option>
                 <?php foreach ($admin as $key => $value): ?>
                   <option value="<?php echo $value->id?>"><?php echo $value->nama_admin ?></option>
@@ -64,7 +64,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="col-sm-2">
             <div class="form-group">
               <label>Jenis Penjualan</label>
-              <select data-plugin-selectTwo class="form-control" name="jenis_penjualan" id="jenis_penjualan">                    
+              <select data-plugin-selectTwo class="form-control" name="jenis_penjualan" id="jenis_penjualan" onchange="searchFilter()" >                    
                 <option value="">Pilih semua</option>
                   <option value="ppn" >PPN</option>
                   <option value="nonppn" >Non PPN</option>
@@ -77,13 +77,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
            <div class="col-sm-2">
             <div class="form-group">
               <label>Jenis Pembayaran</label>
-              <select data-plugin-selectTwo class="form-control" name="jenis_pembayaran" id="jenis_pembayaran">                    
+              <select data-plugin-selectTwo class="form-control" name="jenis_pembayaran" id="jenis_pembayaran" onchange="searchFilter()" >                    
                 <option value="">Pilih semua</option>
                   <option value="cash" >cash</option>
                   <option value="edc" >edc</option>
               </select> 
             </div>
           </div>
+
+          <div class="col-sm-2">
+            <div class="form-group">
+              <label>Resto</label>
+              <select data-plugin-selectTwo class="form-control" name="resto" id="resto" onchange="searchFilter()" >                    
+                <option value="">Pilih semua</option>
+                  <option value="babe-q" >Babe-Q</option>
+                  <option value="hangiri" >Hangiri</option>
+              </select> 
+            </div>
+          </div>
+
+          
 
           <div class="col-sm-2">
             <div class="form-group">
@@ -150,11 +163,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
    var lastdate = $('#lastdate').val();
    var jenis_penjualan = $('#jenis_penjualan').val();
    var jenis_pembayaran= $('#jenis_pembayaran').val();
+   var resto= $('#resto').val();
    var id_penjualan = $('#id_penjualan').val();
    $.ajax({
     type: 'GET',
     url: '<?php echo base_url(); ?>laporan/laporanpenjualan/'+page_num,
-    data: 'page='+page_num+'&kasir='+id_admin+'&id_penjualan='+id_penjualan+'&firstdate='+firstdate+'&jenis_penjualan='+jenis_penjualan+'&jenis_pembayaran='+jenis_pembayaran+'&lastdate='+lastdate,success: function (html) { 
+    data: 'page='+page_num+'&kasir='+id_admin+'&id_penjualan='+id_penjualan+'&firstdate='+firstdate+'&jenis_penjualan='+jenis_penjualan+'&resto='+resto+'&jenis_pembayaran='+jenis_pembayaran+'&lastdate='+lastdate,success: function (html) { 
      $('#postList').html(html);
      document.getElementById("KontenHTML").style.display = "block";  
    }

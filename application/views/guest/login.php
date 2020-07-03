@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<!-- Basic -->
 		<meta charset="UTF-8"> 
 		<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favi.png" type="image/ico">   
-		<title>Hangiri Resto</title>  
+		<title>BABE-Q Resto</title>  
 		<meta name="keywords" content="Aplikasi salon kecantikan" /> 
 		<meta name="author" content="Manigom"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> 

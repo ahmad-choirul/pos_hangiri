@@ -70,6 +70,12 @@ if ($this->input->get('stattrans')=='dinein') {
 	$stattrans='takeaway';
 }
 
+if ($this->input->get('resto')=='hangiri') {
+	$resto='hangiri';
+}else{
+	$resto='babe-q';
+}
+
 if ($this->input->get('potongan')=='10') {
 	$potongan='10';
 }elseif($this->input->get('potongan')=='20') {
@@ -201,10 +207,18 @@ else{
 												<label class="form-control">Potongan</label>
 												
 											</div>
-										</div><div class="col-md-9">
+										</div><div class="col-md-3">
 											<div class="form-group">
 												<input type="text" placeholder="Nominal Potongan" id="potonganrp" name="potonganrp" value="<?php echo $potonganrp ?>" class="form-control mask_price">
 											</div></div>
+											<div class="col-md-4">
+											<div class="form-group">
+												<select class="form-control resto" name="resto" id="resto" onchange='this.form.submit()'>
+													<option <?php if ($resto == 'hangiri' ) echo 'selected' ; ?> value="hangiri">Hangiri</option>
+													<option <?php if ($resto == 'babe-q' ) echo 'selected' ; ?> value="babe-q">Babe-q</option>
+												</select> 
+											</div>
+										</div>
 										</div>
 
 
@@ -279,11 +293,13 @@ else{
 							<div class="input-group mb-md">
 								<input type="text" class="form-control" id="keywords" placeholder="Search Product Keyword" onkeyup="searchFilter()">
 								<a class="input-group-addon btn-success btn"><i class="fa fa-search"></i></a>
-								<select id="sortBy" onchange="searchFilter()" class="form-control">
-									<option value="">Sort By</option>
-									<option value="asc">Ascending</option>
-									<option value="desc">Descending</option>
+								<select id="sortkategori" onchange="searchFilter()" class="form-control">
+									<option value="">Semua</option>
+									<option value="1">Makanan</option>
+									<option value="2">Minuman</option>
 								</select>
+								
+								
 							</div>
 
 							<div class="row mg-files" id="HalamanProduk" style="max-height: 500px;overflow-y: scroll;">
@@ -763,6 +779,7 @@ else{
 	<script type="text/javascript">
 		$(document).ready(function() {
 			keranjang();
+			searchFilter();
 		});
 	</script>
 </script>
@@ -1026,14 +1043,14 @@ else{
         		type : 'GET' 
         	}, 
         });	  
-        function searchFilter(page_num) {
+         function searchFilter(page_num) {
         	page_num = page_num?page_num:0;
         	var keywords = $('#keywords').val();
-        	var sortBy = $('#sortBy').val();
+        	var sortkategori = $('#sortkategori').val();
         	$.ajax({
         		type: 'GET',
         		url: '<?php echo base_url(); ?>penjualan/ajaxPaginationData/',
-        		data:'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy,
+        		data:'page='+page_num+'&keywords='+keywords+'&sortkategori='+sortkategori+'&sortBy='+'<?php echo $resto ?>',
         		beforeSend: function () {
         			$('.loading').show();
         		},
@@ -1249,6 +1266,7 @@ else{
             	var statppn = '<?php echo $statppn; ?>'; 
             	var stattrans = '<?php echo $stattrans; ?>'; 
             	var potongan = '<?php echo $potongan ?>';
+            	var resto = '<?php echo $resto ?>';
             	// var catatan = "catatan"; 
             	if (Number(totalbayar)>=Number(totalbelanja)) {
             		var pegawai;
@@ -1256,7 +1274,7 @@ else{
             		
             		// $('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn)
             		// .submit()
-            		window.open('<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn+'&stattrans='+stattrans+'&potongan='+potongan+'&potonganrp='+potonganrp,'_blank');
+            		window.open('<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&resto='+resto+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn+'&stattrans='+stattrans+'&potongan='+potongan+'&potonganrp='+potonganrp,'_blank');
             		window.setTimeout(function() {  location.reload();}, 2000);
             		
             	}else{
@@ -1292,7 +1310,7 @@ else{
 
             		// $('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn)
             		// .submit()
-            		window.open('<?=base_url()?>penjualan/strukedc?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn+'&stattrans='+stattrans+'&potongan='+potongan+'&no_kartu='+no_kartu+'&potonganrp='+potonganrp,'_blank');
+            		window.open('<?=base_url()?>penjualan/strukedc?t='+idk+'&pegawai='+pegawai+'&resto='+resto+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn+'&stattrans='+stattrans+'&potongan='+potongan+'&no_kartu='+no_kartu+'&potonganrp='+potonganrp,'_blank');
             		window.setTimeout(function() {  location.reload();}, 2000);
             		
             	}else{

@@ -556,6 +556,7 @@ class Master_model extends CI_Model{
             'stok'=>$post["stok"],  
             'tgl_expired'=>$post["tanggal_expired"],
             'jenis_item'=>$post["jenis_item"],
+            'resto'=>$post["resto"],
             'gambar'=>$this->_uploadGambarProduk(),  
         );
         return $this->db->insert("master_item", $array);  
@@ -570,6 +571,7 @@ class Master_model extends CI_Model{
         $this->keterangan = $post["keterangan"];  
         $this->netto = $post["netto"];  
         $this->stok = $post["stok"];  
+        $this->resto = $post["resto"];  
         $this->tgl_expired = $post["tanggal_expired"];
         $this->harga_jual = bilanganbulat($post["harga_jual"]); 
         $this->harga_jual2 = bilanganbulat($post["harga_jual2"]); 
@@ -781,13 +783,18 @@ class Master_model extends CI_Model{
     //CRUD pegawai end 
     
 // datatable operasional start
-var $column_search_operasional = array('tgl_operasional','keterangan','jumlah','editor');
-var $column_order_operasional = array(null, 'tgl_operasional','keterangan','jumlah','editor');
+var $column_search_operasional = array('tgl_operasional','keterangan','jumlah','editor','resto');
+var $column_order_operasional = array(null, 'tgl_operasional','keterangan','jumlah','editor','resto');
 var $order_operasional = array('waktu_update' => 'DESC');
-private function _get_query_operasional()
+private function _get_query_operasional($resto)
 {
     $get = $this->input->get();
     $this->db->from('master_operasional');
+    if ($resto=='hangiri') {
+        $this->db->where('resto', 'hangiri');
+    }else{
+        $this->db->where('resto', 'babe-q');
+    }
     $i = 0;
     foreach ($this->column_search_operasional as $item)
     {
@@ -819,10 +826,10 @@ private function _get_query_operasional()
     }
 }
 
-function get_operasional_datatable()
+function get_operasional_datatable($resto)
 {
     $get = $this->input->get();
-    $this->_get_query_operasional();
+    $this->_get_query_operasional($resto);
     // $this->db->where('jenis_pembeli','2');
     if($get['length'] != -1)
     $this->db->limit($get['length'], $get['start']);
@@ -830,16 +837,21 @@ function get_operasional_datatable()
     return $query->result();
 }
 
-function count_filtered_datatable_operasional()
+function count_filtered_datatable_operasional($resto)
 {
-    $this->_get_query_operasional();
+    $this->_get_query_operasional($resto);
     $query = $this->db->get();
     return $query->num_rows();
 }
 
-public function count_all_datatable_operasional()
+public function count_all_datatable_operasional($resto)
 {
     $this->db->from('master_operasional');
+    if ($resto=='hangiri') {
+        $this->db->where('resto', 'hangiri');
+    }else{
+        $this->db->where('resto', 'babe-q');
+    }
     return $this->db->count_all_results();
 }
 //datatable operasional end
@@ -861,6 +873,7 @@ function simpandataoperasional(){
         'tgl_operasional'=>$post["tgl_operasional"],
         'keterangan'=>$post["keterangan"],
         'jumlah'=>bilanganbulat($post["jumlah"]),
+        'resto'=>$post["resto"],
               'editor'=>$this->session->userdata('nama_admin'),
     );
     $this->db->insert("master_operasional", $array);
@@ -871,6 +884,7 @@ public function updatedataoperasional()
     $post = $this->input->post();
     $this->tgl_operasional = $post["tgl_operasional"];
     $this->keterangan = $post["keterangan"];
+    $this->resto = $post["resto"];
     $this->jumlah = bilanganbulat($post["jumlah"]);
         $this->editor = $this->session->userdata('nama_admin');
     return $this->db->update("master_operasional", $this, array('id' => $post['idd']));

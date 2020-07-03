@@ -110,7 +110,7 @@ class Penjualan_model extends CI_Model
         return $this->db->where('id', $post['idd'])->delete('master_diskon_kelipatan');
     }
 
-    function getRows($params = array(),$kategori=null)
+       function getRows($params = array(),$kategori=null)
     {
         $this->db->select('*');
         $this->db->from('master_item');
@@ -123,7 +123,11 @@ class Penjualan_model extends CI_Model
         }
         //sort data by ascending or desceding order
         if (!empty($params['search']['sortBy'])) {
-            $this->db->order_by('nama_item', $params['search']['sortBy']);
+            // $this->db->order_by('nama_item', $params['search']['sortBy']);
+            $this->db->where('resto', $params['search']['sortBy']);
+        }
+        if (!empty($params['search']['sortkategori'])) {
+            $this->db->where('kategori', $params['search']['sortkategori']);
         }
         //set start and limit
         if (array_key_exists("start", $params) && array_key_exists("limit", $params)) {
@@ -678,6 +682,7 @@ function submitpaymentv2($data)
         'id_admin' => $this->session->userdata('idadmin'),
         'tanggal_jam' => date('Y-m-d H:i:s'),
         'jenis_penjualan' => $data['statppn'],
+        'resto' => $data['resto'],
         'retur' => '0'
     );
 

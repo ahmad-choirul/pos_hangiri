@@ -95,7 +95,7 @@ class Laporan_model extends CI_Model{
 
     function getrowspenjualan($params = array()){ 
         $this->db->select("a.total_harga_item, a.total,
-            a.tanggal, e.nama_admin, a.id,a.id as id_penjualan,e.nama_admin,a.total_harga_item,a.diskon,a.jenis_penjualan,f.cara_bayar,f.no_kartu");
+            a.tanggal, e.nama_admin, a.id,a.id as id_penjualan,e.nama_admin,a.total_harga_item,a.diskon,a.jenis_penjualan,f.cara_bayar,f.no_kartu,a.resto");
         $this->db->from("penjualan a");
         $this->db->join('master_admin e', 'e.id = a.id_admin');            
         $this->db->join('penjualan_pembayaran f', 'f.id_penjualan = a.id');            
@@ -110,6 +110,9 @@ class Laporan_model extends CI_Model{
         } 
          if(!empty($params['search']['jenis_pembayaran'])){
             $this->db->where('f.cara_bayar',$params['search']['jenis_pembayaran']);
+        } 
+         if(!empty($params['search']['resto'])){
+            $this->db->where('a.resto',$params['search']['resto']);
         } 
         if(!empty($params['search']['firstdate']) AND !empty($params['search']['lastdate'])){
             $this->db->where('a.tanggal BETWEEN "'.$params['search']['firstdate']. '" and "'. $params['search']['lastdate'].'"');

@@ -115,231 +115,168 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <tr>
                                   <td>Pembelian</td>
                                   <td> <button class=" btn btn-warning " style="color:  white;float: right; border-radius: 15px; font-size: 12px;"><b> <label class="amount" id="total_beli1"></b></button></td>
-                                </tr>
-                                <tr>
-                                  <td>Piutang</td>
-                                  <td> <button class=" btn btn-warning " style="color:  white;float: right; border-radius: 15px; font-size: 12px;"><b><label class="amount" id="total_piutang1"></b></button></td>
-                                </tr>
-                                <tr>
-                                  <td>Operasional</td>
-                                  <td> <button class=" btn btn-warning " style="color:  white;float: right; border-radius: 15px; font-size: 12px;"><b> <label class="amount" id="total_operasional1"></b></button></td>
-                                </tr>
-                                <tr>
-                                 <!--  <td style=" font-size: 12px;color: black;" colspan="2"></td> -->
-                                 <td colspan="2"> <button class=" btn btn-danger " style="color:  white; border-radius: 15px;float: right; font-size: 12px;"><b>Laba / Rugi :  <label class="amount" id="total1"></b></button></td>
-                               </tr>
-                             </tbody>
-                           </table>
-                         </div>
-                       </div>
-                     </div>
-                     <!-- /.widget-user -->
-                   </div>
-                   <div class="col-md-3 col-xl-12">
-                    <section class="panel">
-                      <div id="panelppn" class="panel-body bg-primary">
-                        <div class="widget-summary">
-                          <div class="widget-summary-col">
-                            <div class="summary">
-                              <h4 class="title">Total Penjualan</h4>
-                              <div class="info">
-                                <strong class="amount" id="total_penjualan"></strong>
+                                  </tr>
+                                  <tr>
+                                    <td>Piutang</td>
+                                    <td> <button class=" btn btn-warning " style="color:  white;float: right; border-radius: 15px; font-size: 12px;"><b><label class="amount" id="total_piutang1"></b></button></td>
+                                    </tr>
+                                    <tr>
+                                      <td>Operasional</td>
+                                      <td> <button class=" btn btn-warning " style="color:  white;float: right; border-radius: 15px; font-size: 12px;"><b> <label class="amount" id="total_operasional1"></b></button></td>
+                                      </tr>
+                                      <tr>
+                                       <!--  <td style=" font-size: 12px;color: black;" colspan="2"></td> -->
+                                       <td colspan="2"> <button class=" btn btn-danger " style="color:  white; border-radius: 15px;float: right; font-size: 12px;"><b>Laba / Rugi :  <label class="amount" id="total1"></b></button></td>
+                                       </tr>
+                                     </tbody>
+                                   </table>
+                                 </div>
+                               </div>
+                             </div>
+                             <!-- /.widget-user -->
+                           </div>
+                           <div class="col-md-3 col-xl-12">
+                            <section class="panel">
+                              <div id="panelppn" class="panel-body bg-primary">
+                                <div class="widget-summary">
+                                  <div class="widget-summary-col">
+                                    <div class="summary">
+                                      <h4 class="title">Total Penjualan</h4>
+                                      <div class="info">
+                                        <strong class="amount" id="total_penjualan"></strong>
 
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
-                            </div>
+                            </section>
                           </div>
+                          <div class="col-md-3 col-xl-12">
+                            <section class="panel">
+                              <div id="panelppn" class="panel-body bg-primary">
+                                <div class="widget-summary">
+                                  <div class="widget-summary-col">
+                                    <div class="summary">
+                                      <h4 class="title">Total Harga Beli</h4>
+                                      <div class="info">
+                                        <strong class="amount" id="total_beli"></strong>
+
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </section>
+                          </div>
+                          <div class="col-md-3 col-xl-12">
+                            <section class="panel">
+                              <div id="panelnonppn" class="panel-body bg-primary">
+                                <div class="widget-summary">
+                                  <div class="widget-summary-col">
+                                    <div class="summary">
+                                      <h4 class="title">Total Operasional</h4>
+                                      <div class="info">
+                                        <strong class="amount" id="total_operasional"></strong>
+
+
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </section>
+                          </div>
+                          <div class="col-md-3 col-xl-12">
+                            <section class="panel">
+                              <div id="panelprekusor" class="panel-body bg-primary">
+                                <div class="widget-summary">
+                                  <div class="widget-summary-col">
+                                    <div class="summary">
+                                      <h4 class="title">Total Piutang</h4>
+                                      <div class="info">
+                                        <strong class="amount" id="total_piutang"></strong>
+
+
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </section>
+                          </div>
+                          <div class="col-md-3 col-xl-12">
+                            <section class="panel">
+                              <div id="paneloot" class="panel-body bg-warning">
+                                <div class="widget-summary">
+                                  <div class="widget-summary-col">
+                                    <div class="summary">
+                                      <h4 class="title">Total Laba Rugi</h4>
+                                      <div class="info">
+                                        <strong class="amount" id="total"></strong>
+
+
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </section>
+                          </div>
+
                         </div>
                       </div>
                     </section>
                   </div>
-                  <div class="col-md-3 col-xl-12">
-                    <section class="panel">
-                      <div id="panelppn" class="panel-body bg-primary">
-                        <div class="widget-summary">
-                          <div class="widget-summary-col">
-                            <div class="summary">
-                              <h4 class="title">Total Harga Beli</h4>
-                              <div class="info">
-                                <strong class="amount" id="total_beli"></strong>
-
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                  <div class="col-md-3 col-xl-12">
-                    <section class="panel">
-                      <div id="panelnonppn" class="panel-body bg-primary">
-                        <div class="widget-summary">
-                          <div class="widget-summary-col">
-                            <div class="summary">
-                              <h4 class="title">Total Operasional</h4>
-                              <div class="info">
-                                <strong class="amount" id="total_operasional"></strong>
-
-
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                  <div class="col-md-3 col-xl-12">
-                    <section class="panel">
-                      <div id="panelprekusor" class="panel-body bg-primary">
-                        <div class="widget-summary">
-                          <div class="widget-summary-col">
-                            <div class="summary">
-                              <h4 class="title">Total Piutang</h4>
-                              <div class="info">
-                                <strong class="amount" id="total_piutang"></strong>
-
-
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                  <div class="col-md-3 col-xl-12">
-                    <section class="panel">
-                      <div id="paneloot" class="panel-body bg-warning">
-                        <div class="widget-summary">
-                          <div class="widget-summary-col">
-                            <div class="summary">
-                              <h4 class="title">Total Laba Rugi</h4>
-                              <div class="info">
-                                <strong class="amount" id="total"></strong>
-
-
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-
                 </div>
               </div>
-            </section>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-</form>
-<section class="panel" style=""> 
-  <div class="panel-body"> 
-   <div class="row">
-    <div class=" col-md-12">
-     <div class="box box-info">
-      <div class="box-header with-border">
-        <h3 class="box-title">Laporan Penjualan</h3>
-        <div class="box-tools pull-right">
-          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-          </button>
-
-        </div>
-      </div>
-      <!-- /.box-header -->
-      <div class="box-body">
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-               <th>Tanggal</th>
-               <th>Barang</th>
-               <th>Total Harga</th>
-             </tr>
-           </thead>
-           <tbody>
-             <?php 
-             $total = 0;
-             $total_hargabeli=0;
-             foreach($data_penjualan as $post): ?> 
-              <tr>
-                <td><?php echo tgl_indo($post['tanggal']); ?></td>
-                <td><?php echo $post['nama_item']; ?></td>
-                <td class="text-right"><?php echo rupiah($post['total']); ?></td>
-              </tr> 
-              <?php 
-              $total += $post['total'];
-              $total_hargabeli += $post['harga_beli'];
-              ?>
-            <?php endforeach;?>  
-            <tr>
-              <td colspan="1"></td>
-              <td><b>Total</b></td>
-              <td class="text-right"><b> <?=rupiah($total)?></b></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <!-- /.table-responsive -->
-    </div>
-    <!-- /.box-body -->
-
-    <!-- /.box-footer -->
-  </div>
-
-</div>
-</div>
-
-
-
-
-
-</div>
-<br>
-<section class="panel"> 
-  <div class="panel-body">  
-    <div class="row">
-      <div class="col-md-5">
-        <div class="box box-info">
-          <div class="box-header with-border">
-            <h3 class="box-title">Operasional</h3>
-            <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-              </button>
-
             </div>
           </div>
-          <!-- /.box-header -->
-          <div class="box-body">
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Tgl Operasional</th>
-                    <th>Keterangan</th>
-                    <th>Jumlah</th>
-                    <th>Editor</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php 
-                  $total_operasional = 0;
-                  foreach($data_operasional as $post): ?> 
+        </section>
+      </form>
+      <section class="panel" style=""> 
+        <div class="panel-body"> 
+         <div class="row">
+          <div class=" col-md-12">
+           <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">Laporan Penjualan</h3>
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
                     <tr>
-                      <td><?php echo tgl_indo($post['tgl_operasional']); ?></td>
-                      <td><?php echo $post['keterangan']; ?></td>
-                      <td class="text-right"><?php echo rupiah($post['jumlah']); ?></td>
-                      <td><?php echo $post['editor']; ?></td> 
+                     <th>Tanggal</th>
+                     <th>Id Penjualan</th>
+                     <th>Total Harga</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <?php 
+                   $total = 0;
+                   $total_hargabeli=0;
+                   foreach($data_penjualan as $post): ?> 
+                    <tr>
+                      <td><?php echo tgl_indo($post['tanggal']); ?></td>
+                      <td><?php echo $post['id_penjualan']; ?></td>
+                      <td class="text-right"><?php echo rupiah($post['total']); ?></td>
                     </tr> 
                     <?php 
-                    $total_operasional += $post['jumlah'];
+                    $total += $post['total'];
+              // $total_hargabeli += $post['harga_beli'];
                     ?>
                   <?php endforeach;?>  
                   <tr>
-                    <td colspan="2"></td>
+                    <td colspan="1"></td>
                     <td><b>Total</b></td>
-                    <td class="text-right"><b> <?=rupiah($total_operasional)?></b></td>
+                    <td class="text-right"><b> <?=rupiah($total)?></b></td>
                   </tr>
                 </tbody>
               </table>
@@ -350,26 +287,96 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
           <!-- /.box-footer -->
         </div>
-      </div>
-      <br>
-      <div class="col-md-7">
-        <div class="box box-info">
-          <div class="box-header with-border">
-            <h3 class="box-title">Piutang</h3>
-            <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-              </button>
 
+      </div>
+    </div>
+
+
+
+
+
+  </div>
+  <br>
+  <section class="panel"> 
+    <div class="panel-body">  
+      <div class="row">
+        <div class="col-md-5">
+          <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">Operasional</h3>
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Tgl Operasional</th>
+                      <th>Keterangan</th>
+                      <th>Jumlah</th>
+                      <th>Editor</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                        $total_operasional = 0;
+
+                     if ($data_operasional==''): ?>
+data kosong
+                      <?php else: ?>
+                        <?php 
+                        foreach($data_operasional as $post): ?> 
+                          <tr>
+                            <td><?php echo tgl_indo($post['tgl_operasional']); ?></td>
+                            <td><?php echo $post['keterangan']; ?></td>
+                            <td class="text-right"><?php echo rupiah($post['jumlah']); ?></td>
+                            <td><?php echo $post['editor']; ?></td> 
+                          </tr> 
+                          <?php 
+                          $total_operasional += $post['jumlah'];
+                          ?>
+                        <?php endforeach;?>  
+                        <tr>
+                        <td colspan="2"></td>
+                        <td><b>Total</b></td>
+                        <td class="text-right"><b> <?=rupiah($total_operasional)?></b></td>
+                      </tr>
+                      <?php endif ?>
+                      
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.table-responsive -->
+              </div>
+              <!-- /.box-body -->
+
+              <!-- /.box-footer -->
             </div>
           </div>
-          <!-- /.box-header -->
-          <div class="box-body">
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Judul</th>
-                    <th>Nomor Faktur</th>
+          <br>
+          <div class="col-md-7">
+            <div class="box box-info">
+              <div class="box-header with-border">
+                <h3 class="box-title">Piutang</h3>
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                  </button>
+
+                </div>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Judul</th>
+                        <th>Nomor Faktur</th>
                    <!--  <th>Tanggal</th>
                     <th>Nominal</th> -->
                     <th>Jatuh Tempo</th>
@@ -381,6 +388,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <tbody>
                   <?php 
                   $total_hutang = 0;
+                  if ($data_hutang=='') {
+                   echo 'data kosong';
+                 }else{
                   foreach ($data_hutang as $r) { 
                     $sisa =  $r['nominal'] - $r['nominal_dibayar'];
                     if($r['sudah_lunas'] == '1'){
@@ -401,24 +411,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   </tr>
                   <?php 
                   $total_hutang+=$sisa;
-                } ?>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td>Total</td>
-                  <td><?php echo rupiah($total_hutang); ?>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- /.table-responsive -->
+                }
+              } ?>
+              <tr>
+                <td></td>
+                <td></td>
+                <td>Total</td>
+                <td><?php echo rupiah($total_hutang); ?>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <!-- /.box-body -->
-
-      <!-- /.box-footer -->
+      <!-- /.table-responsive -->
     </div>
+    <!-- /.box-body -->
+
+    <!-- /.box-footer -->
   </div>
+</div>
 </div>
 </div>
 
@@ -457,7 +468,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   $('#total_operasional').html('<?=rupiah($total_operasional)?>');
   $('#total_piutang').html('<?=rupiah($total_hutang)?>');
   $('#total').html('<?=rupiah($laba_rugi)?>');
-    $('#total_penjualan1').html('<?=rupiah($total)?>');
+  $('#total_penjualan1').html('<?=rupiah($total)?>');
   $('#total_beli1').html('<?=rupiah($total_hargabeli)?>');
   $('#total_operasional1').html('<?=rupiah($total_operasional)?>');
   $('#total_piutang1').html('<?=rupiah($total_hutang)?>');

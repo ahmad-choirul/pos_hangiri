@@ -90,12 +90,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <?php
                                 }?>
                                 <?php if( $this->session->userdata('kategori')==31){?>
-                                <li>
+                           <!--      <li>
                                     <a href="<?php echo base_url()?>tools"> 
                                         <i class="fa fa-cog" aria-hidden="true"></i>
                                         <span>Tools</span>
                                     </a>
-                                </li>
+                                </li> -->
                                 <?php
                                 }?>
                             </ul>

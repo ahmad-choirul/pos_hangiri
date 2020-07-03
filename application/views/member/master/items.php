@@ -55,6 +55,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <th>Harga Jual</th>
                     <th>Harga Jual 2</th>
                     <th>Tanggal Kadaluarsa</th>
+                    <th>Resto</th>
                 </tr>
             </thead>
             <tbody>
@@ -139,6 +140,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <label class="col-sm-3 control-label">Tanggal Kadaluarsa<span>*</span></label>
                     <div class="col-sm-9">
                         <input type="text" name="tanggal_expired" class="form-control tanggal_expired" data-plugin-datepicker/>
+                    </div>
+                </div>
+                <div class="form-group mt-lg resto">
+                        <label class="col-sm-3 control-label">Pilih Resto<span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <select data-plugin-selectTwo class="form-control" name="resto" required>  
+                                <option value="babe-q">Babe-Q</option>
+                                <option value="hangiri">Hangiri</option>
+                        </select> 
                     </div>
                 </div>
                 <div class="form-group gambar">
@@ -260,6 +270,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <label class="col-sm-3 control-label">Tanggal Kadaluarsa<span class="required">*</span></label>
                     <div class="col-sm-9">
                         <input type="text" name="tanggal_expired" id="tanggal_expired" class="form-control tanggal_expired" data-plugin-datepicker required/>
+                    </div>
+                </div>
+                <div class="form-group mt-lg resto">
+                        <label class="col-sm-3 control-label">Pilih Resto<span class="required">*</span></label>
+                        <div class="col-sm-9">
+                            <select data-plugin-selectTwo class="form-control" name="resto" id="resto" required>  
+                                <option value="babe-q">Babe-Q</option>
+                                <option value="hangiri">Hangiri</option>
+                        </select> 
                     </div>
                 </div>
                 <div class="form-group gambar">
@@ -472,6 +491,7 @@ e.preventDefault();
                 document.getElementById("tanggal_expired").value = item.tanggal_expireds;
                 document.getElementById("gambar").src = '<?php echo base_url()?>images/'+item.gambar; 
                 $("#kategori").select2("val", item.kategori);
+                $("#resto").select2("val", item.resto);
             }); 
         }
     });  

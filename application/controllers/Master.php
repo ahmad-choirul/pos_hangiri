@@ -443,6 +443,8 @@ class Master extends CI_Controller {
             $row[] = $this->security->xss_clean(rupiah($r->harga_jual));
             $row[] = $this->security->xss_clean(rupiah($r->harga_jual2));
             $row[] = $this->security->xss_clean(date('d M Y',strtotime($r->tgl_expired)));
+            $row[] = $this->security->xss_clean($r->resto);    
+
             $data[] = $row;
         } 
         $result = array(
@@ -497,6 +499,7 @@ class Master extends CI_Controller {
             "tanggal_expired" => $this->security->xss_clean(date('d M Y',strtotime($query->row()->tgl_expired))),
             "tanggal_expireds" => $this->security->xss_clean($query->row()->tgl_expired),
             "gambar" => $this->security->xss_clean($query->row()->gambar), 
+            "resto" => $this->security->xss_clean($query->row()->resto), 
         );    
     	echo'['.json_encode($result).']';
     }
@@ -777,11 +780,11 @@ public function operasional()
     $this->load->view('member/master/operasional');
 }
 
-public function dataoperasional()
+public function dataoperasional($resto)
 {
     cekajax();
     $get = $this->input->get();
-    $list = $this->master_model->get_operasional_datatable();
+    $list = $this->master_model->get_operasional_datatable($resto);
     $data = array();
     foreach ($list as $r) {
         $row = array();
@@ -804,8 +807,8 @@ public function dataoperasional()
     }
     $result = array(
         "draw" => $get['draw'],
-        "recordsTotal" => $this->master_model->count_all_datatable_operasional(),
-        "recordsFiltered" => $this->master_model->count_filtered_datatable_operasional(),
+        "recordsTotal" => $this->master_model->count_all_datatable_operasional($resto),
+        "recordsFiltered" => $this->master_model->count_filtered_datatable_operasional($resto),
         "data" => $data,
     );
     echo json_encode($result);
@@ -838,7 +841,7 @@ public function operasionaltambah(){
 public function operasionaldetail(){
     cekajax();
    $idd = intval($this->input->get("id"));
-   $query = $this->db->select("tgl_operasional, keterangan, jumlah, editor")->get_where('master_operasional', array('id' => $idd),1);
+   $query = $this->db->select("tgl_operasional, keterangan, jumlah, editor,resto")->get_where('master_operasional', array('id' => $idd),1);
 
     $result = array(
         "idd" => $this->security->xss_clean($idd),
@@ -848,6 +851,7 @@ public function operasionaldetail(){
         "jumlah" => $this->security->xss_clean($query->row()->jumlah),
               "jumlahrp" => $this->security->xss_clean(rupiah($query->row()->jumlah)),
               "editor" => $this->security->xss_clean($query->row()->editor),
+              "resto" => $this->security->xss_clean($query->row()->resto),
     );
     echo'['.json_encode($result).']';
 }

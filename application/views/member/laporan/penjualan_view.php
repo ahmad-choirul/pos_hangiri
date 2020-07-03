@@ -11,6 +11,7 @@
             <th>Jenis Pembayaran</th>
             <th>No Kartu</th>
              <th>Nama Admin</th> 
+             <th>Resto</th> 
         </tr>
     </thead>
     <tbody> 
@@ -42,6 +43,7 @@
             <td class="text-right"><?php echo $post['cara_bayar']; ?></td>
             <td class="text-right"><?php echo $post['no_kartu']; ?></td>
             <td class="text-right"><?php echo $post['nama_admin']; ?></td>
+            <td class="text-right"><?php echo $post['resto']; ?></td>
         </tr>  
         <?php 
         $total += $post['total'];
