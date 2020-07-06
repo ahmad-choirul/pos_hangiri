@@ -428,7 +428,7 @@ public function keranjanghapus(){
 } 
 public function canceltransaksi(){ 
     cekajax();    
-    $hapus = $this->db->where(array('hold' => '0','token' => $this->security->get_csrf_hash(),'id_admin' => $this->session->userdata('idadmin')))->delete('keranjang'); 
+    $hapus = $this->db->where(array('hold' => '0','id_admin' => $this->session->userdata('idadmin')))->delete('keranjang'); 
     if($hapus == TRUE){ 
         $data['response'] = "berhasil";
     }else{
@@ -441,10 +441,10 @@ public function tampilkanhold(){
     cekajax();    
     $hold = $this->penjualan_model;
     $get = $this->input->get(); 
-    $hapus = $this->db->where(array('hold' => '0','token' => $this->security->get_csrf_hash(),'id_admin' => $this->session->userdata('idadmin')))->delete('keranjang'); 
+    $hapus = $this->db->where(array('hold' => '0','id_admin' => $this->session->userdata('idadmin')))->delete('keranjang'); 
     if($hapus == TRUE){ 
         $hold->bukaholdtransaksi($get['idkeranjang']); 
-        $query = $this->db->get_where('keranjang', array('id' => $get['idkeranjang'],'token' => $this->security->get_csrf_hash(),'id_admin' => $this->session->userdata('idadmin')),1); 
+        $query = $this->db->get_where('keranjang', array('id' => $get['idkeranjang'],'id_admin' => $this->session->userdata('idadmin')),1); 
         if(empty($query->row()->id_pembeli)){  
             $nama_pembeli ="Walk in Customer";
             $id_pembeli ="";

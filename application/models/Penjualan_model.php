@@ -604,13 +604,13 @@ public function holdtransaksi()
     $this->hold = '1';
     $this->keterangan_hold = $post['keterangan_hold'];
     $this->waktu_hold = time();
-    return $this->db->update("keranjang", $this, array('hold' => '0', 'token' => $this->security->get_csrf_hash(), 'id_admin' => $this->session->userdata('idadmin')));
+    return $this->db->update("keranjang", $this, array('hold' => '0', 'id_admin' => $this->session->userdata('idadmin')));
 }
 
 public function bukaholdtransaksi($idkeranjang)
 {
     $this->hold = '0';
-    return $this->db->update("keranjang", $this, array('id' => $idkeranjang, 'hold' => '1', 'token' => $this->security->get_csrf_hash(), 'id_admin' => $this->session->userdata('idadmin')));
+    return $this->db->update("keranjang", $this, array('id' => $idkeranjang, 'hold' => '1',  'id_admin' => $this->session->userdata('idadmin')));
 }
 
 public function promosijenis($jenis)
