@@ -5,39 +5,52 @@
             <th>ID Penjualan</th>
             <th>Tanggal</th>
             <th>Total Diskon</th>
-            <th>Total Harga</th>
+            <th>Total Harga Item</th>
+            <th>Total Harga Item + ppn </th>
             <th>Total Akhir</th>
             <th>Jenis Penjualan</th>
             <th>Jenis Pembayaran</th>
             <th>No Kartu</th>
-             <th>Nama Admin</th> 
-             <th>Resto</th> 
+            <th>Nama Admin</th> 
+            <th>Resto</th> 
         </tr>
     </thead>
     <tbody> 
         <?php 
         $total = 0;
         $total_item = 0;
+        $total_itemppn = 0;
         $diskon = 0;
         foreach($posts as $post): 
-         $tombolhapus =  '<li><a href="#" onclick="hapus(this)" data-id="'.$post['id'].'">Hapus</a></li>';
+            $itemppn=0;
 
-         $tombolaksi = ' 
-         <div class="btn-group dropup">
-         <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Action <span class="caret"></span></button>
-         <ul class="dropdown-menu" role="menu">
-         <li><a href="#" onclick="detail(this)"  data-id="'.$this->security->xss_clean($post['id']).'">Detail</a></li> 
-         '.$tombolhapus.'
-         </ul>
-         </div>
-         ';
-         ?> 
-         <tr>
-            <td><?php echo $tombolaksi; ?></td>
-            <td><?php echo $post['id_penjualan']; ?></td>
-            <td><?php echo tgl_indo($post['tanggal']); ?></td>
-            <td class="text-right"><?php echo rupiah($post['diskon']); ?></td>
-            <td class="text-right"><?php echo rupiah($post['total_harga_item']); ?></td>
+            $tombolhapus =  '<li><a href="#" onclick="hapus(this)" data-id="'.$post['id'].'">Hapus</a></li>';
+
+            $tombolaksi = ' 
+            <div class="btn-group dropup">
+            <button type="button" class="mb-xs mt-xs mr-xs btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Action <span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu">
+            <li><a href="#" onclick="detail(this)"  data-id="'.$this->security->xss_clean($post['id']).'">Detail</a></li> 
+            '.$tombolhapus.'
+            </ul>
+            </div>
+            ';
+            ?> 
+            <tr>
+                <td><?php echo $tombolaksi; ?></td>
+                <td><?php echo $post['id_penjualan']; ?></td>
+                <td><?php echo tgl_indo($post['tanggal']); ?></td>
+                <td class="text-right"><?php echo rupiah($post['diskon']); ?></td>
+                <td class="text-right"><?php echo rupiah($post['total_harga_item']); ?></td>
+                <td class="text-right"><?php 
+                if ($post['jenis_penjualan']=='ppn') {
+                    $itemppn=$post['total_harga_item']*1.1;
+                   echo rupiah($itemppn);
+               }else{
+                 $itemppn=$post['total_harga_item'];
+                   echo rupiah($itemppn);
+            }
+            ?></td>
             <td class="text-right"><?php echo rupiah($post['total']); ?></td>
             <td class="text-right"><?php echo $post['jenis_penjualan']; ?></td>
             <td class="text-right"><?php echo $post['cara_bayar']; ?></td>
@@ -48,6 +61,7 @@
         <?php 
         $total += $post['total'];
         $total_item += $post['total_harga_item'];
+        $total_itemppn += $itemppn;
         $diskon += $post['diskon'];
         ?>
     <?php endforeach;?>  
@@ -56,6 +70,7 @@
         <td><b>Total</b></td>
         <td class="text-right"><b> <?=rupiah($diskon)?></b></td>
         <td class="text-right"><b> <?=rupiah($total_item)?></b></td>
+        <td class="text-right"><b> <?=rupiah($total_itemppn)?></b></td>
         <td class="text-right"><b> <?=rupiah($total)?></b></td>
     </tr>
 </tbody>
@@ -91,4 +106,3 @@
         </div>
     </div>
 
-  

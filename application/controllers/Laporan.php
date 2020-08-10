@@ -568,176 +568,145 @@ class Laporan extends CI_Controller {
         $this->load->view('member/laporan/penjualan_view', $data, false);
     }   
     function excel_penjualan(){       
+       $jenis_penjualan = $this->input->get('jenis_penjualan');
+       $jenis_pembayaran = $this->input->get('jenis_pembayaran');
+       $id_penjualan = $this->input->get('id_penjualan');
+       $firstdate = $this->input->get('firstdate');
+       $lastdate = $this->input->get('lastdate'); 
+       $kasir = $this->input->get('kasir');
+       $conditions['search']['jenis_pembayaran'] = $jenis_pembayaran;
+       $conditions['search']['kasir'] = $kasir;
+       $conditions['search']['id_penjualan'] = $id_penjualan;
+       $conditions['search']['jenis_penjualan'] = $jenis_penjualan;
+       $conditions['search']['firstdate'] = $firstdate;
+       $conditions['search']['lastdate'] = $lastdate;
 
-        $spreadsheet = new Spreadsheet();
+       $data['totalpenjualanhangiri']= $this->laporan_model->gettotalpenjualanexcel($conditions,'hangiri'); 
+       $data['totalpenjualanbabeq']= $this->laporan_model->gettotalpenjualanexcel($conditions,'babe-q'); 
+       $data['totaloperasionalhangiri']= $this->laporan_model->gettotaloperasionalexcel($conditions,'hangiri'); 
+       $data['totaloperasionalbabeq']= $this->laporan_model->gettotaloperasionalexcel($conditions,'babe-q'); 
 
-        $jenis_penjualan = $this->input->get('jenis_penjualan');
-        $jenis_pembayaran = $this->input->get('jenis_pembayaran');
-        $id_penjualan = $this->input->get('id_penjualan');
-        $firstdate = $this->input->get('firstdate');
-        $lastdate = $this->input->get('lastdate'); 
-        $kasir = $this->input->get('kasir');
-        $conditions['search']['jenis_pembayaran'] = $jenis_pembayaran;
-        $conditions['search']['kasir'] = $kasir;
-        $conditions['search']['id_penjualan'] = $id_penjualan;
-        $conditions['search']['jenis_penjualan'] = $jenis_penjualan;
-        $conditions['search']['firstdate'] = $firstdate;
-        $conditions['search']['lastdate'] = $lastdate;
-        $postdata = $this->laporan_model->getrowspenjualan($conditions); 
+       $data['datapenjualanhangiri'] = $this->laporan_model->getrowspenjualanexcel($conditions,'hangiri'); 
 
-        $spreadsheet->getProperties()->setCreator('Hangiri')
-        ->setLastModifiedBy('Hangiri')
-        ->setTitle('Laporan Penjualan')
-        ->setSubject('Laporan Penjualan');
-        $spreadsheet->setActiveSheetIndex(0)
-        ->setCellValue('A1', 'ID Penjualan')
-        ->setCellValue('B1', 'Tanggal')
-        ->setCellValue('C1', 'Total Diskon')
-        ->setCellValue('D1', 'Total Harga')
-        ->setCellValue('E1', 'Total Akhir') 
-        ->setCellValue('F1', 'Jenis Penjualan') 
-        ->setCellValue('G1', 'Jenis Pembayaran') 
-        ->setCellValue('H1', 'No Kartu') 
-        ->setCellValue('I1', 'Admin') 
-        ;
+       $data['datapenjualanbabeq'] = $this->laporan_model->getrowspenjualanexcel($conditions,'babe-q'); 
 
-        $i=2; 
-        foreach($postdata as $post) { 
-            $tgl = tgl_indo($post['tanggal']);
-            $diskon = rupiah($post['diskon']);
-            $total_harga_item = rupiah($post['total_harga_item']);
-            $total = rupiah($post['total']);
-            $spreadsheet->setActiveSheetIndex(0)
-            ->setCellValue('A'.$i, $post['id_penjualan'])
-            ->setCellValue('B'.$i, $tgl)
-            ->setCellValue('C'.$i, $diskon)
-            ->setCellValue('D'.$i, $total_harga_item)
-            ->setCellValue('E'.$i, $total)
-            ->setCellValue('F'.$i, $post['jenis_penjualan'])
-            ->setCellValue('G'.$i, $post['cara_bayar'])
-            ->setCellValue('H'.$i, $post['no_kartu'])
-            ->setCellValue('I'.$i, $post['nama_admin'])
-            ;
-            $i++;
-        }
+       $data['dataoperasionalhangiri'] = $this->laporan_model->getrowsoperasionalexcel($conditions,'hangiri'); 
 
-        // Rename worksheet
-        $spreadsheet->getActiveSheet()->setTitle('Laporan Penjualan');
 
-        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-        $spreadsheet->setActiveSheetIndex(0);
+       $data['dataoperasionalbabeq'] = $this->laporan_model->getrowsoperasionalexcel($conditions,'babe-q'); 
 
-        // Redirect output to a client’s web browser (Xlsx)
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="Laporan Penjualan.xlsx"');
-        header('Cache-Control: max-age=0');
-        // If you're serving to IE 9, then the following may be needed
-        header('Cache-Control: max-age=1');
+       // if ($this->input->post('submit')=='excel') {
 
-        // If you're serving to IE over SSL, then the following may be needed
-        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
-        header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
-        header('Pragma: public'); // HTTP/1.0
-
-        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-        $writer->save('php://output');
-        exit;  
-    }
-
-    
-    public function keuangan()
-    {    
-        $this->load->view('member/laporan/keuangan');
-    }   
-    
-    public function laporankeuangan()
-    {   
-        $conditions = array(); 
-        $page = $this->input->get('page');
-        if(!$page){
-        $offset = 0;
-    }else{
-    $offset = $page;
+        $this->load->view('member/laporan/laporan_pdf', $data);
+    // }else{
+    //     ini_set('memory_limit', '32M');
+    //     $this->load->library('pdf');
+    //     $html = $this->load->view('member/laporan/laporan_pdf', $data);
+        
+    //     $pdf = $this->pdf->load();
+    //     $pdf->WriteHTML($html);
+    //     $pdf->Output('laporan penjualan.pdf', 'D'); 
+    // }
 }
 
-$firstdate = $this->input->get('firstdate');
-$lastdate = $this->input->get('lastdate');  
-$conditions['search']['firstdate'] = $firstdate;
-$conditions['search']['lastdate'] = $lastdate;
+public function laporan_penjualan_pdf()
+{
+   
+    
+}
+
+public function keuangan()
+{    
+    $this->load->view('member/laporan/keuangan');
+}   
+
+public function laporankeuangan()
+{   
+    $conditions = array(); 
+    $page = $this->input->get('page');
+    if(!$page){
+        $offset = 0;
+    }else{
+        $offset = $page;
+    }
+
+    $firstdate = $this->input->get('firstdate');
+    $lastdate = $this->input->get('lastdate');  
+    $conditions['search']['firstdate'] = $firstdate;
+    $conditions['search']['lastdate'] = $lastdate;
 //total rows count
-$totalRec = count($this->laporan_model->getrowskeuangan($conditions)); 
+    $totalRec = count($this->laporan_model->getrowskeuangan($conditions)); 
 
 //pagination configuration
-$config['target']      = '#postList';
-$config['base_url']    = base_url().'laporan/laporankeuangan';
-$config['total_rows']  = $totalRec;
-$config['per_page']    = $this->perPage;
-$config['link_func']   = 'searchFilter';
-$this->ajax_pagination->initialize($config);
+    $config['target']      = '#postList';
+    $config['base_url']    = base_url().'laporan/laporankeuangan';
+    $config['total_rows']  = $totalRec;
+    $config['per_page']    = $this->perPage;
+    $config['link_func']   = 'searchFilter';
+    $this->ajax_pagination->initialize($config);
 
 //set start and limit
-$conditions['start'] = $offset;
-$conditions['limit'] = $this->perPage;
+    $conditions['start'] = $offset;
+    $conditions['limit'] = $this->perPage;
 
 //get posts data
-$data['posts'] = $this->laporan_model->getrowskeuangan($conditions);
+    $data['posts'] = $this->laporan_model->getrowskeuangan($conditions);
 
 //load the view
-$this->load->view('member/laporan/keuangan_view', $data, false);
+    $this->load->view('member/laporan/keuangan_view', $data, false);
 }   
 
 function excel_keuangan(){       
 
-$spreadsheet = new Spreadsheet(); 
-$firstdate = $this->input->get('firstdate');
-$lastdate = $this->input->get('lastdate');  
-$conditions['search']['firstdate'] = $firstdate;
-$conditions['search']['lastdate'] = $lastdate;
-$conditions['kategori']['excel'] = "excel"; 
-$postdata = $this->laporan_model->getrowskeuangan($conditions); 
+    $spreadsheet = new Spreadsheet(); 
+    $firstdate = $this->input->get('firstdate');
+    $lastdate = $this->input->get('lastdate');  
+    $conditions['search']['firstdate'] = $firstdate;
+    $conditions['search']['lastdate'] = $lastdate;
+    $conditions['kategori']['excel'] = "excel"; 
+    $postdata = $this->laporan_model->getrowskeuangan($conditions); 
 
-$spreadsheet->getProperties()->setCreator('Paber Panjaitan')
-->setLastModifiedBy('Paber Panjaitan')
-->setTitle('Laporan Format Excel')
-->setSubject('Laporan Format Excel');
+    $spreadsheet->getProperties()->setCreator('Paber Panjaitan')
+    ->setLastModifiedBy('Paber Panjaitan')
+    ->setTitle('Laporan Format Excel')
+    ->setSubject('Laporan Format Excel');
 
-$spreadsheet->setActiveSheetIndex(0)
-->setCellValue('A1', 'Tanggal')
-->setCellValue('B1', 'Kode Rekening')
-->setCellValue('C1', 'Nama Rekening')
-->setCellValue('D1', 'Masuk')
-->setCellValue('E1', 'Keluar')
-->setCellValue('F1', 'Keterangan') 
-;
+    $spreadsheet->setActiveSheetIndex(0)
+    ->setCellValue('A1', 'Tanggal')
+    ->setCellValue('B1', 'Kode Rekening')
+    ->setCellValue('C1', 'Nama Rekening')
+    ->setCellValue('D1', 'Masuk')
+    ->setCellValue('E1', 'Keluar')
+    ->setCellValue('F1', 'Keterangan') 
+    ;
 
-$i=2; 
-foreach($postdata as $post) { 
-$tgl = tgl_indo($post['tanggal']);
-$masuk = rupiah($post['masuk']); 
-$keluar = rupiah($post['keluar']); 
-$spreadsheet->setActiveSheetIndex(0)
-->setCellValue('A'.$i, $tgl)
-->setCellValue('B'.$i, $post['kode_rekening'])
-->setCellValue('C'.$i, $post['nama_rekening'])
-->setCellValue('D'.$i, $masuk)
-->setCellValue('E'.$i, $keluar)
-->setCellValue('F'.$i, $post['keterangan']) ;
-$i++;
-}
+    $i=2; 
+    foreach($postdata as $post) { 
+        $tgl = tgl_indo($post['tanggal']);
+        $masuk = rupiah($post['masuk']); 
+        $keluar = rupiah($post['keluar']); 
+        $spreadsheet->setActiveSheetIndex(0)
+        ->setCellValue('A'.$i, $tgl)
+        ->setCellValue('B'.$i, $post['kode_rekening'])
+        ->setCellValue('C'.$i, $post['nama_rekening'])
+        ->setCellValue('D'.$i, $masuk)
+        ->setCellValue('E'.$i, $keluar)
+        ->setCellValue('F'.$i, $post['keterangan']) ;
+        $i++;
+    }
 
 // Rename worksheet
-$spreadsheet->getActiveSheet()->setTitle('Keuangan');
+    $spreadsheet->getActiveSheet()->setTitle('Keuangan');
 
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-$spreadsheet->setActiveSheetIndex(0);
+    $spreadsheet->setActiveSheetIndex(0);
 
 // Redirect output to a client’s web browser (Xlsx)
-header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="Laporan Keuangan.xlsx"');
-header('Cache-Control: max-age=0');
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="Laporan Keuangan.xlsx"');
+    header('Cache-Control: max-age=0');
 // If you're serving to IE 9, then the following may be needed
-header('Cache-Control: max-age=1');
+    header('Cache-Control: max-age=1');
 
 // If you're serving to IE over SSL, then the following may be needed
 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
@@ -772,95 +741,95 @@ public function laporanpegawai()
     $conditions = array(); 
     $page = $this->input->get('page');
     if(!$page){
-    $offset = 0;
-}else{
-$offset = $page;
-}
+        $offset = 0;
+    }else{
+        $offset = $page;
+    }
 
-$pegawai = $this->input->get('pegawai');
-$firstdate = $this->input->get('firstdate');
-$lastdate = $this->input->get('lastdate'); 
-$conditions['search']['pegawai'] = $pegawai;
-$conditions['search']['firstdate'] = $firstdate;
-$conditions['search']['lastdate'] = $lastdate;
+    $pegawai = $this->input->get('pegawai');
+    $firstdate = $this->input->get('firstdate');
+    $lastdate = $this->input->get('lastdate'); 
+    $conditions['search']['pegawai'] = $pegawai;
+    $conditions['search']['firstdate'] = $firstdate;
+    $conditions['search']['lastdate'] = $lastdate;
 //total rows count
-$totalRec = count($this->laporan_model->getrowpegawai($conditions)); 
+    $totalRec = count($this->laporan_model->getrowpegawai($conditions)); 
 
 //pagination configuration
-$config['target']      = '#postList';
-$config['base_url']    = base_url().'laporan/laporanpegawai';
-$config['total_rows']  = $totalRec;
-$config['per_page']    = $this->perPage;
-$config['link_func']   = 'searchFilter';
-$this->ajax_pagination->initialize($config);
+    $config['target']      = '#postList';
+    $config['base_url']    = base_url().'laporan/laporanpegawai';
+    $config['total_rows']  = $totalRec;
+    $config['per_page']    = $this->perPage;
+    $config['link_func']   = 'searchFilter';
+    $this->ajax_pagination->initialize($config);
 
 //set start and limit
-$conditions['start'] = $offset;
-$conditions['limit'] = $this->perPage;
+    $conditions['start'] = $offset;
+    $conditions['limit'] = $this->perPage;
 
 //get posts data
-$data['posts'] = $this->laporan_model->getrowpegawai($conditions);
+    $data['posts'] = $this->laporan_model->getrowpegawai($conditions);
 
 //load the view
-$this->load->view('member/laporan/pegawai_view', $data, false);
+    $this->load->view('member/laporan/pegawai_view', $data, false);
 }   
 
 function excel_pegawai(){       
 
-$spreadsheet = new Spreadsheet();
-$supplier = $this->input->get('supplier');
-$firstdate = $this->input->get('firstdate');
-$lastdate = $this->input->get('lastdate'); 
-$conditions['search']['supplier'] = $supplier;
-$conditions['search']['firstdate'] = $firstdate;
-$conditions['search']['lastdate'] = $lastdate;
-$conditions['kategori']['excel'] = "excel"; 
-$postdata = $this->laporan_model->getrowspembelian($conditions); 
+    $spreadsheet = new Spreadsheet();
+    $supplier = $this->input->get('supplier');
+    $firstdate = $this->input->get('firstdate');
+    $lastdate = $this->input->get('lastdate'); 
+    $conditions['search']['supplier'] = $supplier;
+    $conditions['search']['firstdate'] = $firstdate;
+    $conditions['search']['lastdate'] = $lastdate;
+    $conditions['kategori']['excel'] = "excel"; 
+    $postdata = $this->laporan_model->getrowspembelian($conditions); 
 
-$spreadsheet->getProperties()->setCreator('Paber Panjaitan')
-->setLastModifiedBy('Paber Panjaitan')
-->setTitle('Laporan Format Excel')
-->setSubject('Laporan Format Excel');
+    $spreadsheet->getProperties()->setCreator('Paber Panjaitan')
+    ->setLastModifiedBy('Paber Panjaitan')
+    ->setTitle('Laporan Format Excel')
+    ->setSubject('Laporan Format Excel');
 
-$spreadsheet->setActiveSheetIndex(0)
-->setCellValue('A1', 'Nomor Faktur')
-->setCellValue('B1', 'Tanggal Pembelian')
-->setCellValue('C1', 'Kode Supplier')
-->setCellValue('D1', 'Nama Supplier')
-->setCellValue('E1', 'Total')
-->setCellValue('F1', 'Pembayaran')
-->setCellValue('G1', 'Termin')
-->setCellValue('H1', 'Keterangan')
-;
+    $spreadsheet->setActiveSheetIndex(0)
+    ->setCellValue('A1', 'Nomor Faktur')
+    ->setCellValue('B1', 'Tanggal Pembelian')
+    ->setCellValue('C1', 'Kode Supplier')
+    ->setCellValue('D1', 'Nama Supplier')
+    ->setCellValue('E1', 'Total')
+    ->setCellValue('F1', 'Pembayaran')
+    ->setCellValue('G1', 'Termin')
+    ->setCellValue('H1', 'Keterangan')
+    ;
 
-$i=2; 
-foreach($postdata as $post) { 
-$tgl = tgl_indo($post['tgl_pembelian']);
-$total = rupiah($post['total']);
-$spreadsheet->setActiveSheetIndex(0)
-->setCellValue('A'.$i, $post['nomor_faktur'])
-->setCellValue('B'.$i, $tgl)
-->setCellValue('C'.$i, $post['supplier'])
-->setCellValue('D'.$i, $post['nama_supplier'])
-->setCellValue('E'.$i, $total)
-->setCellValue('F'.$i, $post['pembayaran'])
-->setCellValue('G'.$i, $post['termin']." Hari")
-->setCellValue('H'.$i, $post['keterangan']);
-$i++;
-}
+    $i=2; 
+    foreach($postdata as $post) { 
+        $tgl = tgl_indo($post['tgl_pembelian']);
+        $total = rupiah($post['total']);
+        $spreadsheet->setActiveSheetIndex(0)
+        ->setCellValue('A'.$i, $post['nomor_faktur'])
+        ->setCellValue('B'.$i, $tgl)
+        ->setCellValue('C'.$i, $post['supplier'])
+        ->setCellValue('D'.$i, $post['nama_supplier'])
+        ->setCellValue('E'.$i, $total)
+        ->setCellValue('F'.$i, $post['pembayaran'])
+        ->setCellValue('G'.$i, $post['termin']." Hari")
+        ->setCellValue('H'.$i, $post['keterangan']);
+        $i++;
+    }
 
 // Rename worksheet
-$spreadsheet->getActiveSheet()->setTitle('Pembelian');
+    $spreadsheet->getActiveSheet()->setTitle('Pembelian');
 
 // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-$spreadsheet->setActiveSheetIndex(0);
+    $spreadsheet->setActiveSheetIndex(0);
 
 // Redirect output to a client’s web browser (Xlsx)
-header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="Laporan Pembelian.xlsx"');
-header('Cache-Control: max-age=0');
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="Laporan Pembelian.xlsx"');
+    header('Cache-Control: max-age=0');
 // If you're serving to IE 9, then the following may be needed
-header('Cache-Control: max-age=1');
+    header('Cache-Control: max-age=1');
 
 // If you're serving to IE over SSL, then the following may be needed
 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past

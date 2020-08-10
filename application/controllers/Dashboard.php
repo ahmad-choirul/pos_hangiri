@@ -19,6 +19,12 @@ class Dashboard extends CI_Controller {
         $this->session->sess_destroy();  
         redirect(base_url());
     } 
+    public function cek()
+    {
+       echo "<pre>";
+       print_r ($this->session->flashdata('cek'));
+       echo "</pre>";
+    }
     public function penjualan_2_minggu(){ 
         cekajax(); 
         $now = new DateTime('12 days ago');

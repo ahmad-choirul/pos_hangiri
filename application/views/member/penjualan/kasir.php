@@ -4,11 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html class="fixed sidebar-left-collapsed">
 <head>  
 	<meta charset="UTF-8"> 
-	<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favi.png" type="image/ico">   
-	<title>Hangiri Resto</title>    
+	<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favicon.png" type="image/ico">   
+	<title>Babe'Q Resto</title>    
 	<meta name="author" content="Paber"> 
 	<!-- Mobile Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> -->
+	<meta name="viewport" content="width=1366,height=768">
+
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/vendor/bootstrap/css/bootstrap.css" />
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/vendor/font-awesome/css/font-awesome.css" />
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/vendor/magnific-popup/magnific-popup.css" />
@@ -82,6 +84,8 @@ if ($this->input->get('potongan')=='10') {
 	$potongan='20';
 }elseif($this->input->get('potongan')=='30') {
 	$potongan='30';
+}elseif($this->input->get('potongan')=='100') {
+	$potongan='100';
 }
 else{
 	$potongan='0';
@@ -125,6 +129,10 @@ else{
 		    		<?php
 		    	}?>
 		    	<li>
+		    		<a href="<?php echo site_url('laporan/penjualan') ?>" type="button" class="mb-xs mt-xs mr-xs btn btn-primary">
+		    			<i class="fa  fa-list"></i> Laporan Penjualan</a>
+		    		</li> 
+		    		<li>
 		    		<a href="#" data-toggle="modal" data-target="#modal-hold" type="button" class="mb-xs mt-xs mr-xs btn btn-primary">
 		    			<i class="fa  fa-list"></i> Data Hold</a>
 		    		</li> 
@@ -196,6 +204,7 @@ else{
 													<option <?php if ($potongan == '10' ) echo 'selected' ; ?> value="10">Disc 10%</option>
 													<option <?php if ($potongan == '20' ) echo 'selected' ; ?> value="20">Disc 20%</option>
 													<option <?php if ($potongan == '30' ) echo 'selected' ; ?> value="30">Disc 30%</option>
+													<option <?php if ($potongan == '100' ) echo 'selected' ; ?> value="100">Disc 100% maks 50k</option>
 												</select> 
 											</div>
 										</div>
@@ -325,7 +334,7 @@ else{
 											</div>
 											<div class="row">
 												<div class="col-md-12">  
-													<a id="beli-item<?php echo $key['kode_item']; ?>" class="btn btn-xs btn-success"  onclick="beli(this)" data-barcode="<?php echo $key['kode_item']; ?>"><i class="fa fa-shopping-cart"></i> Beli Produk</a> 
+													<a id="beli-item<?php echo $key['kode_item']; ?>" class="btn btn-lg btn-success btn-block"  onclick="beli(this)" data-barcode="<?php echo $key['kode_item']; ?>"><i class="fa fa-shopping-cart"></i> Beli Produk</a> 
 												</div> 
 											</div>  
 										</div>
@@ -1302,14 +1311,12 @@ else{
             	var statppn = '<?php echo $statppn; ?>'; 
             	var stattrans = '<?php echo $stattrans; ?>'; 
             	var potongan = '<?php echo $potongan ?>';
+            	var resto = '<?php echo $resto ?>'; 
             	// var catatan = "catatan"; 
             	if (no_kartu!='') {
             		if (Number(totalbayar)==Number(totalbelanja)) {
             			var pegawai;
             			pegawai = $("#nama_pegawai").val(); 
-
-            		// $('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn)
-            		// .submit()
             		window.open('<?=base_url()?>penjualan/strukedc?t='+idk+'&pegawai='+pegawai+'&resto='+resto+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn+'&stattrans='+stattrans+'&potongan='+potongan+'&no_kartu='+no_kartu+'&potonganrp='+potonganrp,'_blank');
             		window.setTimeout(function() {  location.reload();}, 2000);
             		

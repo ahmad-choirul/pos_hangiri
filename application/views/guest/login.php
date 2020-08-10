@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<section class="body-sign">
 			<div class="center-sign">
 				<a href="<?php echo base_url()?>" class="logo pull-left">
-					<img src="<?php echo base_url()?>assets/images/<?php echo $this->db->get_where('profil_apotek', array('id' => '1'),1)->row()->logo; ?>" height="54" alt="Logo" />
+					<img src="<?php echo base_url()?>assets/images/1561981884.png" height="54" alt="Logo" />
 				</a>
 
 				<div class="panel panel-sign">

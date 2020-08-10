@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>  
   <meta charset="UTF-8"> 
   <link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favicon.png" type="image/ico">   
-  <title>PT BIGENMI GEMILANG INDONESIA</title>    
+  <title>PT BIGENMI GEMILANG INDONESIA - Babe'Q Resto</title>    
   <meta name="author" content="Paber">  
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link rel="stylesheet" href="<?php echo base_url()?>assets/vendor/bootstrap/css/bootstrap.css" />
@@ -110,8 +110,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <span onclick="searchFilter()" class="btn btn-primary" id="TampilkanHTML">
           <i class="fa fa-search"></i> Tampilkan Data
         </span>
-        <button type="submit"  class="btn btn-primary" id="ExportKeExcel">
-          <i class="fa fa-file-excel-o"></i> Export Excel
+        <button type="submit" name="submit" value="excel" class="btn btn-primary" id="ExportKeExcel">
+          <i class="fa fa-file-excel-o"></i> Laporan Web
+        </button>
+        <button type="submit" name="submit" value="excel" class="btn btn-primary" id="ExportKepdf">
+          <i class="fa fa-file-pdf-o"></i> Export PDF
         </button>
         <button type="reset" class="btn btn-danger" id="ResetBtn">
           <i class="fa fa-history"></i> Reset
@@ -221,7 +224,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       datarow+='<table class="table table-bordered table-hover table-striped dataTable no-footer">';
       datarow+="<thead><tr>";
       datarow+="<th>Kode Item</th>";
-      datarow+="<th>Harga Beli</th>";
+      datarow+="<th>Nama Item</th>";
+      datarow+="<th>Quantiti</th>";
       datarow+="<th>Harga Jual</th>";
       datarow+="<th>Total</th>"; 
       datarow+="</tr></thead>";
@@ -230,7 +234,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       $.each(response.datasub, function(i, itemsub) {
         datarow+="<tr>";
         datarow+="<td>"+itemsub.kode_item+"</td>"; 
-        datarow+="<td>"+itemsub.harga_beli+"</td>"; 
+        datarow+="<td>"+itemsub.nama_item+"</td>"; 
+        datarow+="<td>"+itemsub.kuantiti+"</td>"; 
         datarow+="<td>"+itemsub.harga_jual+"</td>"; 
         datarow+="<td>"+itemsub.total+"</td>"; 
         datarow+="</tr>"; 

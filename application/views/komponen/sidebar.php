@@ -53,15 +53,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </li>
                                 <?php
                                 }?>
-                                <?php if( $this->session->userdata('kategori')==31){?>
                                 <li>
                                     <a href="<?php echo base_url()?>penjualan"> 
                                         <i class="fa  fa-shopping-cart" aria-hidden="true"></i>
                                         <span>Penjualan</span>
                                     </a>
                                 </li>
-                                <?php
-                                }?>
                                 <?php if( $this->session->userdata('kategori')==31){?>
                                 <li>
                                     <a href="<?php echo base_url()?>keuangan"> 
@@ -71,15 +68,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </li>
                                 <?php 
                                 }?>
-                                <?php if( $this->session->userdata('kategori')==31){?>
                                 <li>
                                     <a href="<?php echo base_url()?>laporan"> 
                                         <i class="fa fa-bar-chart-o" aria-hidden="true"></i>
                                         <span>Laporan</span>
                                     </a>
                                 </li>
-                                <?php 
-                                }?>
                                 <?php if( $this->session->userdata('kategori')==31){?>
                                 <li>
                                     <a href="<?php echo base_url()?>user"> 

@@ -1,29 +1,39 @@
 <?php
 function rupiah($angka){
+    if ($angka==''||$angka==null) {
+        $angka=0;
+    }
     $rupiah=number_format($angka,0,',','.');
     return "Rp ".$rupiah;
 }
 function bilanganbulat($teks) { 
-    $teks=preg_replace("/[^0-9]/", "", $teks);
-    return $teks;
+ if ($teks==''||$teks==null) {
+    $teks=0;
+}
+$teks=preg_replace("/[^0-9]/", "", $teks);
+return $teks;
 }
 function tgl_indo($date) {  
-    $BulanIndo = array("Januari", "Februari", "Maret",
-    "April", "Mei", "Juni",
-    "Juli", "Agustus", "September",
-    "Oktober", "November", "Desember"); 
-    $tahun = substr($date, 0, 4); 
-    $bulan = substr($date, 5, 2);  
-    $tgl   = substr($date, 8, 2);   
-    $result = $tgl . " " . $BulanIndo[(int)$bulan-1] . " ". $tahun;
-    return($result);
+    if ($date=='0000-00-00') {
+        return 'format tanggal salah';
+    }else{
+        $BulanIndo = array("Januari", "Februari", "Maret",
+            "April", "Mei", "Juni",
+            "Juli", "Agustus", "September",
+            "Oktober", "November", "Desember"); 
+        $tahun = substr($date, 0, 4); 
+        $bulan = substr($date, 5, 2);  
+        $tgl   = substr($date, 8, 2);   
+        $result = $tgl . " " . $BulanIndo[(int)$bulan-1] . " ". $tahun;
+        return $result;
+    }
 } 
 
 function bulan_indo($date) {  
     $BulanIndo = array("Januari", "Februari", "Maret",
-    "April", "Mei", "Juni",
-    "Juli", "Agustus", "September",
-    "Oktober", "November", "Desember"); 
+        "April", "Mei", "Juni",
+        "Juli", "Agustus", "September",
+        "Oktober", "November", "Desember"); 
     $bulan = $date;   
     $result = $BulanIndo[(int)$bulan-1];
     return($result);

@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <head>  
 		<meta charset="UTF-8"> 
 		<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favi.png" type="image/ico">   
-		<title>Hangiri Resto</title>    
+		<title>Babe'Q Resto</title>    
 		<meta name="author" content="Paber"> 
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -68,6 +68,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             <a href="<?php echo base_url()?>penjualan/kode_promosi" class="menu-item" style="color: white;"><i class="fa fa-folder"></i> Kode Promosi</a>
                                                             <div class="item-options">
                                                                 <a href="<?php echo base_url()?>penjualan/kode_promosi">
+                                                                    <i class="fa fa-arrow-circle-o-left"></i>
+                                                                </a> 
+                                                            </div>
+                                                        </li> 
+                                                         <li>
+                                                            <a href="<?php echo base_url()?>penjualan/master_promosi" class="menu-item" style="color: white;"><i class="fa fa-folder"></i> Master Promosi</a>
+                                                            <div class="item-options">
+                                                                <a href="<?php echo base_url()?>penjualan/master_promosi">
                                                                     <i class="fa fa-arrow-circle-o-left"></i>
                                                                 </a> 
                                                             </div>
