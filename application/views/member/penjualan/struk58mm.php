@@ -143,7 +143,7 @@
 						foreach ($keranjang as $key) : ?>
 							<tr>
 								<td colspan="2" style="text-transform: uppercase;">
-									<?=$key['nama_item']?>
+									<?=$key['nama_item']?> 
 								</td>
 							</tr>
 							<tr>
@@ -246,7 +246,7 @@
 					<div class="content" >
 						<div class="head-desc">
 							<div class="date">
-								<?=date('d M Y')?> | <?= $pegawai; ?>
+								<?=date('d M Y')?> | <?= strtoupper($pegawai); ?>
 							</div>
 						</div>
 
@@ -294,15 +294,15 @@
 						printDiv('strukdapur');  
 					},5000);
 
-					setTimeout(function(){
-						self.close();  
-					},7000);
+					// setTimeout(function(){
+					// 	self.close();  
+					// },7000);
 
 				</script>
 				<?php 
 				function setrupiah($angka)
 				{
-					$hasil = "Rp. ".number_format($angka,2,',','.');
+					$hasil = "".number_format($angka,2,',','.');
 					return $hasil;
 				} ?>
 			</body>

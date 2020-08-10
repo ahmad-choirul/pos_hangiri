@@ -1,21 +1,24 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
  
-// reference the Dompdf namespace
-use Dompdf\Dompdf;
+class pdf {
+    
+    public function __construct()
+    {
+        $CI = & get_instance();
+        log_message('Debug', 'mPDF class is loaded.');
+    }
  
-class Pdf
-{
-    public function __construct(){
-        
-        // include autoloader
-        require_once 'dompdf/autoload.inc.php';
-        
-        // instantiate and use the dompdf class
-        $pdf = new DOMPDF();
-        
-        $CI =& get_instance();
-        $CI->dompdf = $pdf;
-        
+    function load($param=NULL)
+    {
+        include_once APPPATH.'third_party/PHPExcel/PHPExcel/Writer/PDF/mPDF.php';
+         
+        if ($params == NULL)
+        {
+            $param = '"en-GB-x","A4","","",10,10,10,10,6,3';         
+        }
+         
+        return new mPDF($param);
     }
 }
-?>
+
+
