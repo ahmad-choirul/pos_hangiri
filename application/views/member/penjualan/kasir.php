@@ -4,8 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html class="fixed sidebar-left-collapsed">
 <head>  
 	<meta charset="UTF-8"> 
-	<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favi.png" type="image/ico">   
-	<title>Hangiri Resto</title>    
+	<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favicon.png" type="image/ico">   
+	<title>Babe'Q Resto</title>    
 	<meta name="author" content="Paber"> 
 	<!-- Mobile Metas -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -82,6 +82,8 @@ if ($this->input->get('potongan')=='10') {
 	$potongan='20';
 }elseif($this->input->get('potongan')=='30') {
 	$potongan='30';
+}elseif($this->input->get('potongan')=='100') {
+	$potongan='100';
 }
 else{
 	$potongan='0';
@@ -125,6 +127,10 @@ else{
 		    		<?php
 		    	}?>
 		    	<li>
+		    		<a href="<?php echo site_url('laporan/penjualan') ?>" type="button" class="mb-xs mt-xs mr-xs btn btn-primary">
+		    			<i class="fa  fa-list"></i> Laporan Penjualan</a>
+		    		</li> 
+		    		<li>
 		    		<a href="#" data-toggle="modal" data-target="#modal-hold" type="button" class="mb-xs mt-xs mr-xs btn btn-primary">
 		    			<i class="fa  fa-list"></i> Data Hold</a>
 		    		</li> 
@@ -196,6 +202,7 @@ else{
 													<option <?php if ($potongan == '10' ) echo 'selected' ; ?> value="10">Disc 10%</option>
 													<option <?php if ($potongan == '20' ) echo 'selected' ; ?> value="20">Disc 20%</option>
 													<option <?php if ($potongan == '30' ) echo 'selected' ; ?> value="30">Disc 30%</option>
+													<option <?php if ($potongan == '100' ) echo 'selected' ; ?> value="100">Disc 100% maks 50k</option>
 												</select> 
 											</div>
 										</div>
@@ -1302,6 +1309,7 @@ else{
             	var statppn = '<?php echo $statppn; ?>'; 
             	var stattrans = '<?php echo $stattrans; ?>'; 
             	var potongan = '<?php echo $potongan ?>';
+            	var resto = '<?php echo $resto ?>';
             	// var catatan = "catatan"; 
             	if (no_kartu!='') {
             		if (Number(totalbayar)==Number(totalbelanja)) {

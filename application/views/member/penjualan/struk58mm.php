@@ -122,6 +122,8 @@
 
 			<div class="head-desc">
 				<div class="date">
+					<?= $resto ?>
+					<br>
 					<?= strtoupper(date('d M Y'));?> | <?= strtoupper($pegawai); ?> | <?php echo strtoupper($statppn) ?>
 				</div>
 			</div>

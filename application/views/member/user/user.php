@@ -129,12 +129,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     <input type="text" name="alamat" class="form-control" />
                                 </div>
                             </div>
-                            <div class="form-group telepon">
-                                <label class="col-sm-3 control-label">Telepon<span class="required">*</span></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="telepon" class="form-control" />
-                                </div>
-                            </div>   
                             <div class="form-group handphone">
                                 <label class="col-sm-3 control-label">Handphone<span class="required">*</span></label>
                                 <div class="col-sm-9">
@@ -422,7 +416,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         text: "Request gagal, browser akan direload",
                         type: 'danger'
                     }); 
-                    window.setTimeout(function() {  location.reload();}, 2000);
+window.setTimeout(function() {  location.reload();}, 2000);
+
+
                 }); 
                 e.preventDefault(); 
             }); 
@@ -544,7 +540,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         text: "Request gagal, browser akan direload",
                         type: 'danger'
                     }); 
-                    window.setTimeout(function() {  location.reload();}, 2000);
+window.setTimeout(function() {  location.reload();}, 2000);
+
+
                 }); 
                 e.preventDefault(); 
             }); 
@@ -604,7 +602,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         text: "Request gagal, browser akan direload",
                         type: 'danger'
                     }); 
-                    window.setTimeout(function() {  location.reload();}, 2000);
+window.setTimeout(function() {  location.reload();}, 2000);
+
+
                 }); 
                 e.preventDefault(); 
             }); 

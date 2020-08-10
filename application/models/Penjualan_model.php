@@ -18,17 +18,17 @@ class Penjualan_model extends CI_Model
     }
 
     public function get_penjualan($idd){ 
-    $this->db->select("a.*,b.nama_pembeli,d.nama_admin");
-    $this->db->from("penjualan a");
-    $this->db->join('master_pembeli b', 'b.id = a.id_pembeli', 'left');
-    $this->db->join('master_admin d', 'd.id = a.id_admin', 'left');
-    $this->db->where('a.id', $idd,'1'); 
-    return $this->db->get()->result_array();
-} 
+        $this->db->select("a.*,b.nama_pembeli,d.nama_admin");
+        $this->db->from("penjualan a");
+        $this->db->join('master_pembeli b', 'b.id = a.id_pembeli', 'left');
+        $this->db->join('master_admin d', 'd.id = a.id_admin', 'left');
+        $this->db->where('a.id', $idd,'1'); 
+        return $this->db->get()->result_array();
+    } 
     public function data_diskon()
     {
         $this->db->select("a.id, a.kode_item, a.min_kuantiti,
-           a.diskon, a.tanggal_berakhir, b.nama_item");
+         a.diskon, a.tanggal_berakhir, b.nama_item");
         $this->db->from("master_diskon_kelipatan a");
         $this->db->join('master_item b', 'b.kode_item = a.kode_item');
         return $this->db->get()->result_array();
@@ -110,7 +110,7 @@ class Penjualan_model extends CI_Model
         return $this->db->where('id', $post['idd'])->delete('master_diskon_kelipatan');
     }
 
-       function getRows($params = array(),$kategori=null)
+    function getRows($params = array(),$kategori=null)
     {
         $this->db->select('*');
         $this->db->from('master_item');
@@ -120,6 +120,7 @@ class Penjualan_model extends CI_Model
         //filter data by searched keywords
         if (!empty($params['search']['keywords'])) {
             $this->db->like('nama_item', $params['search']['keywords']);
+            $this->db->or_like('kode_item', $params['search']['keywords']);
         }
         //sort data by ascending or desceding order
         if (!empty($params['search']['sortBy'])) {
@@ -221,13 +222,15 @@ class Penjualan_model extends CI_Model
 
 
     // datatable kode_promosi start
-    var $column_search_kode_promosi = array('kode_promosi','nama', 'instagram', 'tanggal_lahir','hp');
-    var $column_order_kode_promosi = array(null,'kode_promosi','nama', 'instagram', 'tanggal_lahir','hp');
+    var $column_search_kode_promosi = array('kode_promosi','nama', 'instagram', 'tanggal_lahir','hp','nama_promosi');
+    var $column_order_kode_promosi = array(null,'kode_promosi','nama', 'instagram', 'tanggal_lahir','hp','nama_promosi');
     var $order_kode_promosi = array('id_kode_promosi' => 'DESC');
     private function _get_query_kode_promosi()
     {
         $get = $this->input->get();
+        $this->db->select('master_kode_promosi.*,master_promosi.nama_promosi');
         $this->db->from('master_kode_promosi');
+        $this->db->join('master_promosi', 'master_promosi.id_promosi = master_kode_promosi.id_promosi');
         $i = 0;
         foreach ($this->column_search_kode_promosi as $item) {
             if ($get['search']['value']) {
@@ -311,6 +314,7 @@ class Penjualan_model extends CI_Model
             'instagram' => $post["instagram"],
             'tanggal_lahir' => $post["tanggal_lahir"],
             'hp' => $post["hp"],
+            'id_promosi' => $post["id_promosi"],
         );
         return $this->db->insert("master_kode_promosi", $array);
     }
@@ -354,6 +358,7 @@ class Penjualan_model extends CI_Model
         $this->instagram = $post["instagram"];
         $this->tanggal_lahir = $post["tanggal_lahir"];
         $this->hp = $post["hp"];
+        $this->id_promosi = $post["id_promosi"];
         return $this->db->update("master_kode_promosi", $this, array('id_kode_promosi' => $post['idd']));
     }
 
@@ -365,6 +370,117 @@ class Penjualan_model extends CI_Model
     }
     // CRUD supplier end
 
+
+    // datatable master_promosi start
+    var $column_search_master_promosi = array('id_promosi','nama_promosi', 'tgl_awal', 'tgl_akhir','status');
+    var $column_order_master_promosi = array(null,'id_promosi','nama_promosi', 'tgl_awal', 'tgl_akhir','status');
+    var $order_master_promosi = array('id_promosi' => 'DESC');
+    private function _get_query_master_promosi()
+    {
+        $get = $this->input->get();
+        $this->db->from('master_promosi');
+        $i = 0;
+        foreach ($this->column_search_master_promosi as $item) {
+            if ($get['search']['value']) {
+                if ($i === 0) {
+                    $this->db->group_start();
+                    $this->db->like($item, $get['search']['value']);
+                } else {
+                    $this->db->or_like($item, $get['search']['value']);
+                }
+
+                if (count($this->column_search_master_promosi) - 1 == $i)
+                    $this->db->group_end();
+            }
+            $i++;
+        }
+        if (isset($get['order'])) {
+            $this->db->order_by($this->column_order_master_promosi[$get['order']['0']['column']], $get['order']['0']['dir']);
+        } else if (isset($this->order_master_promosi)) {
+            $order = $this->order_master_promosi;
+            $this->db->order_by(key($order), $order[key($order)]);
+        }
+    }
+
+    function get_master_promosi_datatable()
+    {
+        $get = $this->input->get();
+        $this->_get_query_master_promosi();
+        if ($get['length'] != -1)
+            $this->db->limit($get['length'], $get['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function count_filtered_datatable_master_promosi()
+    {
+        $this->_get_query_master_promosi();
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function count_all_datatable_master_promosi()
+    {
+        $this->db->from('master_promosi');
+        return $this->db->count_all_results();
+    }
+    //datatable master_promosi end
+
+    // CRUD data kode_promosi start
+    public function rulesmaster_promosi()
+    {
+        return [
+            [
+                'field' => 'nama_promosi',
+                'label' => 'nama Promosi',
+                'rules' => 'required',
+            ],
+            [
+                'field' => 'tgl_awal',
+                'label' => 'tanggal awal',
+                'rules' => 'required',
+            ],
+            [
+                'field' => 'tgl_akhir',
+                'label' => 'tanggal akhir',
+                'rules' => 'required',
+            ]
+        ];
+    }
+function get_master_promosi()
+{
+    // $this->db->select('*');$
+    // $this->db->where('Field / comparison', $Value);
+    $query = $this->db->query('SELECT * FROM `master_promosi` WHERE status = 1 ');
+    return $query->result();
+}
+    function simpandatamaster_promosi()
+    {
+        $post = $this->input->post();
+        $array = array(
+            'nama_promosi' => $post["nama_promosi"],
+            'tgl_awal' => $post["tgl_awal"],
+            'tgl_akhir' => $post["tgl_akhir"],
+        );
+        return $this->db->insert("master_promosi", $array);
+    }
+
+    public function updatedatamaster_promosi()
+    {
+        $post = $this->input->post();
+        $this->nama_promosi = $post["nama_promosi"];
+        $this->tgl_awal = $post["tgl_awal"];
+        $this->tgl_akhir = $post["tgl_akhir"];
+        return $this->db->update("master_promosi", $this, array('id_promosi' => $post['idd']));
+    }
+
+    public function hapusmaster_promosi()
+    {
+        $post = $this->input->post();
+        $this->db->where('id_promosi', $post['idd']);
+        return $this->db->update('master_promosi',array('status' => '0' ));
+    }
+    // CRUD supplier end
 
     public function stokracikan($kode)
     {
@@ -408,15 +524,15 @@ class Penjualan_model extends CI_Model
         if ($query->num_rows() < 1) {
             $diskon =  $this->diskon_produk($kodeproduk, 1);
             if ($jenis_penjualan=='grab') {
-               $harga = $produk->row()->harga_jual2;
-           } elseif ($jenis_penjualan=='gojek') {
-               $harga = $produk->row()->harga_jual2;
-           }else{
-               $harga = $produk->row()->harga_jual;
-           }
-           $harga_beli = $produk->row()->harga_beli;
-           $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
-           $array = array(
+             $harga = $produk->row()->harga_jual2;
+         } elseif ($jenis_penjualan=='gojek') {
+             $harga = $produk->row()->harga_jual2;
+         }else{
+             $harga = $produk->row()->harga_jual;
+         }
+         $harga_beli = $produk->row()->harga_beli;
+         $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
+         $array = array(
             'id_keranjang' => $idkeranjang,
             'kode_item' => $kodeproduk,
             'harga' => $harga,
@@ -425,31 +541,31 @@ class Penjualan_model extends CI_Model
             'kuantiti' => $kuantiti,
             'total' => $total,
         );
-           $this->db->insert("keranjang_detail", $array);  
-           $this->session->set_flashdata('query', $this->db->last_query());     
+         $this->db->insert("keranjang_detail", $array);  
+         $this->session->set_flashdata('query', $this->db->last_query());     
          // $this->updatekeranjang($idkeranjang);
-           return TRUE;
-       } else {
+         return TRUE;
+     } else {
         $kuantiti = $query->row()->kuantiti + $kuantiti;
         $diskon =  $this->diskon_produk($kodeproduk, $kuantiti);
         if ($jenis_penjualan=='grab') {
-           $harga = $produk->row()->harga_jual2;
-       } elseif ($jenis_penjualan=='gojek') {
-           $harga = $produk->row()->harga_jual2;
-       }else{
-           $harga = $produk->row()->harga_jual;
-       }
-       $harga_beli = $produk->row()->harga_beli;
-       $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
-       $this->harga = $harga;
-       $this->harga_beli = $harga_beli;
-       $this->diskon = $diskon;
-       $this->kuantiti = $kuantiti;
-       $this->total = $total;
-       $this->db->update("keranjang_detail", $this, array('id_keranjang' => $idkeranjang, 'kode_item' => $kodeproduk));
+         $harga = $produk->row()->harga_jual2;
+     } elseif ($jenis_penjualan=='gojek') {
+         $harga = $produk->row()->harga_jual2;
+     }else{
+         $harga = $produk->row()->harga_jual;
+     }
+     $harga_beli = $produk->row()->harga_beli;
+     $total = ($harga * $kuantiti) - ($diskon * $kuantiti);
+     $this->harga = $harga;
+     $this->harga_beli = $harga_beli;
+     $this->diskon = $diskon;
+     $this->kuantiti = $kuantiti;
+     $this->total = $total;
+     $this->db->update("keranjang_detail", $this, array('id_keranjang' => $idkeranjang, 'kode_item' => $kodeproduk));
      // $this->updatekeranjang($idkeranjang);
-       return TRUE;
-   }
+     return TRUE;
+ }
 }
 public function tambahkeranjang($idd)
 {
@@ -543,24 +659,24 @@ public function get_keranjang()
 }
 public function ubahhargakeranjang($statppn,$idd)
 {
- $this->db->trans_start();
- $this->db->select("a.nama_item,b.kode_item, b.id, b.kuantiti, b.diskon, b.harga, b.total, b.id_keranjang");
- $this->db->from("master_item a");
- $this->db->join('keranjang_detail b', 'b.kode_item = a.kode_item');
- $this->db->where('b.id_keranjang', $idd);
- $this->db->order_by('b.id', 'DESC');
- $keranjang = $this->db->get();
- if($keranjang->num_rows() > 0){      
+   $this->db->trans_start();
+   $this->db->select("a.nama_item,b.kode_item, b.id, b.kuantiti, b.diskon, b.harga, b.total, b.id_keranjang");
+   $this->db->from("master_item a");
+   $this->db->join('keranjang_detail b', 'b.kode_item = a.kode_item');
+   $this->db->where('b.id_keranjang', $idd);
+   $this->db->order_by('b.id', 'DESC');
+   $keranjang = $this->db->get();
+   if($keranjang->num_rows() > 0){      
     foreach($keranjang->result_array() as $r) {
         $this->db->select('*');
         $this->db->from('master_item');
         $this->db->where('kode_item', $r['kode_item']);
         $dataitem = $this->db->get()->result_array()[0];
         if ($statppn=='grab') {
-           $harga =  $dataitem['harga_jual2'];
-       } elseif ($statppn=='gojek') {
-           $harga =  $dataitem['harga_jual2'];
-       }else{
+         $harga =  $dataitem['harga_jual2'];
+     } elseif ($statppn=='gojek') {
+         $harga =  $dataitem['harga_jual2'];
+     }else{
         $harga = $dataitem['harga_jual'];
     }
     $total = ($harga * $r['kuantiti']) - ($r['diskon'] * $r['kuantiti']);
@@ -573,9 +689,9 @@ public function ubahhargakeranjang($statppn,$idd)
 $this->db->where('id', $idd);
 $this->db->update('keranjang',array('jenis_penjualan' => $statppn )); 
 if($this->db->trans_status() === FALSE){
- $this->db->trans_rollback();
+   $this->db->trans_rollback();
 }else{
- $this->db->trans_complete();
+   $this->db->trans_complete();
 }
 }
 public function detail_keranjang($idd)
@@ -651,16 +767,26 @@ public function updatedatatarget()
 
 public function _kode_penjualan()
 {
-    $jumlah = $this->db->select('*')->from('penjualan')->where('tanggal',date('Y-m-d'))->get()->num_rows();
-    $jml_baru = $jumlah + 1;
-    $kode = sprintf("%06s", $jml_baru);
-    $kode = date('dmy') . $kode;
-    $cek_ada = $this->db->select('*')->from('penjualan')->where('id ="' . $kode . '"')->get()->num_rows();
-    if ($cek_ada > 0) {
-        return $this->_kode_penjualan();
-    } else {
-        return $kode;
-    }
+    // $jumlah = $this->db->select('*')->from('penjualan')->where('tanggal',date('Y-m-d'))->get()->num_rows();
+    // $jml_baru = $jumlah + 1;
+    // $kode = sprintf("%06s", $jml_baru);
+    // $kode = date('dmy') . $kode;
+    // $cek_ada = $this->db->select('*')->from('penjualan')->where('id ="' . $kode . '"')->get()->num_rows();
+    // if ($cek_ada > 0) {
+    //     return $this->_kode_penjualan();
+    // } else {
+    //     return $kode;
+    // }
+
+    $jumlah = $this->db->query('SELECT id FROM `penjualan` WHERE tanggal = CURRENT_DATE() order by tanggal_jam desc limit 1 ');
+    if ($jumlah->num_rows()>0) {
+        $kode = $jumlah->result_array()[0]['id']+1;
+    }else{
+        $jml_baru = 1;
+        $kode = sprintf("%06s", $jml_baru);
+        $kode = date('dmy') . $kode;
+    }   
+    return $kode;
 }
 
 function submitpaymentv2($data)
@@ -669,15 +795,14 @@ function submitpaymentv2($data)
        // $post = $this->input->post();
     $keranjang = $this->db->get_where('keranjang', array('hold' => '0','id_admin' => $this->session->userdata('idadmin')), 1);
     $kode_penjualan = $this->_kode_penjualan();
-    $hasil_potongan = ($data['potongan']/100)*$keranjang->row()->total;
-    $hasil_potongan +=$data['potonganrp'];
+
     $array = array(
         'id' => $kode_penjualan,
         'id_pembeli' => $keranjang->row()->id_pembeli,
         'id_admin' => $this->session->userdata('idadmin'),
         'total' => $keranjang->row()->total,
         'total_harga_item' => $keranjang->row()->total_harga_item,
-        'diskon' => $hasil_potongan,
+        'diskon' => $keranjang->row()->diskon,
         'tanggal' => date('Y-m-d'),
         'id_admin' => $this->session->userdata('idadmin'),
         'tanggal_jam' => date('Y-m-d H:i:s'),
@@ -696,7 +821,7 @@ function submitpaymentv2($data)
     $this->db->insert("cash_in_out", $cashinout);
 
     $cara_bayar_1 = $data['status'];
-   
+
     if ($cara_bayar_1 == 'edc') {
         $pembayaran_1 = array(
             'id_penjualan' => $kode_penjualan,
@@ -750,11 +875,11 @@ function submitpaymentv2($data)
     $this->db->where('id', $keranjang->row()->id)->delete('keranjang');
     if ($this->db->trans_status() === FALSE)
     {
-       $this->db->trans_rollback();
-       return false;
-   }
-   else
-   {
+     $this->db->trans_rollback();
+     return false;
+ }
+ else
+ {
     $this->db->trans_commit();
     return true;
 }

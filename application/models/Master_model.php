@@ -1,6 +1,6 @@
 <?php
 class Master_model extends CI_Model{   
-      
+
     // datatable dokter start
     var $column_search_dokter = array('kode_dokter','nama_dokter','jenis_kelamin','handphone','telepon'); 
     var $column_order_dokter = array(null,'kode_dokter', 'nama_dokter','jenis_kelamin','handphone','telepon');
@@ -23,7 +23,7 @@ class Master_model extends CI_Model{
                 {
                     $this->db->or_like($item, $get['search']['value']);
                 }
- 
+
                 if(count($this->column_search_dokter) - 1 == $i) 
                     $this->db->group_end(); 
             }
@@ -39,59 +39,59 @@ class Master_model extends CI_Model{
             $this->db->order_by(key($order), $order[key($order)]);
         }
     }
- public function getoperasionalarray()
-{
-    
-    $this->db->from('master_operasional');
-    $firstdate = $this->input->get('firstdate');
-    $lastdate = $this->input->get('lastdate');
-    if($firstdate!='' AND $lastdate!=''){
-        $this->db->where('tgl_operasional BETWEEN "'.$firstdate. '" and "'. $lastdate.'"');
+    public function getoperasionalarray()
+    {
+
+        $this->db->from('master_operasional');
+        $firstdate = $this->input->get('firstdate');
+        $lastdate = $this->input->get('lastdate');
+        if($firstdate!='' AND $lastdate!=''){
+            $this->db->where('tgl_operasional BETWEEN "'.$firstdate. '" and "'. $lastdate.'"');
+        }
+        $hasil = $this->db->get();
+        if ($hasil->num_rows()>0) {
+            return $hasil->result_array();
+        }else{
+            return null;
+        }
     }
-    $hasil = $this->db->get();
-    if ($hasil->num_rows()>0) {
-        return $hasil->result_array();
-    }else{
-        return null;
-    }
-}
     function get_dokter_datatable()
     {
         $get = $this->input->get();
         $this->_get_query_dokter();
         if($get['length'] != -1)
-        $this->db->limit($get['length'], $get['start']);
+            $this->db->limit($get['length'], $get['start']);
         $query = $this->db->get();
         return $query->result();
     }
- 
+
     function count_filtered_datatable_dokter()
     {
         $this->_get_query_dokter();
         $query = $this->db->get();
         return $query->num_rows();
     }
- 
+
     public function count_all_datatable_dokter()
     {
         $this->db->from('master_dokter');
         return $this->db->count_all_results();
     } 
     //datatable dokter end
-	
+
 	// CRUD dokter start
     public function rulesdokter()
     {
         return [
             [
-            'field' => 'nama_dokter',
-            'label' => 'Nama Dokter',
-            'rules' => 'required',
+                'field' => 'nama_dokter',
+                'label' => 'Nama Dokter',
+                'rules' => 'required',
             ] ,
             [
-            'field' => 'kode_dokter',
-            'label' => 'Kode Dokter',
-            'rules' => 'is_unique[master_dokter.kode_dokter]|required',
+                'field' => 'kode_dokter',
+                'label' => 'Kode Dokter',
+                'rules' => 'is_unique[master_dokter.kode_dokter]|required',
             ] 
         ];
     } 
@@ -99,14 +99,14 @@ class Master_model extends CI_Model{
     {
         return [
             [
-            'field' => 'nama_dokter',
-            'label' => 'Nama Dokter',
-            'rules' => 'required',
+                'field' => 'nama_dokter',
+                'label' => 'Nama Dokter',
+                'rules' => 'required',
             ] ,
             [
-            'field' => 'kode_dokter',
-            'label' => 'Kode Dokter',
-            'rules' => 'required',
+                'field' => 'kode_dokter',
+                'label' => 'Kode Dokter',
+                'rules' => 'required',
             ] 
         ];
     } 
@@ -165,7 +165,7 @@ class Master_model extends CI_Model{
                 {
                     $this->db->or_like($item, $get['search']['value']);
                 }
- 
+
                 if(count($this->column_search_supplier) - 1 == $i) 
                     $this->db->group_end(); 
             }
@@ -181,24 +181,24 @@ class Master_model extends CI_Model{
             $this->db->order_by(key($order), $order[key($order)]);
         }
     }
- 
+
     function get_supplier_datatable()
     {
         $get = $this->input->get();
         $this->_get_query_supplier();
         if($get['length'] != -1)
-        $this->db->limit($get['length'], $get['start']);
+            $this->db->limit($get['length'], $get['start']);
         $query = $this->db->get();
         return $query->result();
     }
- 
+
     function count_filtered_datatable_supplier()
     {
         $this->_get_query_supplier();
         $query = $this->db->get();
         return $query->num_rows();
     }
- 
+
     public function count_all_datatable_supplier()
     {
         $this->db->from('master_supplier');
@@ -211,9 +211,9 @@ class Master_model extends CI_Model{
     {
         return [
             [
-            'field' => 'nama_supplier',
-            'label' => 'Nama supplier',
-            'rules' => 'required',
+                'field' => 'nama_supplier',
+                'label' => 'Nama supplier',
+                'rules' => 'required',
             ] 
         ];
     } 
@@ -243,7 +243,7 @@ class Master_model extends CI_Model{
         return $this->db->delete('master_supplier');
     }
         // CRUD supplier end
-         
+
     // datatable pembeli start
     var $column_search_pembeli = array('nama_pembeli','hp','alamat'); 
     var $column_order_pembeli = array(null, 'nama_pembeli','hp','alamat');
@@ -266,7 +266,7 @@ class Master_model extends CI_Model{
                 {
                     $this->db->or_like($item, $get['search']['value']);
                 }
- 
+
                 if(count($this->column_search_pembeli) - 1 == $i) 
                     $this->db->group_end(); 
             }
@@ -282,24 +282,24 @@ class Master_model extends CI_Model{
             $this->db->order_by(key($order), $order[key($order)]);
         }
     }
- 
+
     function get_pembeli_datatable()
     {
         $get = $this->input->get();
         $this->_get_query_pembeli();
         if($get['length'] != -1)
-        $this->db->limit($get['length'], $get['start']);
+            $this->db->limit($get['length'], $get['start']);
         $query = $this->db->get();
         return $query->result();
     }
- 
+
     function count_filtered_datatable_pembeli()
     {
         $this->_get_query_pembeli();
         $query = $this->db->get();
         return $query->num_rows();
     }
- 
+
     public function count_all_datatable_pembeli()
     {
         $this->db->from('master_pembeli');
@@ -312,20 +312,20 @@ class Master_model extends CI_Model{
     {
         return [
             [
-            'field' => 'nama_pembeli',
-            'label' => 'Nama pembeli',
-            'rules' => 'required',
+                'field' => 'nama_pembeli',
+                'label' => 'Nama pembeli',
+                'rules' => 'required',
             ] 
         ];
     } 
     function simpandatapembeli(){   
         $post = $this->input->post();   
-       
+
         $array = array(
             'nama_pembeli'=>$post["nama_pembeli"],
             'alamat'=>$post["alamat"],  
             'hp'=>$post["hp"], 
-			
+
         );
         $this->db->insert("master_pembeli", $array);  
         return $this->db->insert_id();
@@ -336,7 +336,7 @@ class Master_model extends CI_Model{
         $this->nama_pembeli = $post["nama_pembeli"];
         $this->alamat = $post["alamat"];
         $this->hp = $post["hp"];
-		
+
         return $this->db->update("master_pembeli", $this, array('id' => $post['idd']));
     } 
     public function hapusdatapembeli()
@@ -370,7 +370,7 @@ class Master_model extends CI_Model{
                 {
                     $this->db->or_like($item, $get['search']['value']);
                 }
- 
+
                 if(count($this->column_search_kategori) - 1 == $i) 
                     $this->db->group_end(); 
             }
@@ -386,24 +386,24 @@ class Master_model extends CI_Model{
             $this->db->order_by(key($order), $order[key($order)]);
         }
     }
- 
+
     function get_kategori_datatable()
     {
         $get = $this->input->get();
         $this->_get_query_kategori();
         if($get['length'] != -1)
-        $this->db->limit($get['length'], $get['start']);
+            $this->db->limit($get['length'], $get['start']);
         $query = $this->db->get();
         return $query->result();
     }
- 
+
     function count_filtered_datatable_kategori()
     {
         $this->_get_query_kategori();
         $query = $this->db->get();
         return $query->num_rows();
     }
- 
+
     public function count_all_datatable_kategori()
     {
         $this->db->from('master_kategori');
@@ -416,9 +416,9 @@ class Master_model extends CI_Model{
     {
         return [
             [
-            'field' => 'nama_kategori',
-            'label' => 'Nama kategori',
-            'rules' => 'required',
+                'field' => 'nama_kategori',
+                'label' => 'Nama kategori',
+                'rules' => 'required',
             ] 
         ];
     } 
@@ -442,9 +442,9 @@ class Master_model extends CI_Model{
         return $this->db->delete('master_kategori');  
     }
     //CRUD kategori end
- 
-   
-	
+
+
+
 	// datatable item start
     var $column_search_item = array('kode_item','nama_item','harga_beli','nama_kategori','harga_jual'); 
     var $column_order_item = array(null, 'kode_item','nama_item','harga_beli','nama_kategori','harga_jual');
@@ -470,7 +470,7 @@ class Master_model extends CI_Model{
                 {
                     $this->db->or_like($item, $get['search']['value']);
                 }
- 
+
                 if(count($this->column_search_item) - 1 == $i) 
                     $this->db->group_end(); 
             }
@@ -486,44 +486,44 @@ class Master_model extends CI_Model{
             $this->db->order_by(key($order), $order[key($order)]);
         }
     }
- 
+
     function get_item_datatable()
     {
         $get = $this->input->get();
         $this->_get_query_item();
         if($get['length'] != -1)
-        $this->db->limit($get['length'], $get['start']);
+            $this->db->limit($get['length'], $get['start']);
         $query = $this->db->get();
         return $query->result();
     }
- 
+
     function count_filtered_datatable_item()
     {
         $this->_get_query_item();
         $query = $this->db->get();
         return $query->num_rows();
     }
- 
+
     public function count_all_datatable_item()
     {
         $this->db->from('master_item');
         return $this->db->count_all_results();
     } 
     //datatable item end
-	
+
 	//CRUD item start
     public function rulesitems()
     {
         return [
             [
-            'field' => 'kode_item',
-            'label' => 'Kode Item',
-            'rules' => 'is_unique[master_item.kode_item]|required',
+                'field' => 'kode_item',
+                'label' => 'Kode Item',
+                'rules' => 'is_unique[master_item.kode_item]|required',
             ] ,
             [
-            'field' => 'nama_item',
-            'label' => 'Nama Item',
-            'rules' => 'required',
+                'field' => 'nama_item',
+                'label' => 'Nama Item',
+                'rules' => 'required',
             ], 
         ];
     } 
@@ -531,14 +531,14 @@ class Master_model extends CI_Model{
     {
         return [
             [
-            'field' => 'kode_item',
-            'label' => 'Kode Item',
-            'rules' => 'required',
+                'field' => 'kode_item',
+                'label' => 'Kode Item',
+                'rules' => 'required',
             ],
             [
-            'field' => 'nama_item',
-            'label' => 'Nama Item',
-            'rules' => 'required',
+                'field' => 'nama_item',
+                'label' => 'Nama Item',
+                'rules' => 'required',
             ], 
         ];
     } 
@@ -561,7 +561,7 @@ class Master_model extends CI_Model{
         );
         return $this->db->insert("master_item", $array);  
     }    
-     
+
     public function updatedataitems()
     {
         $post = $this->input->post();
@@ -616,180 +616,183 @@ class Master_model extends CI_Model{
     } 
     //CRUD item end
      // datatable pilihan obat start
-     var $column_search_pilihanobat = array('kode_item','nama_item','kategori'); 
-     var $column_order_pilihanobat = array(null, 'kode_item','nama_item','kategori');
-     var $order_pilihanobat = array('waktu_update' => 'DESC');
-     private function _get_query_pilihanobat()
-     { 
-         $get = $this->input->get();
-         $this->db->where('jenis = "obat"')->from('master_item');
-         $i = 0; 
-         foreach ($this->column_search_pilihanobat as $item)
-         {
-             if($get['search']['value'])
-             { 
-                 if($i===0) 
-                 {
-                     $this->db->group_start(); 
-                     $this->db->like($item, $get['search']['value']);
-                 }
-                 else
-                 {
-                     $this->db->or_like($item, $get['search']['value']);
-                 }
-  
-                 if(count($this->column_search_pilihanobat) - 1 == $i) 
-                     $this->db->group_end(); 
-             }
-             $i++;
-         } 
-         if(isset($get['order'])) 
-         {
-             $this->db->order_by($this->column_order_pilihanobat[$get['order']['0']['column']], $get['order']['0']['dir']);
-         } 
-         else if(isset($this->order_pilihanobat))
-         {
-             $order = $this->order_pilihanobat;
-             $this->db->order_by(key($order), $order[key($order)]);
-         }
-     }
-  
-     function get_pilihanobat_datatable()
-     {
-         $get = $this->input->get();
-         $this->_get_query_pilihanobat();
-         if($get['length'] != -1)
-         $this->db->limit($get['length'], $get['start']);
-         $query = $this->db->get();
-         return $query->result();
-     }
-  
-     function count_filtered_datatable_pilihanobat()
-     {
-         $this->_get_query_pilihanobat();
-         $query = $this->db->get();
-         return $query->num_rows();
-     }
-  
-     public function count_all_datatable_pilihanobat()
-     {
-         $this->db->where('jenis = "obat"')->from('master_item');
-         return $this->db->count_all_results();
-     } 
+    var $column_search_pilihanobat = array('kode_item','nama_item','kategori'); 
+    var $column_order_pilihanobat = array(null, 'kode_item','nama_item','kategori');
+    var $order_pilihanobat = array('waktu_update' => 'DESC');
+    private function _get_query_pilihanobat()
+    { 
+       $get = $this->input->get();
+       $this->db->where('jenis = "obat"')->from('master_item');
+       $i = 0; 
+       foreach ($this->column_search_pilihanobat as $item)
+       {
+           if($get['search']['value'])
+           { 
+               if($i===0) 
+               {
+                   $this->db->group_start(); 
+                   $this->db->like($item, $get['search']['value']);
+               }
+               else
+               {
+                   $this->db->or_like($item, $get['search']['value']);
+               }
+
+               if(count($this->column_search_pilihanobat) - 1 == $i) 
+                   $this->db->group_end(); 
+           }
+           $i++;
+       } 
+       if(isset($get['order'])) 
+       {
+           $this->db->order_by($this->column_order_pilihanobat[$get['order']['0']['column']], $get['order']['0']['dir']);
+       } 
+       else if(isset($this->order_pilihanobat))
+       {
+           $order = $this->order_pilihanobat;
+           $this->db->order_by(key($order), $order[key($order)]);
+       }
+   }
+
+   function get_pilihanobat_datatable()
+   {
+       $get = $this->input->get();
+       $this->_get_query_pilihanobat();
+       if($get['length'] != -1)
+           $this->db->limit($get['length'], $get['start']);
+       $query = $this->db->get();
+       return $query->result();
+   }
+
+   function count_filtered_datatable_pilihanobat()
+   {
+       $this->_get_query_pilihanobat();
+       $query = $this->db->get();
+       return $query->num_rows();
+   }
+
+   public function count_all_datatable_pilihanobat()
+   {
+       $this->db->where('jenis = "obat"')->from('master_item');
+       return $this->db->count_all_results();
+   } 
      //datatable pilihan obat end
 
     // datatable pegawai start
-    var $column_search_pegawai = array('nama_pegawai','no_ijin','kontak','alamat'); 
-    var $column_order_pegawai = array(null, 'nama_pegawai','no_ijin','kontak','alamat');
-    var $order_pegawai = array('waktu_update' => 'DESC');
-    private function _get_query_pegawai()
-    { 
-        $get = $this->input->get();
-        $this->db->from('master_pegawai'); 
-        $i = 0; 
-        foreach ($this->column_search_pegawai as $item)
-        {
-            if($get['search']['value'])
-            { 
-                if($i===0) 
-                {
-                    $this->db->group_start(); 
-                    $this->db->like($item, $get['search']['value']);
-                }
-                else
-                {
-                    $this->db->or_like($item, $get['search']['value']);
-                }
- 
-                if(count($this->column_search_pegawai) - 1 == $i) 
-                    $this->db->group_end(); 
+   var $column_search_pegawai = array('nama_pegawai','no_ijin','kontak','alamat'); 
+   var $column_order_pegawai = array(null, 'nama_pegawai','no_ijin','kontak','alamat');
+   var $order_pegawai = array('waktu_update' => 'DESC');
+   private function _get_query_pegawai()
+   { 
+    $get = $this->input->get();
+    $this->db->from('master_pegawai'); 
+    $i = 0; 
+    foreach ($this->column_search_pegawai as $item)
+    {
+        if($get['search']['value'])
+        { 
+            if($i===0) 
+            {
+                $this->db->group_start(); 
+                $this->db->like($item, $get['search']['value']);
             }
-            $i++;
-        } 
-        if(isset($get['order'])) 
-        {
-            $this->db->order_by($this->column_order_pegawai[$get['order']['0']['column']], $get['order']['0']['dir']);
-        } 
-        else if(isset($this->order_pegawai))
-        {
-            $order = $this->order_pegawai;
-            $this->db->order_by(key($order), $order[key($order)]);
+            else
+            {
+                $this->db->or_like($item, $get['search']['value']);
+            }
+
+            if(count($this->column_search_pegawai) - 1 == $i) 
+                $this->db->group_end(); 
         }
-    }
- 
-    function get_pegawai_datatable()
-    {
-        $get = $this->input->get();
-        $this->_get_query_pegawai();
-        // $this->db->where('jenis_pembeli','2');
-        if($get['length'] != -1)
-        $this->db->limit($get['length'], $get['start']);
-        $query = $this->db->get();
-        return $query->result();
-    }
- 
-    function count_filtered_datatable_pegawai()
-    {
-        $this->_get_query_pegawai();
-        $query = $this->db->get();
-        return $query->num_rows();
-    }
- 
-    public function count_all_datatable_pegawai()
-    {
-        $this->db->from('master_pegawai');
-        return $this->db->count_all_results();
+        $i++;
     } 
+    if(isset($get['order'])) 
+    {
+        $this->db->order_by($this->column_order_pegawai[$get['order']['0']['column']], $get['order']['0']['dir']);
+    } 
+    else if(isset($this->order_pegawai))
+    {
+        $order = $this->order_pegawai;
+        $this->db->order_by(key($order), $order[key($order)]);
+    }
+}
+
+function get_pegawai_datatable()
+{
+    $get = $this->input->get();
+    $this->_get_query_pegawai();
+        // $this->db->where('jenis_pembeli','2');
+    if($get['length'] != -1)
+        $this->db->limit($get['length'], $get['start']);
+    $query = $this->db->get();
+    return $query->result();
+}
+
+function count_filtered_datatable_pegawai()
+{
+    $this->_get_query_pegawai();
+    $query = $this->db->get();
+    return $query->num_rows();
+}
+
+public function count_all_datatable_pegawai()
+{
+    $this->db->from('master_pegawai');
+    return $this->db->count_all_results();
+} 
     //datatable pegawai end
 
     //CRUD pegawai start 
-    public function rulespegawai()
-    {
-        return [
-            [
+public function rulespegawai()
+{
+    return [
+        [
             'field' => 'nama_pegawai',
             'label' => 'Nama pegawai',
             'rules' => 'required',
-            ] 
-        ];
-    } 
-    function simpandatapegawai(){   
-        $post = $this->input->post();   
-        $array = array(
-            'kontak'=>$post["kontak"],
-            'alamat'=>$post["alamat"],  
-            'nama_pegawai'=>$post["nama_pegawai"], 
-			'kontak'=>$post["kontak"], 
-			'nik'=>$post["nik"], 
-        );
-        $this->db->insert("master_pegawai", $array);  
-        return $this->db->insert_id();
-    } 
-    public function updatedatapegawai()
-    {
-        $post = $this->input->post();
-        $this->nama_pegawai = $post["nama_pegawai"];
-        $this->alamat = $post["alamat"];
-		$this->kontak = $post["kontak"];
-		$this->nik = $post["nik"];
-        return $this->db->update("master_pegawai", $this, array('id' => $post['idd']));
-    } 
-    public function hapusdatapegawai()
-    {
-        $post = $this->input->post(); 
-        $this->db->where('id', $post['idd']);
-        return $this->db->delete('master_pegawai');  
-    }
+        ] 
+    ];
+} 
+function simpandatapegawai(){   
+    $post = $this->input->post();   
+    $array = array(
+        'kontak'=>$post["kontak"],
+        'alamat'=>$post["alamat"],  
+        'nama_pegawai'=>$post["nama_pegawai"], 
+        'kontak'=>$post["kontak"], 
+        'nik'=>$post["nik"], 
+    );
+    $this->db->insert("master_pegawai", $array);  
+    return $this->db->insert_id();
+} 
+public function updatedatapegawai()
+{
+    $post = $this->input->post();
+    $this->nama_pegawai = $post["nama_pegawai"];
+    $this->alamat = $post["alamat"];
+    $this->kontak = $post["kontak"];
+    $this->nik = $post["nik"];
+    return $this->db->update("master_pegawai", $this, array('id' => $post['idd']));
+} 
+public function hapusdatapegawai()
+{
+    $post = $this->input->post(); 
+    $this->db->where('id', $post['idd']);
+    return $this->db->delete('master_pegawai');  
+}
     //CRUD pegawai end 
-    
+
 // datatable operasional start
 var $column_search_operasional = array('tgl_operasional','keterangan','jumlah','editor','resto');
 var $column_order_operasional = array(null, 'tgl_operasional','keterangan','jumlah','editor','resto');
 var $order_operasional = array('waktu_update' => 'DESC');
-private function _get_query_operasional($resto)
+private function _get_query_operasional($resto,$params)
 {
     $get = $this->input->get();
     $this->db->from('master_operasional');
+    if(!empty($params['search']['firstdate']) AND !empty($params['search']['lastdate'])){
+        $this->db->where('tgl_operasional BETWEEN "'.$params['search']['firstdate']. '" and "'. $params['search']['lastdate'].'"');
+    }
     if ($resto=='hangiri') {
         $this->db->where('resto', 'hangiri');
     }else{
@@ -826,27 +829,31 @@ private function _get_query_operasional($resto)
     }
 }
 
-function get_operasional_datatable($resto)
+function get_operasional_datatable($resto,$params)
 {
     $get = $this->input->get();
-    $this->_get_query_operasional($resto);
+    $this->_get_query_operasional($resto,$params);
     // $this->db->where('jenis_pembeli','2');
     if($get['length'] != -1)
-    $this->db->limit($get['length'], $get['start']);
+        $this->db->limit($get['length'], $get['start']);
     $query = $this->db->get();
+    $this->session->set_flashdata('cek', $this->db->last_query());
     return $query->result();
 }
 
-function count_filtered_datatable_operasional($resto)
+function count_filtered_datatable_operasional($resto,$params)
 {
-    $this->_get_query_operasional($resto);
+    $this->_get_query_operasional($resto,$params);
     $query = $this->db->get();
     return $query->num_rows();
 }
 
-public function count_all_datatable_operasional($resto)
+public function count_all_datatable_operasional($resto,$params)
 {
     $this->db->from('master_operasional');
+     if(!empty($params['search']['firstdate']) AND !empty($params['search']['lastdate'])){
+        $this->db->where('tgl_operasional BETWEEN "'.$params['search']['firstdate']. '" and "'. $params['search']['lastdate'].'"');
+    }
     if ($resto=='hangiri') {
         $this->db->where('resto', 'hangiri');
     }else{
@@ -861,9 +868,9 @@ public function rulesoperasional()
 {
     return [
         [
-        'field' => 'tgl_operasional',
-        'label' => 'Tanggal Operasional',
-        'rules' => 'required',
+            'field' => 'tgl_operasional',
+            'label' => 'Tanggal Operasional',
+            'rules' => 'required',
         ]
     ];
 }
@@ -874,7 +881,7 @@ function simpandataoperasional(){
         'keterangan'=>$post["keterangan"],
         'jumlah'=>bilanganbulat($post["jumlah"]),
         'resto'=>$post["resto"],
-              'editor'=>$this->session->userdata('nama_admin'),
+        'editor'=>$this->session->userdata('nama_admin'),
     );
     $this->db->insert("master_operasional", $array);
     return $this->db->insert_id();
@@ -886,7 +893,7 @@ public function updatedataoperasional()
     $this->keterangan = $post["keterangan"];
     $this->resto = $post["resto"];
     $this->jumlah = bilanganbulat($post["jumlah"]);
-        $this->editor = $this->session->userdata('nama_admin');
+    $this->editor = $this->session->userdata('nama_admin');
     return $this->db->update("master_operasional", $this, array('id' => $post['idd']));
 }
 public function hapusdataoperasional()

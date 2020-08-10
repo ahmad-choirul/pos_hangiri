@@ -72,10 +72,11 @@ class Laporan_model extends CI_Model{
 
 
     function getrowsstok($params = array()){ 
-        $this->db->select("a.kode_item, a.tanggal, a.jumlah_masuk, a.jenis_transaksi,
-         a.jumlah_keluar, b.nama_item");
+        $this->db->select("a.kode_item, a.tanggal, a.jenis_transaksi,
+         sum(a.jumlah_keluar) as jumlah_keluar, b.nama_item");
         $this->db->from("kartu_stok a");
         $this->db->join('master_item b', 'b.kode_item = a.kode_item');    
+        $this->db->group_by('a.kode_item');
         if(!empty($params['search']['firstdate']) AND !empty($params['search']['lastdate'])){
             $this->db->where('a.tanggal BETWEEN "'.$params['search']['firstdate']. '" and "'. $params['search']['lastdate'].'"');
         }
@@ -89,6 +90,7 @@ class Laporan_model extends CI_Model{
         }
 
         $query = $this->db->get(); 
+        $this->session->set_flashdata('cek', $this->db->last_query());
         return $query->result_array();
     }
     
@@ -98,7 +100,8 @@ class Laporan_model extends CI_Model{
             a.tanggal, e.nama_admin, a.id,a.id as id_penjualan,e.nama_admin,a.total_harga_item,a.diskon,a.jenis_penjualan,f.cara_bayar,f.no_kartu,a.resto");
         $this->db->from("penjualan a");
         $this->db->join('master_admin e', 'e.id = a.id_admin');            
-        $this->db->join('penjualan_pembayaran f', 'f.id_penjualan = a.id');            
+        $this->db->join('penjualan_pembayaran f', 'f.id_penjualan = a.id');     
+        $this->db->order_by('a.tanggal', 'desc');       
         if(!empty($params['search']['kasir'])){
             $this->db->where('a.id_admin',$params['search']['kasir']);
         } 
@@ -151,7 +154,7 @@ class Laporan_model extends CI_Model{
             $this->db->where('a.tanggal BETWEEN "'.$params['search']['firstdate']. '" and "'. $params['search']['lastdate'].'"');
         }
         $query = $this->db->get(); 
-        if ($query->num_rows>0) {
+        if ($query->num_rows()>0) {
             return $query->result_array()[0]['akhir'];
         }else{
             return 0;
@@ -166,7 +169,7 @@ class Laporan_model extends CI_Model{
             $this->db->where('tgl_operasional BETWEEN "'.$params['search']['firstdate']. '" and "'. $params['search']['lastdate'].'"');
         }
         $query = $this->db->get(); 
-        if ($query->num_rows>0) {
+        if ($query->num_rows()>0) {
             return $query->result_array()[0]['jumlah'];
         }else{
             return 0;

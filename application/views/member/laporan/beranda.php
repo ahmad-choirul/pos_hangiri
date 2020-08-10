@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <head>  
 		<meta charset="UTF-8"> 
 		<link rel="shortcut icon" href="<?php echo base_url()?>/assets/images/favi.png" type="image/ico">   
-		<title>Hangiri Resto</title>    
+		<title>Babe'Q Resto</title>    
 		<meta name="author" content="Paber"> 
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -54,7 +54,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										<div class="inner-menu-content">  
 											<div class="sidebar-widget m-none"> 
 												<div class="widget-content">
-													<ul class="mg-folders" style="background-color: #168ec7;">
+													<?php if ($this->session->userdata('kategori')==31): ?>
+                                                        <ul class="mg-folders" style="background-color: #168ec7;">
                                                         <li>
                                                             <a href="<?php echo base_url()?>laporan/po" class="menu-item"  style="color: white"><i class="fa fa-folder"></i> Laporan Purchase Order</a>
                                                             <div class="item-options">
@@ -104,6 +105,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                             </div>
                                                         </li> 
                                                     </ul>
+                                                    <?php else: ?>
+<ul class="mg-folders" style="background-color: #168ec7;">
+                                                          <li>
+                                                            <a href="<?php echo base_url()?>laporan/stok" class="menu-item"  style="color: white"><i class="fa fa-folder"></i> Laporan Stok</a>
+                                                            <div class="item-options">
+                                                                <a href="<?php echo base_url()?>laporan/stok">
+                                                                    <i class="fa fa-arrow-circle-o-left"></i>
+                                                                </a> 
+                                                            </div>
+                                                        </li> 
+                                                        <li>
+                                                            <a href="<?php echo base_url()?>laporan/penjualan" class="menu-item"  style="color: white"><i class="fa fa-folder"></i> Laporan Penjualan</a>
+                                                            <div class="item-options">
+                                                                <a href="<?php echo base_url()?>laporan/penjualan">
+                                                                    <i class="fa fa-arrow-circle-o-left"></i>
+                                                                </a> 
+                                                            </div>
+                                                        </li> 
+                                                         
+                                                    </ul>
+                                                    <?php endif ?>
 													</ul>
 												</div>
 											</div> 

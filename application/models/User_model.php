@@ -311,18 +311,14 @@ class User_model extends CI_Model{
     $array = array(
         'kategori'=>$post["kategori"], 
         'username'=>$post["username"], 
+        'alamat'=>$post["alamat"], 
         'password'=>$password,  
         'nama_admin'=>$post["nama_admin"], 
+        'handphone'=>$post["handphone"],   
         'email'=>$post["email"],   
         'aktif'=>$post["aktif"],     
     );
     $this->db->insert("master_admin", $array);  
-
-        $this->session->set_flashdata('query', $this->db->last_query());
-    if ($post['id_pegawai']!='') {
-        $this->db->where('id', $post['id_pegawai']);
-        $this->db->update('master_pegawai', array('id_admin' => $this->db->insert_id() ));
-    }
     if($this->db->trans_status() === FALSE){
         return $this->db->trans_rollback();
     }else{
@@ -379,7 +375,6 @@ class User_model extends CI_Model{
         $this->nama_admin = $post["nama_admin"];
         $this->jenis_kelamin = $post["jenis_kelamin"];
         $this->alamat = $post["alamat"]; 
-        $this->telepon = $post["telepon"]; 
         $this->handphone = $post["handphone"];  
         $this->email = $post["email"];   
         $this->aktif = $post["aktif"];   

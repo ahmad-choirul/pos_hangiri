@@ -74,7 +74,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										<th>Kode Item</th>
 										<th>Nama Item</th>
 										<th>Transaksi</th> 
-										<th>Masuk</th>  
 										<th>Keluar</th>  
 									</tr>
 								</thead>
@@ -89,7 +88,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<td><?php echo $post['kode_item']; ?></td> 
 								<td><?php echo $post['nama_item']; ?></td> 
 								<td><?php echo $post['jenis_transaksi']; ?></td> 
-								<td><?php echo $post['jumlah_masuk']; ?></td> 
 								<td><?php echo $post['jumlah_keluar']; ?></td> 
 								</tr> 
 								<?php endforeach;
