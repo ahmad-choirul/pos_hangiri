@@ -1,7 +1,7 @@
 <html moznomarginboxes mozdisallowselectionprint>
 <head>
 	<title>
-		kode transaksi - <?php echo $no_transaksi;?>
+		kode transaksi - <?php echo $no_transaksi;?><?php if ($potongan=='100'): ?> FREE<?php endif ?>
 	</title>
 	<style type="text/css">
 		html {
@@ -109,7 +109,7 @@
 			<div class="title">
 				<?php 
 				echo htmlspecialchars("
-					Jl. Wijaya Kusuma No.50
+					JL WIJAYA KUSUMA NO.50
 					");
 				echo "<br>";
 				?>
@@ -149,7 +149,7 @@
 							<tr>
 								<td style="font-size: 9px; line-height: 7px;" >
 									<?=$key['kuantiti']?>x	<? echo setrupiah($key['harga']); ?></td>
-									<td style="font-size: 9px;line-height: 7px; text-align: left; "><?php echo setrupiah($key['harga']);?></td>
+									<td style="font-size: 9px;line-height: 7px; text-align: left; "></td>
 									<td style="font-size: 9px;line-height: 7px; text-align: right; "><?php echo setrupiah($key['total']);?></td>
 								</tr>
 								<!-- /.sampai SINI-->

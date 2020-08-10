@@ -203,13 +203,12 @@ class Laporan_model extends CI_Model{
     }
 
         function getrowsoperasionalexcel($params = array(),$resto){ 
-        $this->db->select("tgl_operasional,SUM(jumlah) as jumlah,resto");
+        $this->db->select("tgl_operasional,keterangan,jumlah,resto");
         $this->db->from("master_operasional");
         $this->db->where('resto',$resto);
         if(!empty($params['search']['firstdate']) AND !empty($params['search']['lastdate'])){
             $this->db->where('tgl_operasional BETWEEN "'.$params['search']['firstdate']. '" and "'. $params['search']['lastdate'].'"');
         }
-        $this->db->group_by('tgl_operasional');
         $query = $this->db->get(); 
         return $query->result_array();
     } 

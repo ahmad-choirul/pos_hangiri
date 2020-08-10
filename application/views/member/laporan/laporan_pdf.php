@@ -16,6 +16,7 @@
 		}
 
 		.page {
+
 			width: 21cm;
 			min-height: 29.7cm;
 			padding: 2cm;
@@ -27,6 +28,7 @@
 		}
 
 		.subpage {
+			margin-top: 40px;
 			padding: 1cm;
 			border: 5px red solid;
 			height: 256mm;
@@ -197,12 +199,22 @@
 			</table>
 			<br>
 
+			
+		</div>
+	</div>
+		<div class="book">
+		<div class="page" style="background-image: url(<?php echo base_url();?>assets/images/bgpdf.png);">
+			
+			<!-- 			book2 -->
+			
+
 			<table style="white-space: nowrap; max-width: 1200px; width: 100%;" class="table table-bordered">
 				<tr  style="background-color: white;"><td colspan="8" style="background-color: #570119; text-align: center;color: white;">	<h2> LAPORAN OPERASIONAL HANGIRI</h2></td></tr>
 				<tr  style="background-color: white;">
 					<th>NO</th>
 					<th>Tanggal Pengeluaran</th>
-					<th>Total Pengeluaran</th>
+					<th>Keterangan</th>
+					<th>Jumlah</th>
 
 				</tr>
 				<?php
@@ -215,16 +227,26 @@
 					<tr  style="background-color: white;">
 						<td><?php echo $no++; ?></td>
 						<td><?php echo  $tgl?></td>
+						<td><?php echo $post['keterangan']; ?></td>
 						<td><?php echo $jumlah ?></td>
 
 					</tr>	
 				<?php endforeach ?>
 				<tr style=" background-color:#002038;color: white;  ">
-					<td colspan="2">JUMLAH</td>
+					<td colspan="3">JUMLAH</td>
 					<td colspan="1" align="right"><b><?php echo rupiah($totaloperasionalhangiri);  ?> </b></td>
 				</tr>
 			</table>
 			<br>
+			
+		</div>
+	</div>
+	<div class="book">
+		<div class="page" style="background-image: url(<?php echo base_url();?>assets/images/bgpdf.png);">
+			
+			<!-- 			book2 -->
+			
+
 			<table style="white-space: nowrap; max-width: 1200px; width: 100%;" class="table table-bordered">
 				<tr  style="background-color: white;">
 					<td colspan="8" style="background-color: #570119; text-align: center;color: white;">	<h2> LAPORAN OPERASIONAL BABEQ</h2></td>
@@ -232,7 +254,8 @@
 				<tr  style="background-color: white;">
 					<th>NO</th>
 					<th>Tanggal Pengeluaran</th>
-					<th>Total Pengeluaran</th>
+					<th>Keterangan</th>
+					<th>Jumlah</th>
 
 				</tr>
 				<?php
@@ -245,12 +268,13 @@
 					<tr  style="background-color: white;">
 						<td><?php echo $no++; ?></td>
 						<td><?php echo  $tgl?></td>
+						<td><?php echo $post['keterangan']; ?></td>
 						<td><?php echo $jumlah ?></td>
 
 					</tr>	
 				<?php endforeach ?>
 				<tr style=" background-color:#002038;color: white;  ">
-					<td colspan="2">JUMLAH</td>
+					<td colspan="3">JUMLAH</td>
 					<td colspan="1" align="right"><b><?php echo rupiah($totaloperasionalbabeq);  ?> </b></td>
 				</tr>
 			</table>

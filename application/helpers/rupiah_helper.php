@@ -1,19 +1,35 @@
 <?php
 function rupiah($angka){
+<<<<<<< HEAD
+    if ($angka==''||$angka==null) {
+        $angka=0;
+    }
+    $rupiah=number_format($angka,0,',','.');
+    return "Rp ".$rupiah;
+=======
     if ($angka==null||$angka=='') {
         return '-';
     }else{
         $rupiah=number_format($angka,0,',','.');
         return "Rp ".$rupiah;
     }
+>>>>>>> 296eed5ac759b98d95ddda0b7cd0b7922a4b62c9
 }
 function bilanganbulat($teks) { 
-    $teks=preg_replace("/[^0-9]/", "", $teks);
-    return $teks;
+ if ($teks==''||$teks==null) {
+    $teks=0;
+}
+$teks=preg_replace("/[^0-9]/", "", $teks);
+return $teks;
 }
 function tgl_indo($date) {  
+<<<<<<< HEAD
+    if ($date=='0000-00-00') {
+        return 'format tanggal salah';
+=======
     if ($date==null||$date=='') {
         return '-';
+>>>>>>> 296eed5ac759b98d95ddda0b7cd0b7922a4b62c9
     }else{
         $BulanIndo = array("Januari", "Februari", "Maret",
             "April", "Mei", "Juni",
@@ -23,7 +39,11 @@ function tgl_indo($date) {
         $bulan = substr($date, 5, 2);  
         $tgl   = substr($date, 8, 2);   
         $result = $tgl . " " . $BulanIndo[(int)$bulan-1] . " ". $tahun;
+<<<<<<< HEAD
+        return $result;
+=======
         return($result);
+>>>>>>> 296eed5ac759b98d95ddda0b7cd0b7922a4b62c9
     }
 } 
 

@@ -130,7 +130,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="form-group mt-lg">
             <label class="col-sm-3 control-label">Tanggal<span class="required">*</span></label>
             <div class="col-sm-9">
-              <input type="text" name="tgl_operasional" class="form-control tanggal_masa" data-plugin-datepicker required/>
+              <input type="text" name="tgl_operasional" class="form-control tanggal" data-plugin-datepicker required/>
             </div>
           </div>
           <div class="form-group mt-lg">
@@ -203,7 +203,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="form-group mt-lg">
             <label class="col-sm-3 control-label">Tanggal<span class="required">*</span></label>
             <div class="col-sm-9">
-              <input type="text" name="tgl_operasional" id="tgl_operasional" class="form-control tanggal_masa" data-plugin-datepicker required/>
+              <input type="text" name="tgl_operasional" id="tgl_operasional" class="form-control tanggal" data-plugin-datepicker required/>
             </div>
           </div>
           <div class="form-group mt-lg">

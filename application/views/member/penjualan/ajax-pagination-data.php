@@ -17,7 +17,7 @@
             </div>
         <div class="row">
             <div class="col-md-12"> 
-            <a class="btn btn-xs btn-success" id="beli-item<?php echo $post['kode_item']; ?>" onclick="beli(this)" data-barcode="<?php echo $post['kode_item']; ?>"><i class="fa fa-shopping-cart"></i> Beli Produk</a> 
+            <a class="btn btn-lg btn-success btn-block" id="beli-item<?php echo $post['kode_item']; ?>" onclick="beli(this)" data-barcode="<?php echo $post['kode_item']; ?>"><i class="fa fa-shopping-cart"></i> Beli Produk</a> 
             </div> 
             </div>  
     </div>

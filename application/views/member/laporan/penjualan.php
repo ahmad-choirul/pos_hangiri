@@ -110,8 +110,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <span onclick="searchFilter()" class="btn btn-primary" id="TampilkanHTML">
           <i class="fa fa-search"></i> Tampilkan Data
         </span>
-        <button type="submit"  class="btn btn-primary" id="ExportKeExcel">
-          <i class="fa fa-file-excel-o"></i> Export Excel
+        <button type="submit" name="submit" value="excel" class="btn btn-primary" id="ExportKeExcel">
+          <i class="fa fa-file-excel-o"></i> Laporan Web
+        </button>
+        <button type="submit" name="submit" value="excel" class="btn btn-primary" id="ExportKepdf">
+          <i class="fa fa-file-pdf-o"></i> Export PDF
         </button>
         <button type="reset" class="btn btn-danger" id="ResetBtn">
           <i class="fa fa-history"></i> Reset
