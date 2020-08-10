@@ -467,12 +467,137 @@ class Penjualan extends CI_Controller {
 		$this->ajax_pagination->initialize($config);
 	}
 
+<<<<<<< HEAD
 	public function kasir()
 	{    
 		level_user('penjualan','kasir',$this->session->userdata('kategori'),'read') > 0 ? '': show_404();
 
 		$data = array();
 		$totalRec = 0;
+=======
+public function tambahkeranjangbarcode(){
+    cekajax();   
+    $simpan = $this->penjualan_model;
+    $get = $this->input->get();   
+    $query = $this->db->select('*')->from('master_item')->where('kode_item ="'.$get['barcode'].'"')->get();
+    if($query->num_rows() > 0 ){
+        if($query->row()->stok > 0){ 
+            $simpankeranjang = $simpan->cek_keranjang($get['barcode'],$get['pembeli'],'0',$get['statppn']);
+            $data['response'] = "tersedia";
+        }else{ 
+            $data['response'] = "stok kosong";
+        }
+    } else{
+        $data['response'] = '0';   
+    } 
+    echo json_encode($data);
+} 
+
+public function keranjangtambah(){  
+    cekajax();   
+    $simpan = $this->penjualan_model;
+    $get = $this->input->get();    
+    $stok = $simpan->tambahkeranjang($get['idd']);
+    $data['response'] = "berhasil";
+    echo json_encode($data);
+} 
+public function update_pembeli(){  
+    $get = $this->input->get();   
+    $pembeli = $get['pembeli'];
+    if($pembeli==''){
+        $pembeli = NULL;
+    }
+    $query = $this->db->get_where('keranjang', array('hold' => '0','id_admin' => $this->session->userdata('idadmin')),1);
+    $idkeranjang = $query->row()->id;
+    if($query->num_rows() < 1){
+        $array = array( 
+            'tanggal_jam'=>date('Y-m-d h:i:s'), 
+            'id_admin'=>$this->session->userdata('idadmin'),  
+            'id_pembeli'=>$pembeli, 
+            'total'=>'0', 
+            'hold'=>'0', 
+        );
+        $this->db->insert("keranjang", $array);   
+    }else{ 
+        $array = array( 
+            'tanggal_jam'=>date('Y-m-d h:i:s'),  
+            'id_pembeli'=>$pembeli,
+        );
+        $this->db->update("keranjang", $array,array('id' => $idkeranjang ));
+    } 
+}
+public function keranjangkurang(){  
+    cekajax();   
+    $simpan = $this->penjualan_model;
+    $get = $this->input->get();    
+    $stok = $simpan->kurangkeranjang($get['idd']);
+    $data['response'] = "berhasil";
+    echo json_encode($data);
+} 
+public function keranjanghapus(){  
+    cekajax();   
+    $simpan = $this->penjualan_model;
+    $get = $this->input->get();    
+    $stok = $simpan->hapuskeranjang($get['idd']);
+    $data['response'] = "berhasil";
+    echo json_encode($data);
+} 
+public function canceltransaksi(){ 
+    cekajax();    
+    $hapus = $this->db->where(array('hold' => '0','id_admin' => $this->session->userdata('idadmin')))->delete('keranjang'); 
+    if($hapus == TRUE){ 
+        $data['response'] = "berhasil";
+    }else{
+        $data['response'] = "gagal"; 
+    }
+    echo json_encode($data);
+}
+
+public function tampilkanhold(){  
+    cekajax();    
+    $hold = $this->penjualan_model;
+    $get = $this->input->get(); 
+    $hapus = $this->db->where(array('hold' => '0','id_admin' => $this->session->userdata('idadmin')))->delete('keranjang'); 
+    if($hapus == TRUE){ 
+        $hold->bukaholdtransaksi($get['idkeranjang']); 
+        $query = $this->db->get_where('keranjang', array('id' => $get['idkeranjang'],'id_admin' => $this->session->userdata('idadmin')),1); 
+        if(empty($query->row()->id_pembeli)){  
+            $nama_pembeli ="Walk in Customer";
+            $id_pembeli ="";
+        }else{
+            $pembeli = $this->db->get_where('master_pembeli', array('id' => $query->row()->id_pembeli),1); 
+            $nama_pembeli = $pembeli->row()->nama_pembeli;
+            $id_pembeli = $pembeli->row()->id;
+        } 
+        $data['nama_pembeli'] = $nama_pembeli;
+        $data['id_pembeli'] = $id_pembeli;
+    }else{
+        $data['response'] = "gagal"; 
+    } 
+    echo json_encode($data);
+} 
+
+public function holdtransaksi(){ 
+    cekajax();       
+    $hold = $this->penjualan_model; 
+    $validation = $this->form_validation; 
+    $validation->set_rules($hold->rulesholdtransaksi());
+    if ($this->form_validation->run() == FALSE){
+        $errors = $this->form_validation->error_array();
+        $data['errors'] = $errors;
+    }else{    
+        if($hold->holdtransaksi() == TRUE){ 
+            $data['success']= true;
+            $data['message']="Berhasil hold transaksi";     
+        }else{ 
+            $errors="fail";
+            $data['errors'] = $errors;
+        }
+    } 
+    $data['token'] = $this->security->get_csrf_hash();
+    echo json_encode($data); 
+}
+>>>>>>> 296eed5ac759b98d95ddda0b7cd0b7922a4b62c9
 
 		$data['pegawai'] = $this->penjualan_model->get_pegawai();
 

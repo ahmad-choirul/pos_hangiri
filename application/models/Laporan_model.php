@@ -72,8 +72,13 @@ class Laporan_model extends CI_Model{
 
 
     function getrowsstok($params = array()){ 
+<<<<<<< HEAD
         $this->db->select("a.kode_item, a.tanggal, a.jenis_transaksi,
          sum(a.jumlah_keluar) as jumlah_keluar, b.nama_item");
+=======
+        $this->db->select("a.kode_item, a.tanggal, a.jumlah_masuk, a.jenis_transaksi,
+         a.jumlah_keluar, b.nama_item");
+>>>>>>> 296eed5ac759b98d95ddda0b7cd0b7922a4b62c9
         $this->db->from("kartu_stok a");
         $this->db->join('master_item b', 'b.kode_item = a.kode_item');    
         $this->db->group_by('a.kode_item');
@@ -154,7 +159,11 @@ class Laporan_model extends CI_Model{
             $this->db->where('a.tanggal BETWEEN "'.$params['search']['firstdate']. '" and "'. $params['search']['lastdate'].'"');
         }
         $query = $this->db->get(); 
+<<<<<<< HEAD
         if ($query->num_rows()>0) {
+=======
+        if ($query->num_rows>0) {
+>>>>>>> 296eed5ac759b98d95ddda0b7cd0b7922a4b62c9
             return $query->result_array()[0]['akhir'];
         }else{
             return 0;
@@ -169,7 +178,11 @@ class Laporan_model extends CI_Model{
             $this->db->where('tgl_operasional BETWEEN "'.$params['search']['firstdate']. '" and "'. $params['search']['lastdate'].'"');
         }
         $query = $this->db->get(); 
+<<<<<<< HEAD
         if ($query->num_rows()>0) {
+=======
+        if ($query->num_rows>0) {
+>>>>>>> 296eed5ac759b98d95ddda0b7cd0b7922a4b62c9
             return $query->result_array()[0]['jumlah'];
         }else{
             return 0;
@@ -203,12 +216,20 @@ class Laporan_model extends CI_Model{
     }
 
         function getrowsoperasionalexcel($params = array(),$resto){ 
+<<<<<<< HEAD
         $this->db->select("tgl_operasional,keterangan,jumlah,resto");
+=======
+        $this->db->select("tgl_operasional,SUM(jumlah) as jumlah,resto");
+>>>>>>> 296eed5ac759b98d95ddda0b7cd0b7922a4b62c9
         $this->db->from("master_operasional");
         $this->db->where('resto',$resto);
         if(!empty($params['search']['firstdate']) AND !empty($params['search']['lastdate'])){
             $this->db->where('tgl_operasional BETWEEN "'.$params['search']['firstdate']. '" and "'. $params['search']['lastdate'].'"');
         }
+<<<<<<< HEAD
+=======
+        $this->db->group_by('tgl_operasional');
+>>>>>>> 296eed5ac759b98d95ddda0b7cd0b7922a4b62c9
         $query = $this->db->get(); 
         return $query->result_array();
     } 
