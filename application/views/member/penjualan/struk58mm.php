@@ -22,7 +22,7 @@
 		.content .subtitle {
 			margin-left: -2%;
 			text-align: center;
-			font-size: 10px;
+			font-size: 8px;
 			line-height: 11px;
 			text-decoration: bold;
 		}
@@ -116,7 +116,7 @@
 			</div>
 			<div class="subttitle">
 				<?php
-				echo htmlspecialchars("Kec. Patrang, Kabupaten Jember,68118");
+				echo htmlspecialchars("Depan Stasiun Jember");
 				?>
 			</div>
 
@@ -148,7 +148,7 @@
 							</tr>
 							<tr>
 								<td style="font-size: 9px; line-height: 7px;" >
-									<?=$key['kuantiti']?>x	<? echo setrupiah($key['harga']); ?></td>
+									<?=$key['kuantiti']?>x	<?php echo setrupiah($key['harga']); ?></td>
 									<td style="font-size: 9px;line-height: 7px; text-align: left; "></td>
 									<td style="font-size: 9px;line-height: 7px; text-align: right; "><?php echo setrupiah($key['total']);?></td>
 								</tr>
@@ -160,6 +160,9 @@
 							<?php endforeach ?>
 						</table>
 					</table>
+					<!-- <hr> -->
+						<div class="separate"></div>
+
 <!-- 
 			<table style="font-size:8px;" border="0" width="90%">
 				<tr>
@@ -180,12 +183,12 @@
 								<td style="font-size:9px;text-align: left; margin-right: 10px;float: right; "><?php echo setrupiah($ppn); ?></td>
 								<td style="font-size:9px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
 							</tr>
-							<tr>
+							<!-- <tr>
 								<td style="font-size:9px;text-align: right; margin-right: 5px;text-transform: uppercase; ">Total</td>
 								<td style="font-size:9px;text-align: left; margin-right: 10px; float: right;"><?php $total=$total+$ppn; echo setrupiah($total); ?></td>
 
 								<td style="font-size:8px;text-align: right; margin-right: 10px;float: right; color: white; "> </td>
-							</tr>
+							</tr> -->
 						<?php endif ?>
 						<?php 
 						$hasil_potongan=0;
@@ -280,24 +283,11 @@
 					</div>
 				</div>
 				<script type="text/javascript">
-
-					function printDiv(divName) {
-						var printContents = document.getElementById(divName).innerHTML;
-						var originalContents = document.body.innerHTML;
-						document.body.innerHTML = printContents;
+$( document ).ready(function() {
 						window.print();
-						document.body.innerHTML = originalContents;
-					}
-
-					printDiv('strukkasir');
-					setTimeout(function(){
-						printDiv('strukdapur');  
-					},5000);
-
-					// setTimeout(function(){
-					// 	self.close();  
-					// },7000);
-
+  
+});
+				
 				</script>
 				<?php 
 				function setrupiah($angka)

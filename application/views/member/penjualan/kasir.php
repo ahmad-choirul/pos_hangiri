@@ -1283,10 +1283,8 @@ else{
             		
             		// $('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn)
             		// .submit()
-            		// window.open('<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&resto='+resto+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn+'&stattrans='+stattrans+'&potongan='+potongan+'&potonganrp='+potonganrp,'_blank');
-            		// window.setTimeout(function() {  location.reload();}, 2000);
-            		$('#modal-payment form').attr('action','<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&resto='+resto+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn+'&stattrans='+stattrans+'&potongan='+potongan+'&potonganrp='+potonganrp)
-            	.submit()
+            		window.open('<?=base_url()?>penjualan/struk?t='+idk+'&pegawai='+pegawai+'&resto='+resto+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn+'&stattrans='+stattrans+'&potongan='+potongan+'&potonganrp='+potonganrp,'_blank');
+            		window.setTimeout(function() {  location.reload();}, 2000);
             		
             	}else{
             		window.setTimeout(function() {  
@@ -1319,10 +1317,8 @@ else{
             		if (Number(totalbayar)==Number(totalbelanja)) {
             			var pegawai;
             			pegawai = $("#nama_pegawai").val(); 
-            		// window.open('<?=base_url()?>penjualan/strukedc?t='+idk+'&pegawai='+pegawai+'&resto='+resto+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn+'&stattrans='+stattrans+'&potongan='+potongan+'&no_kartu='+no_kartu+'&potonganrp='+potonganrp,'_blank');
-            		// window.setTimeout(function() {  location.reload();}, 2000);
-            		$('#modal-payment form').attr('action','<?=base_url()?>penjualan/strukedc?t='+idk+'&pegawai='+pegawai+'&resto='+resto+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn+'&stattrans='+stattrans+'&potongan='+potongan+'&no_kartu='+no_kartu+'&potonganrp='+potonganrp)
-            	.submit()
+            		window.open('<?=base_url()?>penjualan/strukedc?t='+idk+'&pegawai='+pegawai+'&resto='+resto+'&pelanggan='+pelanggan+'&idd='+idkd+'&bayar='+totalbayar+'&catatan='+catatan+'&statppn='+statppn+'&stattrans='+stattrans+'&potongan='+potongan+'&no_kartu='+no_kartu+'&potonganrp='+potonganrp,'_blank');
+            		window.setTimeout(function() {  location.reload();}, 2000);
             		
             	}else{
             		window.setTimeout(function() {  
